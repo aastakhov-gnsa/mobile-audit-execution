@@ -12,6 +12,8 @@ target 'gnsaMobileAuditExecution' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-app-auth', :path => '../node_modules/react-native-app-auth'
+
   target 'gnsaMobileAuditExecutionTests' do
     inherit! :complete
     # Pods for testing

@@ -21,11 +21,8 @@
 
  import {
    Colors,
-   DebugInstructions,
-   Header,
-   LearnMoreLinks,
-   ReloadInstructions,
  } from 'react-native/Libraries/NewAppScreen';
+import AuthTest from "./src/authTest/AuthTest";
 
  const Section: React.FC<{
    title: string;
@@ -55,42 +52,72 @@
    );
  };
 
+ const useFetch = () => {
+     const [d, setD] = React.useState('')
+     React.useEffect(() => {
+         if (!d) {
+             const details = {
+                 'username': 'FGUBARE',
+                 'password': 'Ckfdf@2Bvgthfnjhe',
+             };
+
+             const formBody: string[] = []
+             Object.keys(details).forEach((key: string) => {
+                 const encodedKey = encodeURIComponent(key)
+                 const encodedValue = encodeURIComponent(details[key as keyof typeof details])
+                 formBody.push(encodedKey + "=" + encodedValue)
+             })
+             const formBodyString = formBody.join("&")
+             // const res = fetch('https://gnsa.i.daimler.com/api/login/oauth2/code/', {
+             // const res = fetch('https://gnsa-dev.i.daimler.com/api/v1/row-meta/standard/standard/1000000072', {
+             // const res = fetch('https://login-int.daimler.com/', {
+             const res = fetch('https://gnsa-dev.i.daimler.com/api/v1/auth/authenticate', {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/x-www-form-urlencoded'
+                     // 'Cookie': 'locale=en/Asia/Aden; JSESSIONID=FCEBC0C94BE5056D723449B6F909555F'
+                 },
+                 body: formBodyString
+
+             })
+             // .then((response) => response.json())
+             .then((json) => setD(JSON.stringify(json, null, 2)))
+             .catch((e) => setD(JSON.stringify(e, null, 2)))
+         }
+     },
+         [d, setD]
+     )
+     return d
+ }
+
  const App = () => {
-   const isDarkMode = useColorScheme() === 'dark';
+   // const isDarkMode = useColorScheme() === 'dark';
+   //
+   // const d = useFetch()
+   //
+   // const backgroundStyle = {
+   //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+   // };
+   //
+   // return (
+   //   <SafeAreaView style={backgroundStyle}>
+   //     <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+   //     <ScrollView
+   //       contentInsetAdjustmentBehavior="automatic"
+   //       style={backgroundStyle}>
+   //       <View
+   //         style={{
+   //           backgroundColor: isDarkMode ? Colors.black : Colors.white,
+   //         }}>
+   //         <Section title="Step One">
+   //             <Text>{ d }</Text>
+   //         </Section>
+   //       </View>
+   //     </ScrollView>
+   //   </SafeAreaView>
+   // );
 
-   const backgroundStyle = {
-     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-   };
-
-   return (
-     <SafeAreaView style={backgroundStyle}>
-       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-       <ScrollView
-         contentInsetAdjustmentBehavior="automatic"
-         style={backgroundStyle}>
-         <Header />
-         <View
-           style={{
-             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-           }}>
-           <Section title="Step One">
-             Edit <Text style={styles.highlight}>App.js</Text> to change this
-             screen and then come back to see your edits.
-           </Section>
-           <Section title="See Your Changes">
-             <ReloadInstructions />
-           </Section>
-           <Section title="Debug">
-             <DebugInstructions />
-           </Section>
-           <Section title="Learn More">
-             Read the docs to discover what to do next:
-           </Section>
-           <LearnMoreLinks />
-         </View>
-       </ScrollView>
-     </SafeAreaView>
-   );
+     return <AuthTest/>
  };
 
  const styles = StyleSheet.create({
