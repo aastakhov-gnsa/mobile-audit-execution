@@ -7,11 +7,11 @@ import Spinner from './components/Spinner';
 import {Button, Title, Headline} from 'react-native-paper';
 
 function Auth() {
-  const [orientation, setOrientation] = React.useState('portrait');
+  // const [orientation, setOrientation] = React.useState('portrait');
   const [accessToken, setAccessToken] = React.useState('');
   const [idToken, setIdToken] = React.useState('');
-  const [idTokenJSON, setIdTokenJSON] = React.useState(null);
-  const [authStateParam, setAuthStateParam] = React.useState(null);
+  // const [idTokenJSON, setIdTokenJSON] = React.useState(null);
+  // const [authStateParam, setAuthStateParam] = React.useState(null);
   // const [userInfo, setUserInfo] = React.useState(null)
   const [inProgress, setInProgress] = React.useState(false);
 
