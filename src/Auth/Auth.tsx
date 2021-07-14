@@ -5,14 +5,11 @@ import {View, StyleSheet} from 'react-native';
 import Page from './components/Page';
 import Spinner from './components/Spinner';
 import {Button, Title, Headline} from 'react-native-paper';
+import {signOff} from '../authTest/api';
 
 function Auth() {
-  // const [orientation, setOrientation] = React.useState('portrait');
   const [accessToken, setAccessToken] = React.useState('');
   const [idToken, setIdToken] = React.useState('');
-  // const [idTokenJSON, setIdTokenJSON] = React.useState(null);
-  // const [authStateParam, setAuthStateParam] = React.useState(null);
-  // const [userInfo, setUserInfo] = React.useState(null)
   const [inProgress, setInProgress] = React.useState(false);
 
   const doAuthorize = React.useCallback(async () => {
@@ -28,20 +25,51 @@ function Auth() {
       console.error(error);
       setInProgress(false);
     }
-  }, []);
+  }, [setInProgress, setAccessToken, setIdToken]);
+
+  const doSignOff = React.useCallback(async () => {
+    setInProgress(true);
+    try {
+      if (idToken) {
+        const res = await signOff(idToken);
+        console.log('singoff::::', res);
+        setAccessToken('');
+        setIdToken('');
+        setInProgress(false);
+      }
+    } catch (error) {
+      console.error('sing off::', error);
+      setInProgress(false);
+    }
+  }, [idToken, setInProgress, setAccessToken, setIdToken]);
 
   return (
     <Page>
       <Spinner inProgress={inProgress} />
       <View style={styles.container}>
-        <Headline style={styles.text}>
-          You are not currently authenticated.
-        </Headline>
-        <Title style={styles.text}>Click Sign On to get started.</Title>
+        {accessToken || idToken ? (
+          <>
+            <Title>idToken</Title>
+            <Title>{idToken}</Title>
+          </>
+        ) : (
+          <>
+            <Headline style={styles.text}>
+              You are not currently authenticated.
+            </Headline>
+            <Title style={styles.text}>Click Sign On to get started.</Title>
+          </>
+        )}
       </View>
-      <Button onPress={doAuthorize} mode="contained">
-        Sign On
-      </Button>
+      {!(accessToken || idToken) ? (
+        <Button onPress={doAuthorize} mode="contained">
+          Sign On
+        </Button>
+      ) : (
+        <Button mode="contained" onPress={doSignOff}>
+          Sign Out
+        </Button>
+      )}
     </Page>
   );
 }
