@@ -14,6 +14,8 @@ target 'gnsaMobileAuditExecution' do
 
   pod 'react-native-app-auth', :path => '../node_modules/react-native-app-auth'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'gnsaMobileAuditExecutionTests' do
     inherit! :complete
     # Pods for testing

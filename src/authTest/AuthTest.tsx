@@ -14,7 +14,7 @@ import {
 import { authorize } from "react-native-app-auth";
 import { signOff } from "./api";
 
-
+// todo remove
 function AuthTest() {
     const [orientation, setOrientation] = React.useState('portrait')
     const [accessToken, setAccessToken] = React.useState('')
