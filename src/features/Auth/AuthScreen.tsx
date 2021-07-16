@@ -1,11 +1,15 @@
 import React from 'react';
 import {authorize} from 'react-native-app-auth';
 import {AUTH_CONFIG} from '../../../config';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Page from './components/Page';
 import Spinner from './components/Spinner';
-import {Button, Title, Headline} from 'react-native-paper';
-import {AuthContext} from '../../App';
+import {Button, Headline, Title} from 'react-native-paper';
+import {
+  SecretItems,
+  Secrets,
+} from '../../utils/encryptedStorage/encryptedStorage';
+import {AuthContext} from '../../context/AuthContext';
 
 function AuthScreen() {
   const authContext = React.useContext(AuthContext);
@@ -14,7 +18,9 @@ function AuthScreen() {
     authContext.setInProgress(true);
     try {
       const authState = await authorize(AUTH_CONFIG);
-      console.log('-->', JSON.stringify(authState, null, 2));
+      // console.log('-->', JSON.stringify(authState, null, 2));
+      await Secrets.saveSecret(SecretItems.accessToken, authState.accessToken);
+      await Secrets.saveSecret(SecretItems.idToken, authState.idToken);
       authContext.setAccessToken(authState.accessToken);
       authContext.setIdToken(authState.idToken);
       authContext.setInProgress(false);

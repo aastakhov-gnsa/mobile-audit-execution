@@ -2,31 +2,33 @@ import React from 'react';
 import AuthScreen from './features/Auth/AuthScreen';
 import HomeScreen from './features/Home/HomeScreen';
 import {Stack} from './navigation/navigation';
-
-interface IAuthContext {
-  idToken: string;
-  setAccessToken: (v: string) => void;
-  setIdToken: (v: string) => void;
-  setInProgress: (b: boolean) => void;
-  inProgress: boolean;
-}
-export const AuthContext = React.createContext<IAuthContext>({
-  idToken: '',
-  setAccessToken: () => null,
-  setIdToken: () => null,
-  setInProgress: () => null,
-  inProgress: false,
-});
+import {SecretItems, Secrets} from './utils/encryptedStorage/encryptedStorage';
+import {AuthContext} from './context/AuthContext';
 
 const App = () => {
   const [accessToken, setAccessToken] = React.useState('');
   const [idToken, setIdToken] = React.useState('');
   const [inProgress, setInProgress] = React.useState(false);
 
+  React.useEffect(() => {
+    const retrieveAuth = async () => {
+      try {
+        setAccessToken(
+          (await Secrets.getSecret(SecretItems.accessToken)) as string,
+        );
+        setIdToken((await Secrets.getSecret(SecretItems.idToken)) as string);
+      } catch (e) {
+        console.error('retrieveAuth', e);
+      }
+    };
+    retrieveAuth();
+  }, [setIdToken, setAccessToken]);
+
   const authContext = React.useMemo(
     () => ({setAccessToken, setIdToken, setInProgress, inProgress, idToken}),
     [setAccessToken, setIdToken, setInProgress, inProgress, idToken],
   );
+
   return (
     <AuthContext.Provider value={authContext}>
       <Stack.Navigator>
@@ -36,7 +38,7 @@ const App = () => {
           <Stack.Screen
             name="Auth"
             component={AuthScreen}
-            options={{headerShown: false}}
+            options={{headerShown: false, animationTypeForReplace: 'pop'}}
           />
         )}
       </Stack.Navigator>
