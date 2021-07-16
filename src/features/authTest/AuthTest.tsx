@@ -4,7 +4,7 @@ import Heading from './components/Heading';
 import ButtonContainer from './components/ButtonContainer';
 import Page from './components/Page';
 import Button from './components/Button';
-import {AUTH_CONFIG} from '../../config';
+import {AUTH_CONFIG} from '../../../config';
 
 import {
   heightPercentageToDP as hp,

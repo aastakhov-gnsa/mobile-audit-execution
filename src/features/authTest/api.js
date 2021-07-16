@@ -4,7 +4,7 @@
  * Contains functions that correspond to steps needed to make it through a PingOne authentication flow.
  * Each function corresponds with an action the UI needs to take and call function(s) from actions.js
  */
-import {API_URI, AUTH_URI, ENVIRONMENT_ID} from '../../config';
+import {API_URI, AUTH_URI, ENVIRONMENT_ID} from '../../../config';
 
 /******************************************************************************
  *         OAuth 2/OpenID Connect Protocol API
