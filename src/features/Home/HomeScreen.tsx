@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {Button} from 'react-native-paper';
-import {AuthContext} from '../../App';
 import {signOff} from '../../api/auth';
+import {Secrets} from '../../utils/encryptedStorage/encryptedStorage';
+import {AuthContext} from '../../context/AuthContext';
 
 function HomeScreen() {
   const authContext = React.useContext(AuthContext);
@@ -12,13 +13,14 @@ function HomeScreen() {
     try {
       if (authContext.idToken) {
         const res = await signOff(authContext.idToken);
-        console.log('singoff::::', res);
+        console.log('sing off::::', res);
         authContext.setAccessToken('');
         authContext.setIdToken('');
+        await Secrets.clearSecrets();
         authContext.setInProgress(false);
       }
     } catch (error) {
-      console.error('sing off::', error);
+      console.error('sing off error::', error);
       authContext.setInProgress(false);
     }
   }, [authContext]);
