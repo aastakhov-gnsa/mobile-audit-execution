@@ -1,9 +1,10 @@
 import React from 'react';
 import AuthScreen from './features/Auth/AuthScreen';
-import HomeScreen from './features/Home/HomeScreen';
+// import HomeScreen from './features/Home/HomeScreen';
 import {Stack} from './navigation/navigation';
 import {SecretItems, Secrets} from './utils/encryptedStorage/encryptedStorage';
 import {AuthContext} from './context/AuthContext';
+import HomeTabs from './features/Home/HomeTabs';
 
 const App = () => {
   const [accessToken, setAccessToken] = React.useState('');
@@ -33,7 +34,7 @@ const App = () => {
     <AuthContext.Provider value={authContext}>
       <Stack.Navigator>
         {accessToken || idToken ? (
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Home" component={HomeTabs} />
         ) : (
           <Stack.Screen
             name="Auth"
