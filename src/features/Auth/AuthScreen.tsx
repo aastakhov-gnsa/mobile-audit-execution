@@ -10,6 +10,8 @@ import {
   Secrets,
 } from '../../utils/encryptedStorage/encryptedStorage';
 import {AuthContext} from '../../context/AuthContext';
+import {API} from '../../api/api';
+import {Storage, StorageItems} from '../../utils/storage/storage';
 
 function AuthScreen() {
   const authContext = React.useContext(AuthContext);
@@ -17,12 +19,32 @@ function AuthScreen() {
   const doAuthorize = React.useCallback(async () => {
     authContext.setInProgress(true);
     try {
+      // SSO: auth
       const authState = await authorize(AUTH_CONFIG);
       // console.log('-->', JSON.stringify(authState, null, 2));
       await Secrets.saveSecret(SecretItems.accessToken, authState.accessToken);
       await Secrets.saveSecret(SecretItems.idToken, authState.idToken);
+
+      // SSO: retrieve user info
+      const userInfo = await API.getUserInfo(authState.accessToken);
+      const {
+        data: {sub},
+      } = userInfo;
+      await Storage.saveItem(StorageItems.userName, sub);
+      // console.log('userInfo', userInfo);
       authContext.setAccessToken(authState.accessToken);
       authContext.setIdToken(authState.idToken);
+
+      // fixme current gnsa integration hack
+      const gnsaRes = await API.gnsaAuth(sub);
+      const {
+        data: {token},
+      } = gnsaRes;
+      // console.log('gnsaRes', gnsaRes);
+      await Secrets.saveSecret(SecretItems.gnsaToken, token);
+      authContext.setGnsaToken(token);
+
+      // end of authorization
       authContext.setInProgress(false);
     } catch (error) {
       console.error(error);

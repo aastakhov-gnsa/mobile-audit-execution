@@ -6,6 +6,7 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 export enum SecretItems {
   accessToken = 'accessToken',
   idToken = 'idToken',
+  gnsaToken = 'gnsaToken',
 }
 
 /**
