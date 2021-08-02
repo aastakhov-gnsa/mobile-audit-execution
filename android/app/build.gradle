@@ -132,6 +132,7 @@ android {
 
     defaultConfig {
         applicationId "com.gnsamobileauditexecution"
+        manifestPlaceholders = [appAuthRedirectScheme: 'gnsa']
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
