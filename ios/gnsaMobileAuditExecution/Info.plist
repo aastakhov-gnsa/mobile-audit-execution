@@ -33,19 +33,19 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 				<key>NSExceptionMinimumTLSVersion</key>
-        <string>TLSv1.2</string>
-        <key>NSExceptionRequiresForwardSecrecy</key>
-        <true/>
-        <key>NSIncludesSubdomains</key>
-        <true/>
-        <key>NSRequiresCertificateTransparency</key>
-        <false/>
-        <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-        <false/>
-        <key>NSThirdPartyExceptionMinimumTLSVersion</key>
-        <string>TLSv1.2</string>
-        <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-        <true/>
+				<string>TLSv1.2</string>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSRequiresCertificateTransparency</key>
+				<false/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<true/>
 			</dict>
 		</dict>
 	</dict>
@@ -83,6 +83,7 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Roboto-Regular.ttf</string>
 	</array>
 </dict>
 </plist>
