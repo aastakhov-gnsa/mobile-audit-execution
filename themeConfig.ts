@@ -26,6 +26,10 @@ const fontConfig = {
 
 const theme = {
   ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#176DB7',
+  },
   fonts: configureFonts(fontConfig),
 };
 

@@ -23,19 +23,19 @@ export interface Survey {
   // networkEntityId: null
   // notEmptyQuestionsListAndIsSplitFlg: false
   number: string;
-  // outletAddress: null
-  // outletCountry: null
-  // outletId: null
-  // outletIdAndCity: null
-  // outletInfo: null
-  // outletName: null
-  // outletStreetAndZipcode: null
+  outletAddress: string;
+  outletCountry: string;
+  outletId: string;
+  outletIdAndCity: string;
+  outletInfo: string;
+  outletName: string;
+  outletStreetAndZipcode: string;
   // overruleComment: null
   plannedDate: string;
   // plannedDateForFilterPeriod: null
   // plannedDateRo: null
   receivingEntityConcatName: string;
-  // resultCd: null
+  resultCd: string;
   // sendingEntityConcatName: null
   services: MultiValue[];
   // smAuditLineList: null

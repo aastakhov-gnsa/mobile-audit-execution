@@ -27,7 +27,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   left: {
-    fontWeight: '500',
+    // fontFamily: 'Roboto-Regular',
+    // fontWeight: 'bold',
+    // fontSize: 14,
   },
   right: {
     fontWeight: '500',
