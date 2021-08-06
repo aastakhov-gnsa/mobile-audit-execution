@@ -1,3 +1,5 @@
+// export const AUTH_URI =
+//   'https://gnsa-dev.i.daimler.com/api/v1/rest/authenticate';
 export const AUTH_URI = 'https://sso-int.daimler.com/as/authorization.oauth2';
 export const API_URI = 'https://gnsa-dev.i.daimler.com/api/v1';
 
@@ -21,4 +23,9 @@ export const AUTH_CONFIG = {
   //   max_age: '3600',
   //   prompt: 'login'
   // }
+  additionalParameters: {
+    acr_values: 'daimler:idp:gas:standard',
+  },
+
+  // additionalParameters: ["acr_values": "daimler:idp:gas:standard"]
 };

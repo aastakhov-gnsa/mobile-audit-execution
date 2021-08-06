@@ -1,39 +1,17 @@
 import React from 'react';
 import AuthScreen from './features/Auth/AuthScreen';
-// import HomeScreen from './features/Home/HomeScreen';
 import {Stack} from './navigation/navigation';
-import {SecretItems, Secrets} from './utils/encryptedStorage/encryptedStorage';
 import {AuthContext} from './context/AuthContext';
 import HomeTabs from './features/Home/HomeTabs';
+import {useAuthContext} from './features/Auth/hooks/useAuthContext';
 
 const App = () => {
-  const [accessToken, setAccessToken] = React.useState('');
-  const [idToken, setIdToken] = React.useState('');
-  const [inProgress, setInProgress] = React.useState(false);
-
-  React.useEffect(() => {
-    const retrieveAuth = async () => {
-      try {
-        setAccessToken(
-          (await Secrets.getSecret(SecretItems.accessToken)) as string,
-        );
-        setIdToken((await Secrets.getSecret(SecretItems.idToken)) as string);
-      } catch (e) {
-        console.error('retrieveAuth', e);
-      }
-    };
-    retrieveAuth();
-  }, [setIdToken, setAccessToken]);
-
-  const authContext = React.useMemo(
-    () => ({setAccessToken, setIdToken, setInProgress, inProgress, idToken}),
-    [setAccessToken, setIdToken, setInProgress, inProgress, idToken],
-  );
+  const authContext = useAuthContext();
 
   return (
     <AuthContext.Provider value={authContext}>
       <Stack.Navigator>
-        {accessToken || idToken ? (
+        {authContext?.accessToken || authContext?.idToken ? (
           <Stack.Screen name="Home" component={HomeTabs} />
         ) : (
           <Stack.Screen
