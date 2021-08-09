@@ -22,10 +22,10 @@ interface ServicesProps {
 }
 
 function Services({services}: ServicesProps) {
-  const servicesValues = services.map(i => i.value);
+  const servicesValues = services?.map(i => i.value);
   return (
     <View style={styles.servicesContainer}>
-      {servicesValues.map(i => {
+      {servicesValues?.map(i => {
         const [productGroup, brand, activity] = i.split(' : ');
         return (
           <View style={styles.serviceContainer} key={i}>

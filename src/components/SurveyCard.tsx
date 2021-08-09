@@ -24,10 +24,14 @@ function SurveyCard({survey}: {survey: Survey}) {
       <Card.Title
         style={styles.title}
         title={auditNumber}
-        subtitle={`Planned Date: ${format(
-          parse(plannedDate, "yyyy-MM-dd'T'HH:mm:SS", new Date()),
-          'dd.MM.yyyy',
-        )}`}
+        subtitle={`Planned Date: ${
+          plannedDate
+            ? format(
+                parse(plannedDate, "yyyy-MM-dd'T'HH:mm:SS", new Date()),
+                'dd.MM.yyyy',
+              )
+            : ''
+        }`}
         rightStyle={styles.rightContainer}
         right={RightContent}
       />
