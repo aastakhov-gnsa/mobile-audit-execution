@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 });
 
 function getStatusIcon(v: string) {
-  switch (v.toLowerCase()) {
+  switch (v?.toLowerCase()) {
     case 'completed': {
       return <Icon name="check" color="#25B220" style={styles.icon} />;
     }
