@@ -11,6 +11,12 @@ import {
   REGISTER,
   persistStore,
 } from 'redux-persist';
+import {
+  useDispatch as useDispatchRedux,
+  TypedUseSelectorHook,
+  useSelector as useSelectorRedux,
+} from 'react-redux';
+import {authReducer} from '../../features/Auth/authReducer';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +26,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  [authReducer.name]: authReducer.reducer,
   [surveyApi.reducerPath]: surveyApi.reducer,
 });
 
@@ -40,3 +47,5 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export const useDispatch = () => useDispatchRedux<AppDispatch>();
+export const useSelector: TypedUseSelectorHook<RootState> = useSelectorRedux;
