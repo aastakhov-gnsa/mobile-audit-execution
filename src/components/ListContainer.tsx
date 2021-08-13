@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {StyleSheet, SafeAreaView, View} from 'react-native';
 
 interface ListContainerProps {
   children?: React.ReactNode;
@@ -8,7 +7,7 @@ interface ListContainerProps {
 function ListContainer({children}: ListContainerProps) {
   return (
     <SafeAreaView>
-      <ScrollView style={styles.scrollView}>{children}</ScrollView>
+      <View style={styles.scrollView}>{children}</View>
     </SafeAreaView>
   );
 }

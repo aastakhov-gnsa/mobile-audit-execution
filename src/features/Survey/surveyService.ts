@@ -1,12 +1,13 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {Survey} from '../../interfaces/survey';
 import {RootState} from '../../utils/store/configureStore';
+import {GnsaUser} from '../../interfaces/User';
+import {API_URI} from '../../../config';
 
 export const surveyApi = createApi({
   reducerPath: 'surveyApi',
   baseQuery: fetchBaseQuery({
-    baseUrl:
-      'https://gnsa-dev.i.daimler.com/api/v1/rest/mobile-audit-execution/',
+    baseUrl: `${API_URI}/rest/mobile-audit-execution/`,
     prepareHeaders: (headers, {getState}) => {
       const state = getState() as RootState;
       if (state.auth.token) {
@@ -22,7 +23,10 @@ export const surveyApi = createApi({
     survey: builder.query<Survey, number>({
       query: (id: number) => `survey-download/${id}`,
     }),
+    userInfo: builder.query<GnsaUser, string>({
+      query: (userName: string) => `user-info/${userName}`,
+    }),
   }),
 });
 
-export const {useAllSurveysQuery, useSurveyQuery} = surveyApi;
+export const {useAllSurveysQuery, useSurveyQuery, useUserInfoQuery} = surveyApi;

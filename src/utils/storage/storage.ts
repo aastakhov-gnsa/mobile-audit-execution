@@ -37,9 +37,17 @@ async function setMultiple(keyValuePairs: Array<[StorageItems, string]>) {
     console.error('Error during saving multiple values', e);
   }
 }
+async function clearStorage() {
+  try {
+    await AsyncStorage.clear();
+  } catch (e) {
+    console.error('Error during clearing storage', e);
+  }
+}
 export const Storage = {
   saveItem,
   getItem,
   deleteItem,
   setMultiple,
+  clearStorage,
 };

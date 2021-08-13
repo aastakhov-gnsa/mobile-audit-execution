@@ -22,6 +22,7 @@ export interface Survey {
   // legacyAuditNumber: null
   // networkEntityId: null
   // notEmptyQuestionsListAndIsSplitFlg: false
+  companyId: string;
   number: string;
   outletAddress: string;
   outletCountry: string;
