@@ -10,7 +10,6 @@ function HomeScreen() {
   //   'https://gnsa-dev.i.daimler.com/api/v1/data/smaudit/smAudit?_limit=5&_page=1',
   // );
   const {data, error, isLoading} = useAllSurveysQuery('');
-
   if (isLoading) {
     return <Spinner inProgress />;
   }

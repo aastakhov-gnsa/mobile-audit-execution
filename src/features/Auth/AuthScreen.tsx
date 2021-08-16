@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {authorize} from 'react-native-app-auth';
 import {AUTH_CONFIG} from '../../../config';
 import {StyleSheet, View} from 'react-native';
@@ -12,9 +12,22 @@ import {
 import {AuthContext} from '../../context/AuthContext';
 import {API} from '../../api/api';
 import {Storage, StorageItems} from '../../utils/storage/storage';
+import {fetchGnsaToken} from './authActions';
+import {useDispatch, useSelector} from '../../utils/store/configureStore';
 
 function AuthScreen() {
   const authContext = React.useContext(AuthContext);
+  const dispatch = useDispatch();
+  const token = useSelector(store => store.auth.token);
+  useEffect(() => {
+    const setToken = async () => {
+      if (token) {
+        await Secrets.saveSecret(SecretItems.gnsaToken, token);
+        authContext.setGnsaToken(token);
+      }
+    };
+    setToken();
+  }, [token, authContext]);
 
   const doAuthorize = React.useCallback(async () => {
     authContext.setInProgress(true);
@@ -34,15 +47,9 @@ function AuthScreen() {
       // console.log('userInfo', userInfo);
       authContext.setAccessToken(authState.accessToken);
       authContext.setIdToken(authState.idToken);
-
       // fixme current gnsa integration hack
-      const gnsaRes = await API.gnsaAuth(sub);
-      const {
-        data: {token},
-      } = gnsaRes;
+      dispatch(fetchGnsaToken(sub));
       // console.log('gnsaRes', gnsaRes);
-      await Secrets.saveSecret(SecretItems.gnsaToken, token);
-      authContext.setGnsaToken(token);
 
       // end of authorization
       authContext.setInProgress(false);
@@ -50,7 +57,7 @@ function AuthScreen() {
       console.error(error);
       authContext.setInProgress(false);
     }
-  }, [authContext]);
+  }, [authContext, dispatch]);
 
   return (
     <Page>
