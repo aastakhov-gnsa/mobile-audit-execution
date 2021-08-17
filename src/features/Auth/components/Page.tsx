@@ -14,11 +14,11 @@ function Page({children}: {children: ReactNode}) {
 }
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'black',
     flex: 1,
   },
   image: {
     flex: 1,
-    justifyContent: 'center',
   },
 });
 

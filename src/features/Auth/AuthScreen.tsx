@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {authorize} from 'react-native-app-auth';
 import {AUTH_CONFIG} from '../../../config';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import Page from './components/Page';
 import Spinner from './components/Spinner';
 import {Button, Headline, Title} from 'react-native-paper';
@@ -14,8 +14,16 @@ import {API} from '../../api/api';
 import {Storage, StorageItems} from '../../utils/storage/storage';
 import {fetchGnsaToken} from './authActions';
 import {useDispatch, useSelector} from '../../utils/store/configureStore';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {Navigation} from '../../navigation/navigation';
+const image = require('./assets/logo.png');
 
-function AuthScreen() {
+interface AuthScreenProps {
+  navigation: Navigation;
+}
+
+function AuthScreen({navigation}: AuthScreenProps) {
   const authContext = React.useContext(AuthContext);
   const dispatch = useDispatch();
   const token = useSelector(store => store.auth.token);
@@ -63,14 +71,37 @@ function AuthScreen() {
     <Page>
       <Spinner inProgress={authContext.inProgress} />
       <View style={styles.container}>
-        <Headline style={styles.text}>
-          You are not currently authenticated.
-        </Headline>
-        <Title style={styles.text}>Click Sign On to get started.</Title>
+        <View style={styles.wrapper}>
+          <Image
+            source={image}
+            style={{
+              height: 60,
+              width: 290,
+              resizeMode: 'contain',
+            }}
+          />
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Headline style={styles.text}>
+              Welcome to the new audit app!
+            </Headline>
+            <Title style={styles.text}>Authorize to get started</Title>
+          </View>
+          <Button onPress={doAuthorize} mode="contained" style={{width: 201}}>
+            Sign On
+          </Button>
+        </View>
+        <TouchableOpacity
+          style={styles.disclaimer}
+          onPress={() => navigation.navigate('LegalNoticesAndTerms')}>
+          <Title style={disclaimerLabelStyle}>Legal Notices and Terms</Title>
+          <Icon style={styles.text} name="caretup" />
+        </TouchableOpacity>
       </View>
-      <Button onPress={doAuthorize} mode="contained">
-        Sign On
-      </Button>
     </Page>
   );
 }
@@ -78,12 +109,34 @@ function AuthScreen() {
 export default React.memo(AuthScreen);
 
 const styles = StyleSheet.create({
+  logo: {
+    height: 60,
+    width: 290,
+    resizeMode: 'contain',
+  },
+  disclaimer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  wrapper: {
+    marginBottom: '50%',
+    height: 280,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   text: {
     color: 'white',
   },
+  mr: {
+    marginRight: 10,
+  },
 });
+
+const disclaimerLabelStyle = StyleSheet.flatten([styles.text, styles.mr]);
