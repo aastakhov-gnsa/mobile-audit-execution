@@ -9,7 +9,7 @@ import themeConfig from './themeConfig';
 
 function Main() {
   return (
-    <PaperProvider theme={themeConfig.theme}>
+    <PaperProvider theme={themeConfig.defaultTheme}>
       <NavigationContainer>
         <App />
       </NavigationContainer>

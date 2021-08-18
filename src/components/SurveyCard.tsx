@@ -1,6 +1,6 @@
 import React from 'react';
 import {Survey} from '../interfaces/survey';
-import {Card, Subheading, Title, Button} from 'react-native-paper';
+import {Card, Title, Button} from 'react-native-paper';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import {StyleSheet, View} from 'react-native';
@@ -11,9 +11,9 @@ function SurveyCard({survey}: {survey: Survey}) {
   const {
     id,
     plannedDate,
-    outletInfo,
+    companyId,
     outletAddress,
-    auditNumber,
+    number,
     resultCd,
     services,
   } = survey;
@@ -23,7 +23,7 @@ function SurveyCard({survey}: {survey: Survey}) {
     <Card style={styles.card} key={id}>
       <Card.Title
         style={styles.title}
-        title={auditNumber}
+        title={number}
         subtitle={`Planned Date: ${
           plannedDate
             ? format(
@@ -37,8 +37,7 @@ function SurveyCard({survey}: {survey: Survey}) {
       />
       <Card.Content>
         <View style={styles.nameContainer}>
-          <Title>{outletInfo}</Title>
-          <Subheading>{outletAddress}</Subheading>
+          <Title>{`${companyId} : ${outletAddress}`}</Title>
         </View>
         <Services services={services} />
       </Card.Content>

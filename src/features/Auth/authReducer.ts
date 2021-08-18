@@ -8,7 +8,11 @@ type AuthSlice = {
 export const authReducer = createSlice({
   name: 'auth',
   initialState: {} as AuthSlice,
-  reducers: {},
+  reducers: {
+    logout: state => {
+      state.token = undefined;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchGnsaToken.fulfilled, (state, action) => {
@@ -19,3 +23,5 @@ export const authReducer = createSlice({
       });
   },
 });
+
+export const {logout} = authReducer.actions;
