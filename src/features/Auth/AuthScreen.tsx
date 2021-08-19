@@ -65,26 +65,14 @@ function AuthScreen() {
       <Spinner inProgress={authContext.inProgress} />
       <View style={styles.container}>
         <View style={styles.wrapper}>
-          <Image
-            source={image}
-            style={{
-              height: 60,
-              width: 290,
-              resizeMode: 'contain',
-            }}
-          />
-          <View
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
+          <Image source={image} style={styles.logo} />
+          <View style={styles.welcomeWrapper}>
             <Headline style={styles.text}>
               Welcome to the new audit app!
             </Headline>
             <Title style={styles.text}>Authorize to get started</Title>
           </View>
-          <Button onPress={doAuthorize} mode="contained" style={{width: 201}}>
+          <Button onPress={doAuthorize} mode="contained" style={styles.button}>
             Sign On
           </Button>
         </View>
@@ -96,15 +84,16 @@ function AuthScreen() {
 export default React.memo(AuthScreen);
 
 const styles = StyleSheet.create({
+  button: {width: 201},
+  welcomeWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   logo: {
     height: 60,
     width: 290,
     resizeMode: 'contain',
-  },
-  disclaimer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   container: {
     flex: 1,
@@ -120,8 +109,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-  },
-  mr: {
-    marginRight: 10,
   },
 });
