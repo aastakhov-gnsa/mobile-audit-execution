@@ -9,9 +9,9 @@ function NavigationRoot() {
   const authContext = React.useContext(AuthContext);
   const gnsaToken = useSelector(store => store.auth.token);
   return (
-    <Stack.Navigator headerMode="none">
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       {(authContext?.accessToken || authContext?.idToken) && gnsaToken ? (
-        <Stack.Screen name="Surveys Stack" component={SurveyStack} />
+        <Stack.Screen name={ScreenNames.SurveysStack} component={SurveyStack} />
       ) : (
         <Stack.Screen
           name={ScreenNames.Auth}
