@@ -1,9 +1,8 @@
 import React from 'react';
 import {Caption, Headline, Paragraph, Text} from 'react-native-paper';
-import {SafeAreaView, StyleSheet, View, Linking} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import themeConfig from '../../../themeConfig';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const providerData = {
   'Name:': 'Mercedes-Benz AG',
@@ -15,12 +14,6 @@ const providerData = {
 };
 
 function LegalNoticesAndTermsScreen() {
-  const handleCall = React.useCallback(() => {
-    Linking.openURL('tel:+12345667');
-  }, []);
-  const handleMail = React.useCallback(() => {
-    Linking.openURL('mailto:exampla@mail.ru');
-  }, []);
   return (
     <SafeAreaView>
       <ScrollView>
@@ -64,21 +57,6 @@ function LegalNoticesAndTermsScreen() {
                 </View>
               </View>
             </View>
-            <View style={styles.section}>
-              <Headline style={styles.header}>Feedback</Headline>
-              <Paragraph style={styles.paragraph}>
-                For further questions on installation, operating procedures,
-                training and user- registration please contact Service Desk
-              </Paragraph>
-              <TouchableOpacity style={linkStyle} onPress={handleCall}>
-                <Icon name="call-outline" style={styles.linkIcon} />
-                <Text>Call tech support</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={linkStyle} onPress={handleMail}>
-                <Icon name="mail-outline" style={styles.linkIcon} />
-                <Text>Send an e-mail</Text>
-              </TouchableOpacity>
-            </View>
           </View>
           <Caption>Mercedes-Benz AG ©</Caption>
         </View>
@@ -94,14 +72,6 @@ const styles = StyleSheet.create({
   rightColumn: {width: '55%'},
   paragraph: {
     marginBottom: 15,
-  },
-  linkIcon: {
-    marginRight: 10,
-  },
-  link: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
   },
   header: {
     marginBottom: 16,
@@ -140,4 +110,3 @@ const styles = StyleSheet.create({
 });
 
 const labelStyle = StyleSheet.flatten([styles.cell, styles.label]);
-const linkStyle = StyleSheet.flatten([styles.paragraph, styles.link]);

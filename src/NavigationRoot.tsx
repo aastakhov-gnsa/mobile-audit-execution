@@ -1,9 +1,9 @@
 import React from 'react';
-import {Stack} from './navigation/navigation';
+import {ScreenNames, Stack} from './navigation/navigation';
 import SurveyStack from './features/Survey/SurveyStack';
-import AuthStack from './features/Auth/AuthStack';
 import {AuthContext} from './context/AuthContext';
 import {useSelector} from './utils/store/configureStore';
+import AuthScreen from './features/Auth/AuthScreen';
 
 function NavigationRoot() {
   const authContext = React.useContext(AuthContext);
@@ -13,7 +13,11 @@ function NavigationRoot() {
       {(authContext?.accessToken || authContext?.idToken) && gnsaToken ? (
         <Stack.Screen name="Surveys Stack" component={SurveyStack} />
       ) : (
-        <Stack.Screen name="AuthStack" component={AuthStack} />
+        <Stack.Screen
+          name={ScreenNames.Auth}
+          component={AuthScreen}
+          options={{headerShown: false, animationTypeForReplace: 'pop'}}
+        />
       )}
     </Stack.Navigator>
   );

@@ -14,16 +14,9 @@ import {API} from '../../api/api';
 import {Storage, StorageItems} from '../../utils/storage/storage';
 import {fetchGnsaToken} from './authActions';
 import {useDispatch, useSelector} from '../../utils/store/configureStore';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/AntDesign';
-import {Navigation} from '../../navigation/navigation';
 const image = require('./assets/logo.png');
 
-interface AuthScreenProps {
-  navigation: Navigation;
-}
-
-function AuthScreen({navigation}: AuthScreenProps) {
+function AuthScreen() {
   const authContext = React.useContext(AuthContext);
   const dispatch = useDispatch();
   const token = useSelector(store => store.auth.token);
@@ -95,12 +88,6 @@ function AuthScreen({navigation}: AuthScreenProps) {
             Sign On
           </Button>
         </View>
-        <TouchableOpacity
-          style={styles.disclaimer}
-          onPress={() => navigation.navigate('LegalNoticesAndTerms')}>
-          <Title style={disclaimerLabelStyle}>Legal Notices and Terms</Title>
-          <Icon style={styles.text} name="caretup" />
-        </TouchableOpacity>
       </View>
     </Page>
   );
@@ -138,5 +125,3 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 });
-
-const disclaimerLabelStyle = StyleSheet.flatten([styles.text, styles.mr]);
