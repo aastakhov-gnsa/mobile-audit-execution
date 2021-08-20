@@ -1,8 +1,13 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ICON_SIZE} from '../../../constants/constants';
-import {StyleProp, StyleSheet, TextStyle, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Popover from '../../Popover';
 import {Text} from 'react-native-paper';
 import themeConfig from '../../../../themeConfig';
