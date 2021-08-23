@@ -1,24 +1,21 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Button, Modal, Portal, Subheading, Title} from 'react-native-paper';
-import {GnsaUser} from '../interfaces/User';
-import {signOff} from '../api/auth';
-import {Secrets} from '../utils/encryptedStorage/encryptedStorage';
-import {AuthContext} from '../context/AuthContext';
-import {useDispatch} from '../utils/store/configureStore';
-import {logout} from '../features/Auth/authReducer';
-import {Storage} from '../utils/storage/storage';
+import {Button, Subheading, Title} from 'react-native-paper';
+import {GnsaUser} from '../../../interfaces/User';
+import {signOff} from '../../../api/auth';
+import {Secrets} from '../../../utils/encryptedStorage/encryptedStorage';
+import {AuthContext} from '../../../context/AuthContext';
+import {useDispatch} from '../../../utils/store/configureStore';
+import {logout} from '../../../features/Auth/authReducer';
+import {Storage} from '../../../utils/storage/storage';
+import Popover from '../../Popover';
 
 interface UserInfoPopupProps {
   data?: GnsaUser;
   onDismiss: () => void;
   visible: boolean;
 }
-const modalTheme = {
-  colors: {
-    backdrop: 'transparent',
-  },
-};
+
 function UserInfoPopup({data, visible, onDismiss}: UserInfoPopupProps) {
   const authContext = React.useContext(AuthContext);
   const dispatch = useDispatch();
@@ -43,25 +40,19 @@ function UserInfoPopup({data, visible, onDismiss}: UserInfoPopupProps) {
   }, [authContext, dispatch]);
 
   return (
-    <Portal>
-      <Modal
-        theme={modalTheme}
-        visible={visible}
-        onDismiss={onDismiss}
-        style={styles.modal}>
-        <View style={styles.info}>
-          <Title>{data?.fullName}</Title>
-          <Subheading>{data?.internalRole.key}</Subheading>
-        </View>
-        <Button
-          onPress={doSignOff}
-          style={styles.logOutButton}
-          icon="logout-variant"
-          mode="contained">
-          Log out
-        </Button>
-      </Modal>
-    </Portal>
+    <Popover visible={visible} onDismiss={onDismiss} style={styles.modal}>
+      <View style={styles.info}>
+        <Title>{data?.fullName}</Title>
+        <Subheading>{data?.internalRole.key}</Subheading>
+      </View>
+      <Button
+        onPress={doSignOff}
+        style={styles.logOutButton}
+        icon="logout-variant"
+        mode="contained">
+        Log out
+      </Button>
+    </Popover>
   );
 }
 

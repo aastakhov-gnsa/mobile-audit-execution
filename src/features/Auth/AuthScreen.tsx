@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {authorize} from 'react-native-app-auth';
 import {AUTH_CONFIG} from '../../../config';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import Page from './components/Page';
 import Spinner from './components/Spinner';
 import {Button, Headline, Title} from 'react-native-paper';
@@ -14,6 +14,7 @@ import {API} from '../../api/api';
 import {Storage, StorageItems} from '../../utils/storage/storage';
 import {fetchGnsaToken} from './authActions';
 import {useDispatch, useSelector} from '../../utils/store/configureStore';
+const image = require('./assets/logo.png');
 
 function AuthScreen() {
   const authContext = React.useContext(AuthContext);
@@ -63,14 +64,19 @@ function AuthScreen() {
     <Page>
       <Spinner inProgress={authContext.inProgress} />
       <View style={styles.container}>
-        <Headline style={styles.text}>
-          You are not currently authenticated.
-        </Headline>
-        <Title style={styles.text}>Click Sign On to get started.</Title>
+        <View style={styles.wrapper}>
+          <Image source={image} style={styles.logo} />
+          <View style={styles.welcomeWrapper}>
+            <Headline style={styles.text}>
+              Welcome to the new audit app!
+            </Headline>
+            <Title style={styles.text}>Authorize to get started</Title>
+          </View>
+          <Button onPress={doAuthorize} mode="contained" style={styles.button}>
+            Sign On
+          </Button>
+        </View>
       </View>
-      <Button onPress={doAuthorize} mode="contained">
-        Sign On
-      </Button>
     </Page>
   );
 }
@@ -78,10 +84,28 @@ function AuthScreen() {
 export default React.memo(AuthScreen);
 
 const styles = StyleSheet.create({
+  button: {width: 201},
+  welcomeWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  logo: {
+    height: 60,
+    width: 290,
+    resizeMode: 'contain',
+  },
   container: {
     flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  wrapper: {
+    marginBottom: '50%',
+    height: 280,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   text: {
     color: 'white',

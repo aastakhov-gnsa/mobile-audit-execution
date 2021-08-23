@@ -1,23 +1,46 @@
 import React from 'react';
-import {Stack} from '../../navigation/navigation';
+import {ScreenNames, Surveys} from '../../navigation/navigation';
 import SurveysScreen from './SurveysScreen';
-import HeaderRight from '../../components/HeaderRight';
+import HeaderRight from '../../components/HeaderRight/HeaderRight';
 import {StyleSheet} from 'react-native';
 import themeConfig from '../../../themeConfig';
+import LegalNoticesAndTermsScreen from '../LegalNoticesAndTerms/LegalNoticesAndTermsScreen';
+import ContactSupportScreen from '../ContactSupport/ContactSupportScreen';
+import UserManualScreen from '../UserManual/UserManualScreen';
 
 function SurveyStack() {
+  const SurveysHeaderRight = React.useCallback(() => <HeaderRight />, []);
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Surveys"
-        component={SurveysScreen}
-        options={{
-          headerTitleStyle: styles.headerTitle,
-          headerStyle: styles.headerStyle,
-          headerRight: () => <HeaderRight />,
-        }}
-      />
-    </Stack.Navigator>
+    <Surveys.Navigator>
+      <Surveys.Group>
+        <Surveys.Screen
+          name={ScreenNames.Surveys}
+          component={SurveysScreen}
+          options={{
+            headerTitleStyle: styles.headerTitle,
+            headerStyle: styles.headerStyle,
+            headerRight: SurveysHeaderRight,
+          }}
+        />
+      </Surveys.Group>
+      <Surveys.Group screenOptions={{presentation: 'modal'}}>
+        <Surveys.Screen
+          name={ScreenNames.ContactSupport}
+          options={{title: 'Contact Support'}}
+          component={ContactSupportScreen}
+        />
+        <Surveys.Screen
+          name={ScreenNames.UserManual}
+          options={{title: 'User Manual'}}
+          component={UserManualScreen}
+        />
+        <Surveys.Screen
+          name={ScreenNames.LegalNoticesAndTerms}
+          options={{title: 'Legal Notices and Terms'}}
+          component={LegalNoticesAndTermsScreen}
+        />
+      </Surveys.Group>
+    </Surveys.Navigator>
   );
 }
 

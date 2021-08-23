@@ -1,14 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, Avatar} from 'react-native-paper';
-import {StyleSheet, View} from 'react-native';
+import {Storage, StorageItems} from '../../../utils/storage/storage';
+import {useUserInfoQuery} from '../../../features/Survey/surveyService';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useUserInfoQuery} from '../features/Survey/surveyService';
-import {Storage, StorageItems} from '../utils/storage/storage';
+import {ActivityIndicator, Avatar} from 'react-native-paper';
 import UserInfoPopup from './UserInfoPopup';
 
-// import Icon from 'react-native-vector-icons/Ionicons'; //todo for language switching
-
-function HeaderRight() {
+function UserAvatar() {
   const [userName, setUserName] = React.useState('');
   const [visible, setVisible] = React.useState(false);
   const handleVisible = React.useCallback(() => {
@@ -27,9 +24,7 @@ function HeaderRight() {
   const {data} = useUserInfoQuery(userName);
 
   return (
-    <View style={styles.container}>
-      {/*todo language switching*/}
-      {/*<Icon name="language" size={20} style={styles.icon} />*/}
+    <>
       <TouchableOpacity onPress={handleVisible}>
         {data ? (
           <Avatar.Text
@@ -41,17 +36,8 @@ function HeaderRight() {
         )}
       </TouchableOpacity>
       <UserInfoPopup data={data} visible={visible} onDismiss={handleVisible} />
-    </View>
+    </>
   );
 }
 
-export default React.memo(HeaderRight);
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingRight: 16,
-  },
-});
+export default React.memo(UserAvatar);

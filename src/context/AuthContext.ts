@@ -4,6 +4,7 @@ interface AuthContextProps {
   gnsaToken: string;
   setGnsaToken: (v: string) => void;
   idToken: string;
+  accessToken: string;
   setAccessToken: (v: string) => void;
   setIdToken: (v: string) => void;
   setInProgress: (b: boolean) => void;
@@ -11,6 +12,7 @@ interface AuthContextProps {
 }
 
 export const AuthContext = React.createContext<AuthContextProps>({
+  accessToken: '',
   gnsaToken: '',
   setGnsaToken: () => null,
   idToken: '',
