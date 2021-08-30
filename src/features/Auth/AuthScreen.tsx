@@ -4,7 +4,7 @@ import {AUTH_CONFIG} from '../../../config';
 import {Image, StyleSheet, View} from 'react-native';
 import Page from './components/Page';
 import Spinner from './components/Spinner';
-import {Button, Headline, Title} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {
   SecretItems,
   Secrets,
@@ -14,6 +14,7 @@ import {API} from '../../api/api';
 import {Storage, StorageItems} from '../../utils/storage/storage';
 import {fetchGnsaToken} from './authActions';
 import {useDispatch, useSelector} from '../../utils/store/configureStore';
+import Typography from '../../components/Typography';
 const image = require('./assets/logo.png');
 
 function AuthScreen() {
@@ -67,10 +68,12 @@ function AuthScreen() {
         <View style={styles.wrapper}>
           <Image source={image} style={styles.logo} />
           <View style={styles.welcomeWrapper}>
-            <Headline style={styles.text}>
+            <Typography size="Headline 5" style={styles.text}>
               Welcome to the new audit app!
-            </Headline>
-            <Title style={styles.text}>Authorize to get started</Title>
+            </Typography>
+            <Typography size="Subtitle 2" style={styles.text}>
+              Authorize to get started
+            </Typography>
           </View>
           <Button onPress={doAuthorize} mode="contained" style={styles.button}>
             Sign On
