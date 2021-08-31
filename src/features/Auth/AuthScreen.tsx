@@ -76,7 +76,7 @@ function AuthScreen() {
             </Typography>
           </View>
           <Button onPress={doAuthorize} mode="contained" style={styles.button}>
-            Sign On
+            Sign in
           </Button>
         </View>
       </View>
