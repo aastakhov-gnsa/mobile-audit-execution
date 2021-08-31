@@ -3,19 +3,15 @@ import {configureFonts, DefaultTheme, DarkTheme} from 'react-native-paper';
 const fontFamilies = {
   regular: {
     fontFamily: 'Roboto-Regular',
-    fontWeight: '400',
   },
   medium: {
-    fontFamily: 'Roboto-Regular',
-    fontWeight: '500',
+    fontFamily: 'Roboto-Medium',
   },
   light: {
-    fontFamily: 'Roboto-Regular',
-    fontWeight: '300',
+    fontFamily: 'Roboto-Light',
   },
   thin: {
     fontFamily: 'Roboto-Regular',
-    fontWeight: '100',
   },
 };
 const fontConfig = {
