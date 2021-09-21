@@ -7,9 +7,19 @@ import themeConfig from '../../../themeConfig';
 import LegalNoticesAndTermsScreen from '../LegalNoticesAndTerms/LegalNoticesAndTermsScreen';
 import ContactSupportScreen from '../ContactSupport/ContactSupportScreen';
 import UserManualScreen from '../UserManual/UserManualScreen';
+import UserAvatar from '../../components/UserAvatar';
+import HeaderControlsContainer from '../../components/HeaderControlsContainer';
 
 function SurveyStack() {
   const SurveysHeaderRight = React.useCallback(() => <HeaderRight />, []);
+  const SurveysHeaderLeft = React.useCallback(
+    () => (
+      <HeaderControlsContainer>
+        <UserAvatar />
+      </HeaderControlsContainer>
+    ),
+    [],
+  );
   return (
     <Surveys.Navigator>
       <Surveys.Group>
@@ -20,6 +30,7 @@ function SurveyStack() {
             headerTitleStyle: styles.headerTitle,
             headerStyle: styles.headerStyle,
             headerRight: SurveysHeaderRight,
+            headerLeft: SurveysHeaderLeft,
           }}
         />
       </Surveys.Group>

@@ -23,10 +23,6 @@ const helpMenu = [
     screenName: ScreenNames.UserManual,
   },
   {
-    label: 'Legal Notices and Terms',
-    screenName: ScreenNames.LegalNoticesAndTerms,
-  },
-  {
     label: 'Contact Support',
     screenName: ScreenNames.ContactSupport,
   },
@@ -83,7 +79,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'flex-end',
     paddingTop: 52,
-    paddingRight: 98,
+    paddingRight: 58,
     justifyContent: 'flex-start',
   },
 });

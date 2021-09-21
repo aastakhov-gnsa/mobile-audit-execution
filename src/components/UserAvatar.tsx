@@ -1,41 +1,41 @@
 import React from 'react';
-import {Storage, StorageItems} from '../../../utils/storage/storage';
-import {useUserInfoQuery} from '../../../features/Survey/surveyService';
+import {Storage, StorageItems} from '../utils/storage/storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ActivityIndicator, Avatar} from 'react-native-paper';
 import UserInfoPopup from './UserInfoPopup';
 
 function UserAvatar() {
-  const [userName, setUserName] = React.useState('');
+  const [fullName, setFullName] = React.useState('');
   const [visible, setVisible] = React.useState(false);
   const handleVisible = React.useCallback(() => {
     setVisible(!visible);
   }, [visible]);
   React.useEffect(() => {
     const r = async () => {
-      if (!userName) {
-        const uN = (await Storage.getItem(StorageItems.userName)) as string;
-        setUserName(uN);
+      if (!fullName) {
+        setFullName((await Storage.getItem(StorageItems.fullName)) as string);
       }
     };
     r();
-  }, [userName]);
-
-  const {data} = useUserInfoQuery(userName);
+  }, [fullName]);
 
   return (
     <>
       <TouchableOpacity onPress={handleVisible}>
-        {data ? (
+        {fullName ? (
           <Avatar.Text
-            label={`${data?.firstName.charAt(0)}${data?.lastName.charAt(0)}`}
+            label={`${fullName.charAt(0)}${fullName.split(' ')?.[1].charAt(0)}`}
             size={30}
           />
         ) : (
           <ActivityIndicator />
         )}
       </TouchableOpacity>
-      <UserInfoPopup data={data} visible={visible} onDismiss={handleVisible} />
+      <UserInfoPopup
+        visible={visible}
+        onDismiss={handleVisible}
+        fullName={fullName}
+      />
     </>
   );
 }
