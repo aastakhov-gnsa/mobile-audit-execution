@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {persistor, store} from './utils/store/configureStore';
 import {PersistGate} from 'redux-persist/integration/react';
 import NavigationRoot from './NavigationRoot';
+import {Portal} from 'react-native-paper';
 
 const App = () => {
   const authContext = useAuthContext();
@@ -13,7 +14,9 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null} />
       <AuthContext.Provider value={authContext}>
-        <NavigationRoot />
+        <Portal.Host>
+          <NavigationRoot />
+        </Portal.Host>
       </AuthContext.Provider>
     </Provider>
   );

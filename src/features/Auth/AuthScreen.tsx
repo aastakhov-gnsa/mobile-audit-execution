@@ -43,9 +43,15 @@ function AuthScreen() {
       // SSO: retrieve user info
       const userInfo = await API.getUserInfo(authState.accessToken);
       const {
-        data: {sub},
+        data: {sub, given_name, family_name},
       } = userInfo;
       await Storage.saveItem(StorageItems.userName, sub);
+      await Storage.saveItem(StorageItems.firstName, given_name);
+      await Storage.saveItem(StorageItems.lastName, family_name);
+      await Storage.saveItem(
+        StorageItems.fullName,
+        `${given_name} ${family_name}`,
+      );
       // console.log('userInfo', userInfo);
       authContext.setAccessToken(authState.accessToken);
       authContext.setIdToken(authState.idToken);
