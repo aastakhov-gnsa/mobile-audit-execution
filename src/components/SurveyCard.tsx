@@ -1,11 +1,19 @@
 import React from 'react';
 import {Survey} from '../interfaces/survey';
-import {Card, Title, Button} from 'react-native-paper';
+import {Card, Button, useTheme, ActivityIndicator} from 'react-native-paper';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import {StyleSheet, View} from 'react-native';
 import Services from './Services';
 import StatusWithIcon from './StatusWithIcon';
+import {surveyApi, useSurveyQuery} from '../features/Survey/surveyService';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {ICON_SIZE} from '../constants/constants';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNames} from '../navigation/navigation';
+import ItemWrapper from './ItemWrapper';
+import CompanyAddress from './CompanyAddress';
+import Typography from './Typography';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -17,33 +25,71 @@ function SurveyCard({survey}: {survey: Survey}) {
     resultCd,
     services,
   } = survey;
+  const navigation = useNavigation();
+  const [skip, setSkip] = React.useState(true);
+  const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
+  const {data: queryData, isLoading} = useSurveyQuery(id, {skip});
+  const {data: cacheData} = surveyApi.endpoints.survey.useQueryState(id);
+  const data = queryData || cacheData;
 
-  const RightContent = () => <StatusWithIcon status={resultCd} />;
+  const {colors} = useTheme();
+  const styles = makeStyles(colors);
+  const RightContent = React.useCallback(() => {
+    if (isLoading) {
+      return <ActivityIndicator animating={true} color={colors.primary} />;
+    }
+    if (data) {
+      return <StatusWithIcon status={resultCd} />;
+    }
+    return (
+      <Icon name="download-outline" size={ICON_SIZE} color={colors.text50} />
+    );
+  }, [isLoading, data, colors, resultCd]);
   return (
     <Card style={styles.card} key={id}>
       <Card.Title
         style={styles.title}
-        title={number}
-        subtitle={`Planned Date: ${
-          plannedDate
-            ? format(
-                parse(plannedDate, "yyyy-MM-dd'T'HH:mm:SS", new Date()),
-                'dd.MM.yyyy',
-              )
-            : ''
-        }`}
+        title={
+          <Typography size="Body 1" style={styles.titleText}>
+            {number}
+          </Typography>
+        }
+        subtitle={
+          <Typography size="Body 1">{`Planned Date: ${
+            plannedDate
+              ? format(
+                  parse(plannedDate, "yyyy-MM-dd'T'HH:mm:SS", new Date()),
+                  'dd.MM.yyyy',
+                )
+              : ''
+          }`}</Typography>
+        }
         rightStyle={styles.rightContainer}
         right={RightContent}
       />
       <Card.Content>
-        <View style={styles.nameContainer}>
-          <Title>{`${companyId} : ${outletAddress}`}</Title>
-        </View>
-        <Services services={services} />
+        <ItemWrapper>
+          <CompanyAddress companyId={companyId} outletAddress={outletAddress} />
+        </ItemWrapper>
+        <Services services={services} showNumber={4} />
       </Card.Content>
       <Card.Actions style={styles.actionsContainer}>
-        <Button icon="information-outline">Show Details</Button>
-        <Button>Download</Button>
+        <View>
+          {data && (
+            <Button
+              icon="information-outline"
+              onPress={() =>
+                navigation.navigate(ScreenNames.AuditDetails, {id: id})
+              }>
+              Audit Details
+            </Button>
+          )}
+        </View>
+        {!data ? (
+          <Button onPress={handleDownload}>Download</Button>
+        ) : (
+          <Button>Upload</Button>
+        )}
       </Card.Actions>
     </Card>
   );
@@ -51,24 +97,30 @@ function SurveyCard({survey}: {survey: Survey}) {
 
 export default React.memo(SurveyCard);
 
-const styles = StyleSheet.create({
-  title: {
-    alignItems: 'flex-start',
-    paddingTop: 16,
-  },
-  rightContainer: {
-    paddingRight: 16,
-  },
-  actionsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  nameContainer: {
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  card: {
-    marginBottom: '2%',
-  },
-});
+const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
+  StyleSheet.create({
+    title: {
+      alignItems: 'flex-start',
+      paddingTop: 16,
+    },
+    titleText: {
+      fontFamily: 'Roboto-Medium',
+    },
+    rightContainer: {
+      paddingRight: 16,
+    },
+    actionsContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    nameContainer: {
+      marginTop: 16,
+      marginBottom: 16,
+    },
+    card: {
+      borderWidth: 1,
+      borderColor: colors.onBackground20,
+      marginBottom: '2%',
+    },
+  });

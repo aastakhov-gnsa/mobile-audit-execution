@@ -20,8 +20,8 @@ export const surveyApi = createApi({
     allSurveys: builder.query<Survey[], string>({
       query: () => 'surveys',
     }),
-    survey: builder.query<Survey, number>({
-      query: (id: number) => `survey-download/${id}`,
+    survey: builder.query<Survey, number | string>({
+      query: (id: number | string) => `survey-download/${id}`,
     }),
     userInfo: builder.query<GnsaUser, string>({
       query: (userName: string) => `user-info/${userName}`,

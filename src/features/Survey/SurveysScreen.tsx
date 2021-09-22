@@ -5,13 +5,14 @@ import ListContainer from '../../components/ListContainer';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import SurveyCard from '../../components/SurveyCard';
 import {FlatList} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
+import ScreenContainer from '../../components/ScreenContainer';
+import {toDate, format} from 'date-fns';
 
 function SurveysScreen() {
-  const {data, error, isLoading} = useAllSurveysQuery('');
+  const {data, error, isLoading, fulfilledTimeStamp} = useAllSurveysQuery('');
 
   const keyExtractor = React.useCallback((item: Survey) => item.id, []);
 
@@ -26,7 +27,7 @@ function SurveysScreen() {
   console.log('data', data);
   console.log('error', error);
   return (
-    <SafeAreaView>
+    <ScreenContainer>
       <StatusBar
         barStyle="light-content"
         backgroundColor={themeConfig.defaultTheme.colors.onSurface}
@@ -34,7 +35,9 @@ function SurveysScreen() {
       <ListContainer>
         <ListInfoCaption
           leftCaption={`All Surveys · ${data?.length ?? 0}`}
-          rightCaption="Updated /date here/"
+          rightCaption={`Updated ${
+            fulfilledTimeStamp ? format(toDate(fulfilledTimeStamp), 'PPP') : ''
+          }`}
         />
         <FlatList
           data={data}
@@ -42,7 +45,7 @@ function SurveysScreen() {
           renderItem={renderItem}
         />
       </ListContainer>
-    </SafeAreaView>
+    </ScreenContainer>
   );
 }
 

@@ -6,18 +6,22 @@ import {persistor, store} from './utils/store/configureStore';
 import {PersistGate} from 'redux-persist/integration/react';
 import NavigationRoot from './NavigationRoot';
 import {Portal} from 'react-native-paper';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const App = () => {
   const authContext = useAuthContext();
 
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor} loading={null} />
-      <AuthContext.Provider value={authContext}>
-        <Portal.Host>
-          <NavigationRoot />
-        </Portal.Host>
-      </AuthContext.Provider>
+      <PersistGate persistor={persistor} loading={null}>
+        <AuthContext.Provider value={authContext}>
+          <Portal.Host>
+            <SafeAreaProvider>
+              <NavigationRoot />
+            </SafeAreaProvider>
+          </Portal.Host>
+        </AuthContext.Provider>
+      </PersistGate>
     </Provider>
   );
 };

@@ -17,16 +17,18 @@ import {
   useSelector as useSelectorRedux,
 } from 'react-redux';
 import {authReducer} from '../../features/Auth/authReducer';
+import {tokenReducer} from '../../features/Auth/tokenReducer';
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage: AsyncStorage,
-  blacklist: [surveyApi.reducerPath],
+  blacklist: [tokenReducer.name],
 };
 
 const rootReducer = combineReducers({
   [authReducer.name]: authReducer.reducer,
+  [tokenReducer.name]: tokenReducer.reducer,
   [surveyApi.reducerPath]: surveyApi.reducer,
 });
 

@@ -20,12 +20,12 @@ const fontConfig = {
   android: fontFamilies,
 };
 
-const defaultTheme = {
+const defaultTheme: ReactNativePaper.Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#176DB7', // - primary color for your app, usually your brand color.
-    accent: '#00A3ED', // - secondary color for your app which complements the primary color.
+    primary: '#00A3ED', // - primary color for your app, usually your brand color.
+    accent: 'rgba(126, 126, 126, 0.2)', // - secondary color for your app which complements the primary color.
     background: '#FFFFFF', // - background color for pages, such as lists.
     surface: '#FFFFFF', // - background color for elements containing content, such as cards.
     text: '#141414', // - text color for content.
@@ -34,6 +34,12 @@ const defaultTheme = {
     backdrop: 'rgba(20, 20, 20, 0.35)', // - color for backdrops of various components such as modals.
     onSurface: 'rgba(20, 20, 20, 0.8)', // - background color for snackbars
     notification: 'rgba(20, 20, 20, 0.35)', // - background color for badges
+    onBackground100: '#141414',
+    onBackground50: '#898989',
+    onBackground20: '#D0D0D0',
+    onBackground10: '#E8E8E8',
+    onBackgroundAlpha35: 'rgba(20, 20, 20, 0.35)',
+    text50: '#898989',
   },
   fonts: configureFonts(fontConfig),
 };
