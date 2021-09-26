@@ -1,1 +1,6 @@
-export type FilterValues = Array<{fieldName: string; value: string}>;
+export type FilterValues = Array<FilterItem>;
+
+export interface FilterItem {
+  fieldName: string;
+  value: string;
+}
