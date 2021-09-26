@@ -16,7 +16,7 @@ function ScreenContainer({children}: {children?: React.ReactNode}) {
   const {colors} = useTheme();
   const styles = makeStyles(colors, dimensions.window);
   return (
-    <SafeAreaView style={styles.back} edges={['right', 'bottom', 'left']}>
+    <SafeAreaView style={styles.back}>
       <View style={styles.container}>{children}</View>
     </SafeAreaView>
   );

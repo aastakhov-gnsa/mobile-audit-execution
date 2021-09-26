@@ -4,9 +4,12 @@ import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 interface StatusWithIconProps {
-  status: string;
+  status?: string;
 }
 function StatusWithIcon({status}: StatusWithIconProps) {
+  if (!status) {
+    return null;
+  }
   return (
     <View style={styles.statusContainer}>
       {getStatusIcon(status)}
@@ -31,6 +34,8 @@ const styles = StyleSheet.create({
 
 function getStatusIcon(v: string) {
   switch (v?.toLowerCase()) {
+    case 'passed':
+    case 'passed - overruled':
     case 'completed': {
       return <Icon name="check" color="#25B220" style={styles.icon} />;
     }
@@ -38,6 +43,7 @@ function getStatusIcon(v: string) {
     case 'open': {
       return <Icon name="clockcircleo" color="#FCB814" style={styles.icon} />;
     }
+    case 'failed - overruled':
     case 'failed': {
       return <Icon name="close" color="#FD6464" style={styles.icon} />;
     }

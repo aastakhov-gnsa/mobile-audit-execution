@@ -45,8 +45,13 @@ function SurveyCard({survey}: {survey: Survey}) {
       <Icon name="download-outline" size={ICON_SIZE} color={colors.text50} />
     );
   }, [isLoading, data, colors, resultCd]);
+  const handlePress = React.useCallback(() => {
+    if (data) {
+      navigation.navigate(ScreenNames.StandardList, {id: id});
+    }
+  }, [id, data, navigation]);
   return (
-    <Card style={styles.card} key={id}>
+    <Card style={styles.card} key={id} onPress={handlePress}>
       <Card.Title
         style={styles.title}
         title={
