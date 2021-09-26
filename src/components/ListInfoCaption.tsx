@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Subheading} from 'react-native-paper';
+import Typography from './Typography';
 
 interface ListInfoCaptionProps {
   leftCaption: string;
@@ -10,8 +10,10 @@ interface ListInfoCaptionProps {
 function ListInfoCaption({leftCaption, rightCaption}: ListInfoCaptionProps) {
   return (
     <View style={styles.info}>
-      <Subheading style={styles.left}>{leftCaption}</Subheading>
-      <Subheading style={styles.right}>{rightCaption}</Subheading>
+      <Typography size="Subtitle 2">{leftCaption}</Typography>
+      <Typography size="Subtitle 2" style={styles.right}>
+        {rightCaption}
+      </Typography>
     </View>
   );
 }
@@ -26,13 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  left: {
-    // fontFamily: 'Roboto-Regular',
-    // fontWeight: 'bold',
-    // fontSize: 14,
-  },
   right: {
-    fontWeight: '500',
     opacity: 0.5,
   },
 });

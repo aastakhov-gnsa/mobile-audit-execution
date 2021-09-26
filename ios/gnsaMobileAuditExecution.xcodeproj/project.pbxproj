@@ -49,11 +49,13 @@
 		30D2E6E07E1D464091C85017 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		3316B9309E5C4C4093688ED6 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		3DAB33CB1AEEB809828F16C8 /* Pods-gnsaMobileAuditExecution.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.debug.xcconfig"; sourceTree = "<group>"; };
+		5704D8B00C57147D8E17087A /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig"; sourceTree = "<group>"; };
 		58AA03D80D324ED28E6D0601 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		6480BF1F173F4B939209BE52 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		7F0760FB67B146F59BD88589 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = gnsaMobileAuditExecution/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		874B8815FE004CA38C7F6933 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../src/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		8D03E3AEEE56A21D9F2B56D6 /* Pods-gnsaMobileAuditExecution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.dev.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.dev.xcconfig"; sourceTree = "<group>"; };
 		90586F90F4BE4AA298394ECB /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../src/assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		9B13DD2566A143C98C8E326C /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		B2C8A9A02734A375D1CEC9F9 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +198,8 @@
 				DFEAF54A8EF3B8E2F70F4898 /* Pods-gnsaMobileAuditExecution.release.xcconfig */,
 				E426FB6633C899727F6CFD3E /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig */,
 				B2C8A9A02734A375D1CEC9F9 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */,
+				8D03E3AEEE56A21D9F2B56D6 /* Pods-gnsaMobileAuditExecution.dev.xcconfig */,
+				5704D8B00C57147D8E17087A /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -742,7 +746,7 @@
 		};
 		9EFEEB6E26E0AB7200AC7793 /* Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFEAF54A8EF3B8E2F70F4898 /* Pods-gnsaMobileAuditExecution.release.xcconfig */;
+			baseConfigurationReference = 8D03E3AEEE56A21D9F2B56D6 /* Pods-gnsaMobileAuditExecution.dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -772,7 +776,7 @@
 		};
 		9EFEEB6F26E0AB7200AC7793 /* Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2C8A9A02734A375D1CEC9F9 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */;
+			baseConfigurationReference = 5704D8B00C57147D8E17087A /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {MultiValue} from '../interfaces/survey';
 import {StyleSheet, View} from 'react-native';
-import {Title} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import Bus from '../assets/icons/productGroups/Bus.svg';
 import Pc from '../assets/icons/productGroups/PC.svg';
 import Truck from '../assets/icons/productGroups/Truck.svg';
@@ -16,54 +16,79 @@ import Mitsubishi from '../assets/icons/brands/Mitsubishi.svg';
 import Setra from '../assets/icons/brands/SETRA.svg';
 import Smart from '../assets/icons/brands/Smart.svg';
 import WesternStarTrucks from '../assets/icons/brands/WesternStarTrucks.svg';
+import Typography from './Typography';
 
 interface ServicesProps {
-  services: MultiValue[];
+  services?: MultiValue[];
+  showNumber?: number;
 }
 
-function Services({services}: ServicesProps) {
-  const servicesValues = services?.map(i => i.value);
+function Services({services, showNumber}: ServicesProps) {
+  const {colors} = useTheme();
+  if (!services) {
+    return null;
+  }
+  const allValues = services?.map(i => i.value);
+  const servicesValues = showNumber
+    ? allValues.slice(0, showNumber)
+    : allValues;
+  const restNumber = showNumber && allValues.slice(showNumber).length;
+  const restText = restNumber && `${restNumber} more`;
+  const styles = makeStyles(colors);
   return (
-    <View style={styles.servicesContainer}>
-      {servicesValues?.map(i => {
-        const [productGroup, brand, activity] = i.split(' : ');
-        return (
-          <View style={styles.serviceContainer} key={i}>
-            <View style={styles.iconContainer}>
-              {getProductGroupIcon(productGroup)}
+    <>
+      <View style={styles.servicesContainer}>
+        {servicesValues?.map(i => {
+          const [productGroup, brand, activity] = i.split(' : ');
+          return (
+            <View style={styles.serviceContainer} key={i}>
+              <View style={styles.iconContainer}>
+                {getProductGroupIcon(productGroup)}
+              </View>
+              <View style={styles.iconContainer}>{getBrandIcon(brand)}</View>
+              <Typography
+                size="Body 1"
+                style={{
+                  height: 18,
+                }}>
+                {activity}
+              </Typography>
             </View>
-            <View style={styles.iconContainer}>{getBrandIcon(brand)}</View>
-            <View>
-              <Title style={styles.activity}>{activity}</Title>
-            </View>
-          </View>
-        );
-      })}
-    </View>
+          );
+        })}
+      </View>
+      {!!restNumber && (
+        <Typography style={styles.hint} size="Body 1">
+          {restText}
+        </Typography>
+      )}
+    </>
   );
 }
 
 export default React.memo(Services);
 
-const styles = StyleSheet.create({
-  servicesContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  iconContainer: {
-    marginRight: 8,
-  },
-  activity: {
-    height: 30,
-  },
-  serviceContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 25,
-  },
-});
+const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
+  StyleSheet.create({
+    hint: {
+      color: colors.text50,
+    },
+    servicesContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
+    iconContainer: {
+      marginRight: 8,
+    },
+    serviceContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginRight: 25,
+      marginBottom: 12,
+    },
+  });
 
 function getProductGroupIcon(v: string) {
   switch (v.toLowerCase()) {

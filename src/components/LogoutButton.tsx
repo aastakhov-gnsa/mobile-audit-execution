@@ -7,6 +7,7 @@ import {logout} from '../features/Auth/authReducer';
 import {AuthContext} from '../context/AuthContext';
 import {useDispatch} from '../utils/store/configureStore';
 import {StyleSheet} from 'react-native';
+import {surveyApi} from '../features/Survey/surveyService';
 
 function LogoutButton() {
   const authContext = React.useContext(AuthContext);
@@ -23,6 +24,7 @@ function LogoutButton() {
         await Storage.clearStorage();
         authContext.setInProgress(false);
         dispatch(logout());
+        dispatch(surveyApi.util.resetApiState());
       }
     } catch (error) {
       console.error('sing off error::', error);

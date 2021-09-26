@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {authorize} from 'react-native-app-auth';
 import {AUTH_CONFIG} from '../../../config';
-import {Image, StyleSheet, View} from 'react-native';
+import {Alert, Image, StyleSheet, View} from 'react-native';
 import Page from './components/Page';
 import Spinner from './components/Spinner';
 import {Button} from 'react-native-paper';
@@ -20,7 +20,8 @@ const image = require('./assets/logo.png');
 function AuthScreen() {
   const authContext = React.useContext(AuthContext);
   const dispatch = useDispatch();
-  const token = useSelector(store => store.auth.token);
+  const {tokenLoading, tokenError} = useSelector(store => store.tokenUtil);
+  const {token} = useSelector(store => store.auth);
   useEffect(() => {
     const setToken = async () => {
       if (token) {
@@ -32,6 +33,7 @@ function AuthScreen() {
   }, [token, authContext]);
 
   const doAuthorize = React.useCallback(async () => {
+    console.log('doAuthorize press');
     authContext.setInProgress(true);
     try {
       // SSO: auth
@@ -62,14 +64,16 @@ function AuthScreen() {
       // end of authorization
       authContext.setInProgress(false);
     } catch (error) {
-      console.error(error);
+      console.error('Authentication failed', error);
+      Alert.alert('Authentication failed', error);
       authContext.setInProgress(false);
     }
   }, [authContext, dispatch]);
 
   return (
     <Page>
-      <Spinner inProgress={authContext.inProgress} />
+      {tokenError && Alert.alert('Authentication failed', tokenError)}
+      <Spinner inProgress={authContext.inProgress || tokenLoading} />
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <Image source={image} style={styles.logo} />

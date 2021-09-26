@@ -16,8 +16,6 @@ export default React.memo(ListContainer);
 
 const styles = StyleSheet.create({
   scrollView: {
-    paddingLeft: '4%',
-    paddingRight: '4%',
     height: '100%',
   },
 });

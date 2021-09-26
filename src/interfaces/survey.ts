@@ -3,7 +3,7 @@ export interface Survey {
   // auditManagerName: null
   auditNumber: string;
   // auditorId: null
-  // auditorName: null
+  auditorName: string;
   // auditorNameRo: null
   // checkpointList: null
   // checkpoints: null

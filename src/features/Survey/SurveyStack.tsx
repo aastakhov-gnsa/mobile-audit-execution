@@ -9,6 +9,7 @@ import ContactSupportScreen from '../ContactSupport/ContactSupportScreen';
 import UserManualScreen from '../UserManual/UserManualScreen';
 import UserAvatar from '../../components/UserAvatar';
 import HeaderControlsContainer from '../../components/HeaderControlsContainer';
+import AuditDetailsScreen from '../AuditDetails/AuditDetailsScreen';
 
 function SurveyStack() {
   const SurveysHeaderRight = React.useCallback(() => <HeaderRight />, []);
@@ -49,6 +50,11 @@ function SurveyStack() {
           name={ScreenNames.LegalNoticesAndTerms}
           options={{title: 'Legal Notices and Terms'}}
           component={LegalNoticesAndTermsScreen}
+        />
+        <Surveys.Screen
+          name={ScreenNames.AuditDetails}
+          options={{title: 'Audit Details'}}
+          component={AuditDetailsScreen}
         />
       </Surveys.Group>
     </Surveys.Navigator>
