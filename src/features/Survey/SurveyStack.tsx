@@ -10,6 +10,7 @@ import UserManualScreen from '../UserManual/UserManualScreen';
 import UserAvatar from '../../components/UserAvatar';
 import HeaderControlsContainer from '../../components/HeaderControlsContainer';
 import AuditDetailsScreen from '../AuditDetails/AuditDetailsScreen';
+import StandardListScreen from '../StandardList/StandardListScreen';
 
 function SurveyStack() {
   const SurveysHeaderRight = React.useCallback(() => <HeaderRight />, []);
@@ -33,6 +34,10 @@ function SurveyStack() {
             headerRight: SurveysHeaderRight,
             headerLeft: SurveysHeaderLeft,
           }}
+        />
+        <Surveys.Screen
+          name={ScreenNames.StandardList}
+          component={StandardListScreen}
         />
       </Surveys.Group>
       <Surveys.Group screenOptions={{presentation: 'modal'}}>

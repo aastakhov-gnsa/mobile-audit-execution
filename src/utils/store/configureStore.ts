@@ -18,6 +18,7 @@ import {
 } from 'react-redux';
 import {authReducer} from '../../features/Auth/authReducer';
 import {tokenReducer} from '../../features/Auth/tokenReducer';
+import {filtersReducer} from '../../components/Filters/filtersReducer';
 
 const persistConfig = {
   key: 'root',
@@ -27,6 +28,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  [filtersReducer.name]: filtersReducer.reducer,
   [authReducer.name]: authReducer.reducer,
   [tokenReducer.name]: tokenReducer.reducer,
   [surveyApi.reducerPath]: surveyApi.reducer,

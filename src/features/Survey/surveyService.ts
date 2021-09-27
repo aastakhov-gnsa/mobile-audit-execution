@@ -3,6 +3,7 @@ import {Survey} from '../../interfaces/survey';
 import {RootState} from '../../utils/store/configureStore';
 import {GnsaUser} from '../../interfaces/User';
 import {API_URI} from '../../../config';
+import {AuditStandardExecution} from '../../interfaces/standard';
 
 export const surveyApi = createApi({
   reducerPath: 'surveyApi',
@@ -20,7 +21,7 @@ export const surveyApi = createApi({
     allSurveys: builder.query<Survey[], string>({
       query: () => 'surveys',
     }),
-    survey: builder.query<Survey, number | string>({
+    survey: builder.query<AuditStandardExecution[], number | string>({
       query: (id: number | string) => `survey-download/${id}`,
     }),
     userInfo: builder.query<GnsaUser, string>({

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import themeConfig from '../../../themeConfig';
 import {ICON_SIZE} from '../../constants/constants';
@@ -11,7 +11,12 @@ function HeaderRight() {
     <HeaderControlsContainer>
       <Help style={helpIconStyle} />
       {/*todo implement language switching*/}
-      <Icon name="translate" size={ICON_SIZE} style={styles.icon} />
+      <Icon
+        name="translate"
+        size={ICON_SIZE}
+        style={styles.icon}
+        onPress={() => Alert.alert('TODO language switching')}
+      />
     </HeaderControlsContainer>
   );
 }

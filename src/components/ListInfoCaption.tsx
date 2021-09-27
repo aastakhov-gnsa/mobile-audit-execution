@@ -22,7 +22,6 @@ export default React.memo(ListInfoCaption);
 
 const styles = StyleSheet.create({
   info: {
-    paddingTop: '1%',
     paddingBottom: '2%',
     display: 'flex',
     flexDirection: 'row',

@@ -7,6 +7,7 @@ export const Stack = createStackNavigator();
 export const Surveys = createStackNavigator();
 
 export enum ScreenNames {
+  StandardList = 'StandardList',
   AuditDetails = 'AuditDetails',
   Surveys = 'Surveys',
   SurveysStack = 'SurveysStack',
