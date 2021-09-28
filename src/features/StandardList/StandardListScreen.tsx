@@ -2,7 +2,7 @@ import React from 'react';
 import ScreenContainer from '../../components/ScreenContainer';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {surveyApi, useAllSurveysQuery} from '../Survey/surveyService';
-import {Alert, StatusBar, StyleSheet} from 'react-native';
+import {StatusBar} from 'react-native';
 import themeConfig from '../../../themeConfig';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import {AuditStandardExecution} from '../../interfaces/standard';
@@ -12,15 +12,11 @@ import Filters from '../../components/Filters/Filters';
 import {ScreenNames} from '../../navigation/navigation';
 import {FilterValues} from '../../interfaces/filters';
 import {useSelector} from '../../utils/store/configureStore';
-import HeaderControlsContainer from '../../components/HeaderControlsContainer';
-import Help from '../../components/HeaderRight/components/Help';
-import {useTheme} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {ICON_SIZE} from '../../constants/constants';
 import {
   NavigationParams,
   StandardListRouteParams,
 } from '../../interfaces/navigation';
+import EvaluationHeaderRight from '../../components/HeaderRight/EvaluationHeaderRight';
 
 const filterValues: FilterValues = [
   {
@@ -56,8 +52,6 @@ const filterValues: FilterValues = [
 function StandardListScreen() {
   const route = useRoute<StandardListRouteParams>();
   const navigation = useNavigation<NavigationParams>();
-  const {colors} = useTheme();
-  const styles = makeStyles(colors);
   const {id} = route.params;
   const {auditData} = useAllSurveysQuery('', {
     selectFromResult: result => ({
@@ -75,27 +69,9 @@ function StandardListScreen() {
   React.useEffect(() => {
     navigation.setOptions({
       title: auditData?.number,
-      headerRight: () => (
-        <HeaderControlsContainer>
-          <Icon
-            name="information-outline"
-            size={ICON_SIZE}
-            style={styles.icon}
-            onPress={() =>
-              navigation.navigate(ScreenNames.AuditDetails, {id: id})
-            }
-          />
-          <Help style={styles.icon} />
-          {/*todo implement language switching*/}
-          <Icon
-            name="translate"
-            size={ICON_SIZE}
-            onPress={() => Alert.alert('TODO language switching')}
-          />
-        </HeaderControlsContainer>
-      ),
+      headerRight: () => <EvaluationHeaderRight surveyId={id} />,
     });
-  }, [navigation, auditData, styles.icon, id]);
+  }, [navigation, auditData, id]);
   const keyExtractor = React.useCallback(
     (item: AuditStandardExecution) => item.id,
     [],
@@ -134,11 +110,3 @@ function StandardListScreen() {
 }
 
 export default React.memo(StandardListScreen);
-
-const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
-  StyleSheet.create({
-    icon: {
-      marginRight: 20,
-      color: colors.text,
-    },
-  });
