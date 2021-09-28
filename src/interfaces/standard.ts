@@ -28,12 +28,23 @@ export interface AuditStandardExecution extends AnyData {
 
 export interface StandardQuestion {
   id: string;
+  vstamp: number;
   mcName: string;
+  mcDescription: string;
   optionsExecution: Array<{
     value: string;
     hint: string;
     id: string;
+    resultCd: string;
   }>;
+  mcAuditType: string;
+  mcAuditCheckpoint: string;
+  options: MultiValue[];
+  attachedComment: string;
+  commentType: 'Internal' | 'External';
+  resultCd: string;
+  files: MultiValue[];
+  isOptionsPresent: boolean;
 }
 
 export interface OverruleComment {

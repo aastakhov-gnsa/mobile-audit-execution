@@ -13,11 +13,18 @@ import {Text} from 'react-native-paper';
 import themeConfig from '../../../../themeConfig';
 import {ScreenNames} from '../../../navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
+import {
+  NavigationParams,
+  SurveysStackParamList,
+} from '../../../interfaces/navigation';
 
 interface HelpProps {
   style?: StyleProp<TextStyle>;
 }
-const helpMenu = [
+const helpMenu: Array<{
+  label: string;
+  screenName: keyof SurveysStackParamList;
+}> = [
   {
     label: 'User Manual',
     screenName: ScreenNames.UserManual,
@@ -28,13 +35,13 @@ const helpMenu = [
   },
 ];
 function Help({style}: HelpProps) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationParams>();
   const [visible, setVisible] = React.useState(false);
   const handleVisible = React.useCallback(() => {
     setVisible(!visible);
   }, [visible]);
   const createNavigationHandler = React.useCallback(
-    (name: string) => () => {
+    (name: keyof SurveysStackParamList) => () => {
       handleVisible();
       navigation.navigate(name);
     },
