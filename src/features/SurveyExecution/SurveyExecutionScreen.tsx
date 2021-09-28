@@ -3,7 +3,7 @@ import React from 'react';
 import Typography from '../../components/Typography';
 import {surveyApi} from '../Survey/surveyService';
 import {ScrollView} from 'react-native-gesture-handler';
-import {StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import StandardQuestion from './components/StandardQuestion';
 import ScreenContainer from '../../components/ScreenContainer';
@@ -11,12 +11,17 @@ import ItemWrapper from '../../components/ItemWrapper';
 import {noDataIndex} from '../../constants/constants';
 import StandardInformation from './components/StandardInformation';
 import NavigationBetweenStandards from './components/NavigationBetweenStandards';
-import {SurveyExecutionRouteParams} from '../../interfaces/navigation';
+import {
+  NavigationParams,
+  SurveyExecutionRouteParams,
+} from '../../interfaces/navigation';
+import themeConfig from '../../../themeConfig';
+import EvaluationHeaderRight from '../../components/HeaderRight/EvaluationHeaderRight';
 
 export default function SurveyExecutionScreen() {
   const {colors} = useTheme();
   const styles = makeStyles(colors);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationParams>();
   const route = useRoute<SurveyExecutionRouteParams>();
   const {surveyId, standardId} = route.params;
   const {standardData, standardLength, standardIndex} =
@@ -39,13 +44,18 @@ export default function SurveyExecutionScreen() {
           Evaluation - {standardIndex} of {standardLength}
         </Typography>
       ),
+      headerRight: () => <EvaluationHeaderRight surveyId={surveyId} />,
     });
-  }, [navigation, standardLength, standardIndex]);
+  }, [navigation, standardLength, standardIndex, surveyId]);
   if (!surveyId) {
     return null;
   }
   return (
     <ScreenContainer>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={themeConfig.defaultTheme.colors.onSurface}
+      />
       <ScrollView>
         <NavigationBetweenStandards
           standardId={standardId}
