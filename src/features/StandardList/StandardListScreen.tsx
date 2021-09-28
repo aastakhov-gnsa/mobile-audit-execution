@@ -17,10 +17,10 @@ import Help from '../../components/HeaderRight/components/Help';
 import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ICON_SIZE} from '../../constants/constants';
-
-interface StandardListParams {
-  id: string;
-}
+import {
+  NavigationParams,
+  StandardListRouteParams,
+} from '../../interfaces/navigation';
 
 const filterValues: FilterValues = [
   {
@@ -54,11 +54,11 @@ const filterValues: FilterValues = [
 ];
 
 function StandardListScreen() {
-  const route = useRoute();
-  const navigation = useNavigation();
+  const route = useRoute<StandardListRouteParams>();
+  const navigation = useNavigation<NavigationParams>();
   const {colors} = useTheme();
   const styles = makeStyles(colors);
-  const {id} = route.params as StandardListParams;
+  const {id} = route.params;
   const {auditData} = useAllSurveysQuery('', {
     selectFromResult: result => ({
       ...result,
@@ -95,7 +95,7 @@ function StandardListScreen() {
         </HeaderControlsContainer>
       ),
     });
-  }, [navigation, auditData]);
+  }, [navigation, auditData, styles.icon, id]);
   const keyExtractor = React.useCallback(
     (item: AuditStandardExecution) => item.id,
     [],

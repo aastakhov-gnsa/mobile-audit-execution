@@ -6,6 +6,9 @@ import Typography from './Typography';
 import StatusWithIcon from './StatusWithIcon';
 import Services from './Services';
 import Checkpoint from './Checkpoint';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNames} from '../navigation/navigation';
+import {NavigationParams} from '../interfaces/navigation';
 
 interface StandardCardProps {
   id: string;
@@ -13,6 +16,7 @@ interface StandardCardProps {
 }
 
 function StandardCard({id, surveyId}: StandardCardProps) {
+  const navigation = useNavigation<NavigationParams>();
   const {data} = surveyApi.endpoints.survey.useQueryState(surveyId, {
     selectFromResult: result => ({
       data: result.data?.find(i => i.id === id),
@@ -21,7 +25,14 @@ function StandardCard({id, surveyId}: StandardCardProps) {
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   return (
-    <Card style={styles.card}>
+    <Card
+      style={styles.card}
+      onPress={() =>
+        navigation.navigate(ScreenNames.SurveyExecution, {
+          surveyId: surveyId,
+          standardId: id,
+        })
+      }>
       <Card.Title
         title={
           <Typography size="Body 1" style={styles.titleText}>

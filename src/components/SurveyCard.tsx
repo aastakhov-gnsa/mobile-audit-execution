@@ -14,6 +14,7 @@ import {ScreenNames} from '../navigation/navigation';
 import ItemWrapper from './ItemWrapper';
 import CompanyAddress from './CompanyAddress';
 import Typography from './Typography';
+import {NavigationParams} from '../interfaces/navigation';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -25,7 +26,7 @@ function SurveyCard({survey}: {survey: Survey}) {
     resultCd,
     services,
   } = survey;
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationParams>();
   const [skip, setSkip] = React.useState(true);
   const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
   const {data: queryData, isLoading} = useSurveyQuery(id, {skip});

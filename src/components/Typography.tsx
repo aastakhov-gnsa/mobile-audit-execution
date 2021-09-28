@@ -21,7 +21,7 @@ export type TypographyProps = TextProps & {
 
 function Typography({style, size, ...rest}: TypographyProps) {
   const customStyle = StyleSheet.compose(map[size], style);
-  return <Text style={customStyle} children={rest.children} />;
+  return <Text style={customStyle} children={rest.children} {...rest} />;
 }
 
 const map: Record<TypographyProps['size'], TextStyle> = {

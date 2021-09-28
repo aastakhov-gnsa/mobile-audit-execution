@@ -7,9 +7,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ICON_SIZE} from '../constants/constants';
 import {ScreenNames} from '../navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
+import {NavigationParams} from '../interfaces/navigation';
 
 function UserInfo({fullName}: {fullName: string}) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationParams>();
   const openLegalNotices = React.useCallback(() => {
     navigation.navigate(ScreenNames.LegalNoticesAndTerms);
   }, [navigation]);
