@@ -1,19 +1,24 @@
 import React from 'react';
-import {Subheading} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Typography from './Typography';
+import {StandardStatus} from '../interfaces/standard';
 
 interface StatusWithIconProps {
-  status?: string;
+  status?: StandardStatus;
 }
 function StatusWithIcon({status}: StatusWithIconProps) {
+  const {colors} = useTheme();
   if (!status) {
     return null;
   }
   return (
     <View style={styles.statusContainer}>
       {getStatusIcon(status)}
-      <Subheading>{status}</Subheading>
+      <Typography size="Body 1" style={textStyle(colors)}>
+        {status}
+      </Typography>
     </View>
   );
 }
@@ -30,6 +35,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+});
+
+const textStyle = (colors: ReactNativePaper.ThemeColors) => ({
+  color: colors.text50,
 });
 
 function getStatusIcon(v: string) {

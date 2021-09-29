@@ -3,10 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ScreenNames} from '../../../navigation/navigation';
 import Typography from '../../../components/Typography';
-import {surveyApi} from '../../Survey/surveyService';
 import {noDataIndex} from '../../../constants/constants';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../../../interfaces/navigation';
+import {useSelector} from '../../../utils/store/configureStore';
+import {StandardStatus} from '../../../interfaces/standard';
 
 interface NavigationBetweenStandardsProps {
   surveyId: string;
@@ -18,27 +19,28 @@ function NavigationBetweenStandards({
 }: NavigationBetweenStandardsProps) {
   const navigation = useNavigation<NavigationParams>();
 
-  const {previousStandard, nextStandard} =
-    surveyApi.endpoints.survey.useQueryState(surveyId, {
-      selectFromResult: result => {
-        const index =
-          result.data?.findIndex(i => i.id === standardId) ?? noDataIndex;
-        const dataLength = result.data?.length;
-        return {
-          previousStandard: index > 0 && {
-            index: index - 1,
-            id: result.data![index - 1].id,
-            name: result.data![index - 1].standardName,
-          },
-          nextStandard: dataLength &&
-            index < dataLength - 1 && {
-              index: index + 1,
-              id: result.data![index + 1].id,
-              name: result.data![index + 1].standardName,
-            },
-        };
+  const {previousStandard, nextStandard} = useSelector(state => {
+    const data = state.evaluation[surveyId].standards;
+    const index = data?.findIndex(i => i.id === standardId) ?? noDataIndex;
+    const prevStandard = data![index - 1];
+    const nxtStandard = data![index + 1];
+    const dataLength = data?.length;
+    return {
+      previousStandard: index > 0 && {
+        index: index - 1,
+        id: prevStandard.id,
+        name: prevStandard.standardName,
+        status: prevStandard.status,
       },
-    });
+      nextStandard: dataLength &&
+        index < dataLength - 1 && {
+          index: index + 1,
+          id: nxtStandard.id,
+          name: nxtStandard.standardName,
+          status: nxtStandard.status,
+        },
+    };
+  });
   return (
     <View style={styles.standardsNavigation}>
       <View style={styles.navigationLeft}>
@@ -50,7 +52,9 @@ function NavigationBetweenStandards({
                 standardId: previousStandard.id,
               })
             }>
-            <Typography size="Body 1">〈 {previousStandard.name}</Typography>
+            <Typography size="Body 1">
+              〈 {previousStandard.name} {getGlyph(previousStandard.status)}
+            </Typography>
           </TouchableOpacity>
         )}
       </View>
@@ -63,7 +67,9 @@ function NavigationBetweenStandards({
                 standardId: nextStandard.id,
               })
             }>
-            <Typography size="Body 1">{nextStandard.name} 〉</Typography>
+            <Typography size="Body 1">
+              {getGlyph(nextStandard.status)} {nextStandard.name} 〉
+            </Typography>
           </TouchableOpacity>
         )}
       </View>
@@ -78,6 +84,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
     marginBottom: 40,
   },
   navigationLeft: {
@@ -87,3 +94,20 @@ const styles = StyleSheet.create({
     marginRight: -10,
   },
 });
+
+function getGlyph(status?: StandardStatus) {
+  switch (status?.toLowerCase()) {
+    case 'passed':
+    case 'passed - overruled':
+    case 'completed': {
+      return '✓';
+    }
+    case 'failed - overruled':
+    case 'failed': {
+      return '✗';
+    }
+    default: {
+      return '';
+    }
+  }
+}

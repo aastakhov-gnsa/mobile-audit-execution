@@ -1,7 +1,6 @@
 import React from 'react';
 import {Card, Chip, useTheme} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
-import {surveyApi} from '../features/Survey/surveyService';
 import Typography from './Typography';
 import StatusWithIcon from './StatusWithIcon';
 import Services from './Services';
@@ -9,6 +8,7 @@ import Checkpoint from './Checkpoint';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../navigation/navigation';
 import {NavigationParams} from '../interfaces/navigation';
+import useStandardData from '../hooks/useStandardData';
 
 interface StandardCardProps {
   id: string;
@@ -17,11 +17,7 @@ interface StandardCardProps {
 
 function StandardCard({id, surveyId}: StandardCardProps) {
   const navigation = useNavigation<NavigationParams>();
-  const {data} = surveyApi.endpoints.survey.useQueryState(surveyId, {
-    selectFromResult: result => ({
-      data: result.data?.find(i => i.id === id),
-    }),
-  });
+  const data = useStandardData(surveyId, id);
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   return (

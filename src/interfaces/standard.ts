@@ -3,7 +3,12 @@ import {MultiValue} from './survey';
 type AnyData = Partial<
   Record<
     string,
-    string | number | MultiValue[] | OverruleComment | StandardQuestion[]
+    | string
+    | number
+    | MultiValue[]
+    | OverruleComment
+    | StandardQuestion[]
+    | StandardStatus
   >
 >;
 
@@ -12,7 +17,7 @@ export interface AuditStandardExecution extends AnyData {
   vstamp: number;
   attachedComment?: string;
   checkpoint?: string;
-  commentType?: string;
+  commentType?: CommentType;
   files?: MultiValue[];
   overruleComment?: OverruleComment;
   questionDTOList?: StandardQuestion[];
@@ -22,8 +27,10 @@ export interface AuditStandardExecution extends AnyData {
   standardNumber?: string;
   standardText?: string;
   standardType?: string;
-  status?: string;
+  status?: StandardStatus;
   statusIconType?: string;
+  infoForAuditor?: string;
+  requiredDocuments?: string;
 }
 
 export interface StandardQuestion {
@@ -35,14 +42,14 @@ export interface StandardQuestion {
     value: string;
     hint: string;
     id: string;
-    resultCd: string;
+    resultCd: ResultCd;
   }>;
   mcAuditType: string;
   mcAuditCheckpoint: string;
   options: MultiValue[];
   attachedComment: string;
   commentType: 'Internal' | 'External';
-  resultCd: string;
+  resultCd: ResultCd;
   files: MultiValue[];
   isOptionsPresent: boolean;
 }
@@ -51,3 +58,18 @@ export interface OverruleComment {
   value: string;
   overruledHint: string;
 }
+
+export type EmptyStatus = null;
+
+export type ResultCd = 'Passed' | 'Failed' | EmptyStatus;
+
+export type OverruleStatus = 'Passed - Overruled' | 'Failed - Overruled';
+
+export type StandardStatus =
+  | ResultCd
+  | OverruleStatus
+  | 'Open'
+  | 'Completed'
+  | 'In Progress';
+
+export type CommentType = 'External' | 'Internal';

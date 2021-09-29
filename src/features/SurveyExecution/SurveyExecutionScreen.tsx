@@ -1,7 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import Typography from '../../components/Typography';
-import {surveyApi} from '../Survey/surveyService';
 import {ScrollView} from 'react-native-gesture-handler';
 import {StatusBar, StyleSheet} from 'react-native';
 import {useTheme} from 'react-native-paper';
@@ -17,6 +16,10 @@ import {
 } from '../../interfaces/navigation';
 import themeConfig from '../../../themeConfig';
 import EvaluationHeaderRight from '../../components/HeaderRight/EvaluationHeaderRight';
+import {useSelector} from '../../utils/store/configureStore';
+import {shallowEqual} from 'react-redux';
+import AddComment from './components/AddComment';
+import OverruleResult from './components/OverruleResult';
 
 export default function SurveyExecutionScreen() {
   const {colors} = useTheme();
@@ -24,19 +27,16 @@ export default function SurveyExecutionScreen() {
   const navigation = useNavigation<NavigationParams>();
   const route = useRoute<SurveyExecutionRouteParams>();
   const {surveyId, standardId} = route.params;
-  const {standardData, standardLength, standardIndex} =
-    surveyApi.endpoints.survey.useQueryState(surveyId, {
-      selectFromResult: result => {
-        const index =
-          result.data?.findIndex(i => i.id === standardId) ?? noDataIndex;
-        const dataLength = result.data?.length;
-        return {
-          standardLength: dataLength,
-          standardIndex: index > noDataIndex && index + 1,
-          standardData: index > noDataIndex ? result.data![index] : undefined,
-        };
-      },
-    });
+  const {standardLength, standardIndex, standardData} = useSelector(state => {
+    const data = state.evaluation[surveyId].standards;
+    const index = data?.findIndex(i => i.id === standardId) ?? noDataIndex;
+    const dataLength = data?.length;
+    return {
+      standardLength: dataLength,
+      standardIndex: index > noDataIndex && index + 1,
+      standardData: index > noDataIndex ? data![index] : undefined,
+    };
+  }, shallowEqual);
   React.useEffect(() => {
     navigation.setOptions({
       title: (
@@ -50,6 +50,7 @@ export default function SurveyExecutionScreen() {
   if (!surveyId) {
     return null;
   }
+  const overruled = standardData?.status?.toLowerCase().includes('overruled');
   return (
     <ScreenContainer>
       <StatusBar
@@ -65,15 +66,19 @@ export default function SurveyExecutionScreen() {
           <StandardInformation surveyId={surveyId} id={standardId} />
         </ItemWrapper>
         <ItemWrapper style={styles.controls} paddingValue={[0, 30]}>
-          <Typography size="Button" style={styles.button}>
-            EXTERNAL COMMENT
-          </Typography>
-          <Typography size="Button" style={styles.button}>
-            CHANGE RESULT
-          </Typography>
+          <AddComment
+            surveyId={surveyId}
+            standardId={standardId}
+            attachedComment={standardData?.attachedComment}
+            commentType={standardData?.commentType}
+          />
+          <OverruleResult surveyId={surveyId} standardId={standardId} />
         </ItemWrapper>
         {standardData?.questionDTOList?.map((item, index) => (
           <StandardQuestion
+            disabled={overruled}
+            surveyId={surveyId}
+            standardId={standardId}
             question={item}
             key={item.id}
             questionIndex={index}

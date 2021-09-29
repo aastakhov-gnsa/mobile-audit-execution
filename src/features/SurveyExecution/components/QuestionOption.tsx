@@ -3,16 +3,26 @@ import {StyleSheet, View} from 'react-native';
 import ItemWrapper from '../../../components/ItemWrapper';
 import Typography from '../../../components/Typography';
 import {Button, useTheme} from 'react-native-paper';
+import {ResultCd} from '../../../interfaces/standard';
 
 interface QuestionOptionProps {
   title: string;
-  value: string;
   description: string;
+  resultCd?: ResultCd;
+  disabled?: boolean;
+  onChange: (rCd: ResultCd) => void;
 }
 
-function QuestionOption({title, description}: QuestionOptionProps) {
+function QuestionOption({
+  title,
+  description,
+  resultCd,
+  onChange,
+  disabled,
+}: QuestionOptionProps) {
   const {colors} = useTheme();
   const styles = makeStyles(colors);
+
   return (
     <View style={styles.optionContainer}>
       <View style={styles.optionDescription}>
@@ -21,8 +31,18 @@ function QuestionOption({title, description}: QuestionOptionProps) {
         </ItemWrapper>
       </View>
       <View style={styles.optionButtons}>
-        <Button mode="outlined">yes</Button>
-        <Button mode="outlined">no</Button>
+        <Button
+          disabled={disabled}
+          mode={resultCd === 'Passed' ? 'contained' : 'outlined'}
+          onPress={() => onChange('Passed')}>
+          yes
+        </Button>
+        <Button
+          disabled={disabled}
+          mode={resultCd === 'Failed' ? 'contained' : 'outlined'}
+          onPress={() => onChange('Failed')}>
+          no
+        </Button>
       </View>
     </View>
   );

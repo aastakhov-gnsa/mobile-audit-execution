@@ -46,6 +46,8 @@ declare global {
       onBackground10?: string;
       onBackgroundAlpha35?: string;
       text50?: string;
+      yellow?: string;
+      green?: string;
     }
 
     interface ThemeAnimation {

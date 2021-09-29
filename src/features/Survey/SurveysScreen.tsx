@@ -5,17 +5,18 @@ import ListContainer from '../../components/ListContainer';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import SurveyCard from '../../components/SurveyCard';
 import {FlatList} from 'react-native-gesture-handler';
-import {StatusBar} from 'react-native';
+import {Alert, StatusBar} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
 import ScreenContainer from '../../components/ScreenContainer';
 import {format, toDate} from 'date-fns';
 import {useSelector} from '../../utils/store/configureStore';
-import {QueryStatus} from '@reduxjs/toolkit/query';
+import {skipToken} from '@reduxjs/toolkit/query';
 import Filters from '../../components/Filters/Filters';
 import {ScreenNames} from '../../navigation/navigation';
 import {FilterItem, FilterValues} from '../../interfaces/filters';
 import {EMPTY_ARRAY} from '../../constants/constants';
+import NetInfo from '@react-native-community/netinfo';
 
 enum SurveysFilters {
   allSurveys = 'All Surveys',
@@ -40,6 +41,16 @@ const possibleFilters: FilterValues = [
 ];
 
 function SurveysScreen() {
+  const [isConnected, setIsConnected] = React.useState(false);
+  React.useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+      setIsConnected(state.isConnected ?? false);
+    });
+
+    return () => unsubscribe();
+  }, []);
   const filter = useSelector(
     state => state.filters?.[ScreenNames.Surveys]?.[ScreenNames.Surveys],
   );
@@ -47,8 +58,8 @@ function SurveysScreen() {
     data: wholeData,
     error,
     isLoading,
-    fulfilledTimeStamp,
-  } = useAllSurveysQuery('');
+  } = useAllSurveysQuery(isConnected ? '' : skipToken);
+  const {fulfilledTimeStamp} = useSelector(state => state.surveys);
 
   const data = useFilteredSurveys(filter, wholeData);
 
@@ -61,10 +72,12 @@ function SurveysScreen() {
   if (isLoading) {
     return <Spinner inProgress />;
   }
-  console.log('-------');
-  console.log('wholeData', wholeData);
-  console.log('data', data);
-  console.log('error', error);
+
+  if (error) {
+    Alert.alert('Error', JSON.stringify(error, null, 2));
+  }
+
+  console.log('--SurveysScreen');
   return (
     <ScreenContainer>
       <StatusBar
@@ -76,11 +89,11 @@ function SurveysScreen() {
           leftCaption={`${
             filter?.value ? filter.value : SurveysFilters.allSurveys
           } · ${data?.length ?? 0}`}
-          rightCaption={`Updated ${
+          rightCaption={
             fulfilledTimeStamp
-              ? format(toDate(fulfilledTimeStamp), 'PPP kk:mm')
+              ? `Updated ${format(toDate(fulfilledTimeStamp), 'PPP kk:mm')}`
               : ''
-          }`}
+          }
         />
         <Filters
           screenName={ScreenNames.Surveys}
@@ -100,26 +113,15 @@ function SurveysScreen() {
 export default React.memo(SurveysScreen);
 
 function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
-  const downloadableData = useSelector(state => {
-    return wholeData?.filter(
-      i =>
-        state.surveyApi.queries[`survey("${i.id}")`]?.status !==
-        QueryStatus.fulfilled,
-    );
-  });
-  const inProgressData = useSelector(state => {
-    return wholeData?.filter(
-      i =>
-        state.surveyApi.queries[`survey("${i.id}")`]?.status ===
-        QueryStatus.fulfilled,
-    );
-  });
+  const {downloadedData, downloadedDataKeys} = useSelector(state => ({
+    downloadedData: Object.values(state.evaluation),
+    downloadedDataKeys: Object.keys(state.evaluation),
+  }));
+  const downloadableData = wholeData?.filter(
+    i => !downloadedDataKeys.includes(i.id) ?? EMPTY_ARRAY,
+  );
 
   return React.useMemo(() => {
-    if (!wholeData) {
-      return EMPTY_ARRAY;
-    }
-
     let data;
 
     switch (filter?.value) {
@@ -127,14 +129,14 @@ function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
         data = downloadableData;
         break;
       case SurveysFilters.inProgress:
-        data = inProgressData;
+        data = downloadedData.filter(i => i.resultCd === 'Open');
         break;
       case SurveysFilters.finished:
-        data = wholeData; //todo filter finished already surveys
+        data = downloadedData.filter(i => i.resultCd !== 'Open');
         break;
       default:
-        data = wholeData;
+        data = (wholeData ? wholeData : downloadedData) ?? EMPTY_ARRAY;
     }
     return data;
-  }, [downloadableData, filter?.value, inProgressData, wholeData]);
+  }, [downloadableData, downloadedData, filter?.value, wholeData]);
 }
