@@ -64,7 +64,7 @@ function StandardListScreen() {
   );
   const {data: allData} = surveyApi.endpoints.survey.useQueryState(id);
   const data = filter
-    ? allData?.filter(i => i[filter.fieldName] === filter.value) // todo filter by several filters
+    ? allData?.filter(i => i[filter.fieldName] === filter.value) //todo filter by several filters
     : allData;
   React.useEffect(() => {
     navigation.setOptions({
