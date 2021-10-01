@@ -1,7 +1,6 @@
 import React from 'react';
 import ScreenContainer from '../../components/ScreenContainer';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {surveyApi, useAllSurveysQuery} from '../Survey/surveyService';
 import {StatusBar} from 'react-native';
 import themeConfig from '../../../themeConfig';
 import ListInfoCaption from '../../components/ListInfoCaption';
@@ -53,19 +52,18 @@ function StandardListScreen() {
   const route = useRoute<StandardListRouteParams>();
   const navigation = useNavigation<NavigationParams>();
   const {id} = route.params;
-  const {auditData} = useAllSurveysQuery('', {
-    selectFromResult: result => ({
-      ...result,
-      auditData: result.data?.find(i => i.id === id),
-    }),
-  });
+  const auditData = useSelector(state => state.evaluation[id]);
   const filter = useSelector(
     state => state.filters?.[ScreenNames.StandardList]?.[id],
   );
-  const {data: allData} = surveyApi.endpoints.survey.useQueryState(id);
-  const data = filter
-    ? allData?.filter(i => i[filter.fieldName] === filter.value) //todo filter by several filters
-    : allData;
+  const allData = auditData.standards;
+  const data = React.useMemo(
+    () =>
+      filter
+        ? allData?.filter(i => i[filter.fieldName] === filter.value) //todo filter by several filters
+        : allData,
+    [allData, filter],
+  );
   React.useEffect(() => {
     navigation.setOptions({
       title: auditData?.number,

@@ -40,6 +40,9 @@ const defaultTheme: ReactNativePaper.Theme = {
     onBackground10: '#E8E8E8',
     onBackgroundAlpha35: 'rgba(20, 20, 20, 0.35)',
     text50: '#898989',
+    error: '#E07070',
+    yellow: '#FF982B',
+    green: '#85BB60',
   },
   fonts: configureFonts(fontConfig),
 };

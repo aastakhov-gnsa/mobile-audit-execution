@@ -19,16 +19,23 @@ import {
 import {authReducer} from '../../features/Auth/authReducer';
 import {tokenReducer} from '../../features/Auth/tokenReducer';
 import {filtersReducer} from '../../components/Filters/filtersReducer';
+import {evaluationReducer} from '../../features/SurveyExecution/evaluationReducer';
+import fillingMiddleware from '../../features/SurveyExecution/fillingMiddleware';
+import {surveysReducer} from '../../features/Survey/surveysReducer';
+import fillTimeStampMiddleware from '../../features/Survey/fillTimeStampMiddleware';
+import standardStatusMiddleware from '../../features/SurveyExecution/standardStatusMiddleware';
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage: AsyncStorage,
-  blacklist: [tokenReducer.name],
+  blacklist: [tokenReducer.name, surveyApi.reducerPath],
 };
 
 const rootReducer = combineReducers({
+  [evaluationReducer.name]: evaluationReducer.reducer,
   [filtersReducer.name]: filtersReducer.reducer,
+  [surveysReducer.name]: surveysReducer.reducer,
   [authReducer.name]: authReducer.reducer,
   [tokenReducer.name]: tokenReducer.reducer,
   [surveyApi.reducerPath]: surveyApi.reducer,
@@ -43,7 +50,12 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(surveyApi.middleware);
+    }).concat(
+      surveyApi.middleware,
+      fillingMiddleware,
+      fillTimeStampMiddleware,
+      standardStatusMiddleware,
+    );
   },
 });
 

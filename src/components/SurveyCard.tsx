@@ -3,10 +3,10 @@ import {Survey} from '../interfaces/survey';
 import {Card, Button, useTheme, ActivityIndicator} from 'react-native-paper';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import Services from './Services';
 import StatusWithIcon from './StatusWithIcon';
-import {surveyApi, useSurveyQuery} from '../features/Survey/surveyService';
+import {useSurveyQuery} from '../features/Survey/surveyService';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ICON_SIZE} from '../constants/constants';
 import {useNavigation} from '@react-navigation/native';
@@ -15,6 +15,7 @@ import ItemWrapper from './ItemWrapper';
 import CompanyAddress from './CompanyAddress';
 import Typography from './Typography';
 import {NavigationParams} from '../interfaces/navigation';
+import {useSelector} from '../utils/store/configureStore';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -29,9 +30,11 @@ function SurveyCard({survey}: {survey: Survey}) {
   const navigation = useNavigation<NavigationParams>();
   const [skip, setSkip] = React.useState(true);
   const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
-  const {data: queryData, isLoading} = useSurveyQuery(id, {skip});
-  const {data: cacheData} = surveyApi.endpoints.survey.useQueryState(id);
-  const data = queryData || cacheData;
+  const {data: queryData, isLoading, error} = useSurveyQuery(id, {skip});
+  // const {data: cacheData} = surveyApi.endpoints.survey.useQueryState(id);
+  const downloadedData = useSelector(state => state.evaluation[id]);
+  // const data = queryData || cacheData || downloadedData;
+  const data = queryData || downloadedData;
 
   const {colors} = useTheme();
   const styles = makeStyles(colors);
@@ -51,6 +54,9 @@ function SurveyCard({survey}: {survey: Survey}) {
       navigation.navigate(ScreenNames.StandardList, {id: id});
     }
   }, [id, data, navigation]);
+  if (error) {
+    Alert.alert(JSON.stringify(error, null, 2));
+  }
   return (
     <Card style={styles.card} key={id} onPress={handlePress}>
       <Card.Title
