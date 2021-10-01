@@ -12,7 +12,8 @@ import {
 import {StyleSheet} from 'react-native';
 import ItemWrapper from './ItemWrapper';
 import Typography from './Typography';
-import {CommentType, OverruleStatus} from '../interfaces/standard';
+import {CommentType} from '../interfaces/standard';
+import {OverruleStatus} from '../interfaces/common';
 
 interface CommentModalProps {
   visible: boolean;

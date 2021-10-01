@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import ItemWrapper from '../../../components/ItemWrapper';
 import Typography from '../../../components/Typography';
 import {Button, useTheme} from 'react-native-paper';
-import {ResultCd} from '../../../interfaces/standard';
+import {ResultCd} from '../../../interfaces/common';
 
 interface QuestionOptionProps {
   title: string;

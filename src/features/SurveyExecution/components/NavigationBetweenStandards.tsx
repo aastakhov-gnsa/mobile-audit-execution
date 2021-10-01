@@ -7,7 +7,7 @@ import {noDataIndex} from '../../../constants/constants';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../../../interfaces/navigation';
 import {useSelector} from '../../../utils/store/configureStore';
-import {StandardStatus} from '../../../interfaces/standard';
+import {Status} from '../../../interfaces/common';
 
 interface NavigationBetweenStandardsProps {
   surveyId: string;
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function getGlyph(status?: StandardStatus) {
+function getGlyph(status?: Status) {
   switch (status?.toLowerCase()) {
     case 'passed':
     case 'passed - overruled':

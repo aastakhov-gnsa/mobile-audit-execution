@@ -1,11 +1,12 @@
 import React from 'react';
 import useModalVisibility from '../../../hooks/useModalVisibility';
-import {CommentType, OverruleStatus} from '../../../interfaces/standard';
+import {CommentType} from '../../../interfaces/standard';
 import TouchableText from '../../../components/TouchableText';
 import CommentModal from '../../../components/CommentModal';
 import {useDispatch} from '../../../utils/store/configureStore';
 import {overruleStandardResult} from '../evaluationReducer';
 import format from 'date-fns/format';
+import {OverruleStatus} from '../../../interfaces/common';
 
 interface OverruleResultProps {
   surveyId: string;

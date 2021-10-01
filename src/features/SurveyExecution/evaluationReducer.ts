@@ -1,14 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Evaluation} from '../../interfaces/evaluation';
-import {
-  AuditStandardExecution,
-  CommentType,
-  OverruleStatus,
-  ResultCd,
-  StandardStatus,
-} from '../../interfaces/standard';
+import {AuditStandardExecution, CommentType} from '../../interfaces/standard';
 import {Survey} from '../../interfaces/survey';
 import {EMPTY_ARRAY} from '../../constants/constants';
+import {OverruleStatus, ResultCd, Status} from '../../interfaces/common';
 
 const initState: Evaluation = {};
 export const evaluationReducer = createSlice({
@@ -112,7 +107,7 @@ export const evaluationReducer = createSlice({
       action: PayloadAction<{
         surveyId: string;
         standardId: string;
-        status: StandardStatus;
+        status: Status;
       }>,
     ) => {
       const {surveyId, standardId, status} = action.payload;
@@ -139,6 +134,17 @@ export const evaluationReducer = createSlice({
         }, ${time}`,
       };
     },
+    changeSurveyStatus: (
+      state,
+      action: PayloadAction<{
+        surveyId: string;
+        status: Status;
+      }>,
+    ) => {
+      const {surveyId, status} = action.payload;
+      const survey = state[surveyId];
+      survey.resultCd = status;
+    },
   },
 });
 
@@ -151,4 +157,5 @@ export const {
   changeQuestionOptionResult,
   changeStandardStatus,
   overruleStandardResult,
+  changeSurveyStatus,
 } = evaluationReducer.actions;

@@ -1,6 +1,6 @@
 import React from 'react';
 import TouchableText from '../../../components/TouchableText';
-import {CommentType, OverruleStatus} from '../../../interfaces/standard';
+import {CommentType} from '../../../interfaces/standard';
 import {useDispatch} from '../../../utils/store/configureStore';
 import {
   changeQuestionComment,
@@ -8,6 +8,7 @@ import {
 } from '../evaluationReducer';
 import CommentModal from '../../../components/CommentModal';
 import useModalVisibility from '../../../hooks/useModalVisibility';
+import {OverruleStatus} from '../../../interfaces/common';
 
 interface AddCommentProps {
   surveyId: string;
