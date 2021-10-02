@@ -24,6 +24,7 @@ import fillingMiddleware from '../../features/SurveyExecution/fillingMiddleware'
 import {surveysReducer} from '../../features/Survey/surveysReducer';
 import fillTimeStampMiddleware from '../../features/Survey/fillTimeStampMiddleware';
 import standardStatusMiddleware from '../../features/SurveyExecution/standardStatusMiddleware';
+import surveyStatusMiddleware from '../../features/SurveyExecution/surveyStatusMiddleware';
 
 const persistConfig = {
   key: 'root',
@@ -55,6 +56,7 @@ export const store = configureStore({
       fillingMiddleware,
       fillTimeStampMiddleware,
       standardStatusMiddleware,
+      surveyStatusMiddleware,
     );
   },
 });

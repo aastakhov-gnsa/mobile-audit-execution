@@ -1,3 +1,5 @@
+import {MultiValue, Status} from './common';
+
 export interface Survey {
   // attachedComment: null
   // auditManagerName: null
@@ -36,12 +38,12 @@ export interface Survey {
   // plannedDateForFilterPeriod: null
   // plannedDateRo: null
   receivingEntityConcatName: string;
-  resultCd: string;
+  resultCd: Status;
   // sendingEntityConcatName: null
   services: MultiValue[];
   // smAuditLineList: null
   // statusBgColor: null
-  statusCd: string;
+  statusCd: Status;
   // statusIconType: null
   // surveyClusterType: null
   // surveyExecutionResultCd: null
@@ -49,10 +51,4 @@ export interface Survey {
   // surveyResultColor: null
   // textNumber: null
   // uiPlannedDate: null
-}
-
-export interface MultiValue {
-  id: string;
-  value: string;
-  options?: Record<string, string>;
 }

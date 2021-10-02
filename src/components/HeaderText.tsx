@@ -1,13 +1,12 @@
 import React from 'react';
-import {StandardStatus} from '../interfaces/standard';
 import Typography from './Typography';
 import {StyleProp, StyleSheet, TextStyle} from 'react-native';
-import {ColorKey} from '../interfaces/common';
+import {ColorKey, Status} from '../interfaces/common';
 import {useTheme} from 'react-native-paper';
 
 interface StandardHeaderProps {
   children?: React.ReactNode;
-  status?: StandardStatus;
+  status?: Status;
   style?: StyleProp<TextStyle>;
 }
 
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function getStatusInfo(status?: StandardStatus): {
+function getStatusInfo(status?: Status): {
   color: ColorKey;
   suffix: string;
 } {

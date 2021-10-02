@@ -1,9 +1,6 @@
 import React from 'react';
 import Typography from '../../../components/Typography';
-import {
-  ResultCd,
-  StandardQuestion as StandardQuestionType,
-} from '../../../interfaces/standard';
+import {StandardQuestion as StandardQuestionType} from '../../../interfaces/standard';
 import ItemWrapper from '../../../components/ItemWrapper';
 import {Divider, useTheme} from 'react-native-paper';
 import QuestionOption from './QuestionOption';
@@ -16,6 +13,7 @@ import {
   changeQuestionOptionResult,
   changeQuestionResult,
 } from '../evaluationReducer';
+import {ResultCd} from '../../../interfaces/common';
 
 export interface StandardQuestionProps {
   standardId: string;

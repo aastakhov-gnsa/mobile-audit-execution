@@ -1,4 +1,4 @@
-import {MultiValue} from './survey';
+import {MultiValue, ResultCd, Status} from './common';
 
 type AnyData = Partial<
   Record<
@@ -8,7 +8,7 @@ type AnyData = Partial<
     | MultiValue[]
     | OverruleComment
     | StandardQuestion[]
-    | StandardStatus
+    | Status
   >
 >;
 
@@ -27,7 +27,7 @@ export interface AuditStandardExecution extends AnyData {
   standardNumber?: string;
   standardText?: string;
   standardType?: string;
-  status?: StandardStatus;
+  status?: Status;
   statusIconType?: string;
   infoForAuditor?: string;
   requiredDocuments?: string;
@@ -58,18 +58,5 @@ export interface OverruleComment {
   value: string;
   overruledHint: string;
 }
-
-export type EmptyStatus = null;
-
-export type ResultCd = 'Passed' | 'Failed' | EmptyStatus;
-
-export type OverruleStatus = 'Passed - Overruled' | 'Failed - Overruled';
-
-export type StandardStatus =
-  | ResultCd
-  | OverruleStatus
-  | 'Open'
-  | 'Completed'
-  | 'In Progress';
 
 export type CommentType = 'External' | 'Internal';

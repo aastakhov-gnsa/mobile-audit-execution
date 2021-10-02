@@ -3,10 +3,10 @@ import {useTheme} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Typography from './Typography';
-import {StandardStatus} from '../interfaces/standard';
+import {Status} from '../interfaces/common';
 
 interface StatusWithIconProps {
-  status?: StandardStatus;
+  status?: Status;
 }
 function StatusWithIcon({status}: StatusWithIconProps) {
   const {colors} = useTheme();

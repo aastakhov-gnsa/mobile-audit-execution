@@ -1,5 +1,4 @@
 import React from 'react';
-import {MultiValue} from '../interfaces/survey';
 import {StyleSheet, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import Bus from '../assets/icons/productGroups/Bus.svg';
@@ -17,6 +16,7 @@ import Setra from '../assets/icons/brands/SETRA.svg';
 import Smart from '../assets/icons/brands/Smart.svg';
 import WesternStarTrucks from '../assets/icons/brands/WesternStarTrucks.svg';
 import Typography from './Typography';
+import {MultiValue} from '../interfaces/common';
 
 interface ServicesProps {
   services?: MultiValue[];

@@ -1,12 +1,11 @@
 import React from 'react';
-import {StandardStatus} from '../interfaces/standard';
 import CommentViewCard from './CommentViewCard';
-import {ColorKey} from '../interfaces/common';
+import {ColorKey, Status} from '../interfaces/common';
 
 interface CommentWithColorProps {
   value?: string;
   title: string;
-  status?: StandardStatus;
+  status?: Status;
   hint?: string;
 }
 
@@ -23,7 +22,7 @@ function CommentWithColor({value, title, status, hint}: CommentWithColorProps) {
 
 export default React.memo(CommentWithColor);
 
-function getColorKey(status?: StandardStatus): ColorKey {
+function getColorKey(status?: Status): ColorKey {
   switch (status) {
     case 'Failed - Overruled':
       return 'error';

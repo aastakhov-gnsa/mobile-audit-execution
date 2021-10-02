@@ -30,11 +30,8 @@ function SurveyCard({survey}: {survey: Survey}) {
   const navigation = useNavigation<NavigationParams>();
   const [skip, setSkip] = React.useState(true);
   const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
-  const {data: queryData, isLoading, error} = useSurveyQuery(id, {skip});
-  // const {data: cacheData} = surveyApi.endpoints.survey.useQueryState(id);
-  const downloadedData = useSelector(state => state.evaluation[id]);
-  // const data = queryData || cacheData || downloadedData;
-  const data = queryData || downloadedData;
+  const {isLoading, error} = useSurveyQuery(id, {skip});
+  const data = useSelector(state => state.evaluation[id]);
 
   const {colors} = useTheme();
   const styles = makeStyles(colors);
@@ -43,12 +40,12 @@ function SurveyCard({survey}: {survey: Survey}) {
       return <ActivityIndicator animating={true} color={colors.primary} />;
     }
     if (data) {
-      return <StatusWithIcon status={resultCd} />;
+      return <StatusWithIcon status={data?.resultCd ?? resultCd} />;
     }
     return (
       <Icon name="download-outline" size={ICON_SIZE} color={colors.text50} />
     );
-  }, [isLoading, data, colors, resultCd]);
+  }, [isLoading, data, colors.text50, colors.primary, resultCd]);
   const handlePress = React.useCallback(() => {
     if (data) {
       navigation.navigate(ScreenNames.StandardList, {id: id});
@@ -63,14 +60,18 @@ function SurveyCard({survey}: {survey: Survey}) {
         style={styles.title}
         title={
           <Typography size="Body 1" style={styles.titleText}>
-            {number}
+            {data?.number ?? number}
           </Typography>
         }
         subtitle={
           <Typography size="Body 1">{`Planned Date: ${
-            plannedDate
+            data?.plannedDate ?? plannedDate
               ? format(
-                  parse(plannedDate, "yyyy-MM-dd'T'HH:mm:SS", new Date()),
+                  parse(
+                    data?.plannedDate ?? plannedDate,
+                    "yyyy-MM-dd'T'HH:mm:SS",
+                    new Date(),
+                  ),
                   'dd.MM.yyyy',
                 )
               : ''
@@ -81,9 +82,12 @@ function SurveyCard({survey}: {survey: Survey}) {
       />
       <Card.Content>
         <ItemWrapper>
-          <CompanyAddress companyId={companyId} outletAddress={outletAddress} />
+          <CompanyAddress
+            companyId={data?.companyId ?? companyId}
+            outletAddress={data?.outletAddress ?? outletAddress}
+          />
         </ItemWrapper>
-        <Services services={services} showNumber={4} />
+        <Services services={data?.services ?? services} showNumber={4} />
       </Card.Content>
       <Card.Actions style={styles.actionsContainer}>
         <View>
