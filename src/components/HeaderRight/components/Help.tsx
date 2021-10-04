@@ -29,10 +29,6 @@ const helpMenu: Array<{
     label: 'User Manual',
     screenName: ScreenNames.UserManual,
   },
-  {
-    label: 'Contact Support',
-    screenName: ScreenNames.ContactSupport,
-  },
 ];
 function Help({style}: HelpProps) {
   const navigation = useNavigation<NavigationParams>();

@@ -9,19 +9,25 @@ import useStandardData from '../../../hooks/useStandardData';
 import StatusWithIcon from '../../../components/StatusWithIcon';
 import CommentWithColor from '../../../components/CommentWithColor';
 import HeaderText from '../../../components/HeaderText';
+import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
+
 interface StandardInformationProps {
   id: string;
   surveyId: string;
 }
+
 function StandardInformation({id, surveyId}: StandardInformationProps) {
   const {colors} = useTheme();
   const data = useStandardData(surveyId, id);
+  const [langCode, needTranslation] = useCurrentLanguage();
   const styles = makeStyles(colors);
   return (
     <>
       <ItemWrapper paddingValue={0} style={styles.head}>
         <HeaderText status={data?.status} style={styles.header}>
-          {data?.standardName}
+          {needTranslation && data?.nameTranslations?.[langCode]
+            ? data?.nameTranslations?.[langCode]
+            : data?.standardName}
         </HeaderText>
         <StatusWithIcon status={data?.status} />
       </ItemWrapper>
@@ -30,7 +36,9 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
       </Typography>
       <ItemWrapper paddingValue={[24, 24]}>
         <Typography size="Body 1" numberOfLines={2} ellipsizeMode="tail">
-          {data?.standardText}
+          {needTranslation && data?.textTranslations?.[langCode]
+            ? data?.textTranslations?.[langCode]
+            : data?.standardText}
         </Typography>
       </ItemWrapper>
       <ItemWrapper paddingValue={[0, 26]}>

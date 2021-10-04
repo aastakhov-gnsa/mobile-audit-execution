@@ -20,6 +20,9 @@ export const evaluationReducer = createSlice({
         standards: EMPTY_ARRAY as AuditStandardExecution[],
       };
     },
+    removeSurvey: (state, action: PayloadAction<string>) => {
+      delete state[action.payload];
+    },
     fillStandards: (
       state,
       action: PayloadAction<{
@@ -150,6 +153,7 @@ export const evaluationReducer = createSlice({
 
 export const {
   addSurvey,
+  removeSurvey,
   fillStandards,
   changeStandardComment,
   changeQuestionComment,

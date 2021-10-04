@@ -1,22 +1,15 @@
 import React from 'react';
-import {Alert, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {StyleSheet} from 'react-native';
 import themeConfig from '../../../themeConfig';
-import {ICON_SIZE} from '../../constants/constants';
 import HeaderControlsContainer from '../HeaderControlsContainer';
 import Help from './components/Help';
+import ContentLanguageSwitcher from '../../features/ContentLanguageSwitching/ContentLanguageSwitcher';
 
 function HeaderRight() {
   return (
     <HeaderControlsContainer>
       <Help style={helpIconStyle} />
-      {/*todo implement language switching*/}
-      <Icon
-        name="translate"
-        size={ICON_SIZE}
-        style={styles.icon}
-        onPress={() => Alert.alert('TODO language switching')}
-      />
+      <ContentLanguageSwitcher iconStyle={styles.icon} />
     </HeaderControlsContainer>
   );
 }

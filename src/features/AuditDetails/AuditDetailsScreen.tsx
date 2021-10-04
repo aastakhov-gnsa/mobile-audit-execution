@@ -1,6 +1,5 @@
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
-import {useAllSurveysQuery} from '../Survey/surveyService';
 import ScreenContainer from '../../components/ScreenContainer';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Divider} from 'react-native-paper';
@@ -9,6 +8,8 @@ import Services from '../../components/Services';
 import Typography from '../../components/Typography';
 import CompanyAddress from '../../components/CompanyAddress';
 import NoDataFallback from '../../components/NoDataFallback';
+import {useSelector} from '../../utils/store/configureStore';
+import {shallowEqual} from 'react-redux';
 
 interface AuditDetailsParams {
   id: string;
@@ -16,25 +17,32 @@ interface AuditDetailsParams {
 function AuditDetailsScreen() {
   const route = useRoute();
   const {id} = route.params as AuditDetailsParams;
-  const {auditData} = useAllSurveysQuery('', {
-    selectFromResult: result => ({
-      ...result,
-      auditData: result.data?.find(i => i.id === id),
-    }),
-  });
+  const {services, number, companyId, outletAddress, auditorName} = useSelector(
+    state => {
+      const s = state.evaluation[id];
+      return {
+        services: s.services,
+        number: s.number,
+        companyId: s.companyId,
+        outletAddress: s.outletAddress,
+        auditorName: s.auditorName,
+      };
+    },
+    shallowEqual,
+  );
 
   const content: {title: string; component: React.ReactNode}[] = [
-    {title: 'Services', component: <Services services={auditData?.services} />},
+    {title: 'Services', component: <Services services={services} />},
     {
       title: 'Audit Name',
-      component: <Typography size="Body 1">{auditData?.number}</Typography>,
+      component: <Typography size="Body 1">{number}</Typography>,
     },
     {
       title: 'Location Info',
       component: (
         <CompanyAddress
-          companyId={auditData?.companyId}
-          outletAddress={auditData?.outletAddress}
+          companyId={companyId}
+          outletAddress={outletAddress}
           copyable
         />
       ),
@@ -43,8 +51,8 @@ function AuditDetailsScreen() {
       title: 'Auditor',
       component: (
         <>
-          {auditData?.auditorName ? (
-            <Typography size="Body 1">{auditData.auditorName}</Typography>
+          {auditorName ? (
+            <Typography size="Body 1">{auditorName}</Typography>
           ) : (
             <NoDataFallback />
           )}

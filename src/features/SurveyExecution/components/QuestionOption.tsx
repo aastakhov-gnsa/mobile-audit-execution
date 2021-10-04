@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import ItemWrapper from '../../../components/ItemWrapper';
 import Typography from '../../../components/Typography';
-import {Button, useTheme} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {ResultCd} from '../../../interfaces/common';
 
 interface QuestionOptionProps {
@@ -13,6 +13,8 @@ interface QuestionOptionProps {
   onChange: (rCd: ResultCd) => void;
 }
 
+const window = Dimensions.get('window');
+
 function QuestionOption({
   title,
   description,
@@ -20,9 +22,8 @@ function QuestionOption({
   onChange,
   disabled,
 }: QuestionOptionProps) {
-  const {colors} = useTheme();
-  const styles = makeStyles(colors);
-
+  const handleYes = React.useCallback(() => onChange('Passed'), [onChange]);
+  const handleNo = React.useCallback(() => onChange('Failed'), [onChange]);
   return (
     <View style={styles.optionContainer}>
       <View style={styles.optionDescription}>
@@ -34,13 +35,14 @@ function QuestionOption({
         <Button
           disabled={disabled}
           mode={resultCd === 'Passed' ? 'contained' : 'outlined'}
-          onPress={() => onChange('Passed')}>
+          onPress={handleYes}>
           yes
         </Button>
         <Button
+          style={styles.button}
           disabled={disabled}
           mode={resultCd === 'Failed' ? 'contained' : 'outlined'}
-          onPress={() => onChange('Failed')}>
+          onPress={handleNo}>
           no
         </Button>
       </View>
@@ -50,22 +52,21 @@ function QuestionOption({
 
 export default React.memo(QuestionOption);
 
-const makeStyles = (colors: ReactNativePaper.ThemeColors) => {
-  return StyleSheet.create({
-    optionContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'flex-start',
-    },
-    optionDescription: {
-      width: '70%',
-    },
-    optionButtons: {
-      width: '20%',
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-  });
-};
+const styles = StyleSheet.create({
+  optionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  optionDescription: {
+    width: window.width > 800 ? '70%' : '60%',
+  },
+  optionButtons: {
+    width: window.width > 800 ? '30%' : '40%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginLeft: '2%',
+  },
+});

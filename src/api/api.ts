@@ -2,6 +2,7 @@ import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import {GnsaAuthResponse, UserInfo} from '../interfaces/sso';
 
 export const __HOST__ = 'https://gnsa-dev.i.daimler.com';
+// export const __HOST__ = 'http://localhost:8080';
 const __API__ = __HOST__ + '/api/v1/';
 const __AJAX_TIMEOUT__ = 900000;
 
@@ -46,10 +47,6 @@ export function gnsaAuth(
     },
   );
 }
-
-// export function getAuditsTest() {
-//   return axiosInstance.get();
-// }
 
 export const axiosInstance = createAxiosInstance();
 

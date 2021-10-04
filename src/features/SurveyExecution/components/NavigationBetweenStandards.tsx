@@ -43,36 +43,32 @@ function NavigationBetweenStandards({
   });
   return (
     <View style={styles.standardsNavigation}>
-      <View style={styles.navigationLeft}>
-        {previousStandard && (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(ScreenNames.SurveyExecution, {
-                surveyId: surveyId,
-                standardId: previousStandard.id,
-              })
-            }>
-            <Typography size="Body 1">
-              〈 {previousStandard.name} {getGlyph(previousStandard.status)}
-            </Typography>
-          </TouchableOpacity>
-        )}
-      </View>
-      <View style={styles.navigationRight}>
-        {nextStandard && (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(ScreenNames.SurveyExecution, {
-                surveyId: surveyId,
-                standardId: nextStandard.id,
-              })
-            }>
-            <Typography size="Body 1">
-              {getGlyph(nextStandard.status)} {nextStandard.name} 〉
-            </Typography>
-          </TouchableOpacity>
-        )}
-      </View>
+      {previousStandard && (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ScreenNames.SurveyExecution, {
+              surveyId: surveyId,
+              standardId: previousStandard.id,
+            })
+          }>
+          <Typography size="Body 1">
+            〈 {previousStandard.name} {getGlyph(previousStandard.status)}
+          </Typography>
+        </TouchableOpacity>
+      )}
+      {nextStandard && (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ScreenNames.SurveyExecution, {
+              surveyId: surveyId,
+              standardId: nextStandard.id,
+            })
+          }>
+          <Typography size="Body 1">
+            {getGlyph(nextStandard.status)} {nextStandard.name} 〉
+          </Typography>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -81,17 +77,10 @@ export default React.memo(NavigationBetweenStandards);
 
 const styles = StyleSheet.create({
   standardsNavigation: {
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     marginBottom: 40,
-  },
-  navigationLeft: {
-    marginLeft: -10,
-  },
-  navigationRight: {
-    marginRight: -10,
   },
 });
 

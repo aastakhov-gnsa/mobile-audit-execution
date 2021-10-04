@@ -5,7 +5,7 @@ import ListContainer from '../../components/ListContainer';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import SurveyCard from '../../components/SurveyCard';
 import {FlatList} from 'react-native-gesture-handler';
-import {Alert, StatusBar} from 'react-native';
+import {Alert, RefreshControl, StatusBar} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
 import ScreenContainer from '../../components/ScreenContainer';
@@ -17,6 +17,7 @@ import {ScreenNames} from '../../navigation/navigation';
 import {FilterItem, FilterValues} from '../../interfaces/filters';
 import {EMPTY_ARRAY} from '../../constants/constants';
 import NetInfo from '@react-native-community/netinfo';
+import NoSurveys from '../../components/NoSurveys';
 
 enum SurveysFilters {
   allSurveys = 'All Surveys',
@@ -58,7 +59,11 @@ function SurveysScreen() {
     data: wholeData,
     error,
     isLoading,
+    refetch,
   } = useAllSurveysQuery(isConnected ? '' : skipToken);
+  const handleRefresh = React.useCallback(() => {
+    refetch();
+  }, [refetch]);
   const {fulfilledTimeStamp} = useSelector(state => state.surveys);
 
   const data = useFilteredSurveys(filter, wholeData);
@@ -77,7 +82,6 @@ function SurveysScreen() {
     Alert.alert('Error', JSON.stringify(error, null, 2));
   }
 
-  console.log('--SurveysScreen');
   return (
     <ScreenContainer>
       <StatusBar
@@ -95,16 +99,37 @@ function SurveysScreen() {
               : ''
           }
         />
-        <Filters
-          screenName={ScreenNames.Surveys}
-          filterValues={possibleFilters}
-          id={ScreenNames.Surveys}
-        />
-        <FlatList
-          data={data}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-        />
+
+        {!!wholeData?.length && (
+          <>
+            <Filters
+              screenName={ScreenNames.Surveys}
+              filterValues={possibleFilters}
+              id={ScreenNames.Surveys}
+            />
+            <FlatList
+              refreshControl={
+                <RefreshControl
+                  refreshing={isLoading}
+                  onRefresh={handleRefresh}
+                />
+              }
+              data={data}
+              keyExtractor={keyExtractor}
+              renderItem={renderItem}
+            />
+          </>
+        )}
+        {!wholeData?.length && (
+          <NoSurveys
+            refreshControl={
+              <RefreshControl
+                refreshing={isLoading}
+                onRefresh={handleRefresh}
+              />
+            }
+          />
+        )}
       </ListContainer>
     </ScreenContainer>
   );
