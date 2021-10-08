@@ -16,6 +16,7 @@ import CompanyAddress from './CompanyAddress';
 import Typography from './Typography';
 import {NavigationParams} from '../interfaces/navigation';
 import {useSelector} from '../utils/store/configureStore';
+import UploadSurvey from './UploadSurvey';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -32,7 +33,11 @@ function SurveyCard({survey}: {survey: Survey}) {
   const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
   const {isLoading, error} = useSurveyQuery(id, {skip});
   const data = useSelector(state => state.evaluation[id]);
-
+  React.useEffect(() => {
+    if (!data) {
+      setSkip(true);
+    }
+  }, [data]);
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   const RightContent = React.useCallback(() => {
@@ -104,7 +109,7 @@ function SurveyCard({survey}: {survey: Survey}) {
         {!data ? (
           <Button onPress={handleDownload}>Download</Button>
         ) : (
-          <Button>Upload</Button>
+          <UploadSurvey id={id} />
         )}
       </Card.Actions>
     </Card>

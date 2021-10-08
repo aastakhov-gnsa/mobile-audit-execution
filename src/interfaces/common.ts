@@ -15,3 +15,19 @@ export type Status =
   | 'Open'
   | 'Completed'
   | 'In Progress';
+
+export type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};
+
+export type Translations = Record<string, string>;
+
+export interface Language {
+  type: string;
+  key: string;
+  value: string;
+  description: string;
+  language: string;
+  displayOrder: number;
+  active: boolean;
+}

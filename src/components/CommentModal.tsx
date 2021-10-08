@@ -1,19 +1,11 @@
 import React from 'react';
-import {
-  Button,
-  Chip,
-  Divider,
-  Modal,
-  Portal,
-  Snackbar,
-  Surface,
-  TextInput,
-} from 'react-native-paper';
+import {Chip, Snackbar, TextInput} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
 import ItemWrapper from './ItemWrapper';
 import Typography from './Typography';
 import {CommentType} from '../interfaces/standard';
 import {OverruleStatus} from '../interfaces/common';
+import Modal from './Modal';
 
 interface CommentModalProps {
   visible: boolean;
@@ -68,7 +60,6 @@ function CommentModal({
 
   const handleSave = React.useCallback(() => {
     if (!text || !chip) {
-      // Alert.alert('Fill comment and chose type of comment');
       handleSnackVisible();
     } else {
       onSave({text, chip});
@@ -77,67 +68,48 @@ function CommentModal({
   }, [text, chip, handleSnackVisible, onSave, handleCancel]);
 
   return (
-    <Portal>
-      <Modal
-        visible={visible}
-        onDismiss={handleCancel}
-        contentContainerStyle={styles.contentContainer}>
-        <Surface style={styles.surface}>
-          <ItemWrapper style={styles.header}>
-            <Typography size="Headline 6">{titleText ?? 'Comment'}</Typography>
-          </ItemWrapper>
-          <Divider />
-          <ItemWrapper paddingValue={[25, 30]} style={styles.inputWrapper}>
-            <TextInput
-              mode="outlined"
-              multiline
-              // numberOfLines={5}
-              placeholder="Write a message ..."
-              value={text}
-              onChangeText={handleText}
-            />
-          </ItemWrapper>
-          <ItemWrapper paddingValue={[0, 25]} style={styles.chipsWrapper}>
-            {chips.map(i => (
-              <Chip
-                key={i.value}
-                style={styles.chip}
-                mode="outlined"
-                onPress={createOnChipHandler(i.value)}
-                selected={i.value === chip}>
-                {i.title}
-              </Chip>
-            ))}
-          </ItemWrapper>
-          <Divider />
-          <ItemWrapper style={styles.controlsWrapper}>
-            <Button mode="text" style={styles.button} onPress={handleCancel}>
-              cancel
-            </Button>
-            <Button mode="contained" onPress={handleSave}>
-              save
-            </Button>
-          </ItemWrapper>
-          <Snackbar
-            visible={snackVisible}
-            onDismiss={handleSnackVisible}
-            duration={2000}>
-            <Typography size="Body 1">{validationMessage}</Typography>
-          </Snackbar>
-        </Surface>
-      </Modal>
-    </Portal>
+    <Modal
+      visible={visible}
+      onCancel={handleCancel}
+      onSave={handleSave}
+      validationComponent={
+        <Snackbar
+          visible={snackVisible}
+          onDismiss={handleSnackVisible}
+          duration={2000}>
+          <Typography size="Body 1">{validationMessage}</Typography>
+        </Snackbar>
+      }
+      title={titleText ?? 'Comment'}>
+      <ItemWrapper paddingValue={[0, 30]} style={styles.inputWrapper}>
+        <TextInput
+          mode="outlined"
+          multiline
+          // numberOfLines={5}
+          placeholder="Write a message ..."
+          value={text}
+          onChangeText={handleText}
+        />
+      </ItemWrapper>
+      <ItemWrapper paddingValue={0} style={styles.chipsWrapper}>
+        {chips.map(i => (
+          <Chip
+            key={i.value}
+            style={styles.chip}
+            mode="outlined"
+            onPress={createOnChipHandler(i.value)}
+            selected={i.value === chip}>
+            {i.title}
+          </Chip>
+        ))}
+      </ItemWrapper>
+    </Modal>
   );
 }
 
 export default React.memo(CommentModal);
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    flexDirection: 'row',
-  },
-  surface: {width: '70%'},
-  header: {alignItems: 'center'},
   inputWrapper: {paddingRight: 24, paddingLeft: 24},
   chipsWrapper: {
     paddingLeft: 24,
@@ -145,11 +117,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   chip: {marginRight: 20},
-  controlsWrapper: {
-    paddingRight: 24,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  button: {marginRight: 8},
 });

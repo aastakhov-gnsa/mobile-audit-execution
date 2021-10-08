@@ -81,12 +81,11 @@ function StandardListScreen() {
     [id],
   );
 
-  console.log('StandardListScreen::data', data);
   return (
     <ScreenContainer>
       <StatusBar
         barStyle="dark-content"
-        backgroundColor={themeConfig.defaultTheme.colors.onSurface}
+        backgroundColor={themeConfig.defaultTheme.colors.surface}
       />
       <ListInfoCaption
         leftCaption={`${filter ? filter.value : 'All Standards'} · ${

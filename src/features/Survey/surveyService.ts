@@ -4,6 +4,8 @@ import {RootState} from '../../utils/store/configureStore';
 import {GnsaUser} from '../../interfaces/User';
 import {API_URI} from '../../../config';
 import {AuditStandardExecution} from '../../interfaces/standard';
+import {EvaluationSurvey} from '../../interfaces/evaluation';
+import {Language, RecursivePartial} from '../../interfaces/common';
 
 export const surveyApi = createApi({
   reducerPath: 'surveyApi',
@@ -17,12 +19,28 @@ export const surveyApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ['Surveys'],
   endpoints: builder => ({
     allSurveys: builder.query<Survey[], string>({
       query: () => 'surveys',
+      providesTags: ['Surveys'],
     }),
     survey: builder.query<AuditStandardExecution[], number | string>({
-      query: (id: number | string) => `survey-download/${id}`,
+      query: (id: number | string) => `survey/${id}`,
+      keepUnusedDataFor: 1,
+    }),
+    uploadSurvey: builder.mutation<void, RecursivePartial<EvaluationSurvey>>({
+      query(body) {
+        return {
+          url: 'survey',
+          method: 'post',
+          body,
+        };
+      },
+      invalidatesTags: ['Surveys'],
+    }),
+    languages: builder.query<Language[], null>({
+      query: () => 'languages',
     }),
     userInfo: builder.query<GnsaUser, string>({
       query: (userName: string) => `user-info/${userName}`,
@@ -30,4 +48,10 @@ export const surveyApi = createApi({
   }),
 });
 
-export const {useAllSurveysQuery, useSurveyQuery, useUserInfoQuery} = surveyApi;
+export const {
+  useAllSurveysQuery,
+  useSurveyQuery,
+  useUserInfoQuery,
+  useUploadSurveyMutation,
+  useLanguagesQuery,
+} = surveyApi;

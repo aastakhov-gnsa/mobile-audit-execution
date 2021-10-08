@@ -1,4 +1,4 @@
-import {MultiValue, ResultCd, Status} from './common';
+import {MultiValue, ResultCd, Status, Translations} from './common';
 
 type AnyData = Partial<
   Record<
@@ -9,6 +9,7 @@ type AnyData = Partial<
     | OverruleComment
     | StandardQuestion[]
     | Status
+    | Translations
   >
 >;
 
@@ -31,6 +32,8 @@ export interface AuditStandardExecution extends AnyData {
   statusIconType?: string;
   infoForAuditor?: string;
   requiredDocuments?: string;
+  nameTranslations?: Translations;
+  textTranslations?: Translations;
 }
 
 export interface StandardQuestion {
@@ -38,12 +41,7 @@ export interface StandardQuestion {
   vstamp: number;
   mcName: string;
   mcDescription: string;
-  optionsExecution: Array<{
-    value: string;
-    hint: string;
-    id: string;
-    resultCd: ResultCd;
-  }>;
+  optionsExecution: Array<Option>;
   mcAuditType: string;
   mcAuditCheckpoint: string;
   options: MultiValue[];
@@ -52,6 +50,17 @@ export interface StandardQuestion {
   resultCd: ResultCd;
   files: MultiValue[];
   isOptionsPresent: boolean;
+  nameTranslations: Translations;
+  textTranslations: Translations;
+}
+
+export interface Option {
+  value: string;
+  hint: string;
+  id: string;
+  resultCd: ResultCd;
+  valueTranslations?: Translations;
+  hintTranslations?: Translations;
 }
 
 export interface OverruleComment {

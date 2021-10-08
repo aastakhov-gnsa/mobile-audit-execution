@@ -14,6 +14,7 @@ import {
   changeQuestionResult,
 } from '../evaluationReducer';
 import {ResultCd} from '../../../interfaces/common';
+import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
 
 export interface StandardQuestionProps {
   standardId: string;
@@ -35,6 +36,8 @@ function StandardQuestion({
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   const dispatch = useDispatch();
+  const [langCode, needTranslation] = useCurrentLanguage();
+
   const handleQuestionResult = React.useCallback(
     (rCd: ResultCd) => {
       dispatch(
@@ -74,7 +77,10 @@ function StandardQuestion({
               ? question.optionsExecution?.find(i => i.resultCd)?.resultCd
               : question.resultCd
           }>
-          {question.mcName} · {questionIndex + 1} of {total}
+          {needTranslation && question.nameTranslations?.[langCode]
+            ? question.nameTranslations?.[langCode]
+            : question.mcName}{' '}
+          · {questionIndex + 1} of {total}
         </HeaderText>
       </ItemWrapper>
       {!question.isOptionsPresent && (
@@ -83,13 +89,21 @@ function StandardQuestion({
           onChange={handleQuestionResult}
           title={question.mcName}
           resultCd={question.resultCd}
-          description={question.mcDescription}
+          description={
+            needTranslation && question.textTranslations?.[langCode]
+              ? question.textTranslations?.[langCode]
+              : question.mcDescription
+          }
         />
       )}
       {/*todo ellipse (ellipsizeMode does not work on iOS in case end of line in not a letter)*/}
       {question.isOptionsPresent && !!question.mcDescription && (
         <ItemWrapper paddingValue={[0, 20]}>
-          <Typography size={'Body 1'}>{question.mcDescription}</Typography>
+          <Typography size={'Body 1'}>
+            {needTranslation && question.textTranslations?.[langCode]
+              ? question.textTranslations?.[langCode]
+              : question.mcDescription}
+          </Typography>
         </ItemWrapper>
       )}
       {question.isOptionsPresent &&
@@ -99,9 +113,17 @@ function StandardQuestion({
               disabled={disabled}
               key={item.id}
               onChange={createQuestionOptionHandler(item.id)}
-              title={`${index + 1}. ${item.value}`}
+              title={`${index + 1}. ${
+                needTranslation && item.valueTranslations?.[langCode]
+                  ? item.valueTranslations?.[langCode]
+                  : item.value
+              }`}
               resultCd={item.resultCd}
-              description={item.hint}
+              description={
+                needTranslation && item.hintTranslations?.[langCode]
+                  ? item.hintTranslations?.[langCode]
+                  : item.hint
+              }
             />
           );
         })}

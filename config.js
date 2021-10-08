@@ -1,6 +1,7 @@
 // export const AUTH_URI =
 //   'https://gnsa-dev.i.daimler.com/api/v1/rest/authenticate';
 export const AUTH_URI = 'https://sso-int.daimler.com/as/authorization.oauth2';
+// export const API_URI = 'http://localhost:8080/api/v1';
 export const API_URI = 'https://gnsa-dev.i.daimler.com/api/v1';
 
 export const ENVIRONMENT_ID = 'GNSA';

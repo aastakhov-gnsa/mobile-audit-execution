@@ -55,7 +55,7 @@ export default function SurveyExecutionScreen() {
     <ScreenContainer>
       <StatusBar
         barStyle="dark-content"
-        backgroundColor={themeConfig.defaultTheme.colors.onSurface}
+        backgroundColor={themeConfig.defaultTheme.colors.surface}
       />
       <ScrollView>
         <NavigationBetweenStandards

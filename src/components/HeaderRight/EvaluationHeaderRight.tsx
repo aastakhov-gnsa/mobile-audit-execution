@@ -3,11 +3,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ICON_SIZE} from '../../constants/constants';
 import {ScreenNames} from '../../navigation/navigation';
 import Help from './components/Help';
-import {Alert, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import HeaderControlsContainer from '../HeaderControlsContainer';
 import {useTheme} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../../interfaces/navigation';
+import ContentLanguageSwitcher from '../../features/ContentLanguageSwitching/ContentLanguageSwitcher';
 
 export default function EvaluationHeaderRight({surveyId}: {surveyId: string}) {
   const navigation = useNavigation<NavigationParams>();
@@ -25,12 +26,7 @@ export default function EvaluationHeaderRight({surveyId}: {surveyId: string}) {
         }
       />
       <Help style={styles.icon} />
-      {/*todo implement language switching*/}
-      <Icon
-        name="translate"
-        size={ICON_SIZE}
-        onPress={() => Alert.alert('TODO language switching')}
-      />
+      <ContentLanguageSwitcher />
     </HeaderControlsContainer>
   );
 }

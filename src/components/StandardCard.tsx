@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../navigation/navigation';
 import {NavigationParams} from '../interfaces/navigation';
 import useStandardData from '../hooks/useStandardData';
+import useCurrentLanguage from '../hooks/useCurrentLanguage';
 
 interface StandardCardProps {
   id: string;
@@ -18,6 +19,7 @@ interface StandardCardProps {
 function StandardCard({id, surveyId}: StandardCardProps) {
   const navigation = useNavigation<NavigationParams>();
   const data = useStandardData(surveyId, id);
+  const [langCode, needTranslation] = useCurrentLanguage();
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   return (
@@ -32,7 +34,9 @@ function StandardCard({id, surveyId}: StandardCardProps) {
       <Card.Title
         title={
           <Typography size="Body 1" style={styles.titleText}>
-            {data?.standardName}
+            {needTranslation && data?.nameTranslations?.[langCode]
+              ? data?.nameTranslations[langCode]
+              : data?.standardName}
           </Typography>
         }
         subtitle={<Typography size="Body 1">{data?.standardNumber}</Typography>}

@@ -25,6 +25,7 @@ import {surveysReducer} from '../../features/Survey/surveysReducer';
 import fillTimeStampMiddleware from '../../features/Survey/fillTimeStampMiddleware';
 import standardStatusMiddleware from '../../features/SurveyExecution/standardStatusMiddleware';
 import surveyStatusMiddleware from '../../features/SurveyExecution/surveyStatusMiddleware';
+import {languagesReducer} from '../../features/ContentLanguageSwitching/languagesReducer';
 
 const persistConfig = {
   key: 'root',
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   [evaluationReducer.name]: evaluationReducer.reducer,
   [filtersReducer.name]: filtersReducer.reducer,
   [surveysReducer.name]: surveysReducer.reducer,
+  [languagesReducer.name]: languagesReducer.reducer,
   [authReducer.name]: authReducer.reducer,
   [tokenReducer.name]: tokenReducer.reducer,
   [surveyApi.reducerPath]: surveyApi.reducer,
