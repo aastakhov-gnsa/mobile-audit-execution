@@ -10,6 +10,7 @@ import CompanyAddress from '../../components/CompanyAddress';
 import NoDataFallback from '../../components/NoDataFallback';
 import {useSelector} from '../../utils/store/configureStore';
 import {shallowEqual} from 'react-redux';
+import AuditProgress from '../../components/AuditProgress';
 
 interface AuditDetailsParams {
   id: string;
@@ -32,6 +33,10 @@ function AuditDetailsScreen() {
   );
 
   const content: {title: string; component: React.ReactNode}[] = [
+    {
+      title: 'Progress',
+      component: <AuditProgress surveyId={id} />,
+    },
     {title: 'Services', component: <Services services={services} />},
     {
       title: 'Audit Name',

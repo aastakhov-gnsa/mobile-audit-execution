@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from '../utils/store/configureStore';
 import {useUploadSurveyMutation} from '../features/Survey/surveyService';
 import useModalVisibility from '../hooks/useModalVisibility';
 import {removeSurvey} from '../features/SurveyExecution/evaluationReducer';
+import {Alert} from 'react-native';
 
 interface UploadSurveyProps {
   id: string;
@@ -54,10 +55,12 @@ function UploadSurvey({id}: UploadSurveyProps) {
     })
       .unwrap()
       .then(() => dispatch(removeSurvey(surveyData.id)))
-      .catch(() => {
+      .catch(e => {
         handleVisible();
+        Alert.alert(JSON.stringify(e, null, 2));
       });
   }, [
+    dispatch,
     handleVisible,
     surveyData.id,
     surveyData.resultCd,
