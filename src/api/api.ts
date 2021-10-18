@@ -1,5 +1,8 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import {BaseQueryFn} from '@reduxjs/toolkit/dist/query';
+import {FetchBaseQueryArgs} from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {GnsaAuthResponse, UserInfo} from '../interfaces/sso';
+import {alert} from './apiAlerts';
 
 export const __HOST__ = 'https://gnsa-dev.i.daimler.com';
 // export const __HOST__ = 'http://localhost:8080';
@@ -18,6 +21,51 @@ export function createAxiosInstance(config?: AxiosRequestConfig) {
     ...config,
   });
 }
+
+export const axiosBaseQuery =
+  ({
+    baseUrl,
+    prepareHeaders,
+  }: FetchBaseQueryArgs): BaseQueryFn<
+    | {
+        url?: string;
+        method?: AxiosRequestConfig['method'];
+        body?: AxiosRequestConfig['data'];
+      }
+    | string
+  > =>
+  async (args, {getState}) => {
+    let url = '';
+    let method: AxiosRequestConfig['method'] = 'get';
+    let data;
+    if (args && typeof args !== 'string') {
+      url = args.url!;
+      method = args.method ?? 'get';
+      data = args.body;
+    } else {
+      url = args;
+    }
+    let headers = {};
+    if (prepareHeaders) {
+      headers = await prepareHeaders(new Headers({}), {getState});
+      headers = (headers as any).map;
+    }
+    try {
+      const result = await axiosInstance({
+        url: `${baseUrl}${url}`,
+        method,
+        data,
+        headers,
+      });
+      return {data: result.data};
+    } catch (e) {
+      let err = e as AxiosError;
+      alert(err);
+      return {
+        error: {status: err.response?.status, data: err.response?.data},
+      };
+    }
+  };
 
 /**
  * Get user info from SSO using token

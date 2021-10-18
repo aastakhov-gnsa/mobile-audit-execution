@@ -5,7 +5,7 @@ import ListContainer from '../../components/ListContainer';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import SurveyCard from '../../components/SurveyCard';
 import {FlatList} from 'react-native-gesture-handler';
-import {Alert, RefreshControl, StatusBar} from 'react-native';
+import {RefreshControl, StatusBar} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
 import ScreenContainer from '../../components/ScreenContainer';
@@ -57,7 +57,6 @@ function SurveysScreen() {
   );
   const {
     data: wholeData,
-    error,
     isLoading,
     refetch,
   } = useAllSurveysQuery(isConnected ? '' : skipToken);
@@ -76,10 +75,6 @@ function SurveysScreen() {
 
   if (isLoading) {
     return <Spinner inProgress />;
-  }
-
-  if (error) {
-    Alert.alert('Error', JSON.stringify(error, null, 2));
   }
 
   return (

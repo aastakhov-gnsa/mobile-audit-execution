@@ -10,7 +10,6 @@ import {useDispatch, useSelector} from '../utils/store/configureStore';
 import {useUploadSurveyMutation} from '../features/Survey/surveyService';
 import useModalVisibility from '../hooks/useModalVisibility';
 import {removeSurvey} from '../features/SurveyExecution/evaluationReducer';
-import {Alert} from 'react-native';
 
 interface UploadSurveyProps {
   id: string;
@@ -22,9 +21,8 @@ function UploadSurvey({id}: UploadSurveyProps) {
   const surveyData = useSelector(state => state.evaluation[id]);
   const [upload, {isLoading}] = useUploadSurveyMutation();
   const [visible, handleVisible] = useModalVisibility();
-
   const handleClick = React.useCallback(async () => {
-    upload({
+    const body = {
       id: surveyData.id,
       resultCd: surveyData.resultCd,
       standards: surveyData.standards.map(standard => {
@@ -52,12 +50,12 @@ function UploadSurvey({id}: UploadSurveyProps) {
           }),
         };
       }),
-    })
+    };
+    upload(body)
       .unwrap()
       .then(() => dispatch(removeSurvey(surveyData.id)))
-      .catch(e => {
+      .catch(() => {
         handleVisible();
-        Alert.alert(JSON.stringify(e, null, 2));
       });
   }, [
     dispatch,

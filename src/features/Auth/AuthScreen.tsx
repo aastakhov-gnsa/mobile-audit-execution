@@ -20,7 +20,7 @@ const image = require('./assets/logo.png');
 function AuthScreen() {
   const authContext = React.useContext(AuthContext);
   const dispatch = useDispatch();
-  const {tokenLoading, tokenError} = useSelector(store => store.tokenUtil);
+  const {tokenLoading} = useSelector(store => store.tokenUtil);
   const {token} = useSelector(store => store.auth);
   useEffect(() => {
     const setToken = async () => {
@@ -60,19 +60,14 @@ function AuthScreen() {
       // fixme current gnsa integration hack
       dispatch(fetchGnsaToken(sub));
       // console.log('gnsaRes', gnsaRes);
-
-      // end of authorization
-      authContext.setInProgress(false);
     } catch (error) {
       console.error('Authentication failed', error);
-      Alert.alert('Authentication failed', error);
-      authContext.setInProgress(false);
     }
+    authContext.setInProgress(false);
   }, [authContext, dispatch]);
 
   return (
     <Page>
-      {tokenError && Alert.alert('Authentication failed', tokenError)}
       <Spinner inProgress={authContext.inProgress || tokenLoading} />
       <View style={styles.container}>
         <View style={styles.wrapper}>
