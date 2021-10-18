@@ -99,37 +99,38 @@ function SurveysScreen() {
               : ''
           }
         />
-
-        {!!wholeData?.length && (
-          <>
-            <Filters
-              screenName={ScreenNames.Surveys}
-              filterValues={possibleFilters}
-              id={ScreenNames.Surveys}
-            />
-            <FlatList
+        <>
+          <Filters
+            screenName={ScreenNames.Surveys}
+            filterValues={possibleFilters}
+            id={ScreenNames.Surveys}
+          />
+          {!!data?.length && (
+            <>
+              <FlatList
+                refreshControl={
+                  <RefreshControl
+                    refreshing={isLoading}
+                    onRefresh={handleRefresh}
+                  />
+                }
+                data={data}
+                keyExtractor={keyExtractor}
+                renderItem={renderItem}
+              />
+            </>
+          )}
+          {!data?.length && (
+            <NoSurveys
               refreshControl={
                 <RefreshControl
                   refreshing={isLoading}
                   onRefresh={handleRefresh}
                 />
               }
-              data={data}
-              keyExtractor={keyExtractor}
-              renderItem={renderItem}
             />
-          </>
-        )}
-        {!wholeData?.length && (
-          <NoSurveys
-            refreshControl={
-              <RefreshControl
-                refreshing={isLoading}
-                onRefresh={handleRefresh}
-              />
-            }
-          />
-        )}
+          )}
+        </>
       </ListContainer>
     </ScreenContainer>
   );
