@@ -3,7 +3,7 @@ import {Survey} from '../interfaces/survey';
 import {Card, Button, useTheme, ActivityIndicator} from 'react-native-paper';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
-import {Alert, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Services from './Services';
 import StatusWithIcon from './StatusWithIcon';
 import {useSurveyQuery} from '../features/Survey/surveyService';
@@ -31,7 +31,7 @@ function SurveyCard({survey}: {survey: Survey}) {
   const navigation = useNavigation<NavigationParams>();
   const [skip, setSkip] = React.useState(true);
   const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
-  const {isLoading, error} = useSurveyQuery(id, {skip});
+  const {isLoading} = useSurveyQuery(id, {skip});
   const data = useSelector(state => state.evaluation[id]);
   React.useEffect(() => {
     if (!data) {
@@ -56,9 +56,7 @@ function SurveyCard({survey}: {survey: Survey}) {
       navigation.navigate(ScreenNames.StandardList, {id: id});
     }
   }, [id, data, navigation]);
-  if (error) {
-    Alert.alert(JSON.stringify(error, null, 2));
-  }
+
   return (
     <Card style={styles.card} key={id} onPress={handlePress}>
       <Card.Title
