@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {authorize} from 'react-native-app-auth';
 import {AUTH_CONFIG} from '../../../config';
-import {Alert, Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import Page from './components/Page';
 import Spinner from './components/Spinner';
 import {Button} from 'react-native-paper';

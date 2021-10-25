@@ -1,12 +1,13 @@
 import {BaseQueryFn} from '@reduxjs/toolkit/dist/query';
 import {FetchBaseQueryArgs} from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import {API_URL} from '../../config';
 import {GnsaAuthResponse, UserInfo} from '../interfaces/sso';
 import {alert} from './apiAlerts';
 
-export const __HOST__ = 'https://gnsa-dev.i.daimler.com';
+export const __HOST__ = API_URL;
 // export const __HOST__ = 'http://localhost:8080';
-const __API__ = __HOST__ + '/api/v1/';
+export const __API__ = __HOST__ + '/api/v1/';
 const __AJAX_TIMEOUT__ = 900000;
 
 export function createAxiosInstance(config?: AxiosRequestConfig) {
