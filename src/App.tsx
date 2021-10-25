@@ -10,7 +10,6 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const App = () => {
   const authContext = useAuthContext();
-
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {authorize} from 'react-native-app-auth';
-import {AUTH_CONFIG} from '../../../config';
-import {Alert, Image, StyleSheet, View} from 'react-native';
+import {API_URL, AUTH_CONFIG} from '../../../config';
+import {Image, StyleSheet, View} from 'react-native';
 import Page from './components/Page';
 import Spinner from './components/Spinner';
 import {Button} from 'react-native-paper';
@@ -74,7 +74,7 @@ function AuthScreen() {
           <Image source={image} style={styles.logo} />
           <View style={styles.welcomeWrapper}>
             <Typography size="Headline 5" style={styles.text}>
-              Welcome to the new audit app!
+              Welcome to the new audit app! {API_URL}
             </Typography>
             <Typography size="Subtitle 2" style={styles.text}>
               Authorize to get started
