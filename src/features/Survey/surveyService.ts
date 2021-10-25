@@ -2,16 +2,15 @@ import {createApi} from '@reduxjs/toolkit/query/react';
 import {Survey} from '../../interfaces/survey';
 import {RootState} from '../../utils/store/configureStore';
 import {GnsaUser} from '../../interfaces/User';
-import {API_URI} from '../../../config';
 import {AuditStandardExecution} from '../../interfaces/standard';
 import {EvaluationSurvey} from '../../interfaces/evaluation';
 import {Language, RecursivePartial} from '../../interfaces/common';
-import {axiosBaseQuery} from '../../api/api';
+import {axiosBaseQuery, __API__} from '../../api/api';
 
 export const surveyApi = createApi({
   reducerPath: 'surveyApi',
   baseQuery: axiosBaseQuery({
-    baseUrl: `${API_URI}/rest/mobile-audit-execution/`,
+    baseUrl: `${__API__}/rest/mobile-audit-execution/`,
     prepareHeaders: (headers, {getState}) => {
       const state = getState() as RootState;
       if (state.auth.token) {
