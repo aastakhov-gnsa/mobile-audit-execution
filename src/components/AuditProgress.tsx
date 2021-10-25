@@ -4,17 +4,28 @@ import {ProgressBar, useTheme} from 'react-native-paper';
 import Typography from './Typography';
 import ItemWrapper from './ItemWrapper';
 import {useSelector} from '../utils/store/configureStore';
+import {Status} from '../interfaces/common';
 
 interface AuditProgressProps {
   surveyId: string;
 }
+
+const completedStatus: Status[] = [
+  'Passed',
+  'Failed',
+  'Passed - Overruled',
+  'Failed - Overruled',
+];
 
 function AuditProgress({surveyId}: AuditProgressProps) {
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   const standards = useSelector(state => state.evaluation[surveyId]?.standards);
   const completed = standards?.reduce(
-    (acc, current) => (current?.status ? acc + 1 : acc),
+    (acc, current) =>
+      current?.status && completedStatus.includes(current?.status)
+        ? acc + 1
+        : acc,
     0,
   );
   const all = standards?.length;
