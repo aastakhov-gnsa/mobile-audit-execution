@@ -6,6 +6,7 @@ import Typography from './Typography';
 import {CommentType} from '../interfaces/standard';
 import {OverruleStatus} from '../interfaces/common';
 import Modal from './Modal';
+import {useTranslation} from 'react-i18next';
 
 interface CommentModalProps {
   visible: boolean;
@@ -66,6 +67,7 @@ function CommentModal({
       handleCancel();
     }
   }, [text, chip, handleSnackVisible, onSave, handleCancel]);
+  const {t} = useTranslation();
 
   return (
     <Modal
@@ -80,13 +82,13 @@ function CommentModal({
           <Typography size="Body 1">{validationMessage}</Typography>
         </Snackbar>
       }
-      title={titleText ?? 'Comment'}>
+      title={titleText ?? t('Comment')}>
       <ItemWrapper paddingValue={[0, 30]} style={styles.inputWrapper}>
         <TextInput
           mode="outlined"
           multiline
           // numberOfLines={5}
-          placeholder="Write a message ..."
+          placeholder={`${t('Write a message')} ...`}
           value={text}
           onChangeText={handleText}
         />
@@ -99,7 +101,7 @@ function CommentModal({
             mode="outlined"
             onPress={createOnChipHandler(i.value)}
             selected={i.value === chip}>
-            {i.title}
+            {t(i.title)}
           </Chip>
         ))}
       </ItemWrapper>

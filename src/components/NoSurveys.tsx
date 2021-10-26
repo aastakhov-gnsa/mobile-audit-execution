@@ -3,6 +3,7 @@ import {RefreshControlProps, StyleSheet} from 'react-native';
 import Typography from './Typography';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useTheme} from 'react-native-paper';
+import {useTranslation} from 'react-i18next';
 
 interface NoSurveysProps {
   refreshControl: React.ReactElement<RefreshControlProps>;
@@ -11,6 +12,7 @@ interface NoSurveysProps {
 function NoSurveys({refreshControl}: NoSurveysProps) {
   const {colors} = useTheme();
   const styles = makeStyles(colors);
+  const {t} = useTranslation();
   return (
     <ScrollView
       contentContainerStyle={styles.container}
@@ -19,10 +21,10 @@ function NoSurveys({refreshControl}: NoSurveysProps) {
         📭
       </Typography>
       <Typography size="Headline 6" style={styles.header}>
-        There are no new surveys at the moment
+        {t('There are no new surveys at the moment')}
       </Typography>
       <Typography size="Body 1" style={styles.hint}>
-        Pull down the screen to refresh the list
+        {t('Pull down the screen to refresh the list')}
       </Typography>
     </ScrollView>
   );

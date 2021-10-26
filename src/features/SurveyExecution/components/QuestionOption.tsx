@@ -4,6 +4,7 @@ import ItemWrapper from '../../../components/ItemWrapper';
 import Typography from '../../../components/Typography';
 import {Button} from 'react-native-paper';
 import {ResultCd} from '../../../interfaces/common';
+import {useTranslation} from 'react-i18next';
 
 interface QuestionOptionProps {
   title: string;
@@ -24,6 +25,8 @@ function QuestionOption({
 }: QuestionOptionProps) {
   const handleYes = React.useCallback(() => onChange('Passed'), [onChange]);
   const handleNo = React.useCallback(() => onChange('Failed'), [onChange]);
+  const {t} = useTranslation();
+
   return (
     <View style={styles.optionContainer}>
       <View style={styles.optionDescription}>
@@ -36,14 +39,14 @@ function QuestionOption({
           disabled={disabled}
           mode={resultCd === 'Passed' ? 'contained' : 'outlined'}
           onPress={handleYes}>
-          yes
+          {t('yes')}
         </Button>
         <Button
           style={styles.button}
           disabled={disabled}
           mode={resultCd === 'Failed' ? 'contained' : 'outlined'}
           onPress={handleNo}>
-          no
+          {t('no')}
         </Button>
       </View>
     </View>

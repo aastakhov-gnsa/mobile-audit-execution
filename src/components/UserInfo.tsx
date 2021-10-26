@@ -8,12 +8,14 @@ import {ICON_SIZE} from '../constants/constants';
 import {ScreenNames} from '../navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../interfaces/navigation';
+import {useTranslation} from 'react-i18next';
 
 function UserInfo({fullName}: {fullName: string}) {
   const navigation = useNavigation<NavigationParams>();
   const openLegalNotices = React.useCallback(() => {
     navigation.navigate(ScreenNames.LegalNoticesAndTerms);
   }, [navigation]);
+  const {t} = useTranslation();
   return (
     <View style={styles.info}>
       <View style={styles.userLabel}>
@@ -22,7 +24,7 @@ function UserInfo({fullName}: {fullName: string}) {
       <Divider />
       <View style={styles.menu}>
         <TouchableOpacity style={styles.menuItem} onPress={openLegalNotices}>
-          <Typography size="Body 1">Legal Notices and Terms</Typography>
+          <Typography size="Body 1">{t('Legal Notices and Terms')}</Typography>
           <Icon name="content-paste" size={ICON_SIZE} />
         </TouchableOpacity>
       </View>

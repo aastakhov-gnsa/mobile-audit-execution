@@ -5,13 +5,13 @@ import HeaderRight from '../../components/HeaderRight/HeaderRight';
 import {StyleSheet} from 'react-native';
 import themeConfig from '../../../themeConfig';
 import LegalNoticesAndTermsScreen from '../LegalNoticesAndTerms/LegalNoticesAndTermsScreen';
-import ContactSupportScreen from '../ContactSupport/ContactSupportScreen';
 import UserManualScreen from '../UserManual/UserManualScreen';
 import UserAvatar from '../../components/UserAvatar';
 import HeaderControlsContainer from '../../components/HeaderControlsContainer';
 import AuditDetailsScreen from '../AuditDetails/AuditDetailsScreen';
 import StandardListScreen from '../StandardList/StandardListScreen';
 import SurveyExecutionScreen from '../SurveyExecution/SurveyExecutionScreen';
+import {useTranslation} from 'react-i18next';
 
 function SurveyStack() {
   const SurveysHeaderRight = React.useCallback(() => <HeaderRight />, []);
@@ -23,11 +23,12 @@ function SurveyStack() {
     ),
     [],
   );
+  const {t} = useTranslation();
   return (
     <Surveys.Navigator>
       <Surveys.Group>
         <Surveys.Screen
-          name={ScreenNames.Surveys}
+          name={t(ScreenNames.Surveys)}
           component={SurveysScreen}
           options={{
             headerTitleStyle: styles.headerTitle,
@@ -47,23 +48,18 @@ function SurveyStack() {
       </Surveys.Group>
       <Surveys.Group screenOptions={{presentation: 'modal'}}>
         <Surveys.Screen
-          name={ScreenNames.ContactSupport}
-          options={{title: 'Contact Support'}}
-          component={ContactSupportScreen}
-        />
-        <Surveys.Screen
           name={ScreenNames.UserManual}
-          options={{title: 'User Manual'}}
+          options={{title: t('User Manual')}}
           component={UserManualScreen}
         />
         <Surveys.Screen
           name={ScreenNames.LegalNoticesAndTerms}
-          options={{title: 'Legal Notices and Terms'}}
+          options={{title: t('Legal Notices and Terms')}}
           component={LegalNoticesAndTermsScreen}
         />
         <Surveys.Screen
           name={ScreenNames.AuditDetails}
-          options={{title: 'Audit Details'}}
+          options={{title: t('Audit Details')}}
           component={AuditDetailsScreen}
         />
       </Surveys.Group>

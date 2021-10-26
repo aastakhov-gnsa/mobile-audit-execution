@@ -54,11 +54,11 @@ export interface Survey {
 }
 
 export interface DaimlerService {
-  id: string
-  errors: null
-  vstamp: number
-  auditLineNumber: string
-  productGroup: string
-  brand: string
-  activity: string
+  id: string;
+  errors: null;
+  vstamp: number;
+  auditLineNumber: string;
+  productGroup: string;
+  brand: string;
+  activity: string;
 }

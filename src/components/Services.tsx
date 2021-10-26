@@ -16,8 +16,8 @@ import Setra from '../assets/icons/brands/SETRA.svg';
 import Smart from '../assets/icons/brands/Smart.svg';
 import WesternStarTrucks from '../assets/icons/brands/WesternStarTrucks.svg';
 import Typography from './Typography';
-import { DaimlerService } from '../interfaces/survey';
-import { getServiceLabel } from '../utils/daimlerService';
+import {DaimlerService} from '../interfaces/survey';
+import {getServiceLabel} from '../utils/daimlerService';
 
 interface ServicesProps {
   services?: DaimlerService[];

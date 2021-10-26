@@ -10,6 +10,7 @@ import StatusWithIcon from '../../../components/StatusWithIcon';
 import CommentWithColor from '../../../components/CommentWithColor';
 import HeaderText from '../../../components/HeaderText';
 import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
+import {useTranslation} from 'react-i18next';
 
 interface StandardInformationProps {
   id: string;
@@ -21,6 +22,7 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
   const data = useStandardData(surveyId, id);
   const [langCode, needTranslation] = useCurrentLanguage();
   const styles = makeStyles(colors);
+  const {t} = useTranslation();
   return (
     <>
       <ItemWrapper paddingValue={0} style={styles.head}>
@@ -49,19 +51,19 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
         <Chip>{data?.standardType}</Chip>
       </ItemWrapper>
       {data?.infoForAuditor && (
-        <ItemWrapper paddingValue={[32, 0]} title="Additional Info">
+        <ItemWrapper paddingValue={[32, 0]} title={t('Additional Info')}>
           <Typography size="Body 1">{data?.infoForAuditor}</Typography>
         </ItemWrapper>
       )}
       {data?.requiredDocuments && (
-        <ItemWrapper paddingValue={[32, 0]} title="Documents Required">
+        <ItemWrapper paddingValue={[32, 0]} title={t('Documents Required')}>
           <Typography size="Body 1">{data?.requiredDocuments}</Typography>
         </ItemWrapper>
       )}
       {data?.overruleComment?.value && (
         <ItemWrapper paddingValue={[32, 0]}>
           <CommentWithColor
-            title="Overrule Comment"
+            title={t('Overrule Comment')}
             value={data?.overruleComment?.value}
             hint={data?.overruleComment?.overruledHint}
             status={data?.status}
@@ -71,7 +73,7 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
       {data?.attachedComment && (
         <ItemWrapper paddingValue={[32, 0]}>
           <CommentWithColor
-            title={`${data?.commentType} comment`}
+            title={`${t(data.commentType!)} ${t('comment')}`}
             value={data?.attachedComment}
           />
         </ItemWrapper>

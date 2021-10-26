@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from '../utils/store/configureStore';
 import {useUploadSurveyMutation} from '../features/Survey/surveyService';
 import useModalVisibility from '../hooks/useModalVisibility';
 import {removeSurvey} from '../features/SurveyExecution/evaluationReducer';
+import {useTranslation} from 'react-i18next';
 
 interface UploadSurveyProps {
   id: string;
@@ -65,13 +66,14 @@ function UploadSurvey({id}: UploadSurveyProps) {
     surveyData.standards,
     upload,
   ]);
+  const {t} = useTranslation();
 
   return (
     <>
       {isLoading ? (
         <ActivityIndicator animating={true} color={colors.primary} />
       ) : (
-        <Button onPress={handleClick}>upload</Button>
+        <Button onPress={handleClick}>{t('upload')}</Button>
       )}
       <Portal>
         <Snackbar visible={visible} onDismiss={handleVisible} duration={2000}>

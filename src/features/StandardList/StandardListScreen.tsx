@@ -16,6 +16,7 @@ import {
   StandardListRouteParams,
 } from '../../interfaces/navigation';
 import EvaluationHeaderRight from '../../components/HeaderRight/EvaluationHeaderRight';
+import {useTranslation} from 'react-i18next';
 
 const filterValues: FilterValues = [
   {
@@ -80,6 +81,7 @@ function StandardListScreen() {
     },
     [id],
   );
+  const {t} = useTranslation();
 
   return (
     <ScreenContainer>
@@ -88,7 +90,7 @@ function StandardListScreen() {
         backgroundColor={themeConfig.defaultTheme.colors.surface}
       />
       <ListInfoCaption
-        leftCaption={`${filter ? filter.value : 'All Standards'} · ${
+        leftCaption={`${filter ? filter.value : t('All Standards')} · ${
           data?.length ?? 0
         }`}
       />
