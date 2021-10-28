@@ -11,7 +11,7 @@
 ## Prerequisites
 
 * Node 12
-* Android Studio 
+* Android Studio 2020.3.1
 
 ## Install dependencies
 
@@ -128,6 +128,8 @@ During the end of the process, you might be asked to enter the password to your 
 By default this password is matching your MacOS account password - make sure to click `Always Allow` or be ready to enter the
 password multiple times during archive process.
 The keychain password sometimes might be out of sync with your MacOS account password - if that's the case and the password you use to login in your MacOS is not valid for XCode codesign, refer to https://support.apple.com/guide/keychain-access/if-you-need-to-update-your-keychain-password-kyca2429/mac for instructions.
+
+![Select archive option](./readme-assets/ios-codesign.jpg)
 
 ## Distribute the app
 
