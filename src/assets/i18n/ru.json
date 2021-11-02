@@ -76,6 +76,7 @@
     "Auditor marked survey as failed": "Аудитор пометил запрос как неуспешный",
     "Auditor marked survey as passed": "Аудитор пометил запрос как успешный",
     "yes": "да",
-    "no": "нет"
+    "no": "нет",
+    "Uploading survey": "Загрузка опроса"
   }
 }

@@ -95,7 +95,6 @@ export default function SurveyExecutionScreen() {
 const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
   StyleSheet.create({
     standardsNavigation: {
-      display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginBottom: 40,
@@ -110,7 +109,6 @@ const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
       color: colors.primary,
     },
     controls: {
-      display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
     },

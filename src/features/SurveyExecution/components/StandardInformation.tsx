@@ -11,6 +11,7 @@ import CommentWithColor from '../../../components/CommentWithColor';
 import HeaderText from '../../../components/HeaderText';
 import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
 import {useTranslation} from 'react-i18next';
+import FilesPanel from '../../../components/FilesPanel';
 
 interface StandardInformationProps {
   id: string;
@@ -58,6 +59,15 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
       {data?.requiredDocuments && (
         <ItemWrapper paddingValue={[32, 0]} title={t('Documents Required')}>
           <Typography size="Body 1">{data?.requiredDocuments}</Typography>
+        </ItemWrapper>
+      )}
+      {data?.files && (
+        <ItemWrapper paddingValue={[32, 0]} title="Files">
+          <FilesPanel
+            files={data.files}
+            surveyId={surveyId}
+            standardId={data.id}
+          />
         </ItemWrapper>
       )}
       {data?.overruleComment?.value && (

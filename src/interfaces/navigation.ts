@@ -6,6 +6,7 @@ export type SurveysStackParamList = {
   [ScreenNames.SurveyExecution]: {surveyId: string; standardId: string};
   [ScreenNames.StandardList]: {id: string};
   [ScreenNames.AuditDetails]: {id: string};
+  [ScreenNames.FileView]: {fileName: string; filePath: string};
   [ScreenNames.UserManual]: undefined;
   [ScreenNames.ContactSupport]: undefined;
   [ScreenNames.LegalNoticesAndTerms]: undefined;

@@ -14,6 +14,7 @@ import SurveyExecutionScreen from '../SurveyExecution/SurveyExecutionScreen';
 import {SvSRPreviewScreen} from '../SvSr/SvSRPreviewScreen';
 import {SignatureScreen} from '../SvSr/SignatureScreen';
 import {useTranslation} from 'react-i18next';
+import FileViewScreen from '../FileView/FileViewScreen';
 
 function SurveyStack() {
   const SurveysHeaderRight = React.useCallback(() => <HeaderRight />, []);
@@ -73,6 +74,10 @@ function SurveyStack() {
           name={ScreenNames.AuditDetails}
           options={{title: t('Audit Details')}}
           component={AuditDetailsScreen}
+        />
+        <Surveys.Screen
+          name={ScreenNames.FileView}
+          component={FileViewScreen}
         />
       </Surveys.Group>
     </Surveys.Navigator>

@@ -148,6 +148,119 @@ export const evaluationReducer = createSlice({
       const survey = state[surveyId];
       survey.resultCd = status;
     },
+    setDownloadedFile: (
+      state,
+      action: PayloadAction<{
+        surveyId: string;
+        standardId: string;
+        questionId?: string;
+        filePath: string;
+        fileId: string;
+      }>,
+    ) => {
+      const {surveyId, standardId, questionId, filePath, fileId} =
+        action.payload;
+      const standard = state[surveyId].standards.find(i => i.id === standardId);
+      const file = !questionId
+        ? standard!.files!.find(i => i.id === fileId)
+        : standard!
+            .questionDTOList!.find(i => i.id === questionId)!
+            .files.find(f => f.id === fileId);
+      file!.options!._fromServer = true;
+      file!.options!._path = filePath;
+    },
+    setQuestionAddedFile: (
+      state,
+      action: PayloadAction<{
+        surveyId: string;
+        standardId: string;
+        questionId: string;
+        filePath: string;
+        fileId: string;
+      }>,
+    ) => {
+      const {surveyId, standardId, questionId, filePath, fileId} =
+        action.payload;
+      const standard = state[surveyId].standards.find(i => i.id === standardId);
+      const files = standard!.questionDTOList!.find(
+        i => i.id === questionId,
+      )!.files;
+      files.push({
+        id: fileId,
+        value: fileId,
+        options: {_path: filePath, _fromServer: false},
+      });
+    },
+    markFileAsDeleted: (
+      state,
+      action: PayloadAction<{
+        surveyId: string;
+        standardId: string;
+        questionId?: string;
+        fileId: string;
+      }>,
+    ) => {
+      const {surveyId, standardId, questionId, fileId} = action.payload;
+      const standard = state[surveyId].standards.find(i => i.id === standardId);
+      const file = !questionId
+        ? standard!.files!.find(i => i.id === fileId)
+        : standard!
+            .questionDTOList!.find(i => i.id === questionId)!
+            .files.find(f => f.id === fileId);
+      file!.options!._toDelete = true;
+    },
+    deleteLocalFile: (
+      state,
+      action: PayloadAction<{
+        surveyId: string;
+        standardId: string;
+        questionId?: string;
+        fileId: string;
+      }>,
+    ) => {
+      const {surveyId, standardId, questionId, fileId} = action.payload;
+      const standard = state[surveyId].standards.find(i => i.id === standardId);
+      const files = !questionId
+        ? standard!.files
+        : standard!.questionDTOList!.find(i => i.id === questionId)!.files;
+      const fileIndex = files!.findIndex(i => i.id === fileId);
+      if (fileIndex > -1) {
+        files?.splice(fileIndex, 1);
+      }
+    },
+    setPhotoViewingStart: (
+      state,
+      action: PayloadAction<{
+        surveyId: string;
+        standardId: string;
+        questionId?: string;
+        fileId: string;
+      }>,
+    ) => {
+      const {surveyId, standardId, questionId, fileId} = action.payload;
+      const standard = state[surveyId].standards.find(i => i.id === standardId);
+      const files = !questionId
+        ? standard!.files
+        : standard!.questionDTOList!.find(i => i.id === questionId)!.files;
+      const file = files?.find(i => i.id === fileId);
+      file!.options!._viewingStart = true;
+    },
+    clearPhotoViewingStart: (
+      state,
+      action: PayloadAction<{
+        surveyId: string;
+        standardId: string;
+        questionId?: string;
+      }>,
+    ) => {
+      const {surveyId, standardId, questionId} = action.payload;
+      const standard = state[surveyId].standards.find(i => i.id === standardId);
+      const files = !questionId
+        ? standard!.files
+        : standard!.questionDTOList!.find(i => i.id === questionId)!.files;
+      const file = files?.find(i => i.options?._viewingStart);
+      delete file!.options!._viewingStart;
+    },
   },
 });
 
@@ -162,4 +275,10 @@ export const {
   changeStandardStatus,
   overruleStandardResult,
   changeSurveyStatus,
+  setDownloadedFile,
+  markFileAsDeleted,
+  deleteLocalFile,
+  setQuestionAddedFile,
+  setPhotoViewingStart,
+  clearPhotoViewingStart,
 } = evaluationReducer.actions;
