@@ -11,6 +11,7 @@ import NoDataFallback from '../../components/NoDataFallback';
 import {useSelector} from '../../utils/store/configureStore';
 import {shallowEqual} from 'react-redux';
 import AuditProgress from '../../components/AuditProgress';
+import {useTranslation} from 'react-i18next';
 
 interface AuditDetailsParams {
   id: string;
@@ -32,18 +33,20 @@ function AuditDetailsScreen() {
     shallowEqual,
   );
 
+  const {t} = useTranslation();
+
   const content: {title: string; component: React.ReactNode}[] = [
     {
-      title: 'Progress',
+      title: t('Progress'),
       component: <AuditProgress surveyId={id} />,
     },
-    {title: 'Services', component: <Services services={services} />},
+    {title: t('Services'), component: <Services services={services} />},
     {
-      title: 'Audit Name',
+      title: t('Audit Name'),
       component: <Typography size="Body 1">{number}</Typography>,
     },
     {
-      title: 'Location Info',
+      title: t('Location Info'),
       component: (
         <CompanyAddress
           companyId={companyId}
@@ -53,7 +56,7 @@ function AuditDetailsScreen() {
       ),
     },
     {
-      title: 'Auditor',
+      title: t('Auditor'),
       component: (
         <>
           {auditorName ? (
@@ -65,11 +68,11 @@ function AuditDetailsScreen() {
       ),
     },
     {
-      title: 'Signed', // todo
+      title: t('Signed'), // todo
       component: <NoDataFallback />,
     },
     {
-      title: 'Comments', // todo
+      title: t('Comments'), // todo
       component: <NoDataFallback />,
     },
   ];

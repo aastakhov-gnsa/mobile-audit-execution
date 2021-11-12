@@ -9,6 +9,7 @@ import {
 import CommentModal from '../../../components/CommentModal';
 import useModalVisibility from '../../../hooks/useModalVisibility';
 import {OverruleStatus} from '../../../interfaces/common';
+import {useTranslation} from 'react-i18next';
 
 interface AddCommentProps {
   surveyId: string;
@@ -59,7 +60,7 @@ function AddComment({
     },
     [dispatch, questionId, standardId, surveyId],
   );
-
+  const {t} = useTranslation();
   return (
     <>
       {visible && (
@@ -68,15 +69,15 @@ function AddComment({
           onVisible={handleVisible}
           onSave={handleSave}
           chips={chips}
-          validationMessage="Fill comment and chose type of comment"
+          validationMessage={t('Fill comment and chose type of comment')}
         />
       )}
       <TouchableText
         onPress={handleVisible}
         size="Button"
         iconName={attachedComment ? 'comment' : 'add-comment'}>{`${
-        attachedComment ? commentType?.toUpperCase() : 'ADD'
-      } COMMENT`}</TouchableText>
+        attachedComment ? t(commentType!).toUpperCase() : t('ADD')
+      } ${t('COMMENT')}`}</TouchableText>
     </>
   );
 }

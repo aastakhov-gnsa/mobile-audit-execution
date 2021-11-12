@@ -15,6 +15,7 @@ import {
 } from '../evaluationReducer';
 import {ResultCd} from '../../../interfaces/common';
 import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
+import {useTranslation} from 'react-i18next';
 
 export interface StandardQuestionProps {
   standardId: string;
@@ -67,6 +68,7 @@ function StandardQuestion({
     },
     [dispatch, question.id, question.optionsExecution, standardId, surveyId],
   );
+  const {t} = useTranslation();
   return (
     <>
       <Divider />
@@ -80,7 +82,7 @@ function StandardQuestion({
           {needTranslation && question.nameTranslations?.[langCode]
             ? question.nameTranslations?.[langCode]
             : question.mcName}{' '}
-          · {questionIndex + 1} of {total}
+          · {questionIndex + 1} {t('of')} {total}
         </HeaderText>
       </ItemWrapper>
       {!question.isOptionsPresent && (
@@ -130,7 +132,7 @@ function StandardQuestion({
       {question?.attachedComment && (
         <ItemWrapper paddingValue={[0, 30]}>
           <CommentWithColor
-            title={`${question?.commentType} comment`}
+            title={`${t(question.commentType)} ${t('comment')}`}
             value={question?.attachedComment}
           />
         </ItemWrapper>
@@ -144,7 +146,7 @@ function StandardQuestion({
           questionId={question.id}
         />
         <Typography size="Button" style={styles.button}>
-          ADD PHOTOS
+          {t('ADD PHOTOS')}
         </Typography>
       </ItemWrapper>
     </>

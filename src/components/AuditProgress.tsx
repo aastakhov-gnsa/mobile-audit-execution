@@ -5,6 +5,7 @@ import Typography from './Typography';
 import ItemWrapper from './ItemWrapper';
 import {useSelector} from '../utils/store/configureStore';
 import {Status} from '../interfaces/common';
+import {useTranslation} from 'react-i18next';
 
 interface AuditProgressProps {
   surveyId: string;
@@ -29,6 +30,7 @@ function AuditProgress({surveyId}: AuditProgressProps) {
     0,
   );
   const all = standards?.length;
+  const {t} = useTranslation();
   return (
     <>
       <ItemWrapper paddingValue={[0, 14]}>
@@ -39,7 +41,7 @@ function AuditProgress({surveyId}: AuditProgressProps) {
         />
       </ItemWrapper>
       <Typography size="Body 1">
-        {completed} of {all}
+        {completed} {t('of')} {all}
       </Typography>
     </>
   );

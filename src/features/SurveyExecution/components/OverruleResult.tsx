@@ -7,6 +7,7 @@ import {useDispatch} from '../../../utils/store/configureStore';
 import {overruleStandardResult} from '../evaluationReducer';
 import format from 'date-fns/format';
 import {OverruleStatus} from '../../../interfaces/common';
+import {useTranslation} from 'react-i18next';
 
 interface OverruleResultProps {
   surveyId: string;
@@ -41,6 +42,7 @@ function OverruleResult({surveyId, standardId}: OverruleResultProps) {
     },
     [dispatch, standardId, surveyId],
   );
+  const {t} = useTranslation();
   return (
     <>
       {visible && (
@@ -49,12 +51,12 @@ function OverruleResult({surveyId, standardId}: OverruleResultProps) {
           onVisible={handleVisible}
           onSave={handleSave}
           chips={chips}
-          validationMessage="Fill comment and choose a status"
-          titleText="Overrule result"
+          validationMessage={t('Fill comment and choose a status')}
+          titleText={t('Overrule result')}
         />
       )}
       <TouchableText onPress={handleVisible} size="Button">
-        CHANGE RESULT
+        {t('CHANGE RESULT')}
       </TouchableText>
     </>
   );

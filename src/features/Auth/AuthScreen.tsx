@@ -15,6 +15,7 @@ import {Storage, StorageItems} from '../../utils/storage/storage';
 import {fetchGnsaToken} from './authActions';
 import {useDispatch, useSelector} from '../../utils/store/configureStore';
 import Typography from '../../components/Typography';
+import {useTranslation} from 'react-i18next';
 const image = require('./assets/logo.png');
 
 function AuthScreen() {
@@ -66,6 +67,7 @@ function AuthScreen() {
     authContext.setInProgress(false);
   }, [authContext, dispatch]);
 
+  const {t} = useTranslation();
   return (
     <Page>
       <Spinner inProgress={authContext.inProgress || tokenLoading} />
@@ -74,14 +76,14 @@ function AuthScreen() {
           <Image source={image} style={styles.logo} />
           <View style={styles.welcomeWrapper}>
             <Typography size="Headline 5" style={styles.text}>
-              Welcome to the new audit app!
+              {t('Welcome to the new audit app')}!
             </Typography>
             <Typography size="Subtitle 2" style={styles.text}>
-              Authorize to get started
+              {t('Authorize to get started')}
             </Typography>
           </View>
           <Button onPress={doAuthorize} mode="contained" style={styles.button}>
-            Sign in
+            {t('Sign in')}
           </Button>
         </View>
       </View>

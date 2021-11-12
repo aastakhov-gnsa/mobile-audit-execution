@@ -8,6 +8,7 @@ import {AuthContext} from '../context/AuthContext';
 import {useDispatch} from '../utils/store/configureStore';
 import {StyleSheet} from 'react-native';
 import {surveyApi} from '../features/Survey/surveyService';
+import {useTranslation} from 'react-i18next';
 
 function LogoutButton() {
   const authContext = React.useContext(AuthContext);
@@ -31,14 +32,14 @@ function LogoutButton() {
       authContext.setInProgress(false);
     }
   }, [authContext, dispatch]);
-
+  const {t} = useTranslation();
   return (
     <Button
       onPress={doSignOff}
       style={styles.logOutButton}
       icon="logout-variant"
       mode="contained">
-      Log out
+      {t('log out')}
     </Button>
   );
 }

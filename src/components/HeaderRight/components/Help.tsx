@@ -17,6 +17,7 @@ import {
   NavigationParams,
   SurveysStackParamList,
 } from '../../../interfaces/navigation';
+import {useTranslation} from 'react-i18next';
 
 interface HelpProps {
   style?: StyleProp<TextStyle>;
@@ -43,6 +44,7 @@ function Help({style}: HelpProps) {
     },
     [handleVisible, navigation],
   );
+  const {t} = useTranslation();
   return (
     <>
       <TouchableOpacity onPress={handleVisible}>
@@ -55,7 +57,7 @@ function Help({style}: HelpProps) {
               key={i.label}
               style={styles.menuItem}
               onPress={createNavigationHandler(i.screenName)}>
-              <Text>{i.label}</Text>
+              <Text>{t(i.label)}</Text>
             </TouchableOpacity>
           ))}
         </View>

@@ -11,6 +11,7 @@ import Modal from '../../components/Modal';
 import ItemWrapper from '../../components/ItemWrapper';
 import {Divider, RadioButton, TextInput, useTheme} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useTranslation} from 'react-i18next';
 
 interface ContentLanguageSwitcherProps {
   iconStyle?: StyleProp<TextStyle>;
@@ -45,6 +46,7 @@ function ContentLanguageSwitcher({iconStyle}: ContentLanguageSwitcherProps) {
   const list = query.length
     ? langList.filter(i => i.value.toLowerCase().includes(query.toLowerCase()))
     : langList;
+  const {t} = useTranslation();
   return (
     <>
       <Icon
@@ -56,13 +58,13 @@ function ContentLanguageSwitcher({iconStyle}: ContentLanguageSwitcherProps) {
       <Modal
         visible={visible}
         onCancel={handleCancel}
-        title="Content Language"
+        title={t('Content Language')}
         onSave={handleSave}>
         <ItemWrapper paddingValue={[0, 28]} style={styles.wrapper}>
           <TextInput
             value={query}
             onChangeText={handleQueryChange}
-            placeholder="Search for a language"
+            placeholder={t('Search for a language')}
           />
         </ItemWrapper>
         <ItemWrapper paddingValue={0} style={styles.wrapper}>
@@ -74,7 +76,7 @@ function ContentLanguageSwitcher({iconStyle}: ContentLanguageSwitcherProps) {
                     <RadioButton.Item
                       value={i.key}
                       key={i.key}
-                      label={i.value}
+                      label={t(i.value)}
                       style={styles.radio}
                       color={colors.primary}
                     />

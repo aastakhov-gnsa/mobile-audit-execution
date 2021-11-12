@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import Clipboard from '@react-native-clipboard/clipboard';
 import NoDataFallback from './NoDataFallback';
 import {Portal, Snackbar, useTheme} from 'react-native-paper';
+import {useTranslation} from 'react-i18next';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {ICON_SIZE} from '../constants/constants';
 
@@ -30,6 +31,7 @@ function CompanyAddress({
   );
   const {colors} = useTheme();
   const styles = makeStyles(colors);
+  const {t} = useTranslation();
   if (!outletAddress && !companyId) {
     return <NoDataFallback />;
   }
@@ -39,7 +41,7 @@ function CompanyAddress({
       {outletAddress && copyable && (
         <TouchableOpacity onPress={handleCopy}>
           <Typography size="Body 1" style={styles.link}>
-            Copy the Address
+            {t('Copy the Address')}
           </Typography>
         </TouchableOpacity>
       )}
@@ -47,7 +49,9 @@ function CompanyAddress({
         <Snackbar visible={visible} onDismiss={handleVisible} duration={2000}>
           {/*todo styles are needed*/}
           {/*<Icon name="content-copy" size={ICON_SIZE} />*/}
-          <Typography size="Body 2">Address copied to clipboard</Typography>
+          <Typography size="Body 2">
+            {t('Address copied to clipboard')}
+          </Typography>
         </Snackbar>
       </Portal>
     </>

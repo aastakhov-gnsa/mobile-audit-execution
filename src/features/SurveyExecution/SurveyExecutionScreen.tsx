@@ -20,6 +20,7 @@ import {useSelector} from '../../utils/store/configureStore';
 import {shallowEqual} from 'react-redux';
 import AddComment from './components/AddComment';
 import OverruleResult from './components/OverruleResult';
+import {useTranslation} from 'react-i18next';
 
 export default function SurveyExecutionScreen() {
   const {colors} = useTheme();
@@ -37,16 +38,17 @@ export default function SurveyExecutionScreen() {
       standardData: index > noDataIndex ? data![index] : undefined,
     };
   }, shallowEqual);
+  const {t} = useTranslation();
   React.useEffect(() => {
     navigation.setOptions({
       title: (
         <Typography size="Headline 6">
-          Evaluation - {standardIndex} of {standardLength}
+          {t('Evaluation')} - {standardIndex} {t('of')} {standardLength}
         </Typography>
       ),
       headerRight: () => <EvaluationHeaderRight surveyId={surveyId} />,
     });
-  }, [navigation, standardLength, standardIndex, surveyId]);
+  }, [navigation, standardLength, standardIndex, surveyId, t]);
   if (!surveyId) {
     return null;
   }

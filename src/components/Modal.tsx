@@ -9,6 +9,7 @@ import {
 import {StyleSheet} from 'react-native';
 import ItemWrapper from './ItemWrapper';
 import Typography from './Typography';
+import {useTranslation} from 'react-i18next';
 
 interface ModalProps {
   title: string;
@@ -27,6 +28,7 @@ function Modal({
   onSave,
   validationComponent,
 }: ModalProps) {
+  const {t} = useTranslation();
   return (
     <Portal>
       <PaperModal
@@ -42,10 +44,10 @@ function Modal({
           <Divider />
           <ItemWrapper style={styles.controlsWrapper}>
             <Button mode="text" style={styles.button} onPress={onCancel}>
-              cancel
+              {t('cancel')}
             </Button>
             <Button mode="contained" onPress={onSave}>
-              save
+              {t('save')}
             </Button>
           </ItemWrapper>
           {validationComponent}

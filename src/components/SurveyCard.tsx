@@ -17,6 +17,7 @@ import Typography from './Typography';
 import {NavigationParams} from '../interfaces/navigation';
 import {useSelector} from '../utils/store/configureStore';
 import UploadSurvey from './UploadSurvey';
+import {useTranslation} from 'react-i18next';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -56,7 +57,7 @@ function SurveyCard({survey}: {survey: Survey}) {
       navigation.navigate(ScreenNames.StandardList, {id: id});
     }
   }, [id, data, navigation]);
-
+  const {t} = useTranslation();
   return (
     <Card style={styles.card} key={id} onPress={handlePress}>
       <Card.Title
@@ -67,7 +68,7 @@ function SurveyCard({survey}: {survey: Survey}) {
           </Typography>
         }
         subtitle={
-          <Typography size="Body 1">{`Planned Date: ${
+          <Typography size="Body 1">{`${t('Planned Date')}: ${
             data?.plannedDate ?? plannedDate
               ? format(
                   parse(
@@ -100,12 +101,12 @@ function SurveyCard({survey}: {survey: Survey}) {
               onPress={() =>
                 navigation.navigate(ScreenNames.AuditDetails, {id: id})
               }>
-              Audit Details
+              {t('Audit Details')}
             </Button>
           )}
         </View>
         {!data ? (
-          <Button onPress={handleDownload}>Download</Button>
+          <Button onPress={handleDownload}>{t('Download')}</Button>
         ) : (
           <UploadSurvey id={id} />
         )}

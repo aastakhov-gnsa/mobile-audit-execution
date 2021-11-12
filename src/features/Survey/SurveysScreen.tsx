@@ -9,7 +9,7 @@ import {RefreshControl, StatusBar} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
 import ScreenContainer from '../../components/ScreenContainer';
-import {format, toDate} from 'date-fns';
+import {toDate} from 'date-fns';
 import {useSelector} from '../../utils/store/configureStore';
 import {skipToken} from '@reduxjs/toolkit/query';
 import Filters from '../../components/Filters/Filters';
@@ -18,6 +18,8 @@ import {FilterItem, FilterValues} from '../../interfaces/filters';
 import {EMPTY_ARRAY} from '../../constants/constants';
 import NetInfo from '@react-native-community/netinfo';
 import NoSurveys from '../../components/NoSurveys';
+import {useTranslation} from 'react-i18next';
+import localizedFormat from '../../utils/date/localizedFormat';
 
 enum SurveysFilters {
   allSurveys = 'All Surveys',
@@ -73,6 +75,8 @@ function SurveysScreen() {
     return <SurveyCard survey={item} key={item.id} />;
   }, []);
 
+  const {t} = useTranslation();
+
   if (isLoading) {
     return <Spinner inProgress />;
   }
@@ -86,11 +90,11 @@ function SurveysScreen() {
       <ListContainer>
         <ListInfoCaption
           leftCaption={`${
-            filter?.value ? filter.value : SurveysFilters.allSurveys
+            filter?.value ? t(filter.value) : t(SurveysFilters.allSurveys)
           } · ${data?.length ?? 0}`}
           rightCaption={
             fulfilledTimeStamp
-              ? `Updated ${format(toDate(fulfilledTimeStamp), 'PPP kk:mm')}`
+              ? `${t('Updated')} ${localizedFormat(toDate(fulfilledTimeStamp))}`
               : ''
           }
         />
