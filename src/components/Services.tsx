@@ -16,10 +16,11 @@ import Setra from '../assets/icons/brands/SETRA.svg';
 import Smart from '../assets/icons/brands/Smart.svg';
 import WesternStarTrucks from '../assets/icons/brands/WesternStarTrucks.svg';
 import Typography from './Typography';
-import {MultiValue} from '../interfaces/common';
+import { DaimlerService } from '../interfaces/survey';
+import { getServiceLabel } from '../utils/daimlerService';
 
 interface ServicesProps {
-  services?: MultiValue[];
+  services?: DaimlerService[];
   showNumber?: number;
 }
 
@@ -28,7 +29,7 @@ function Services({services, showNumber}: ServicesProps) {
   if (!services) {
     return null;
   }
-  const allValues = services?.map(i => i.value);
+  const allValues = services?.map(getServiceLabel);
   const servicesValues = showNumber
     ? allValues.slice(0, showNumber)
     : allValues;

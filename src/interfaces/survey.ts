@@ -1,4 +1,4 @@
-import {MultiValue, Status} from './common';
+import {Status} from './common';
 
 export interface Survey {
   // attachedComment: null
@@ -40,7 +40,7 @@ export interface Survey {
   receivingEntityConcatName: string;
   resultCd: Status;
   // sendingEntityConcatName: null
-  services: MultiValue[];
+  services: DaimlerService[];
   // smAuditLineList: null
   // statusBgColor: null
   statusCd: Status;
@@ -51,4 +51,14 @@ export interface Survey {
   // surveyResultColor: null
   // textNumber: null
   // uiPlannedDate: null
+}
+
+export interface DaimlerService {
+  id: string
+  errors: null
+  vstamp: number
+  auditLineNumber: string
+  productGroup: string
+  brand: string
+  activity: string
 }
