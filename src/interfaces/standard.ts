@@ -1,4 +1,5 @@
 import {MultiValue, ResultCd, Status, Translations} from './common';
+import { DaimlerService } from './survey';
 
 type AnyData = Partial<
   Record<
@@ -10,6 +11,7 @@ type AnyData = Partial<
     | StandardQuestion[]
     | Status
     | Translations
+    | DaimlerService[]
   >
 >;
 
@@ -23,7 +25,7 @@ export interface AuditStandardExecution extends AnyData {
   overruleComment?: OverruleComment;
   questionDTOList?: StandardQuestion[];
   refineComment?: string;
-  services?: MultiValue[];
+  services?: DaimlerService[];
   standardName?: string;
   standardNumber?: string;
   standardText?: string;
