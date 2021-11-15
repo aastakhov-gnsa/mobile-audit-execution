@@ -34,3 +34,12 @@ export interface Language {
   displayOrder: number;
   active: boolean;
 }
+
+export interface SmFile extends MultiValue {
+  options?: Record<string, string> & {
+    _path?: string;
+    _fromServer?: boolean;
+    _toDelete?: boolean;
+    _viewingStart?: boolean;
+  };
+}

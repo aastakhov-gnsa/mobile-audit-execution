@@ -6,6 +6,7 @@ export const Surveys = createStackNavigator();
 export enum ScreenNames {
   StandardList = 'StandardList',
   AuditDetails = 'AuditDetails',
+  FileView = 'FileView',
   Surveys = 'Surveys',
   SurveyExecution = 'SurveyExecution',
   SurveysStack = 'SurveysStack',

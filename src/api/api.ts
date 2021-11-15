@@ -7,7 +7,7 @@ import {alert} from './apiAlerts';
 
 export const __HOST__ = API_URL;
 // export const __HOST__ = 'http://localhost:8080';
-export const __API__ = __HOST__ + '/api/v1/';
+export const __API__ = __HOST__ + '/api/v1';
 const __AJAX_TIMEOUT__ = 900000;
 
 export function createAxiosInstance(config?: AxiosRequestConfig) {

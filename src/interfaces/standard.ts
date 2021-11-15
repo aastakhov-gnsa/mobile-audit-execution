@@ -1,4 +1,4 @@
-import {MultiValue, ResultCd, Status, Translations} from './common';
+import {MultiValue, ResultCd, SmFile, Status, Translations} from './common';
 import { DaimlerService } from './survey';
 
 type AnyData = Partial<
@@ -21,7 +21,7 @@ export interface AuditStandardExecution extends AnyData {
   attachedComment?: string;
   checkpoint?: string;
   commentType?: CommentType;
-  files?: MultiValue[];
+  files?: SmFile[];
   overruleComment?: OverruleComment;
   questionDTOList?: StandardQuestion[];
   refineComment?: string;
@@ -51,7 +51,7 @@ export interface StandardQuestion {
   attachedComment: string;
   commentType: 'Internal' | 'External';
   resultCd: ResultCd;
-  files: MultiValue[];
+  files: SmFile[];
   isOptionsPresent: boolean;
   nameTranslations: Translations;
   textTranslations: Translations;

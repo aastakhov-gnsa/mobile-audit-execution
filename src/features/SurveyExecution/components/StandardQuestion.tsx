@@ -12,10 +12,14 @@ import {useDispatch} from '../../../utils/store/configureStore';
 import {
   changeQuestionOptionResult,
   changeQuestionResult,
+  deleteLocalFile,
+  markFileAsDeleted,
 } from '../evaluationReducer';
 import {ResultCd} from '../../../interfaces/common';
 import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
 import {useTranslation} from 'react-i18next';
+import AddPhotos from '../../../components/AddPhotos';
+import FilesPanel from '../../../components/FilesPanel';
 
 export interface StandardQuestionProps {
   standardId: string;
@@ -51,6 +55,32 @@ function StandardQuestion({
       );
     },
     [dispatch, question.id, question.resultCd, standardId, surveyId],
+  );
+
+  const handleDeleteFile = React.useCallback(
+    (fId: string) => {
+      const currentFile = question.files.find(i => i.id === fId);
+      if (currentFile?.options?._fromServer) {
+        dispatch(
+          markFileAsDeleted({
+            surveyId,
+            standardId,
+            questionId: question.id,
+            fileId: fId,
+          }),
+        );
+      } else {
+        dispatch(
+          deleteLocalFile({
+            surveyId,
+            standardId,
+            questionId: question.id,
+            fileId: fId,
+          }),
+        );
+      }
+    },
+    [dispatch, question.files, question.id, standardId, surveyId],
   );
   const createQuestionOptionHandler = React.useCallback(
     (opId: string) => (rCd: ResultCd) => {
@@ -145,10 +175,23 @@ function StandardQuestion({
           surveyId={surveyId}
           questionId={question.id}
         />
-        <Typography size="Button" style={styles.button}>
-          {t('ADD PHOTOS')}
-        </Typography>
+        <AddPhotos
+          surveyId={surveyId}
+          standardId={standardId}
+          questionId={question.id}
+        />
       </ItemWrapper>
+      {question.files.filter(i => !i.options?._toDelete).length > 0 && (
+        <ItemWrapper paddingValue={[0, 30]} title="Files">
+          <FilesPanel
+            files={question.files}
+            onDelete={handleDeleteFile}
+            surveyId={surveyId}
+            standardId={standardId}
+            questionId={question.id}
+          />
+        </ItemWrapper>
+      )}
     </>
   );
 }
@@ -158,7 +201,7 @@ export default React.memo(StandardQuestion);
 const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
   StyleSheet.create({
     addActions: {
-      width: '35%',
+      width: '50%',
       justifyContent: 'space-between',
       display: 'flex',
       flexDirection: 'row',

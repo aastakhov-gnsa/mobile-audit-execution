@@ -15,9 +15,11 @@ import ItemWrapper from './ItemWrapper';
 import CompanyAddress from './CompanyAddress';
 import Typography from './Typography';
 import {NavigationParams} from '../interfaces/navigation';
-import {useSelector} from '../utils/store/configureStore';
+import {useDispatch, useSelector} from '../utils/store/configureStore';
 import UploadSurvey from './UploadSurvey';
 import {SvSr} from '../features/SvSr/SvSr';
+import downloadFile from '../utils/files/downloadFile';
+import {setDownloadedFile} from '../features/SurveyExecution/evaluationReducer';
 import {useTranslation} from 'react-i18next';
 
 function SurveyCard({survey}: {survey: Survey}) {
@@ -35,11 +37,68 @@ function SurveyCard({survey}: {survey: Survey}) {
   const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
   const {isLoading} = useSurveyQuery(id, {skip});
   const data = useSelector(state => state.evaluation[id]);
+  const token = useSelector(state => state.auth.token);
   React.useEffect(() => {
     if (!data) {
       setSkip(true);
     }
   }, [data]);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    if (data && token) {
+      data.standards.forEach(st => {
+        st.files?.forEach(f => {
+          if (!f.options?._path) {
+            downloadFile({
+              fileId: f.id,
+              fileName: f.value,
+              token,
+              resPathCb: p => {
+                console.log('--=', p);
+                dispatch(
+                  setDownloadedFile({
+                    surveyId: id,
+                    standardId: st.id,
+                    filePath: p,
+                    fileId: f.id,
+                  }),
+                );
+              },
+              errCb: e => {
+                console.error('e', e);
+              }, // todo implement
+            });
+          }
+        });
+        st.questionDTOList?.forEach(q => {
+          q.files?.forEach(f => {
+            if (f.options?._fromServer !== false && !f.options?._path) {
+              downloadFile({
+                fileId: f.id,
+                fileName: f.value,
+                token,
+                resPathCb: p => {
+                  console.log('--=', p);
+                  dispatch(
+                    setDownloadedFile({
+                      surveyId: id,
+                      standardId: st.id,
+                      questionId: q.id,
+                      filePath: p,
+                      fileId: f.id,
+                    }),
+                  );
+                },
+                errCb: e => {
+                  console.error('e', e);
+                }, // todo implement
+              });
+            }
+          });
+        });
+      });
+    }
+  }, [data, dispatch, id, token]);
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   const RightContent = React.useCallback(() => {

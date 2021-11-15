@@ -45,6 +45,22 @@ export const surveyApi = createApi({
     userInfo: builder.query<GnsaUser, string>({
       query: (userName: string) => `user-info/${userName}`,
     }),
+    downloadFile: builder.mutation<any, string>({
+      query: id => {
+        return {
+          url: `file?fileId=${id}`,
+          method: 'get',
+        };
+      },
+    }),
+    deleteFile: builder.mutation<void, string>({
+      query: id => {
+        return {
+          url: `file?fileId=${id}`,
+          method: 'delete',
+        };
+      },
+    }),
   }),
 });
 
@@ -54,4 +70,6 @@ export const {
   useUserInfoQuery,
   useUploadSurveyMutation,
   useLanguagesQuery,
+  useDownloadFileMutation,
+  useDeleteFileMutation,
 } = surveyApi;

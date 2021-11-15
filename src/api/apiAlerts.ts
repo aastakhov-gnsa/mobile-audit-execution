@@ -1,6 +1,8 @@
 import {AxiosError} from 'axios';
 import {Alert, AlertButton} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
+import {FetchBlobResponse} from 'react-native-blob-util';
+import {FetchBlobUtilRequest} from '../interfaces/files';
 
 export function alert(e: AxiosError) {
   const isAuthError = e.response?.status === 401;
@@ -31,4 +33,25 @@ requestBody: ${requestBody}
     },
   };
   Alert.alert(title, message, [button]);
+}
+
+export function fileUploadAlert(
+  fileName: string = '',
+  requestConfig: FetchBlobUtilRequest,
+  response?: FetchBlobResponse,
+  e?: any,
+) {
+  const message = `
+url: ${requestConfig.url}
+response: ${JSON.stringify(response?.data, null, 2)}
+requestConfig: ${JSON.stringify(requestConfig, null, 2)}
+exception: ${JSON.stringify(e, null, 2)}
+  `;
+  const button: AlertButton = {
+    text: 'Copy',
+    onPress: () => {
+      Clipboard.setString(message);
+    },
+  };
+  Alert.alert(`Upload file ${fileName} failed`, message, [button]);
 }
