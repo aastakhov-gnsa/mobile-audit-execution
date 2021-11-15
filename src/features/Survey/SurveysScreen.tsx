@@ -5,7 +5,7 @@ import ListContainer from '../../components/ListContainer';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import SurveyCard from '../../components/SurveyCard';
 import {FlatList} from 'react-native-gesture-handler';
-import {RefreshControl, StatusBar} from 'react-native';
+import {RefreshControl, StatusBar, Image, Text, StyleSheet} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
 import ScreenContainer from '../../components/ScreenContainer';
@@ -18,6 +18,7 @@ import {FilterItem, FilterValues} from '../../interfaces/filters';
 import {EMPTY_ARRAY} from '../../constants/constants';
 import NetInfo from '@react-native-community/netinfo';
 import NoSurveys from '../../components/NoSurveys';
+import {SvSr} from '../SvSr/SvSr';
 import {useTranslation} from 'react-i18next';
 import localizedFormat from '../../utils/date/localizedFormat';
 
@@ -66,7 +67,6 @@ function SurveysScreen() {
     refetch();
   }, [refetch]);
   const {fulfilledTimeStamp} = useSelector(state => state.surveys);
-
   const data = useFilteredSurveys(filter, wholeData);
 
   const keyExtractor = React.useCallback((item: Survey) => item.id, []);
@@ -120,14 +120,16 @@ function SurveysScreen() {
             </>
           )}
           {!data?.length && (
-            <NoSurveys
-              refreshControl={
-                <RefreshControl
-                  refreshing={isLoading}
-                  onRefresh={handleRefresh}
-                />
-              }
-            />
+            <>
+              <NoSurveys
+                refreshControl={
+                  <RefreshControl
+                    refreshing={isLoading}
+                    onRefresh={handleRefresh}
+                  />
+                }
+              />
+            </>
           )}
         </>
       </ListContainer>
@@ -165,3 +167,10 @@ function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
     return data;
   }, [downloadableData, downloadedData, filter?.value, wholeData]);
 }
+
+const styles = StyleSheet.create({
+  modal: {
+    backgroundColor: 'white',
+    height: '100%',
+  },
+});

@@ -12,11 +12,12 @@ import Typography from './Typography';
 import {useTranslation} from 'react-i18next';
 
 interface ModalProps {
-  title: string;
+  title?: string;
   visible: boolean;
   children?: React.ReactNode;
-  onCancel: () => void;
-  onSave: () => void;
+  onCancel?: () => void;
+  onSave?: () => void;
+  saveCaption?: string;
   validationComponent?: React.ReactNode;
 }
 
@@ -27,6 +28,7 @@ function Modal({
   onCancel,
   onSave,
   validationComponent,
+  saveCaption = 'save',
 }: ModalProps) {
   const {t} = useTranslation();
   return (
@@ -47,7 +49,7 @@ function Modal({
               {t('cancel')}
             </Button>
             <Button mode="contained" onPress={onSave}>
-              {t('save')}
+              {saveCaption ?? t('save')}
             </Button>
           </ItemWrapper>
           {validationComponent}

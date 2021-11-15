@@ -15,6 +15,9 @@ export type Status =
   | 'Open'
   | 'Completed'
   | 'In Progress';
+export const notEvaluatedStatuses = ['In Progress', 'Open', undefined, null];
+export const passedStatuses = ['Passed', 'Passed - Overruled'];
+export const failedStatuses = ['Failed', 'Failed - Overruled']
 
 export type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;

@@ -29,20 +29,19 @@ function Services({services, showNumber}: ServicesProps) {
   if (!services) {
     return null;
   }
-  const allValues = services?.map(getServiceLabel);
   const servicesValues = showNumber
-    ? allValues.slice(0, showNumber)
-    : allValues;
-  const restNumber = showNumber && allValues.slice(showNumber).length;
+    ? services.slice(0, showNumber)
+    : services;
+  const restNumber = showNumber && services.slice(showNumber).length;
   const restText = restNumber && `${restNumber} more`;
   const styles = makeStyles(colors);
   return (
     <>
       <View style={styles.servicesContainer}>
         {servicesValues?.map(i => {
-          const [productGroup, brand, activity] = i.split(' : ');
+          const {productGroup, brand, activity} = i;
           return (
-            <View style={styles.serviceContainer} key={i}>
+            <View style={styles.serviceContainer} key={i.id}>
               <View style={styles.iconContainer}>
                 {getProductGroupIcon(productGroup)}
               </View>
@@ -92,7 +91,7 @@ const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
   });
 
 function getProductGroupIcon(v: string) {
-  switch (v.toLowerCase()) {
+  switch (v?.toLowerCase()) {
     case 'bus': {
       return <Bus />;
     }
@@ -114,7 +113,7 @@ function getProductGroupIcon(v: string) {
 }
 
 function getBrandIcon(v: string) {
-  switch (v.toLowerCase()) {
+  switch (v?.toLowerCase()) {
     case 'bharat benz': {
       return <BharatBenz />;
     }
