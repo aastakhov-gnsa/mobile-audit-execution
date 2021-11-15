@@ -17,6 +17,7 @@ import Typography from './Typography';
 import {NavigationParams} from '../interfaces/navigation';
 import {useSelector} from '../utils/store/configureStore';
 import UploadSurvey from './UploadSurvey';
+import {SvSr} from '../features/SvSr/SvSr';
 import {useTranslation} from 'react-i18next';
 
 function SurveyCard({survey}: {survey: Survey}) {
@@ -94,7 +95,7 @@ function SurveyCard({survey}: {survey: Survey}) {
         <Services services={data?.services ?? services} showNumber={4} />
       </Card.Content>
       <Card.Actions style={styles.actionsContainer}>
-        <View>
+        <View style={styles.actionsLeft}>
           {data && (
             <Button
               icon="information-outline"
@@ -104,6 +105,7 @@ function SurveyCard({survey}: {survey: Survey}) {
               {t('Audit Details')}
             </Button>
           )}
+          {data && <SvSr data={data} />}
         </View>
         {!data ? (
           <Button onPress={handleDownload}>{t('Download')}</Button>
@@ -133,6 +135,10 @@ const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
+    },
+    actionsLeft: {
+      display: 'flex',
+      flexDirection: 'row',
     },
     nameContainer: {
       marginTop: 16,

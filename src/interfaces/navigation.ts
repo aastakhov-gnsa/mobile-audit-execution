@@ -1,5 +1,6 @@
 import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {ScreenNames} from '../navigation/navigation';
+import { EvaluationSurvey } from './evaluation';
 
 export type SurveysStackParamList = {
   [ScreenNames.SurveyExecution]: {surveyId: string; standardId: string};
@@ -8,6 +9,8 @@ export type SurveysStackParamList = {
   [ScreenNames.UserManual]: undefined;
   [ScreenNames.ContactSupport]: undefined;
   [ScreenNames.LegalNoticesAndTerms]: undefined;
+  [ScreenNames.SvSRPreview]: {file: string, surveyId: string, data: EvaluationSurvey, filters: Record<string, boolean>};
+  [ScreenNames.Signature]: { data: EvaluationSurvey, filters: Record<string, boolean>, surveyId: string};
 };
 
 export type NavigationParams = NavigationProp<SurveysStackParamList>;
@@ -21,4 +24,14 @@ export type SurveyExecutionRouteParams = RouteProp<
 export type StandardListRouteParams = RouteProp<
   SurveysStackParamList,
   ScreenNames.StandardList
+>;
+
+export type SvSRPreviewRouteParams = RouteProp<
+  SurveysStackParamList,
+  ScreenNames.SvSRPreview
+>;
+
+export type SignatureRouteParams = RouteProp<
+  SurveysStackParamList,
+  ScreenNames.Signature
 >;

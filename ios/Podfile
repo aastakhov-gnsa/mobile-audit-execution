@@ -18,6 +18,10 @@ target 'gnsaMobileAuditExecution' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+  pod 'react-native-blob-util', :path => '../node_modules/react-native-blob-util'
+
   target 'gnsaMobileAuditExecutionTests' do
     inherit! :complete
     # Pods for testing

@@ -11,6 +11,8 @@ import HeaderControlsContainer from '../../components/HeaderControlsContainer';
 import AuditDetailsScreen from '../AuditDetails/AuditDetailsScreen';
 import StandardListScreen from '../StandardList/StandardListScreen';
 import SurveyExecutionScreen from '../SurveyExecution/SurveyExecutionScreen';
+import {SvSRPreviewScreen} from '../SvSr/SvSRPreviewScreen';
+import {SignatureScreen} from '../SvSr/SignatureScreen';
 import {useTranslation} from 'react-i18next';
 
 function SurveyStack() {
@@ -44,6 +46,16 @@ function SurveyStack() {
         <Surveys.Screen
           name={ScreenNames.SurveyExecution}
           component={SurveyExecutionScreen}
+        />
+        <Surveys.Screen
+          name={ScreenNames.SvSRPreview}
+          options={{title: 'Status Report'}}
+          component={SvSRPreviewScreen}
+        />
+        <Surveys.Screen
+          name={ScreenNames.Signature}
+          options={{title: 'Sign the Report'}}
+          component={SignatureScreen}
         />
       </Surveys.Group>
       <Surveys.Group screenOptions={{presentation: 'modal'}}>

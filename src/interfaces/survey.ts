@@ -1,57 +1,45 @@
 import {Status} from './common';
 
 export interface Survey {
-  // attachedComment: null
-  // auditManagerName: null
+  auditManager: string
   auditNumber: string;
-  // auditorId: null
-  auditorName: string;
-  // auditorNameRo: null
-  // checkpointList: null
-  // checkpoints: null
-  // comment: null
-  // commentType: null
-  // emptyQuestionsList: false
-  // emptyQuestionsListAndIsSplitFlg: false
-  // errors: null
-  // executionHistory: null
-  // factDate: null
-  // filterServiceActivity: null
-  // filterServiceBrand: null
-  // filterServiceProductGroup: null
-  // filterSurveyClusterType: null
+  auditor: string;
+  auditNote: string
+  auditDate: string
   id: string;
-  // legacyAuditNumber: null
-  // networkEntityId: null
-  // notEmptyQuestionsListAndIsSplitFlg: false
   companyId: string;
   number: string;
   outletAddress: string;
-  outletCountry: string;
+  country: string;
+  legalName: string;
   outletId: string;
-  outletIdAndCity: string;
+  outletNumber: number,
   outletInfo: string;
   outletName: string;
-  outletStreetAndZipcode: string;
-  // overruleComment: null
+  outletType: string
+  outletStreet: string
+  outletZipcode: string
+  outletCity: string
   plannedDate: string;
-  // plannedDateForFilterPeriod: null
-  // plannedDateRo: null
   receivingEntityConcatName: string;
   resultCd: Status;
-  // sendingEntityConcatName: null
   services: DaimlerService[];
-  // smAuditLineList: null
-  // statusBgColor: null
   statusCd: Status;
-  // statusIconType: null
-  // surveyClusterType: null
-  // surveyExecutionResultCd: null
-  // surveyExecutionTitle: null
-  // surveyResultColor: null
-  // textNumber: null
-  // uiPlannedDate: null
 }
+
+export const surveyDetails = {
+  auditNote: 'Audit Note',
+  additionalInfoAndDocuments:
+    'Additional information for auditor and required documents',
+  clusterStatistic: 'Cluster Statistic',
+  logo: 'Daimler Logo',
+  description: "Description Standards/MC's",
+  weightedFulfillment: 'Weighted Fulfillment',
+  servicesStatistic: 'Services Statistic',
+  measurementCriteria: 'Measurement Criteria',
+  publicComments: 'Public Comments',
+  signature: 'Signature',
+};
 
 export interface DaimlerService {
   id: string;

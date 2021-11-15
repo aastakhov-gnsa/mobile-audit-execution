@@ -29,13 +29,14 @@ export interface AuditStandardExecution extends AnyData {
   standardName?: string;
   standardNumber?: string;
   standardText?: string;
-  standardType?: string;
+  standardType?: StandardType;
   status?: Status;
   statusIconType?: string;
   infoForAuditor?: string;
   requiredDocuments?: string;
   nameTranslations?: Translations;
   textTranslations?: Translations;
+  weight: number;
 }
 
 export interface StandardQuestion {
@@ -71,3 +72,16 @@ export interface OverruleComment {
 }
 
 export type CommentType = 'External' | 'Internal';
+
+export enum StandardType {
+  MUST = 'Must',
+  BASIC_BONUS = 'Basic Bonus',
+  AWARDED_BONUS = 'Awarded Bonus',
+  RECOMMENDED = 'Recommended',
+}
+
+export enum StandardFulfillment {
+  FAILED = 'Failed',
+  OPEN = 'Open',
+  PASSED = 'Passed',
+}

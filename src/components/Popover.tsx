@@ -5,16 +5,23 @@ import {StyleProp, ViewStyle} from 'react-native';
 
 interface PopoverProps {
   children: React.ReactNode;
-  onDismiss: () => void;
+  backdrop?: boolean;
+  onDismiss?: () => void;
   visible: boolean;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 }
 
-function Popover({children, onDismiss, visible, style}: PopoverProps) {
+function Popover({
+  children,
+  onDismiss,
+  visible,
+  style,
+  backdrop,
+}: PopoverProps) {
   return (
     <Portal>
       <Modal
-        theme={popoverTheme}
+        theme={!backdrop ? popoverTheme : undefined}
         visible={visible}
         onDismiss={onDismiss}
         style={style}>

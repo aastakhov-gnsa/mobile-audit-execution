@@ -2,6 +2,7 @@ import {AnyAction, Dispatch, Middleware} from 'redux';
 import {MiddlewareAPI} from '@reduxjs/toolkit';
 import {RootState} from '../../utils/store/configureStore';
 import {changeStandardStatus, changeSurveyStatus} from './evaluationReducer';
+import {notEvaluatedStatuses} from '../../interfaces/common';
 
 const surveyStatusMiddleware: Middleware =
   ({getState, dispatch}: MiddlewareAPI<Dispatch<AnyAction>, RootState>) =>
@@ -14,7 +15,7 @@ const surveyStatusMiddleware: Middleware =
       const {surveyId} = action.payload;
       const survey = state.evaluation[surveyId];
       const surveyNotCompleted = survey.standards.some(i =>
-        ['In Progress', 'Open', undefined].includes(i.status),
+        notEvaluatedStatuses.includes(i.status),
       );
       if (surveyNotCompleted) {
         return null;
