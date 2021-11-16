@@ -78,6 +78,9 @@
     "Auditor marked survey as passed": "Auditor marked survey as passed",
     "yes": "yes",
     "no": "no",
-    "Uploading survey": "Uploading survey"
+    "Uploading survey": "Uploading survey",
+    "Uploading files": "Uploading files",
+    "Downloading files": "Downloading files",
+    "Downloading survey": "Downloading survey"
   }
 }
