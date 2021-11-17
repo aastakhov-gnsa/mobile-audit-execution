@@ -5,10 +5,14 @@ import {FetchBlobUtilRequest} from '../../interfaces/files';
 import {fileUploadAlert} from '../../api/apiAlerts';
 
 interface UploadFiles {
-  questionId: string;
-  filePath: string;
-  token: string;
   onProgressCb: (part: number) => void;
+  onSuccessCb: () => void;
+  onFailCb: () => void;
+  onRetryCb: () => void;
+  questionId?: string;
+  filePath?: string;
+  token?: string;
+  requestConfig?: FetchBlobUtilRequest;
 }
 
 export default function ({
@@ -16,38 +20,66 @@ export default function ({
   filePath,
   token,
   onProgressCb,
+  onSuccessCb,
+  onFailCb,
+  requestConfig,
+  onRetryCb,
 }: UploadFiles) {
-  const url = `${__API__}/rest/mobile-audit-execution/file?questionId=${questionId}`;
-  const formData = [];
-  const fileName = getFileName(filePath);
-  formData.push({
-    name: 'file',
-    filename: fileName,
-    data: ReactNativeBlobUtil.wrap(filePath),
-  });
-
-  const config: FetchBlobUtilRequest = {
-    method: 'POST',
-    url: url,
-    headers: {
+  const config: FetchBlobUtilRequest = {};
+  if (requestConfig) {
+    config.method = requestConfig.method;
+    config.url = requestConfig.url;
+    config.headers = requestConfig.headers;
+    config.data = requestConfig.data;
+  } else {
+    const fileName = getFileName(filePath!);
+    const url = `${__API__}/rest/mobile-audit-execution/file?questionId=${questionId}`;
+    const formData = [];
+    formData.push({
+      name: 'file',
+      filename: fileName,
+      data: ReactNativeBlobUtil.wrap(filePath!),
+    });
+    config.method = 'POST';
+    config.url = url;
+    config.headers = {
       Accept: 'application/json',
       'Content-Type': 'multipart/form-data',
       authorization: `Bearer ${token}`,
-    },
-    data: formData,
-  };
-  ReactNativeBlobUtil.fetch('POST', config.url, config.headers, config.data)
+    };
+    config.data = formData;
+  }
+
+  ReactNativeBlobUtil.fetch('POST', config.url!, config.headers, config.data)
     .uploadProgress((written, total) => {
       // console.log('uploaded', fileName, written / total);
       onProgressCb(written / total);
     })
     .then((response: FetchBlobResponse) => {
       if (response.respInfo.status !== 200) {
-        fileUploadAlert(fileName, config, response);
+        onFailCb();
+        fileUploadAlert({
+          requestConfig: config,
+          response: response,
+          onFailCb: onFailCb,
+          onProgressCb: onProgressCb,
+          onSuccessCb: onSuccessCb,
+          onRetryCb: onRetryCb,
+        });
+      } else {
+        onSuccessCb();
       }
       console.log('uploadBlob::response', response);
     })
     .catch(err => {
-      fileUploadAlert(fileName, config, undefined, err);
+      onFailCb();
+      fileUploadAlert({
+        requestConfig: config,
+        e: err,
+        onFailCb: onFailCb,
+        onProgressCb: onProgressCb,
+        onSuccessCb: onSuccessCb,
+        onRetryCb: onRetryCb,
+      });
     });
 }

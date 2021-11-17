@@ -3,6 +3,9 @@ import {Alert, AlertButton} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {FetchBlobResponse} from 'react-native-blob-util';
 import {FetchBlobUtilRequest} from '../interfaces/files';
+import uploadBlob from '../utils/files/uploadBlob';
+import {DownloadFileOptions, DownloadResult} from 'react-native-fs';
+import downloadFile from '../utils/files/downloadFile';
 
 export function alert(e: AxiosError) {
   const isAuthError = e.response?.status === 401;
@@ -35,12 +38,23 @@ requestBody: ${requestBody}
   Alert.alert(title, message, [button]);
 }
 
-export function fileUploadAlert(
-  fileName: string = '',
-  requestConfig: FetchBlobUtilRequest,
-  response?: FetchBlobResponse,
-  e?: any,
-) {
+export function fileUploadAlert({
+  requestConfig,
+  response,
+  e,
+  onProgressCb,
+  onSuccessCb,
+  onFailCb,
+  onRetryCb,
+}: {
+  requestConfig: FetchBlobUtilRequest;
+  response?: FetchBlobResponse;
+  e?: any;
+  onProgressCb: (part: number) => void;
+  onSuccessCb: () => void;
+  onFailCb: () => void;
+  onRetryCb: () => void;
+}) {
   const message = `
 url: ${requestConfig.url}
 response: ${JSON.stringify(response?.data, null, 2)}
@@ -48,10 +62,82 @@ requestConfig: ${JSON.stringify(requestConfig, null, 2)}
 exception: ${JSON.stringify(e, null, 2)}
   `;
   const button: AlertButton = {
-    text: 'Copy',
+    text: 'Copy error and Cancel',
     onPress: () => {
       Clipboard.setString(message);
+      onSuccessCb();
     },
   };
-  Alert.alert(`Upload file ${fileName} failed`, message, [button]);
+  const retryButton: AlertButton = {
+    text: 'Retry',
+    onPress: () => {
+      onRetryCb();
+      uploadBlob({
+        requestConfig,
+        onSuccessCb,
+        onProgressCb,
+        onFailCb,
+        onRetryCb,
+      });
+    },
+  };
+  Alert.alert(`Upload file ${requestConfig.data[0].fileName} failed`, message, [
+    button,
+    retryButton,
+  ]);
+}
+
+export function fileDownloadAlert({
+  fileName,
+  requestConfig,
+  response,
+  onSuccessCb,
+  resPathCb,
+  onStartCb,
+  errCb,
+  onRetryCb,
+  e,
+}: {
+  fileName: string;
+  requestConfig: DownloadFileOptions;
+  onSuccessCb: () => void;
+  onStartCb: () => void;
+  resPathCb: (path: string) => void;
+  errCb: (e: any) => void;
+  onRetryCb: () => void;
+  response?: DownloadResult;
+  e?: any;
+}) {
+  const message = `
+url: ${requestConfig.fromUrl}
+response: ${JSON.stringify(response, null, 2)}
+requestConfig: ${JSON.stringify(requestConfig, null, 2)}
+exception: ${JSON.stringify(e, null, 2)}
+  `;
+  const button: AlertButton = {
+    text: 'Copy error and Cancel',
+    onPress: () => {
+      Clipboard.setString(message);
+      onSuccessCb();
+    },
+  };
+  const retryButton: AlertButton = {
+    text: 'Retry',
+    onPress: () => {
+      onRetryCb();
+      downloadFile({
+        requestConfig,
+        fileName,
+        onSuccessCb,
+        onRetryCb,
+        resPathCb,
+        onStartCb,
+        errCb,
+      });
+    },
+  };
+  Alert.alert(`Download file ${fileName} failed`, message, [
+    button,
+    retryButton,
+  ]);
 }

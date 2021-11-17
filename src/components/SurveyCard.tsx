@@ -15,12 +15,11 @@ import ItemWrapper from './ItemWrapper';
 import CompanyAddress from './CompanyAddress';
 import Typography from './Typography';
 import {NavigationParams} from '../interfaces/navigation';
-import {useDispatch, useSelector} from '../utils/store/configureStore';
+import {useSelector} from '../utils/store/configureStore';
 import UploadSurvey from './UploadSurvey';
 import {SvSr} from '../features/SvSr/SvSr';
-import downloadFile from '../utils/files/downloadFile';
-import {setDownloadedFile} from '../features/SurveyExecution/evaluationReducer';
 import {useTranslation} from 'react-i18next';
+import FileLoadingInfo from './FileLoadingInfo';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -37,72 +36,25 @@ function SurveyCard({survey}: {survey: Survey}) {
   const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
   const {isLoading} = useSurveyQuery(id, {skip});
   const data = useSelector(state => state.evaluation[id]);
-  const token = useSelector(state => state.auth.token);
+  const uploadingFiles = useSelector(state =>
+    state.fileLoading[id]?.filter(i => i.status === 'uploading'),
+  );
+  const downloadingFiles = useSelector(state =>
+    state.fileLoading[id]?.filter(i => i.status === 'downloading'),
+  );
   React.useEffect(() => {
     if (!data) {
       setSkip(true);
     }
   }, [data]);
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    if (data && token) {
-      data.standards.forEach(st => {
-        st.files?.forEach(f => {
-          if (!f.options?._path) {
-            downloadFile({
-              fileId: f.id,
-              fileName: f.value,
-              token,
-              resPathCb: p => {
-                console.log('--=', p);
-                dispatch(
-                  setDownloadedFile({
-                    surveyId: id,
-                    standardId: st.id,
-                    filePath: p,
-                    fileId: f.id,
-                  }),
-                );
-              },
-              errCb: e => {
-                console.error('e', e);
-              }, // todo implement
-            });
-          }
-        });
-        st.questionDTOList?.forEach(q => {
-          q.files?.forEach(f => {
-            if (f.options?._fromServer !== false && !f.options?._path) {
-              downloadFile({
-                fileId: f.id,
-                fileName: f.value,
-                token,
-                resPathCb: p => {
-                  console.log('--=', p);
-                  dispatch(
-                    setDownloadedFile({
-                      surveyId: id,
-                      standardId: st.id,
-                      questionId: q.id,
-                      filePath: p,
-                      fileId: f.id,
-                    }),
-                  );
-                },
-                errCb: e => {
-                  console.error('e', e);
-                }, // todo implement
-              });
-            }
-          });
-        });
-      });
-    }
-  }, [data, dispatch, id, token]);
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   const RightContent = React.useCallback(() => {
-    if (isLoading) {
+    if (
+      isLoading ||
+      uploadingFiles?.length > 0 ||
+      downloadingFiles?.length > 0
+    ) {
       return <ActivityIndicator animating={true} color={colors.primary} />;
     }
     if (data) {
@@ -111,7 +63,15 @@ function SurveyCard({survey}: {survey: Survey}) {
     return (
       <Icon name="download-outline" size={ICON_SIZE} color={colors.text50} />
     );
-  }, [isLoading, data, colors.text50, colors.primary, resultCd]);
+  }, [
+    isLoading,
+    uploadingFiles?.length,
+    downloadingFiles?.length,
+    data,
+    colors.text50,
+    colors.primary,
+    resultCd,
+  ]);
   const handlePress = React.useCallback(() => {
     if (data) {
       navigation.navigate(ScreenNames.StandardList, {id: id});
@@ -152,6 +112,16 @@ function SurveyCard({survey}: {survey: Survey}) {
           />
         </ItemWrapper>
         <Services services={data?.services ?? services} showNumber={4} />
+        {downloadingFiles?.length > 0 && (
+          <ItemWrapper title={t('Downloading files')}>
+            <FileLoadingInfo status="downloading" surveyId={id} indeterminate />
+          </ItemWrapper>
+        )}
+        {uploadingFiles?.length > 0 && (
+          <ItemWrapper title={t('Uploading files')}>
+            <FileLoadingInfo status="uploading" surveyId={id} />
+          </ItemWrapper>
+        )}
       </Card.Content>
       <Card.Actions style={styles.actionsContainer}>
         <View style={styles.actionsLeft}>
@@ -166,11 +136,15 @@ function SurveyCard({survey}: {survey: Survey}) {
           )}
           {data && <SvSr data={data} />}
         </View>
-        {!data ? (
-          <Button onPress={handleDownload}>{t('Download')}</Button>
-        ) : (
-          <UploadSurvey id={id} />
+        {isLoading && (
+          <Typography size="Button" style={styles.hint}>
+            {t('Downloading survey').toUpperCase()}...
+          </Typography>
         )}
+        {!data && !isLoading && (
+          <Button onPress={handleDownload}>{t('Download')}</Button>
+        )}
+        {data && !isLoading && <UploadSurvey id={id} />}
       </Card.Actions>
     </Card>
   );
@@ -207,5 +181,8 @@ const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
       borderWidth: 1,
       borderColor: colors.onBackground20,
       marginBottom: '2%',
+    },
+    hint: {
+      color: colors.text50,
     },
   });

@@ -26,6 +26,9 @@ import fillTimeStampMiddleware from '../../features/Survey/fillTimeStampMiddlewa
 import standardStatusMiddleware from '../../features/SurveyExecution/standardStatusMiddleware';
 import surveyStatusMiddleware from '../../features/SurveyExecution/surveyStatusMiddleware';
 import {languagesReducer} from '../../features/ContentLanguageSwitching/languagesReducer';
+import {fileLoading} from '../../features/FileLoading/fileLoadingReducer';
+import uploadingFileMiddleware from '../../features/FileLoading/uploadingFileMiddleware';
+import downloadFilesMiddleware from '../../features/FileLoading/downlodFilesMiddleware';
 
 const persistConfig = {
   key: 'root',
@@ -36,6 +39,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   [evaluationReducer.name]: evaluationReducer.reducer,
+  [fileLoading.name]: fileLoading.reducer,
   [filtersReducer.name]: filtersReducer.reducer,
   [surveysReducer.name]: surveysReducer.reducer,
   [languagesReducer.name]: languagesReducer.reducer,
@@ -59,6 +63,8 @@ export const store = configureStore({
       fillTimeStampMiddleware,
       standardStatusMiddleware,
       surveyStatusMiddleware,
+      uploadingFileMiddleware,
+      downloadFilesMiddleware,
     );
   },
 });
