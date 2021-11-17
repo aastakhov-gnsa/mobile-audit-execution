@@ -33,7 +33,19 @@ const filterValues: FilterValues = [
   },
   {
     fieldName: 'standardType',
+    value: 'Basic Bonus',
+  },
+  {
+    fieldName: 'standardType',
+    value: 'Awarded Bonus',
+  },
+  {
+    fieldName: 'standardType',
     value: 'Recommended',
+  },
+  {
+    fieldName: 'checkpoint',
+    value: 'Back Office',
   },
   {
     fieldName: 'checkpoint',
@@ -45,7 +57,19 @@ const filterValues: FilterValues = [
   },
   {
     fieldName: 'checkpoint',
+    value: 'MPC',
+  },
+  {
+    fieldName: 'checkpoint',
     value: 'Exterior',
+  },
+  {
+    fieldName: 'checkpoint',
+    value: 'Show Room',
+  },
+  {
+    fieldName: 'checkpoint',
+    value: 'Warehouse and Parts Area',
   },
 ];
 

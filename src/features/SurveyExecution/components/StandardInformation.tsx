@@ -51,12 +51,12 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
         <Checkpoint checkpoint={data?.checkpoint} style={styles.bottomItem} />
         <Chip>{data?.standardType}</Chip>
       </ItemWrapper>
-      {data?.infoForAuditor && (
+      {!!data?.infoForAuditor?.length && (
         <ItemWrapper paddingValue={[32, 0]} title={t('Additional Info')}>
           <Typography size="Body 1">{data?.infoForAuditor}</Typography>
         </ItemWrapper>
       )}
-      {data?.requiredDocuments && (
+      {!!data?.requiredDocuments?.length && (
         <ItemWrapper paddingValue={[32, 0]} title={t('Documents Required')}>
           <Typography size="Body 1">{data?.requiredDocuments}</Typography>
         </ItemWrapper>

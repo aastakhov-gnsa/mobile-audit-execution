@@ -27,7 +27,7 @@ function AuditDetailsScreen() {
         number: s.number,
         companyId: s.companyId,
         outletAddress: s.outletAddress,
-        auditorName: s.auditorName,
+        auditorName: s.auditor,
       };
     },
     shallowEqual,
