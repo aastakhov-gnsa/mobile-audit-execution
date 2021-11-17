@@ -62,6 +62,7 @@ function ContentLanguageSwitcher({iconStyle}: ContentLanguageSwitcherProps) {
         onSave={handleSave}>
         <ItemWrapper paddingValue={[0, 28]} style={styles.wrapper}>
           <TextInput
+            left={<TextInput.Icon name="magnify" color={colors.text50} />}
             value={query}
             onChangeText={handleQueryChange}
             placeholder={t('Search for a language')}

@@ -21,6 +21,7 @@ import NoSurveys from '../../components/NoSurveys';
 import {SvSr} from '../SvSr/SvSr';
 import {useTranslation} from 'react-i18next';
 import localizedFormat from '../../utils/date/localizedFormat';
+import {notEvaluatedStatuses} from '../../interfaces/common';
 
 enum SurveysFilters {
   allSurveys = 'All Surveys',
@@ -147,6 +148,12 @@ function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
   const downloadableData = wholeData?.filter(
     i => !downloadedDataKeys.includes(i.id) ?? EMPTY_ARRAY,
   );
+  const consolidatedData = wholeData?.length
+    ? wholeData.map(i => {
+        const index = downloadedData.findIndex(j => j.id === i.id);
+        return index > -1 ? downloadedData[index] : i;
+      })
+    : downloadedData;
 
   return React.useMemo(() => {
     let data;
@@ -156,16 +163,20 @@ function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
         data = downloadableData;
         break;
       case SurveysFilters.inProgress:
-        data = downloadedData.filter(i => i.resultCd === 'Open');
+        data = downloadedData.filter(i =>
+          notEvaluatedStatuses.includes(i.resultCd),
+        );
         break;
       case SurveysFilters.finished:
-        data = downloadedData.filter(i => i.resultCd !== 'Open');
+        data = downloadedData.filter(
+          i => !notEvaluatedStatuses.includes(i.resultCd),
+        );
         break;
       default:
-        data = (wholeData ? wholeData : downloadedData) ?? EMPTY_ARRAY;
+        data = consolidatedData;
     }
     return data;
-  }, [downloadableData, downloadedData, filter?.value, wholeData]);
+  }, [consolidatedData, downloadableData, downloadedData, filter?.value]);
 }
 
 const styles = StyleSheet.create({
