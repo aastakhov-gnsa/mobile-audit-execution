@@ -3,16 +3,17 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {Dimensions, ScaledSize, StyleSheet, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 
-const window = Dimensions.get('window');
+const w = Dimensions.get('window');
 
 function ScreenContainer({children}: {children?: React.ReactNode}) {
-  const [dimensions, setDimensions] = React.useState({window});
+  const [dimensions, setDimensions] = React.useState({window: w});
   React.useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({window}) => {
+    const handler = ({window}: {window: ScaledSize}) => {
       setDimensions({window});
-    });
-    return () => subscription?.remove();
-  });
+    };
+    Dimensions.addEventListener('change', handler);
+    return () => Dimensions.removeEventListener('change', handler);
+  }, []);
   const {colors} = useTheme();
   const styles = makeStyles(colors, dimensions.window);
   return (

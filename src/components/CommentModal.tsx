@@ -21,6 +21,7 @@ interface CommentModalProps {
   chips: Array<{title: string; value: CommentType | OverruleStatus}>;
   validationMessage: string;
   titleText?: string;
+  defaultChip?: CommentType | OverruleStatus;
 }
 
 function CommentModal({
@@ -30,12 +31,13 @@ function CommentModal({
   onVisible,
   validationMessage,
   titleText,
+  defaultChip,
 }: CommentModalProps) {
   const [text, setText] = React.useState('');
   const handleText = (t: string) => setText(t);
   const [chip, setChip] = React.useState<
     CommentType | OverruleStatus | undefined
-  >(undefined);
+  >(defaultChip ?? undefined);
   const createOnChipHandler = React.useCallback(
     (v: CommentType | OverruleStatus) => () => {
       if (chip === v) {

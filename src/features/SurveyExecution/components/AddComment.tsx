@@ -70,6 +70,7 @@ function AddComment({
           onSave={handleSave}
           chips={chips}
           validationMessage={t('Fill comment and chose type of comment')}
+          defaultChip={chips[1].value}
         />
       )}
       <TouchableText
