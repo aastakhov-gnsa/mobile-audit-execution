@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import Popover from '../../Popover';
-import {Text} from 'react-native-paper';
+import {Divider, Text} from 'react-native-paper';
 import themeConfig from '../../../../themeConfig';
 import {ScreenNames} from '../../../navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
@@ -18,6 +18,8 @@ import {
   SurveysStackParamList,
 } from '../../../interfaces/navigation';
 import {useTranslation} from 'react-i18next';
+import Typography from '../../Typography';
+import packageJson from '../../../../package.json';
 
 interface HelpProps {
   style?: StyleProp<TextStyle>;
@@ -60,6 +62,10 @@ function Help({style}: HelpProps) {
               <Text>{t(i.label)}</Text>
             </TouchableOpacity>
           ))}
+          <Divider />
+          <View style={styles.version}>
+            <Typography size="Overline">v {packageJson.version}</Typography>
+          </View>
         </View>
       </Popover>
     </>
@@ -95,5 +101,10 @@ const styles = StyleSheet.create({
     paddingTop: 52,
     paddingRight: 58,
     justifyContent: 'flex-start',
+  },
+  version: {
+    alignItems: 'center',
+    paddingTop: 1,
+    paddingBottom: 1,
   },
 });

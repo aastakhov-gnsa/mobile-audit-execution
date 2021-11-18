@@ -246,6 +246,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				09426F4EAC04ACA8D289CF77 /* [CP] Copy Pods Resources */,
+				9FBA0AAC2746B71100B518ED /* Set version */,
 			);
 			buildRules = (
 			);
@@ -407,6 +408,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9FBA0AAC2746B71100B518ED /* Set version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "NODE_PACKAGE_VERSION=\"$(grep -w 'version\":' \"${SRCROOT}\"/../package.json | cut -d '\"' -f4)\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ${NODE_PACKAGE_VERSION}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
