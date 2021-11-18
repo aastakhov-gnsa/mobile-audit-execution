@@ -149,10 +149,7 @@ function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
     i => !downloadedDataKeys.includes(i.id) ?? EMPTY_ARRAY,
   );
   const consolidatedData = wholeData?.length
-    ? wholeData.map(i => {
-        const index = downloadedData.findIndex(j => j.id === i.id);
-        return index > -1 ? downloadedData[index] : i;
-      })
+    ? wholeData.concat(downloadedData)
     : downloadedData;
 
   return React.useMemo(() => {
