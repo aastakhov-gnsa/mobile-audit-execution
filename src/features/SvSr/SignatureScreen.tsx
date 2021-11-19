@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { StyleSheet, Text,  View } from 'react-native'
 import { Button, Surface, Switch, TextInput } from 'react-native-paper';
 import Signature, { SignatureViewRef } from "react-native-signature-canvas";
@@ -13,8 +13,14 @@ import { useSelector } from '../../utils/store/configureStore';
 import { fRequestAndroidPermissionRead, pdf } from './pdf';
 import { ScreenNames } from '../../navigation/navigation';
 
+/**
+ * Android Studio emulator does not always support hardware acceleration and might crash when enabled
+ */
+const useHardwareAcceleration = __DEV__ ? false : true
+
 export function SignatureScreen() {
     const ref = useRef<SignatureViewRef>(null)
+    const [scrollEnabled, setScrollEnabled] = useState(true)
     const {data, filters, surveyId} = useRoute<SignatureRouteParams>().params;
     const [me, setMe] = useState(true)
     const navigation = useNavigation<NavigationParams>();
@@ -81,7 +87,15 @@ export function SignatureScreen() {
 
     const [email, setEmail] = useState('')
 
-    return <ScrollView style={styles.container}>
+    const handleSignTouchStart = useCallback(() => {
+        setScrollEnabled(false)
+    }, [])
+
+    const handleSignTouchEnd = useCallback(() => {
+        setScrollEnabled(true)
+    }, [])
+
+    return <ScrollView scrollEnabled={scrollEnabled} style={styles.container}>
         <View style={styles.tabs}>
             <Button mode="text">
                 Partner
@@ -95,12 +109,14 @@ export function SignatureScreen() {
                 <Signature
                     ref={ref}
                     webStyle={webStyle}
-                    androidHardwareAccelerationDisabled={true}
+                    androidHardwareAccelerationDisabled={!useHardwareAcceleration}
                     descriptionText=""
                     backgroundColor="white"
                     minWidth={3}
                     onOK={handleOk}
                     onEmpty={handleOk}
+                    onBegin={handleSignTouchStart}
+                    onEnd={handleSignTouchEnd}
                 />
             </Surface>
             <View style={styles.notice}>
