@@ -50,12 +50,12 @@ function SurveyStack() {
         />
         <Surveys.Screen
           name={ScreenNames.SvSRPreview}
-          options={{title: 'Status Report'}}
+          options={{title: t('Status Report')}}
           component={SvSRPreviewScreen}
         />
         <Surveys.Screen
           name={ScreenNames.Signature}
-          options={{title: 'Sign the Report'}}
+          options={{title: t('Sign the Report')}}
           component={SignatureScreen}
         />
       </Surveys.Group>
