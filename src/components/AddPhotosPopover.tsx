@@ -13,6 +13,7 @@ import {
   launchCamera,
   launchImageLibrary,
 } from 'react-native-image-picker';
+import {useTranslation} from 'react-i18next';
 
 interface AddPhotosPopoverProps {
   onDismiss: () => void;
@@ -75,6 +76,7 @@ function AddPhotosPopover({
     });
   }, [addFiles, onDismiss]);
 
+  const {t} = useTranslation();
   return (
     <Popover
       onDismiss={onDismiss}
@@ -90,7 +92,7 @@ function AddPhotosPopover({
         <>
           <View style={styles.menu}>
             <TouchableOpacity style={styles.menuItem} onPress={handleTakePhoto}>
-              <Typography size="Body 1">Camera</Typography>
+              <Typography size="Body 1">{t('Camera')}</Typography>
               <Icon name="camera-alt" size={ICON_SIZE} />
             </TouchableOpacity>
           </View>
@@ -98,7 +100,7 @@ function AddPhotosPopover({
             <TouchableOpacity
               style={styles.menuItem}
               onPress={handleChoosePhoto}>
-              <Typography size="Body 1">Photos Library</Typography>
+              <Typography size="Body 1">{t('Photos Library')}</Typography>
               <Icon name="photo-size-select-actual" size={ICON_SIZE} />
             </TouchableOpacity>
           </View>
