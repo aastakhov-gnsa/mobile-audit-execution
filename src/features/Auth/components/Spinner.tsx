@@ -1,5 +1,6 @@
 import React from 'react';
-import {ActivityIndicator, Modal, View, StyleSheet} from 'react-native';
+import {Modal, View, StyleSheet} from 'react-native';
+import {ActivityIndicator} from 'react-native-paper';
 
 interface SpinnerProps {
   inProgress: boolean;
