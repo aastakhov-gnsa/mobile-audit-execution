@@ -6,7 +6,8 @@ import Typography from '../../components/Typography';
 import {MultiValue} from '../../interfaces/common';
 import {StandardFulfillment, StandardType} from '../../interfaces/standard';
 import {DaimlerService, surveyDetails} from '../../interfaces/survey';
-import { getServiceLabel } from '../../utils/daimlerService';
+import {getServiceLabel} from '../../utils/daimlerService';
+import {useTranslation} from 'react-i18next';
 
 export interface SvSRFiltersProps {
   /**
@@ -48,17 +49,18 @@ export function SvSRFilters({
   const {colors} = useTheme();
   let title = '';
   let values: string[] = [];
+  const {t} = useTranslation();
   if (sectionType === 'standardType') {
-    title = 'Standard Type';
+    title = t('Standard Type');
     values = Object.values(StandardType);
   } else if (sectionType === 'standardFulfillment') {
-    title = 'Standard Fulfillment';
+    title = t('Standard Fulfillment');
     values = Object.values(StandardFulfillment);
   } else if (sectionType === 'details') {
-    title = 'Details';
-    values = Object.values(surveyDetails);
+    title = t('Details');
+    values = Object.values(surveyDetails).map(i => t(i)); // todo whether required?
   } else if (services) {
-    title = 'Audit Services';
+    title = t('Audit Services');
     values = services.map(getServiceLabel);
   }
   useEffect(() => {
@@ -80,7 +82,7 @@ export function SvSRFilters({
               <Icon name="check" size={24} color={colors.primary} />
             )}
           </Pressable>
-        )
+        );
       })}
     </View>
   );

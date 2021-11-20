@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import TouchableText from './TouchableText';
 import AddPhotosPopover from './AddPhotosPopover';
 import useModalVisibility from '../hooks/useModalVisibility';
+import {useTranslation} from 'react-i18next';
 
 interface AddPhotosProps {
   surveyId: string;
@@ -22,6 +23,7 @@ function AddPhotos({surveyId, standardId, questionId}: AddPhotosProps) {
   const containerRef = React.useRef(null);
   console.log('containerRef', containerRef);
   console.log('m', m);
+  const {t} = useTranslation();
   return (
     <View
       ref={containerRef}
@@ -62,7 +64,7 @@ function AddPhotos({surveyId, standardId, questionId}: AddPhotosProps) {
         }}
         size="Button"
         iconName="camera-alt">
-        ADD PHOTOS
+        {t('ADD PHOTOS')}
       </TouchableText>
       <AddPhotosPopover
         surveyId={surveyId}

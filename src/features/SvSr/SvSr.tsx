@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../../interfaces/navigation';
 import {ScreenNames} from '../../navigation/navigation';
 import {SvSRFilters} from './SvSRFilters';
+import {useTranslation} from 'react-i18next';
 
 export interface SvSrProps {
   data: EvaluationSurvey;
@@ -23,7 +24,12 @@ export function SvSr({data}: SvSrProps) {
     const readPermissions = await fRequestAndroidPermissionRead();
     if (path && readPermissions) {
       setShow(false);
-      navigation.navigate(ScreenNames.SvSRPreview, {file: `file://${path}`, surveyId: data.id, data, filters: selected });
+      navigation.navigate(ScreenNames.SvSRPreview, {
+        file: `file://${path}`,
+        surveyId: data.id,
+        data,
+        filters: selected,
+      });
     }
   };
 
@@ -43,15 +49,16 @@ export function SvSr({data}: SvSrProps) {
       [key]: !selected[key],
     });
   };
+  const {t} = useTranslation();
   return (
     <>
       <Button mode="text" icon="file-outline" onPress={() => setShow(true)}>
-        Generate SvSr
+        {t('Generate SvSr')}
       </Button>
       <Modal
-        title="Survey Status Report Filter"
+        title={t('Survey Status Report Filter')}
         visible={show}
-        saveCaption="Next"
+        saveCaption={t('Next')}
         onCancel={() => setShow(false)}
         onSave={handleExport}>
         <ScrollView style={styles.container}>
@@ -83,7 +90,7 @@ export function SvSr({data}: SvSrProps) {
         </ScrollView>
       </Modal>
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

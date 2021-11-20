@@ -53,7 +53,7 @@ function Modal({
                   {t('cancel')}
                 </Button>
                 <Button mode="contained" onPress={onSave}>
-                  {saveCaption ?? t('save')}
+                  {t(saveCaption)}
                 </Button>
               </ItemWrapper>
               {validationComponent}
