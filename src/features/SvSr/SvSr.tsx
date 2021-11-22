@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Platform, Pressable, StyleSheet, Text, View} from 'react-native';
 import {Button, useTheme} from 'react-native-paper';
 import Modal from '../../components/Modal';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -15,13 +15,16 @@ export interface SvSrProps {
   data: EvaluationSurvey;
 }
 
+/**
+ * `Generate SvSR` button opening modal with SvSR parametrs and button to proceed to pdf 
+ */
 export function SvSr({data}: SvSrProps) {
   const navigation = useNavigation<NavigationParams>();
   const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [show, setShow] = useState(false);
   const handleExport = async () => {
     const path = await pdf(data, selected);
-    const readPermissions = await fRequestAndroidPermissionRead();
+    const readPermissions = Platform.OS === 'android' ? await fRequestAndroidPermissionRead() : true
     if (path && readPermissions) {
       setShow(false);
       navigation.navigate(ScreenNames.SvSRPreview, {

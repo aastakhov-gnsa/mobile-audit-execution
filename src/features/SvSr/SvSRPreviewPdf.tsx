@@ -6,6 +6,9 @@ export interface SvSRPreviewPdfProps {
   uri: string;
 }
 
+/**
+ * Pdf preview container
+ */
 export function SvSRPreviewPdf({uri}: SvSRPreviewPdfProps) {
   return (
     <Pdf

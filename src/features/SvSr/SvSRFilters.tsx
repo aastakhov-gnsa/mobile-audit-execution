@@ -3,7 +3,6 @@ import {useTheme} from '@react-navigation/native';
 import {Pressable, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Typography from '../../components/Typography';
-import {MultiValue} from '../../interfaces/common';
 import {StandardFulfillment, StandardType} from '../../interfaces/standard';
 import {DaimlerService, surveyDetails} from '../../interfaces/survey';
 import {getServiceLabel} from '../../utils/daimlerService';
