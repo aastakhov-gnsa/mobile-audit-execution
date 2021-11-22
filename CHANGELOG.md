@@ -1,3 +1,13 @@
+# Version 0.0.6
+
+## Fixes
+
+* fix(i18n): 'de' locale is added [#57](https://git.daimler.com/GNSA/gnsa-mobile-audit-execution/pull/57)
+* multipart upload for SvSR email erroneously uses `fileName` instead of `filename`; navigation to surveys list after signing not working; missing successful signing notification; [#58](https://git.daimler.com/GNSA/gnsa-mobile-audit-execution/pull/58) 
+* fix(i18n): duplications are removed; [#48](https://git.daimler.com/GNSA/gnsa-mobile-audit-execution/pull/48)
+* fix(android): add photos popover items are clickable now; [#48](https://git.daimler.com/GNSA/gnsa-mobile-audit-execution/pull/48)
+* fix(iOS, android): 'add photos' popover position; [#48](https://git.daimler.com/GNSA/gnsa-mobile-audit-execution/pull/48)
+
 # Version 0.0.5
 
 ## Fixes
