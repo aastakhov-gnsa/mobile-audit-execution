@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useRef, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, useTheme} from 'react-native-paper';
 import {SignatureViewRef} from 'react-native-signature-canvas';
 import {NavigationParams} from '../../interfaces/navigation';
@@ -78,7 +78,7 @@ export function SignatureScreen() {
                 {t('Auditor')}
               </Button>
           </View>
-          <View style={styles.content}>
+          <ScrollView style={styles.content} scrollEnabled={scrollEnabled}>
             { person === 'partner' &&
               <SignaturePartner
                 initialBase64={partnerBase64}
@@ -117,7 +117,7 @@ export function SignatureScreen() {
                 }}
               />
             }
-          </View>
+          </ScrollView>
           <View style={styles.actionsContainer}>
             <View style={styles.actions}>
               <Button mode="text" onPress={handleCancel}>
