@@ -3,6 +3,7 @@ import {ScreenNames} from '../navigation/navigation';
 import { EvaluationSurvey } from './evaluation';
 
 export type SurveysStackParamList = {
+  [ScreenNames.Surveys]: undefined;
   [ScreenNames.SurveyExecution]: {surveyId: string; standardId: string};
   [ScreenNames.StandardList]: {id: string};
   [ScreenNames.AuditDetails]: {id: string};

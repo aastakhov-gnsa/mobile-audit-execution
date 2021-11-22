@@ -1,23 +1,15 @@
 import React from 'react';
-import {Storage, StorageItems} from '../utils/storage/storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ActivityIndicator, Avatar} from 'react-native-paper';
 import UserInfoPopup from './UserInfoPopup';
+import { useUserName } from '../hooks/useUserName';
 
 function UserAvatar() {
-  const [fullName, setFullName] = React.useState('');
+  const fullName = useUserName()
   const [visible, setVisible] = React.useState(false);
   const handleVisible = React.useCallback(() => {
     setVisible(!visible);
   }, [visible]);
-  React.useEffect(() => {
-    const r = async () => {
-      if (!fullName) {
-        setFullName((await Storage.getItem(StorageItems.fullName)) as string);
-      }
-    };
-    r();
-  }, [fullName]);
 
   return (
     <>

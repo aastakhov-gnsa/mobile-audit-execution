@@ -11,22 +11,31 @@ export function getSignSection(sign?: string) {
             I hereby take notice of the results of today's audit
         </div>
     </div>
-    <div style="display: flex; margin-top: 110px;">
-        <div style="margin-right: 24px">
-            <hr style="width: 294px; height: 2px; background-color: black">
-            DATE, CITY
-        </div>
-        <div style="margin-right: 24px">
-            <hr style="width: 294px; height: 2px; background-color: black">
-            FIRST NAME LAST NAME
-        </div>
-        <div style="margin-right: 24px;">
-            <hr style="width: 294px; height: 2px; background-color: black">
-            SIGNATURE
-        </div>
-    </div>
-    
-    ${Boolean(sign) ? `<img src=${sign} />` : ''}
+    <table style="margin-top: ${sign ? '0px' : '110px'};">
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                ${Boolean(sign) ? `<img src=${sign} height="128px" />` : ''}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <hr style="width: 294px; height: 2px; background-color: black">
+                DATE, CITY
+            </td>
+            <td>
+                <hr style="width: 294px; height: 2px; background-color: black">
+                FIRST NAME LAST NAME
+            </td>
+            <td>
+                <hr style="width: 294px; height: 2px; background-color: black">
+                SIGNATURE
+            </td>
+        </tr>
+    </table>
 </section>
 `;
 }

@@ -10,6 +10,9 @@ import {ScreenNames} from '../../navigation/navigation';
 import {SvSRPreviewPdf} from './SvSRPreviewPdf';
 import {useTranslation} from 'react-i18next';
 
+/**
+ * SvSR pdf preview screen with action buttons to proceed to signature
+ */
 export function SvSRPreviewScreen() {
   const {file, surveyId, data, filters} =
     useRoute<SvSRPreviewRouteParams>().params;
