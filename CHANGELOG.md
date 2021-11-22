@@ -1,11 +1,19 @@
+# Version 0.0.5
+
+## Fixes
+
+* SvSR signature scroll is broken
+* SvSR filters translation breaks filtration login
+* Empty SvSR section should not be shown as `false` tokens
+
 # Version 0.0.4
 
 ## Fixes
 
-* DMLR-282: iOS not generating SvSR
-* DMLR-282: `Partner's name` field not editable
-* DMLR-282: missing auditor signature tab
-* DMLR-282: `Save and upload` button not calling survey uploading and not navigating to survey list
+* iOS not generating SvSR
+* `Partner's name` field not editable
+* missing auditor signature tab
+* `Save and upload` button not calling survey uploading and not navigating to survey list
 
 # Version 0.0.3
 
