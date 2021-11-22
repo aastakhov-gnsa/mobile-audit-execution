@@ -1,5 +1,5 @@
 import {EvaluationSurvey} from '../../interfaces/evaluation';
-import {DaimlerService, surveyDetails} from '../../interfaces/survey';
+import {surveyDetails} from '../../interfaces/survey';
 import {logo} from './logo';
 import {getASRSettingsSection} from './sections/asrSettings';
 import {getClusterStatistic} from './sections/clusterStatistic';
@@ -39,11 +39,6 @@ export const pdfTemplate = (
     hour: 'numeric',
     minute: 'numeric',
     hour12: false,
-  })}`;
-  const auditDate = `${new Date(data.plannedDate).toLocaleString('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
   })}`;
   return `
 <style>

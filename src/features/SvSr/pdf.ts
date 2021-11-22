@@ -1,8 +1,6 @@
 import html2pdf from 'react-native-html-to-pdf';
 import {Platform, PermissionsAndroid} from 'react-native';
-import {logo} from './logo';
 import {EvaluationSurvey} from '../../interfaces/evaluation';
-// import FS from 'react-native-fs'
 import {pdfTemplate} from './pdfTemplate';
 
 export async function pdf(
@@ -12,9 +10,7 @@ export async function pdf(
 ) {
   let options = {
     html: pdfTemplate(data, filters, sign),
-    fileName: 'test',
-    // directory: FS.DocumentDirectoryPath
-    // base64: true
+    fileName: 'test'
   };
   if (Platform.OS === 'android') {
     const permissionGranted = await fRequestAndroidPermissionWrite();
