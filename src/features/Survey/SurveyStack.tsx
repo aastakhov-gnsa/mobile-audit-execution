@@ -31,9 +31,10 @@ function SurveyStack() {
     <Surveys.Navigator>
       <Surveys.Group>
         <Surveys.Screen
-          name={t(ScreenNames.Surveys)}
+          name={ScreenNames.Surveys}
           component={SurveysScreen}
           options={{
+            title: t(ScreenNames.Surveys),
             headerTitleStyle: styles.headerTitle,
             headerStyle: styles.headerStyle,
             headerRight: SurveysHeaderRight,

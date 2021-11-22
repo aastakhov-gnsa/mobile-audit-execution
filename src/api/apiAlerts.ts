@@ -6,6 +6,7 @@ import {FetchBlobUtilRequest} from '../interfaces/files';
 import uploadBlob from '../utils/files/uploadBlob';
 import {DownloadFileOptions, DownloadResult} from 'react-native-fs';
 import downloadFile from '../utils/files/downloadFile';
+import i18n from 'i18next';
 
 export function alert(e: AxiosError) {
   const isAuthError = e.response?.status === 401;
@@ -30,7 +31,7 @@ response: ${JSON.stringify(e.response?.data ?? {}, null, 2)}
 requestBody: ${requestBody}
 `;
   const button: AlertButton = {
-    text: 'Copy',
+    text: i18n.t('Copy'),
     onPress: () => {
       Clipboard.setString(message);
     },
@@ -62,14 +63,14 @@ requestConfig: ${JSON.stringify(requestConfig, null, 2)}
 exception: ${JSON.stringify(e, null, 2)}
   `;
   const button: AlertButton = {
-    text: 'Copy error and Cancel',
+    text: i18n.t('Copy error and Cancel'),
     onPress: () => {
       Clipboard.setString(message);
       onSuccessCb();
     },
   };
   const retryButton: AlertButton = {
-    text: 'Retry',
+    text: i18n.t('Retry'),
     onPress: () => {
       onRetryCb();
       uploadBlob({

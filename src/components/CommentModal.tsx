@@ -7,6 +7,7 @@ import {CommentType} from '../interfaces/standard';
 import {OverruleStatus} from '../interfaces/common';
 import Modal from './Modal';
 import {useTranslation} from 'react-i18next';
+import capitalizeFirstLetter from '../utils/common/copitalizeFirstLetter';
 
 interface CommentModalProps {
   visible: boolean;
@@ -84,7 +85,7 @@ function CommentModal({
           <Typography size="Body 1">{validationMessage}</Typography>
         </Snackbar>
       }
-      title={titleText ?? t('Comment')}>
+      title={titleText ?? capitalizeFirstLetter(t('comment'))}>
       <ItemWrapper paddingValue={[0, 30]} style={styles.inputWrapper}>
         <TextInput
           mode="outlined"

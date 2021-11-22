@@ -3,7 +3,8 @@ import {ScreenNames} from '../navigation/navigation';
 import { EvaluationSurvey } from './evaluation';
 
 export type SurveysStackParamList = {
-  [ScreenNames.Surveys]: undefined;
+  [ScreenNames.Surveys]: undefined | { notification: 'signed' };
+  [ScreenNames.SurveysStack]: { screen: string, params: { notification: 'signed' } };
   [ScreenNames.SurveyExecution]: {surveyId: string; standardId: string};
   [ScreenNames.StandardList]: {id: string};
   [ScreenNames.AuditDetails]: {id: string};
@@ -18,6 +19,11 @@ export type SurveysStackParamList = {
 export type NavigationParams = NavigationProp<SurveysStackParamList>;
 
 // route params
+export type SurveysRouteParams = RouteProp<
+  SurveysStackParamList,
+  ScreenNames.Surveys
+>
+
 export type SurveyExecutionRouteParams = RouteProp<
   SurveysStackParamList,
   ScreenNames.SurveyExecution

@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     paddingLeft: 14,
   },
   modal: {
-    display: 'flex',
     alignItems: 'flex-end',
     paddingTop: 52,
     paddingRight: 58,

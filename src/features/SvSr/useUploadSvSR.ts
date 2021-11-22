@@ -62,7 +62,7 @@ export function useUploadSvSR({
         });
         formData.push({
           name: 'file',
-          fileName: path,
+          filename: path,
           data: ReactNativeBlobUtil.wrap(path!),
         });
         const url = `${__API__}/rest/mobile-audit-execution/survey/${surveyId}/status`;
@@ -77,14 +77,12 @@ export function useUploadSvSR({
             },
             formData,
           );
-          console.warn(response);
         } catch (e) {
           console.error(e);
         }
-
         try {
             const response = await uploadSurvey()
-            navigation.navigate(ScreenNames.Surveys)
+            navigation.navigate(ScreenNames.SurveysStack, { screen: ScreenNames.Surveys, params: { notification: 'signed' }})
         } catch (e) {
             console.error(e)
         }

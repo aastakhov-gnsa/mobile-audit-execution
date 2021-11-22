@@ -1,10 +1,12 @@
 import {Resource} from 'i18next';
 import en from './en.json';
 import ru from './ru.json';
+import de from './de.json';
 
 const languageResources: Resource = {
   en,
   ru,
+  de,
 };
 
 export function getResources(customDictionary: Resource) {
