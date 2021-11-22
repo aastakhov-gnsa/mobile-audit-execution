@@ -61,7 +61,7 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
           <Typography size="Body 1">{data?.requiredDocuments}</Typography>
         </ItemWrapper>
       )}
-      {data?.files && (
+      {!!data?.files?.length && (
         <ItemWrapper paddingValue={[32, 0]} title="Files">
           <FilesPanel
             files={data.files}

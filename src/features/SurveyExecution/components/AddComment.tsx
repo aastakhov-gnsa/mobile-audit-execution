@@ -78,7 +78,7 @@ function AddComment({
         size="Button"
         iconName={attachedComment ? 'comment' : 'add-comment'}>{`${
         attachedComment ? t(commentType!).toUpperCase() : t('ADD')
-      } ${t('COMMENT')}`}</TouchableText>
+      } ${t('comment').toUpperCase()}`}</TouchableText>
     </>
   );
 }
