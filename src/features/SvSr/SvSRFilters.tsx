@@ -57,7 +57,7 @@ export function SvSRFilters({
     values = Object.values(StandardFulfillment);
   } else if (sectionType === 'details') {
     title = t('Details');
-    values = Object.values(surveyDetails).map(i => t(i)); // todo whether required?
+    values = Object.values(surveyDetails);
   } else if (services) {
     title = t('Audit Services');
     values = services.map(getServiceLabel);

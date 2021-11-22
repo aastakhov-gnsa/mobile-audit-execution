@@ -140,16 +140,16 @@ function getServiceSection(
     <h2 style="font-size: 24px; margin-top: 24px">${service?.productGroup} ${service?.brand} ${service?.activity}</h2>
     <h4>${data.outletId}-${productGroupCode}-${brandCode}-${activityCode}-${numberCode}</h4>
     ${
-      Boolean(filters[surveyDetails.servicesStatistic]) &&
-      getServiceStatistic(serviceStandards)
+      Boolean(filters[surveyDetails.servicesStatistic]) ?
+      getServiceStatistic(serviceStandards) : ''
     }
     ${
-        Boolean(filters[surveyDetails.weightedFulfillment]) &&
-        getWeightedFulfillment(serviceStandards)
+        Boolean(filters[surveyDetails.weightedFulfillment]) ?
+        getWeightedFulfillment(serviceStandards) : ''
     }
     ${
-        Boolean(filters[surveyDetails.measurementCriteria]) &&
-        getQuestionsSection(serviceStandards, data.outletType, filters)
+        Boolean(filters[surveyDetails.measurementCriteria]) ?
+        getQuestionsSection(serviceStandards, data.outletType, filters) : ''
     }
 </div>`;
 }
