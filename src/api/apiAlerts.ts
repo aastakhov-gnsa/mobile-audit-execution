@@ -9,12 +9,6 @@ import downloadFile from '../utils/files/downloadFile';
 import i18n from 'i18next';
 
 export function alert(e: AxiosError) {
-  const isAuthError = e.response?.status === 401;
-  let title = 'Error';
-  if (isAuthError) {
-    title = 'Authentication failed';
-  }
-
   let requestBody = '';
   if (typeof e.config.data === 'string') {
     try {
@@ -23,20 +17,41 @@ export function alert(e: AxiosError) {
       requestBody = e.config.data;
     }
   }
+  defaultAlert({
+    url: e.request?.responseURL,
+    code: e.response?.status,
+    response: JSON.stringify(e.response?.data ?? {}, null, 2),
+    requestBody
+  })
+}
 
+interface DefaultAlertProps {
+  title?: string
+  url?: string
+  code?: number
+  response?: string
+  requestBody?: string
+}
+
+export function defaultAlert({ url, code, response, requestBody }: DefaultAlertProps) {
+  const isAuthError = code === 401;
+  let title = 'Error';
+  if (isAuthError) {
+    title = 'Authentication failed';
+  }
   const message = `
-url: ${e.request?.responseURL}
-code: ${e.response?.status}
-response: ${JSON.stringify(e.response?.data ?? {}, null, 2)}
-requestBody: ${requestBody}
-`;
-  const button: AlertButton = {
-    text: i18n.t('Copy'),
-    onPress: () => {
-      Clipboard.setString(message);
-    },
-  };
-  Alert.alert(title, message, [button]);
+  url: ${url}
+  code: ${code}
+  response: ${response}
+  requestBody: ${requestBody}
+  `;
+    const button: AlertButton = {
+      text: i18n.t('Copy'),
+      onPress: () => {
+        Clipboard.setString(message);
+      },
+    };
+    Alert.alert(title, message, [button]);
 }
 
 export function fileUploadAlert({

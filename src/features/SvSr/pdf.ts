@@ -6,10 +6,11 @@ import {pdfTemplate} from './pdfTemplate';
 export async function pdf(
   data: EvaluationSurvey,
   filters: Record<string, boolean>,
-  sign?: string
+  sign?: string,
+  partner?: string
 ) {
   let options = {
-    html: pdfTemplate(data, filters, sign),
+    html: pdfTemplate(data, filters, sign, partner),
     fileName: 'test'
   };
   if (Platform.OS === 'android') {

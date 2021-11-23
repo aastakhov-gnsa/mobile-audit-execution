@@ -21,11 +21,12 @@ export function SignatureScreen() {
   const navigation = useNavigation<NavigationParams>();
   const [email, setEmail] = useState('')
   const [sendToMe, setSendToMe] = useState(false)
+  const [partner, setPartner] = useState('')
   const {t} = useTranslation();
   const [partnerBase64, setPartnerBase64] = useState<string | undefined>('')
   const [auditorBase64, setAuditorBase64] = useState<string | undefined>('')
   const [requestedTab, setRequestedTab] = useState('')
-  const [uploadSvSR] = useUploadSvSR({ email, sendToMe}, () => { setRequestedTab('') })
+  const [uploadSvSR] = useUploadSvSR({ email, sendToMe, partner }, () => { setRequestedTab('') })
   const handleCancel = () => {
     navigation.goBack();
   };
@@ -87,6 +88,8 @@ export function SignatureScreen() {
                 onEmailChange={setEmail}
                 sendToMe={sendToMe}
                 onSendToMeChange={setSendToMe}
+                partner={partner}
+                onPartnerChange={setPartner}
                 onSignatureBegin={handleSignTouchStart}
                 onSignatureEnd={handleSignTouchEnd}
                 onSignatureCapture={(val) => {
