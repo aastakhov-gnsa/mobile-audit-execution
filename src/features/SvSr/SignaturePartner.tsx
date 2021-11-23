@@ -12,6 +12,8 @@ export interface SignaturePartnerProps {
     onEmailChange: (value: string) => void
     sendToMe: boolean
     onSendToMeChange: (value: boolean) => void
+    partner: string
+    onPartnerChange: (value: string) => void
     onSignatureBegin: () => void
     onSignatureEnd: () => void
     onSignatureCapture: (base64?: string) => void 
@@ -26,6 +28,8 @@ export const SignaturePartner = forwardRef<SignatureViewRef, SignaturePartnerPro
     onEmailChange,
     sendToMe,
     onSendToMeChange,
+    partner,
+    onPartnerChange,
     onSignatureBegin,
     onSignatureEnd,
     onSignatureCapture
@@ -55,7 +59,7 @@ export const SignaturePartner = forwardRef<SignatureViewRef, SignaturePartnerPro
           </Button>
         </View>
         <View style={styles.form}>
-          <TextInput mode="outlined" style={styles.name} placeholder="Partner's name" />
+          <TextInput mode="outlined" style={styles.name} placeholder="Partner's name" value={partner} onChangeText={onPartnerChange} />
           <Typography size="Body 1" style={styles.sendLabel}>
             {t('Send the report')}
           </Typography>

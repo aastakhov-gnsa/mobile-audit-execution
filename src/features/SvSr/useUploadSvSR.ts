@@ -4,17 +4,18 @@ import {
     SignatureRouteParams,
   } from '../../interfaces/navigation';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {fRequestAndroidPermissionRead, pdf} from './pdf';
-import { Platform } from 'react-native';
-import { ScreenNames } from '../../navigation/navigation';
+import {pdf} from './pdf';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import { useSelector } from '../../utils/store/configureStore';
 import { __API__ } from '../../api/api';
 import { useUploadSurvey } from '../../hooks/useUploadSurvey';
+import {defaultAlert} from '../../api/apiAlerts'
+import { ScreenNames } from '../../navigation/navigation';
 
 export interface SvSRParams {
     email: string
     sendToMe: boolean
+    partner: string
 }
 
 /**
@@ -30,6 +31,7 @@ export interface SvSRParams {
 export function useUploadSvSR({
     email,
     sendToMe,
+    partner
 }: SvSRParams, beforeUpload: () => void): [(base64: string) => Promise<void>] {
     const navigation = useNavigation<NavigationParams>();
     const token = useSelector(state => state.auth.token);
@@ -37,20 +39,11 @@ export function useUploadSvSR({
     const [uploadSurvey] = useUploadSurvey(surveyId)
     const uploadSvSR = useMemo(() => async (base64?: string) => {
         beforeUpload?.()
-        const path = await pdf(data, filters, base64);
-        const readPermissions = Platform.OS === 'android' ? await fRequestAndroidPermissionRead() : true
-        if (path && readPermissions) {
-          navigation.navigate(ScreenNames.SvSRPreview, {
-            file: `file://${path}`,
-            surveyId: data.id,
-            data,
-            filters,
-          });
-        }
+        const path = await pdf(data, filters, base64, partner);
         const formData = [];
         formData.push({
           name: 'signBase64',
-          data: base64,
+          data: base64 ?? '',
         });
         formData.push({
           name: 'emails',
@@ -77,15 +70,31 @@ export function useUploadSvSR({
             },
             formData,
           );
+          let parsedResponse: string | Record<any, any> = ''
+          try {
+            parsedResponse = JSON.parse(response?.data)
+          } catch {
+            
+          }
+          if (typeof parsedResponse !== 'string' && parsedResponse.success === false) {
+            defaultAlert({
+              url,
+              code: response.respInfo.status,
+              response: parsedResponse.errorMessage,
+              requestBody: 'multipart'
+            })
+            return
+          }
         } catch (e) {
           console.error(e);
+          return
         }
         try {
-            const response = await uploadSurvey()
-            navigation.navigate(ScreenNames.SurveysStack, { screen: ScreenNames.Surveys, params: { notification: 'signed' }})
+           const response = await uploadSurvey()
+           navigation.navigate(ScreenNames.SurveysStack, { screen: ScreenNames.Surveys, params: { notification: 'signed' }})
         } catch (e) {
             console.error(e)
         }
-      }, [navigation, data, filters, surveyId, token, email, sendToMe, beforeUpload])
+      }, [navigation, data, filters, surveyId, token, email, sendToMe, partner, beforeUpload])
     return [uploadSvSR]
 }

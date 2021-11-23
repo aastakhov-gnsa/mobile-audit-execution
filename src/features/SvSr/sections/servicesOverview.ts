@@ -34,9 +34,8 @@ export function getServicesOverview(services: DaimlerService[], result: Status) 
         <td style="${grayBackground}">
             Result
         </td>
-        </tr>
-        ${rows.join('')}
     </tr>
+    ${rows.join('')}
 </table>
     `
 }
