@@ -1,3 +1,13 @@
+# Version 0.0.7
+
+## Fixes
+
+* SvSR: Missing cluster overview section
+* SvSR: Question options not showing
+* SvSR: Comments not showing
+* SvSR: Attach partner name, date, city and check confirmation checkboxes
+* SvSR: Show error alert if unable to send signed report to email
+
 # Version 0.0.6
 
 ## Fixes

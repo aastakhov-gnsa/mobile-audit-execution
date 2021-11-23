@@ -11,6 +11,7 @@ import {getSignSection} from './sections/signSection';
 import { getOnlyUpperCase, getServiceLabel } from '../../utils/daimlerService';
 import { getAdditionalAuditInformation } from './sections/additionalAuditInformation';
 import {getServicesOverview} from './sections/servicesOverview'
+import {getClusterOverview} from './sections/clusterOverview'
 import { AuditStandardExecution, StandardFulfillment, StandardType } from '../../interfaces/standard';
 import { failedStatuses, notEvaluatedStatuses, passedStatuses } from '../../interfaces/common';
 
@@ -27,7 +28,8 @@ const logoSection = `
 export const pdfTemplate = (
   data: EvaluationSurvey,
   filters: Record<string, boolean>,
-  sign?: string
+  sign?: string,
+  partner?: string
 ) => {
   const date = new Date();
   let dateString = `${date.toLocaleString('en-US', {
@@ -98,6 +100,7 @@ Created on ${dateString}
     </tr>
 </table>
 ${getServicesOverview(data.services, data.resultCd)}
+${getClusterOverview(data)}
 ${getAdditionalAuditInformation(
     data.auditor,
     data.auditManager,
@@ -114,7 +117,7 @@ ${
 <div>
 ${data.services.filter(item => filters[getServiceLabel(item)]).map(item => getServiceSection(getServiceLabel(item), data, filters))}
 </div>
-${filters[surveyDetails.signature] ? getSignSection(sign) : ''}
+${filters[surveyDetails.signature] ? getSignSection(sign, partner, data.outletCity, date) : ''}
 </td>
 </tr>
 </table>
