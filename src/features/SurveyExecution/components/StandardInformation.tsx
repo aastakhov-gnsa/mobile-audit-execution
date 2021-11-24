@@ -48,8 +48,13 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
         <Services services={data?.services} showNumber={4} />
       </ItemWrapper>
       <ItemWrapper paddingValue={0} style={styles.bottomContainer}>
-        <Checkpoint checkpoint={data?.checkpoint} style={styles.bottomItem} />
-        <Chip>{data?.standardType}</Chip>
+        {!!data?.checkpoint && (
+          <Checkpoint
+            checkpoint={t(data.checkpoint)}
+            style={styles.bottomItem}
+          />
+        )}
+        {!!data?.standardType && <Chip>{t(data.standardType)}</Chip>}
       </ItemWrapper>
       {!!data?.infoForAuditor?.length && (
         <ItemWrapper paddingValue={[32, 0]} title={t('Additional Info')}>
