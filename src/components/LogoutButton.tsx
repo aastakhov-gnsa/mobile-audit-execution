@@ -19,7 +19,7 @@ function LogoutButton() {
       if (authContext.idToken) {
         const res = await signOff(authContext.idToken);
         console.log('sing off::::', res);
-        authContext.setAccessToken('');
+        authContext.setRefreshToken('');
         authContext.setIdToken('');
         await Secrets.clearSecrets();
         await Storage.clearStorage();

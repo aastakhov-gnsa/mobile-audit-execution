@@ -1,8 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {fetchGnsaToken} from './authActions';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 type AuthSlice = {
   token?: string;
+  refreshToken?: string
 };
 
 export const authReducer = createSlice({
@@ -11,13 +11,15 @@ export const authReducer = createSlice({
   reducers: {
     logout: state => {
       state.token = undefined;
+      state.refreshToken = undefined;
     },
-  },
-  extraReducers: builder => {
-    builder.addCase(fetchGnsaToken.fulfilled, (state, action) => {
-      state.token = action.payload.token;
-    });
-  },
+    setAuthTokens: (state, action: PayloadAction<{ token: string, refreshToken?: string }>) => {
+      state.token = action.payload.token
+      if (action.payload.refreshToken) {
+        state.refreshToken = action.payload.refreshToken
+      }
+    }
+  }
 });
 
-export const {logout} = authReducer.actions;
+export const {logout, setAuthTokens} = authReducer.actions;

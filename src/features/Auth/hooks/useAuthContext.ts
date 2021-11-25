@@ -5,18 +5,16 @@ import {
 } from '../../../utils/encryptedStorage/encryptedStorage';
 
 export function useAuthContext() {
-  const [accessToken, setAccessToken] = React.useState('');
-  const [idToken, setIdToken] = React.useState('');
+  const [refreshToken, setRefreshToken] = React.useState('');
   const [gnsaToken, setGnsaToken] = React.useState('');
   const [inProgress, setInProgress] = React.useState(false);
 
   React.useEffect(() => {
     const retrieveAuth = async () => {
       try {
-        setAccessToken(
-          (await Secrets.getSecret(SecretItems.accessToken)) as string,
+        setRefreshToken(
+          (await Secrets.getSecret(SecretItems.refreshToken)) as string,
         );
-        setIdToken((await Secrets.getSecret(SecretItems.idToken)) as string);
         setGnsaToken(
           (await Secrets.getSecret(SecretItems.gnsaToken)) as string,
         );
@@ -25,28 +23,24 @@ export function useAuthContext() {
       }
     };
     retrieveAuth();
-  }, [setIdToken, setAccessToken]);
+  }, []);
 
   const authContext = React.useMemo(
     () => ({
-      setAccessToken,
-      setIdToken,
+      setRefreshToken,
       setInProgress,
       inProgress,
-      idToken,
       gnsaToken,
       setGnsaToken,
-      accessToken,
+      refreshToken,
     }),
     [
-      setAccessToken,
-      setIdToken,
+      setRefreshToken,
       setInProgress,
       inProgress,
-      idToken,
       gnsaToken,
       setGnsaToken,
-      accessToken,
+      refreshToken,
     ],
   );
   return authContext;
