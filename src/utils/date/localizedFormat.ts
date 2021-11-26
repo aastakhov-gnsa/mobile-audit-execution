@@ -7,7 +7,7 @@ const localeMap: Record<string, any> = {
   ru: ru,
 };
 
-export default function (date: Date, formatStr = 'PPP kk:mm') {
+export default function (date: Date, formatStr = 'dd.MM.yyyy kk:mm') {
   return format(date, formatStr, {
     locale: localeMap[localeCode],
   });

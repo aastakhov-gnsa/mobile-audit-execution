@@ -1,6 +1,6 @@
 import React from 'react';
 import {Survey} from '../interfaces/survey';
-import {Card, Button, useTheme, ActivityIndicator} from 'react-native-paper';
+import {Card, useTheme, ActivityIndicator} from 'react-native-paper';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import {StyleSheet, View} from 'react-native';
@@ -20,6 +20,7 @@ import UploadSurvey from './UploadSurvey';
 import {SvSr} from '../features/SvSr/SvSr';
 import {useTranslation} from 'react-i18next';
 import FileLoadingInfo from './FileLoadingInfo';
+import Button from './Button';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -77,6 +78,10 @@ function SurveyCard({survey}: {survey: Survey}) {
       navigation.navigate(ScreenNames.StandardList, {id: id});
     }
   }, [id, data, navigation]);
+  const handleAuditDetailsPress = React.useCallback(
+    () => navigation.navigate(ScreenNames.AuditDetails, {id: id}),
+    [id, navigation],
+  );
   const {t} = useTranslation();
   return (
     <Card style={styles.card} key={id} onPress={handlePress}>
@@ -128,9 +133,7 @@ function SurveyCard({survey}: {survey: Survey}) {
           {data && (
             <Button
               icon="information-outline"
-              onPress={() =>
-                navigation.navigate(ScreenNames.AuditDetails, {id: id})
-              }>
+              onPress={handleAuditDetailsPress}>
               {t('Audit Details')}
             </Button>
           )}

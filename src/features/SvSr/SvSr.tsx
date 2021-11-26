@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Platform, Pressable, StyleSheet, Text, View} from 'react-native';
-import {Button, useTheme} from 'react-native-paper';
+import React, {useState} from 'react';
+import {Platform, StyleSheet} from 'react-native';
 import Modal from '../../components/Modal';
 import {ScrollView} from 'react-native-gesture-handler';
 import {pdf, fRequestAndroidPermissionRead} from './pdf';
@@ -10,13 +9,14 @@ import {NavigationParams} from '../../interfaces/navigation';
 import {ScreenNames} from '../../navigation/navigation';
 import {SvSRFilters} from './SvSRFilters';
 import {useTranslation} from 'react-i18next';
+import Button from '../../components/Button';
 
 export interface SvSrProps {
   data: EvaluationSurvey;
 }
 
 /**
- * `Generate SvSR` button opening modal with SvSR parametrs and button to proceed to pdf 
+ * `Generate SvSR` button opening modal with SvSR parametrs and button to proceed to pdf
  */
 export function SvSr({data}: SvSrProps) {
   const navigation = useNavigation<NavigationParams>();
@@ -24,7 +24,8 @@ export function SvSr({data}: SvSrProps) {
   const [show, setShow] = useState(false);
   const handleExport = async () => {
     const path = await pdf(data, selected);
-    const readPermissions = Platform.OS === 'android' ? await fRequestAndroidPermissionRead() : true
+    const readPermissions =
+      Platform.OS === 'android' ? await fRequestAndroidPermissionRead() : true;
     if (path && readPermissions) {
       setShow(false);
       navigation.navigate(ScreenNames.SvSRPreview, {
@@ -52,10 +53,11 @@ export function SvSr({data}: SvSrProps) {
       [key]: !selected[key],
     });
   };
+  const handleGenerateSvsrButtonPress = () => setShow(true);
   const {t} = useTranslation();
   return (
     <>
-      <Button mode="text" icon="file-outline" onPress={() => setShow(true)}>
+      <Button icon="file-outline" onPress={handleGenerateSvsrButtonPress}>
         {t('Generate SvSr')}
       </Button>
       <Modal
