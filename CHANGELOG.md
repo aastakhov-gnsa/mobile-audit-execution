@@ -1,3 +1,12 @@
+# Version 0.0.8
+
+## Fixes
+
+* fix(i18n): translations for filters are added
+* fix(upload-svsr): 'language' is added to request params
+* GNSA-1776 GNSA-1549 Fixed EPA 4.1.1 Privilege Escalation to Any User
+* GNSA-1776 Fixed SCAS2 2.1.1.1 Vulnerable Minimum OS Version Supported (Android)
+
 # Version 0.0.7
 
 ## Fixes
