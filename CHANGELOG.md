@@ -1,3 +1,14 @@
+# Version 0.0.10
+
+## Fixes
+
+* fix(i18n): de to filters;
+* fix(button-icon): margin between button's  icon anf lable is fixed;
+* fix(date): 'updated at' date format is fixed;
+* fix(standards-navigation): NavigationBetweenStandards.tsx design is fixed;
+* fix(android): margin between screen header and content is added;
+* fix(android): screen title is moved to center
+
 # Version 0.0.9
 
 ## Fixes
