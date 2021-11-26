@@ -21,10 +21,10 @@ function NavigationBetweenStandards({
 
   const {previousStandard, nextStandard} = useSelector(state => {
     const data = state.evaluation[surveyId].standards;
-    const index = data?.findIndex(i => i.id === standardId) ?? noDataIndex;
-    const prevStandard = data![index - 1];
-    const nxtStandard = data![index + 1];
-    const dataLength = data?.length;
+    const index = data.findIndex(i => i.id === standardId) ?? noDataIndex;
+    const prevStandard = data[index - 1];
+    const nxtStandard = data[index + 1];
+    const dataLength = data.length;
     return {
       previousStandard: index > 0 && {
         index: index - 1,
@@ -41,33 +41,50 @@ function NavigationBetweenStandards({
         },
     };
   });
+  const handlePrev = React.useCallback(() => {
+    if (previousStandard) {
+      navigation.navigate(ScreenNames.SurveyExecution, {
+        surveyId: surveyId,
+        standardId: previousStandard.id,
+      });
+    }
+  }, [navigation, previousStandard, surveyId]);
+  const handleNext = React.useCallback(() => {
+    if (nextStandard) {
+      navigation.navigate(ScreenNames.SurveyExecution, {
+        surveyId: surveyId,
+        standardId: nextStandard.id,
+      });
+    }
+  }, [navigation, nextStandard, surveyId]);
+
   return (
     <View style={styles.standardsNavigation}>
-      {previousStandard && (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(ScreenNames.SurveyExecution, {
-              surveyId: surveyId,
-              standardId: previousStandard.id,
-            })
-          }>
-          <Typography size="Body 1">
-            〈 {previousStandard.name} {getGlyph(previousStandard.status)}
-          </Typography>
-        </TouchableOpacity>
-      )}
+      <View style={styles.itemContainer}>
+        {previousStandard && (
+          <TouchableOpacity onPress={handlePrev} style={styles.leftTouchable}>
+            <Typography size="Body 1">〈</Typography>
+            <Typography size="Body 1" numberOfLines={1} style={styles.label}>
+              {previousStandard.name}
+            </Typography>
+            <Typography size="Body 1">
+              {getGlyph(previousStandard.status)}
+            </Typography>
+          </TouchableOpacity>
+        )}
+      </View>
       {nextStandard && (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(ScreenNames.SurveyExecution, {
-              surveyId: surveyId,
-              standardId: nextStandard.id,
-            })
-          }>
-          <Typography size="Body 1">
-            {getGlyph(nextStandard.status)} {nextStandard.name} 〉
-          </Typography>
-        </TouchableOpacity>
+        <View style={styles.itemContainer}>
+          <TouchableOpacity style={styles.rightTouchable} onPress={handleNext}>
+            <Typography size="Body 1">
+              {getGlyph(nextStandard.status)}
+            </Typography>
+            <Typography size="Body 1" numberOfLines={1} style={styles.label}>
+              {nextStandard.name}
+            </Typography>
+            <Typography size="Body 1">〉</Typography>
+          </TouchableOpacity>
+        </View>
       )}
     </View>
   );
@@ -82,6 +99,15 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginBottom: 40,
   },
+  itemContainer: {width: '50%'},
+  leftTouchable: {
+    flexDirection: 'row',
+  },
+  rightTouchable: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  label: {maxWidth: '93%'},
 });
 
 function getGlyph(status?: Status) {
