@@ -1,6 +1,6 @@
 {
   "name": "gnsamobileauditexecution",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant dev1Debug",
@@ -19,8 +19,10 @@
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.7",
     "@reduxjs/toolkit": "^1.6.1",
+    "@types/base-64": "^1.0.0",
     "@types/react-native-vector-icons": "^6.4.8",
     "axios": "^0.21.1",
+    "base-64": "^1.0.0",
     "buffer": "^6.0.3",
     "date-fns": "^2.23.0",
     "i18next": "^21.3.3",
