@@ -114,7 +114,7 @@ function StandardListScreen() {
         backgroundColor={themeConfig.defaultTheme.colors.surface}
       />
       <ListInfoCaption
-        leftCaption={`${filter ? filter.value : t('All Standards')} · ${
+        leftCaption={`${filter ? t(filter.value) : t('All Standards')} · ${
           data?.length ?? 0
         }`}
       />

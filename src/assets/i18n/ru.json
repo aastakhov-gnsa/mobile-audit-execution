@@ -35,7 +35,6 @@
     "Audit Details": "Детали Аудита",
     "Surveys": "Опросы",
     "log out": "выход",
-    "All Surveys": "Все опросы",
     "Updated": "Обновлено",
     "There are no new surveys at the moment": "На данный момент нет новых опросов",
     "Pull down the screen to refresh the list": "Потяните экран вниз, чтобы обновить список",
@@ -97,6 +96,24 @@
     "Send a copy of the report to me": "Отправить копию отчета себе",
     "Copy": "Копировать",
     "Copy error and Cancel": "Копировать ошибку и отменить",
-    "Retry": "Повторить"
+    "Retry": "Повторить",
+    "All Surveys": "Все опросы",
+    "Downloadable": "Можно загрузить",
+    "In progress": "В процессе",
+    "Finished": "Завершенные",
+    "Open": "Открыто",
+    "Passed": "В процессе",
+    "Failed": "Неуспешно",
+    "Must": "Обязательные",
+    "Basic Bonus": "Базовый Бонус",
+    "Awarded Bonus": "Присужденный Бонус",
+    "Recommended": "Рекомендованный",
+    "Back Office": "Бэк-офис",
+    "Customer Contact Area": "Место Взаимодействия с Клиентом",
+    "Workshop": "Мастерская",
+    "MPC": "MPC",
+    "Exterior": "Экстерьер",
+    "Show Room": "Выставочный Зал",
+    "Warehouse and Parts Area": "Склад и Зона Запчастей"
   }
 }

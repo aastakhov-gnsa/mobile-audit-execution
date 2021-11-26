@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {fetchGnsaToken} from './authActions';
 import {logout} from './authReducer';
 
 type TokenSlice = {
@@ -17,16 +16,5 @@ export const tokenReducer = createSlice({
   extraReducers: builder => {
     builder
       .addCase(logout, () => initState)
-      .addCase(fetchGnsaToken.pending, state => {
-        state.tokenLoading = true;
-      })
-      .addCase(fetchGnsaToken.fulfilled, state => {
-        state.tokenLoading = false;
-      })
-      .addCase(fetchGnsaToken.rejected, (state, action) => {
-        console.error(action.error);
-        state.tokenLoading = false;
-        state.tokenError = action.payload;
-      });
   },
 });

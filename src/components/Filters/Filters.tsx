@@ -7,6 +7,7 @@ import {addFilter, removeFilter} from './filtersReducer';
 import {FilterValues} from '../../interfaces/filters';
 import {ScrollView} from 'react-native-gesture-handler';
 import Typography from '../Typography';
+import {useTranslation} from 'react-i18next';
 
 interface FiltersProps {
   screenName: ScreenNames;
@@ -19,6 +20,7 @@ function Filters({screenName, id, filterValues}: FiltersProps) {
   const selectedFilter = useSelector(
     state => state.filters?.[screenName]?.[id],
   );
+  const {t} = useTranslation();
   return (
     <View style={styles.wrapper}>
       <ScrollView style={styles.container} horizontal>
@@ -47,7 +49,7 @@ function Filters({screenName, id, filterValues}: FiltersProps) {
               onPress={handlePress}
               style={styles.chip}
               mode={'outlined'}>
-              <Typography size="Body 2">{i.value}</Typography>
+              <Typography size="Body 2">{t(i.value)}</Typography>
             </Chip>
           );
         })}
