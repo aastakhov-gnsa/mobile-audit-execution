@@ -36,7 +36,6 @@
     "Audit Details": "Audit-Details",
     "Surveys": "Surveys",
     "log out": "Abmelden",
-    "All Surveys": "Alle Surveys",
     "Updated": "Aktualisiert am",
     "There are no new surveys at the moment": "Es sind keine neuen Surveys vorhanden",
     "Pull down the screen to refresh the list": "Nach unten wischen, um die Liste zu aktualisieren",
@@ -98,6 +97,24 @@
     "Send a copy of the report to me": "Eine Kopie des SvSR an mich schicken",
     "Copy": "Kopieren",
     "Copy error and Cancel": "Fehler kopieren und abbrechen",
-    "Retry": "Wiederholen"
+    "Retry": "Wiederholen",
+    "All Surveys": "Alle Surveys",
+    "Downloadable": "Downloadable",
+    "In progress": "In progress",
+    "Finished": "Finished",
+    "Open": "Offen",
+    "Passed": "Bestanden",
+    "Failed": "Nicht bestanden",
+    "Must": "Must",
+    "Basic Bonus": "Basic Bonus",
+    "Awarded Bonus": "Awarded Bonus",
+    "Recommended": "Recommended",
+    "Back Office": "Back Office",
+    "Customer Contact Area": "Customer Contact Area",
+    "Workshop": "Workshop",
+    "MPC": "MPC",
+    "Exterior": "Exterior",
+    "Show Room": "Show Room",
+    "Warehouse and Parts Area": "Warehouse and Parts Area"
   }
 }
