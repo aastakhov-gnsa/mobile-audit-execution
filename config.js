@@ -1,33 +1,26 @@
-import Config from 'react-native-config';
-// export const AUTH_URI =
-//   'https://gnsa-dev.i.daimler.com/api/v1/rest/authenticate';
+
+import { __API__ } from './src/api/api';
+
 export const AUTH_URI = 'https://sso-int.daimler.com/as/authorization.oauth2';
 
 export const ENVIRONMENT_ID = 'GNSA';
 
-export const API_URL = Config.API_URL;
-
+/**
+ * Configuration for `react-native-app-auth` library
+ *
+ * Configured to only fetch authorization code
+ */
 export const AUTH_CONFIG = {
   serviceConfiguration: {
     authorizationEndpoint: AUTH_URI,
     tokenEndpoint: 'https://sso-int.daimler.com/as/token.oauth2',
   },
-  // issuer: AUTH_URI,
-  // issuer: AUTH_URI + '/'+ ENVIRONMENT_ID + '/as',
   clientId: 'b00158c4-898b-4a01-ba59-d6df2b411cf3',
-  clientSecret: 'ddc1fce2-454f-48c3-b6f1-6b799e3fff23',
   redirectUrl: `${ENVIRONMENT_ID}://audits`,
-  // redirectUrl: 'gnsa-dev.i.daimler.com/audits',
+  usePKCE: false,
   scopes: ['openid', 'profile', 'email', 'phone'],
-  // usePKCE: true,
-  // useNonce: true,
-  // additionalParameters: {
-  //   max_age: '3600',
-  //   prompt: 'login'
-  // }
+  skipCodeExchange: true,
   additionalParameters: {
     acr_values: 'daimler:idp:gas:standard',
   },
-
-  // additionalParameters: ["acr_values": "daimler:idp:gas:standard"]
 };

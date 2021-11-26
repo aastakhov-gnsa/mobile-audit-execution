@@ -10,12 +10,13 @@ import {
   Secrets,
 } from '../../utils/encryptedStorage/encryptedStorage';
 import {AuthContext} from '../../context/AuthContext';
-import {API} from '../../api/api';
+import {API, sendAuthorizationCode} from '../../api/api';
 import {Storage, StorageItems} from '../../utils/storage/storage';
-import {fetchGnsaToken} from './authActions';
 import {useDispatch, useSelector} from '../../utils/store/configureStore';
 import Typography from '../../components/Typography';
 import {useTranslation} from 'react-i18next';
+import { parseJwt } from '../../utils/jwt';
+import { setAuthTokens } from './authReducer'
 const image = require('./assets/logo.png');
 
 function AuthScreen() {
@@ -38,31 +39,23 @@ function AuthScreen() {
     authContext.setInProgress(true);
     try {
       // SSO: auth
-      const authState = await authorize(AUTH_CONFIG);
-      // console.log('-->', JSON.stringify(authState, null, 2));
-      await Secrets.saveSecret(SecretItems.accessToken, authState.accessToken);
-      await Secrets.saveSecret(SecretItems.idToken, authState.idToken);
-
-      // SSO: retrieve user info
-      const userInfo = await API.getUserInfo(authState.accessToken);
-      const {
-        data: {sub, given_name, family_name},
-      } = userInfo;
+      const authorizationCodeResponse = await authorize(AUTH_CONFIG);
+      const accessTokenResponse = await sendAuthorizationCode(authorizationCodeResponse.authorizationCode)
+      const { jwttoken, refreshToken, givenName, familyName } = accessTokenResponse.data
+      await Secrets.saveSecret(SecretItems.gnsaToken, jwttoken);
+      await Storage.saveItem(StorageItems.firstName, givenName);
+      await Storage.saveItem(StorageItems.lastName, familyName);
+      const { sub } = parseJwt(jwttoken)
       await Storage.saveItem(StorageItems.userName, sub);
-      await Storage.saveItem(StorageItems.firstName, given_name);
-      await Storage.saveItem(StorageItems.lastName, family_name);
       await Storage.saveItem(
         StorageItems.fullName,
-        `${given_name} ${family_name}`,
+        `${givenName} ${familyName}`,
       );
-      // console.log('userInfo', userInfo);
-      authContext.setAccessToken(authState.accessToken);
-      authContext.setIdToken(authState.idToken);
-      // fixme current gnsa integration hack
-      dispatch(fetchGnsaToken(sub));
-      // console.log('gnsaRes', gnsaRes);
+
+      authContext.setRefreshToken(refreshToken);
+      dispatch(setAuthTokens({ token: jwttoken, refreshToken }));
     } catch (error) {
-      console.error('Authentication failed', error);
+      console.error('Authentication failed', JSON.stringify(error));
     }
     authContext.setInProgress(false);
   }, [authContext, dispatch]);
