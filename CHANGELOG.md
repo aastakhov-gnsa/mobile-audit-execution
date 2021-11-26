@@ -1,3 +1,9 @@
+# Version 0.0.9
+
+## Fixes
+
+* Missing polyfill for `atob` leads to real devices unable to parse JWT token and sign up
+
 # Version 0.0.8
 
 ## Fixes
