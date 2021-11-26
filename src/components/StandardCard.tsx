@@ -10,6 +10,7 @@ import {ScreenNames} from '../navigation/navigation';
 import {NavigationParams} from '../interfaces/navigation';
 import useStandardData from '../hooks/useStandardData';
 import useCurrentLanguage from '../hooks/useCurrentLanguage';
+import {useTranslation} from 'react-i18next';
 
 interface StandardCardProps {
   id: string;
@@ -22,6 +23,7 @@ function StandardCard({id, surveyId}: StandardCardProps) {
   const [langCode, needTranslation] = useCurrentLanguage();
   const {colors} = useTheme();
   const styles = makeStyles(colors);
+  const {t} = useTranslation();
   return (
     <Card
       style={styles.card}
@@ -46,8 +48,13 @@ function StandardCard({id, surveyId}: StandardCardProps) {
       <Card.Content style={styles.cardContent}>
         <Services services={data?.services} showNumber={4} />
         <View style={styles.bottomContainer}>
-          <Checkpoint checkpoint={data?.checkpoint} style={styles.bottomItem} />
-          <Chip>{data?.standardType}</Chip>
+          {!!data?.checkpoint && (
+            <Checkpoint
+              checkpoint={t(data.checkpoint)}
+              style={styles.bottomItem}
+            />
+          )}
+          {!!data?.standardType && <Chip>{t(data.standardType)}</Chip>}
         </View>
       </Card.Content>
     </Card>
@@ -74,7 +81,6 @@ const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
     },
     bottomContainer: {
       marginTop: 10,
-      display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
     },
