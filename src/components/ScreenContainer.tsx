@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Dimensions, ScaledSize, StyleSheet, View} from 'react-native';
+import {Dimensions, Platform, ScaledSize, StyleSheet, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 
 const w = Dimensions.get('window');
@@ -40,6 +40,7 @@ const makeStyles = (
       flex: 1,
       marginLeft: sidePadding,
       marginRight: sidePadding,
+      marginTop: Platform.OS === 'android' ? 28 : 0,
     },
   });
 };

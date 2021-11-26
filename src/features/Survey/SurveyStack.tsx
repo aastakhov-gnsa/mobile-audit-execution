@@ -29,7 +29,7 @@ function SurveyStack() {
   const {t} = useTranslation();
   return (
     <Surveys.Navigator>
-      <Surveys.Group>
+      <Surveys.Group screenOptions={{headerTitleAlign: 'center'}}>
         <Surveys.Screen
           name={ScreenNames.Surveys}
           component={SurveysScreen}
@@ -60,7 +60,8 @@ function SurveyStack() {
           component={SignatureScreen}
         />
       </Surveys.Group>
-      <Surveys.Group screenOptions={{presentation: 'modal'}}>
+      <Surveys.Group
+        screenOptions={{presentation: 'modal', headerTitleAlign: 'center'}}>
         <Surveys.Screen
           name={ScreenNames.UserManual}
           options={{title: t('User Manual')}}
