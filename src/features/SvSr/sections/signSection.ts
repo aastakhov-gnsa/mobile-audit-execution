@@ -1,10 +1,12 @@
+import localizedFormat from "../../../utils/date/localizedFormat";
+
 export function getSignSection(sign?: string, partner?: string, city?: string, date?: Date) {
   const checkbox = sign
     ? `<div style="margin-left: 3px;">
         ✓
     </div>`
     : ''
-  const displayedDate = `${date?.getDate()} ${date?.toLocaleString('en-US', {  month: 'long' })} ${date?.getFullYear()}`
+  const displayedDate = date ? localizedFormat(date, 'dd MMM yyyy') : '';
   return `
 <section style="page-break-before: always; margin-top: 144px;">
     <div style="display: flex; flex-direction: column">
@@ -40,7 +42,7 @@ export function getSignSection(sign?: string, partner?: string, city?: string, d
             </td>
             <td>
                 <hr style="width: 294px; height: 2px; background-color: black">
-                FIRST NAME LAST NAME
+                FIRST NAME / LAST NAME
             </td>
             <td>
                 <hr style="width: 294px; height: 2px; background-color: black">
