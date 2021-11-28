@@ -1,0 +1,17 @@
+{
+    "translation": {
+      "DATE, CITY": "Fecha, lugar",
+      "FIRST NAME / LAST NAME": "Nombre, Apellidos",
+      "SIGNATURE": "Firma",
+      "I acknowledge that I have received the Survey Status Report.": "Reconozco que he recibido el SvSR",
+      "I herebe take notice of the results of todays' audit.": "Por la presente tomo nota de los resultados de la auditoría",
+      "Cluster statistic for choosen services": "Estádísticas del cluster de los servicios elegidos",
+      "Number of standards": "Número de estándares",
+      "Evaluated": "evaluados",
+      "SvSR Open": "Abiertos",
+      "Services statistics": "estadística de servicios",
+      "Evaluated with \"yes\"": "Evaluados como \"si\"",
+      "Evaluated with \"no\"": "Evaluados como \"no\""
+    }
+  }
+  

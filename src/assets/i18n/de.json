@@ -115,6 +115,18 @@
     "MPC": "MPC",
     "Exterior": "Exterior",
     "Show Room": "Show Room",
-    "Warehouse and Parts Area": "Warehouse and Parts Area"
+    "Warehouse and Parts Area": "Warehouse and Parts Area",
+    "DATE, CITY": "Datum, Ort",
+    "FIRST NAME / LAST NAME": "Vorname Nachname",
+    "SIGNATURE": "Unterschrift",
+    "I acknowledge that I have received the Survey Status Report.": "Ich bestätige hiermit den Erhalt des Service Status Reports.",
+    "I herebe take notice of the results of todays' audit.": "Ich nehme die Ergebnisse des heute durchgeführten Audits zur Kenntnis.",
+    "Cluster statistic for choosen services": "Cluster-Statistik für gewählte Services",
+    "Number of standards": "Anzahl Standards",
+    "Evaluated": "Bewertet",
+    "Services statistics": "Service Statistik",
+    "Evaluated with \"yes\"": "Bewertet mit \"ja\"",
+    "Evaluated with \"no\"": "Bewertet mit \"nein\"",
+    "SvSR Open": "Offen"
   }
 }

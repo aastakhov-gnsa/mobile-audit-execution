@@ -114,6 +114,18 @@
     "MPC": "MPC",
     "Exterior": "Экстерьер",
     "Show Room": "Выставочный Зал",
-    "Warehouse and Parts Area": "Склад и Зона Запчастей"
+    "Warehouse and Parts Area": "Склад и Зона Запчастей",
+    "DATE, CITY": "Дата, Город",
+    "FIRST NAME / LAST NAME": "Имя Фамилия",
+    "SIGNATURE": "Подпись",
+    "I acknowledge that I have received the Survey Status Report.": "I acknowledge that I have received the Survey Status Report.",
+    "I herebe take notice of the results of todays' audit.": "Я ознакомлен с результатами сегодняшней проверки",
+    "Cluster statistic for choosen services": "Кластерная статистика по выбранным сервисам",
+    "Number of standards": "Количество стандартов",
+    "Evaluated": "Пройден",
+    "SvSR Open": "В процессе",
+    "Services statistics": "Статистика сервисов",
+    "Evaluated with \"yes\"": "Пройден с результатом \"да\"",
+    "Evaluated with \"no\"": "Пройден с результатом \"нет\""
   }
 }
