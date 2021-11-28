@@ -14,6 +14,7 @@ import {getServicesOverview} from './sections/servicesOverview'
 import {getClusterOverview} from './sections/clusterOverview'
 import { AuditStandardExecution, StandardFulfillment, StandardType } from '../../interfaces/standard';
 import { failedStatuses, notEvaluatedStatuses, passedStatuses } from '../../interfaces/common';
+import localizedFormat from '../../utils/date/localizedFormat'
 
 const logoSection = `
 <thead>
@@ -32,16 +33,7 @@ export const pdfTemplate = (
   partner?: string
 ) => {
   const date = new Date();
-  let dateString = `${date.toLocaleString('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  })}`;
-  dateString += ` ${date.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false,
-  })}`;
+  const dateString = localizedFormat(date, 'dd MMM yyyy kk:mm');
   return `
 <style>
     @page {
