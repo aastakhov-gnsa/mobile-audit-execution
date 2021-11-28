@@ -1,4 +1,5 @@
 import localizedFormat from "../../../utils/date/localizedFormat";
+import i18next from 'i18next'
 
 export function getSignSection(sign?: string, partner?: string, city?: string, date?: Date) {
   const checkbox = sign
@@ -14,13 +15,13 @@ export function getSignSection(sign?: string, partner?: string, city?: string, d
             <div style="width: 18px; height: 18px; border: 2px solid black; margin-right: 8px; position: relative;">
                 ${checkbox}
             </div>
-            I acknowledge that I have received the Survey Status Report
+            ${i18next.t('I acknowledge that I have received the Survey Status Report.')}
         </div>
         <div style="display: flex;">
             <div style="width: 18px; height: 18px; border: 2px solid black; margin-right: 8px;">
                 ${checkbox}
             </div>
-            I hereby take notice of the results of today's audit
+            ${i18next.t('I herebe take notice of the results of todays\' audit.')}
         </div>
     </div>
     <table style="margin-top: ${sign ? '0px' : '110px'};">
@@ -38,15 +39,15 @@ export function getSignSection(sign?: string, partner?: string, city?: string, d
         <tr>
             <td>
                 <hr style="width: 294px; height: 2px; background-color: black">
-                DATE, CITY
+                ${i18next.t('DATE, CITY')}
             </td>
             <td>
                 <hr style="width: 294px; height: 2px; background-color: black">
-                FIRST NAME / LAST NAME
+                ${i18next.t('FIRST NAME / LAST NAME')}
             </td>
             <td>
                 <hr style="width: 294px; height: 2px; background-color: black">
-                SIGNATURE
+                ${i18next.t('SIGNATURE')}
             </td>
         </tr>
     </table>

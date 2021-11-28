@@ -1,0 +1,17 @@
+{
+    "translation": {
+      "DATE, CITY": "Datum, Ort",
+      "FIRST NAME / LAST NAME": "Förnamn Efternamn",
+      "SIGNATURE": "Signatur",
+      "I acknowledge that I have received the Survey Status Report.": "Jag bekräftar att jag har mottagit Surveyns statusrapport.",
+      "I herebe take notice of the results of todays' audit.": "Jag tar härmed del av resultatet utav dagens audit.",
+      "Cluster statistic for choosen services": "Clusterstatistik för utvalda tjänster",
+      "Number of standards": "Antal standarder",
+      "Evaluated": "Evaluerat",
+      "SvSR Open": "Öppen",
+      "Services statistics": "Servicestatistik",
+      "Evaluated with \"yes\"": "Evaluerad som \"ja\"",
+      "Evaluated with \"no\"": "Evaluerad som \"nej\""
+    }
+  }
+  
