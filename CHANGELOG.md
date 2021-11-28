@@ -1,3 +1,8 @@
+# Version 0.0.11
+
+* replace unsupported `toLocaleString` function with `date-fns` to fix duplicate date insertion in SvSR report; add slash separator in `FIRST NAME / LAST NAME` label
+* GNSA-1609 SvSR Translation
+
 # Version 0.0.10
 
 ## Fixes
