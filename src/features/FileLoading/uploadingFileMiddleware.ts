@@ -18,7 +18,7 @@ const uploadingFileMiddleware: Middleware =
       next(action);
       const state = getState();
       const token = state.auth.token;
-      const {entityId, path, fileId} = action.payload;
+      const {entityId, path, fileId, name} = action.payload;
       const handleProgress = (n: number) =>
         dispatch(changeLoadPart({part: n, fileId: fileId, entityId}));
       const handleSuccess = () =>
@@ -48,6 +48,7 @@ const uploadingFileMiddleware: Middleware =
           onSuccessCb: handleSuccess,
           onFailCb: handleError,
           onRetryCb: handleRetry,
+          fileName: name,
         });
       } else {
         Alert.alert('Unable to upload file', 'There is no token');

@@ -177,9 +177,10 @@ export const evaluationReducer = createSlice({
         questionId: string;
         filePath: string;
         fileId: string;
+        useName?: boolean;
       }>,
     ) => {
-      const {surveyId, standardId, questionId, filePath, fileId} =
+      const {surveyId, standardId, questionId, filePath, fileId, useName} =
         action.payload;
       const standard = state[surveyId].standards.find(i => i.id === standardId);
       const files = standard!.questionDTOList!.find(
@@ -188,7 +189,7 @@ export const evaluationReducer = createSlice({
       files.push({
         id: fileId,
         value: fileId,
-        options: {_path: filePath, _fromServer: false},
+        options: {_path: filePath, _fromServer: false, _useName: useName},
       });
     },
     markFileAsDeleted: (

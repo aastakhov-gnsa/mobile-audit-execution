@@ -1,23 +1,17 @@
 import React from 'react';
 import {Dimensions, Modal} from 'react-native';
-
 import {SmFile} from '../interfaces/common';
 import RNImageViewer from 'react-native-image-zoom-viewer';
-
 import {IImageInfo} from 'react-native-image-zoom-viewer/src/image-viewer.type';
 import {useDispatch, useSelector} from '../utils/store/configureStore';
 import {clearPhotoViewingStart} from '../features/SurveyExecution/evaluationReducer';
+import {filePrefix} from '../constants/constants';
 
 interface ImageViewerProps {
   surveyId: string;
   standardId: string;
   questionId?: string;
   images: SmFile[];
-  // initIndex: number | null;
-  // onDismiss: () => void;
-
-  // visible: boolean;
-  // onOpen: () => void
 }
 function ImageViewer({
   surveyId,
@@ -25,20 +19,18 @@ function ImageViewer({
   questionId,
   images,
 }: ImageViewerProps) {
-  // if (typeof initIndex !== 'number') {
-  //   return null;
-  // }
   const dispatch = useDispatch();
-  const initIndex = useSelector(state => {
+  const initId = useSelector(state => {
     const standard = state.evaluation[surveyId].standards?.find(
       i => i.id === standardId,
     );
     return questionId
       ? standard?.questionDTOList
           ?.find(i => i.id === questionId)
-          ?.files.findIndex(i => i.options?._viewingStart)
-      : standard?.files?.findIndex(i => i.options?._viewingStart);
+          ?.files.find(i => i.options?._viewingStart)?.id
+      : standard?.files?.find(i => i.options?._viewingStart)?.id;
   });
+  const initIndex = images.findIndex(i => i.id === initId);
   const handleCancel = React.useCallback(() => {
     dispatch(clearPhotoViewingStart({surveyId, standardId, questionId}));
   }, [dispatch, questionId, standardId, surveyId]);
@@ -47,7 +39,7 @@ function ImageViewer({
   }
   const imageUrls: IImageInfo[] = images.map(i => {
     return {
-      url: i.options?._path!,
+      url: filePrefix + i.options?._path!,
       props: {
         styles: {
           width: Dimensions.get('window').width,
