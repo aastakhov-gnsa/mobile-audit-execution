@@ -21,19 +21,24 @@ export function alert(e: AxiosError) {
     url: e.request?.responseURL,
     code: e.response?.status,
     response: JSON.stringify(e.response?.data ?? {}, null, 2),
-    requestBody
-  })
+    requestBody,
+  });
 }
 
 interface DefaultAlertProps {
-  title?: string
-  url?: string
-  code?: number
-  response?: string
-  requestBody?: string
+  title?: string;
+  url?: string;
+  code?: number;
+  response?: string;
+  requestBody?: string;
 }
 
-export function defaultAlert({ url, code, response, requestBody }: DefaultAlertProps) {
+export function defaultAlert({
+  url,
+  code,
+  response,
+  requestBody,
+}: DefaultAlertProps) {
   const isAuthError = code === 401;
   let title = 'Error';
   if (isAuthError) {
@@ -45,13 +50,13 @@ export function defaultAlert({ url, code, response, requestBody }: DefaultAlertP
   response: ${response}
   requestBody: ${requestBody}
   `;
-    const button: AlertButton = {
-      text: i18n.t('Copy'),
-      onPress: () => {
-        Clipboard.setString(message);
-      },
-    };
-    Alert.alert(title, message, [button]);
+  const button: AlertButton = {
+    text: i18n.t('Copy'),
+    onPress: () => {
+      Clipboard.setString(message);
+    },
+  };
+  Alert.alert(title, message, [button]);
 }
 
 export function fileUploadAlert({
@@ -73,7 +78,7 @@ export function fileUploadAlert({
 }) {
   const message = `
 url: ${requestConfig.url}
-response: ${JSON.stringify(response?.data, null, 2)}
+response: ${JSON.stringify(response, null, 2)}
 requestConfig: ${JSON.stringify(requestConfig, null, 2)}
 exception: ${JSON.stringify(e, null, 2)}
   `;

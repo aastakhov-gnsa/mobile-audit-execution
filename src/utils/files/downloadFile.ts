@@ -59,6 +59,7 @@ export default function downloadFile({
           onRetryCb,
           fileName,
           errCb,
+          e: `file is empty ${fileName} ${JSON.stringify(res, null, 2)}`,
         });
         console.error('file is empty ', fileName, res);
       }

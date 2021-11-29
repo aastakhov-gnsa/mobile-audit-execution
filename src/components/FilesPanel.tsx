@@ -1,7 +1,7 @@
 import React from 'react';
 import {SmFile} from '../interfaces/common';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
-import {Image, StyleSheet, View} from 'react-native';
+import {Alert, Image, Platform, StyleSheet, View} from 'react-native';
 import {
   docMatcher,
   filePrefix,
@@ -18,6 +18,7 @@ import DeleteIcon from '../assets/icons/delete.svg';
 import ImageViewer from './ImageViewer';
 import {useDispatch} from '../utils/store/configureStore';
 import {setPhotoViewingStart} from '../features/SurveyExecution/evaluationReducer';
+import FileViewer from 'react-native-file-viewer';
 
 interface FilesPanelProps {
   surveyId: string;
@@ -64,7 +65,7 @@ function FilesPanel({
             }}>
             <Image
               source={{uri: filePrefix + item.options!._path}}
-              style={{width: 200, height: 186}}
+              style={styles.imagePreview}
             />
           </TouchableOpacity>
         </View>
@@ -82,16 +83,29 @@ function FilesPanel({
         {documents.map(i => (
           <Chip
             key={i.id}
-            onPress={() =>
-              navigation.navigate(ScreenNames.FileView, {
-                fileName: i.value,
-                filePath: filePrefix + i.options!._path!,
-              })
-            }
+            onPress={() => {
+              if (Platform.OS === 'ios') {
+                navigation.navigate(ScreenNames.FileView, {
+                  fileName: i.value,
+                  filePath: i.options!._path!,
+                });
+              } else {
+                FileViewer.open(i.options!._path!)
+                  .then(() => {
+                    // success
+                    console.log('FileViewer::success');
+                  })
+                  .catch(err => {
+                    // error
+                    console.log('FileViewer::error', err);
+                    Alert.alert(`${err}`);
+                  });
+              }
+            }}
             icon={getChipIcon(i.value, colors)}
             style={styles.chip}
             mode={'outlined'}
-            onClose={onDelete ? () => console.log('sss') : undefined}>
+            onClose={onDelete ? () => onDelete(i.id) : undefined}>
             {i.value}
           </Chip>
         ))}
@@ -137,6 +151,7 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 1,
   },
+  imagePreview: {width: 200, height: 186},
 });
 
 function getChipIcon(filename: string, colors: ReactNativePaper.ThemeColors) {
