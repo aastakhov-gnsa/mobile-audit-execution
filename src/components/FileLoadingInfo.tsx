@@ -23,7 +23,7 @@ function FileLoadingInfo({
     <>
       {files?.map(i => {
         return (
-          <View style={{marginBottom: 2}}>
+          <View style={{marginBottom: 2}} key={i.id}>
             <Typography size="Body 1">{i.name}</Typography>
             <ProgressBar progress={i.loadPart} indeterminate={indeterminate} />
           </View>

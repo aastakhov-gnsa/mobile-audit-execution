@@ -4,7 +4,7 @@ import {StandardQuestion as StandardQuestionType} from '../../../interfaces/stan
 import ItemWrapper from '../../../components/ItemWrapper';
 import {Divider, useTheme} from 'react-native-paper';
 import QuestionOption from './QuestionOption';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import HeaderText from '../../../components/HeaderText';
 import AddComment from './AddComment';
 import CommentWithColor from '../../../components/CommentWithColor';
@@ -20,6 +20,7 @@ import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
 import {useTranslation} from 'react-i18next';
 import AddPhotos from '../../../components/AddPhotos';
 import FilesPanel from '../../../components/FilesPanel';
+import FileAttachment from '../../../components/FileAttachment';
 
 export interface StandardQuestionProps {
   standardId: string;
@@ -168,18 +169,29 @@ function StandardQuestion({
         </ItemWrapper>
       )}
       <ItemWrapper style={styles.addActions} paddingValue={[0, 30]}>
-        <AddComment
-          attachedComment={question.attachedComment}
-          commentType={question.commentType}
-          standardId={standardId}
-          surveyId={surveyId}
-          questionId={question.id}
-        />
-        <AddPhotos
-          surveyId={surveyId}
-          standardId={standardId}
-          questionId={question.id}
-        />
+        <View style={styles.mr}>
+          <AddComment
+            attachedComment={question.attachedComment}
+            commentType={question.commentType}
+            standardId={standardId}
+            surveyId={surveyId}
+            questionId={question.id}
+          />
+        </View>
+        <View style={styles.mr}>
+          <AddPhotos
+            surveyId={surveyId}
+            standardId={standardId}
+            questionId={question.id}
+          />
+        </View>
+        <View style={styles.mr}>
+          <FileAttachment
+            surveyId={surveyId}
+            standardId={standardId}
+            questionId={question.id}
+          />
+        </View>
       </ItemWrapper>
       {question.files.filter(i => !i.options?._toDelete).length > 0 && (
         <ItemWrapper paddingValue={[0, 30]} title="Files">
@@ -201,12 +213,13 @@ export default React.memo(StandardQuestion);
 const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
   StyleSheet.create({
     addActions: {
-      width: '50%',
-      justifyContent: 'space-between',
-      display: 'flex',
       flexDirection: 'row',
+      flexWrap: 'wrap',
     },
     button: {
       color: colors.primary,
+    },
+    mr: {
+      marginRight: 20,
     },
   });

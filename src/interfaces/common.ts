@@ -41,5 +41,6 @@ export interface SmFile extends MultiValue {
     _fromServer?: boolean;
     _toDelete?: boolean;
     _viewingStart?: boolean;
+    _useName?: boolean;
   };
 }

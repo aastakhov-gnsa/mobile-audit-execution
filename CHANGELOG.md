@@ -1,3 +1,8 @@
+# Version 0.0.12
+
+* fix(attach-document): file attachment is added; 
+* fix(android): file viewing
+
 # Version 0.0.11
 
 * replace unsupported `toLocaleString` function with `date-fns` to fix duplicate date insertion in SvSR report; add slash separator in `FIRST NAME / LAST NAME` label

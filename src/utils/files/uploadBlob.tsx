@@ -4,6 +4,8 @@ import getFileName from './getFileName';
 import {FetchBlobUtilRequest} from '../../interfaces/files';
 import {fileUploadAlert} from '../../api/apiAlerts';
 
+import {spaceMatcher} from '../../constants/constants';
+
 interface UploadFiles {
   onProgressCb: (part: number) => void;
   onSuccessCb: () => void;
@@ -13,6 +15,7 @@ interface UploadFiles {
   filePath?: string;
   token?: string;
   requestConfig?: FetchBlobUtilRequest;
+  fileName?: string;
 }
 
 export default function ({
@@ -24,6 +27,7 @@ export default function ({
   onFailCb,
   requestConfig,
   onRetryCb,
+  fileName,
 }: UploadFiles) {
   const config: FetchBlobUtilRequest = {};
   if (requestConfig) {
@@ -32,13 +36,13 @@ export default function ({
     config.headers = requestConfig.headers;
     config.data = requestConfig.data;
   } else {
-    const fileName = getFileName(filePath!);
+    const fName = fileName || getFileName(filePath!);
     const url = `${__API__}/rest/mobile-audit-execution/file?questionId=${questionId}`;
     const formData = [];
     formData.push({
       name: 'file',
-      filename: fileName,
-      data: ReactNativeBlobUtil.wrap(filePath!),
+      filename: fName,
+      data: ReactNativeBlobUtil.wrap(filePath!.replace(spaceMatcher, ' ')),
     });
     config.method = 'POST';
     config.url = url;
@@ -72,6 +76,7 @@ export default function ({
       console.log('uploadBlob::response', response);
     })
     .catch(err => {
+      console.log('uploadBlob::err', {...err});
       onFailCb();
       fileUploadAlert({
         requestConfig: config,
