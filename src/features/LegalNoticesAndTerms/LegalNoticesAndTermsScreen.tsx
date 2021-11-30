@@ -1,15 +1,16 @@
 import React from 'react';
-import {Caption, Headline, Paragraph, Text} from 'react-native-paper';
+import {Caption} from 'react-native-paper';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 import themeConfig from '../../../themeConfig';
+import Typography from '../../components/Typography';
 
 const providerData = {
   'Name:': 'Mercedes-Benz AG',
-  'Address:': '2200, 70546 Stuttgart, Germany',
+  'Address:': 'L542, 70546 Stuttgart, Germany',
   'Commercial Register:': 'Stuttgart, No. HRB 762873',
   'VAT registration number:': 'DE321281763',
-  'Field:': 'MS / DCN',
-  'Plant:': '0000',
+  'Department:': 'MS/DDS',
+  'Plant:': '000',
 };
 
 function LegalNoticesAndTermsScreen() {
@@ -18,38 +19,43 @@ function LegalNoticesAndTermsScreen() {
       <View style={styles.container}>
         <View>
           <View style={styles.section}>
-            <Headline style={styles.header}>Legal notices and Terms</Headline>
-            <Paragraph style={styles.paragraph}>
-              The GNSA is provided by the Mercedes-Benz AG to Daimler wholesale
-              companies. It is used to evaluate the fulfillment of retail
-              standards - agreed upon in the contracts - at dealerships which
-              are part of the Mercedes-Benz AG retail network.
-            </Paragraph>
-            <Paragraph style={styles.paragraph}>
-              The user is able to download Audits from the central server,
-              evaluate standards and then upload the results again. The GNSA is
+            <Typography size="Headline 6" style={styles.header}>
+              Disclaimer
+            </Typography>
+            <Typography size="Body 1" style={styles.paragraph}>
+              GNSA and its components are operated by Mercedes-Benz AG for the
+              sole purpose of evaluating the continued fulfillment of automotive
+              retail standards agreed upon in the respective contracts between
+              the manufacturer or distributor and its authorized network.
+            </Typography>
+            <Typography size="Body 1" style={styles.paragraph}>
+              The user is able to download Surveys to a mobile device from the
+              central server, evaluate the standards contained in these Surveys
+              and then upload the results again. GNSA and its components are
               solely provided for this specific purpose.
-            </Paragraph>
-            <Paragraph>
-              Usage is restricted to authorized persons only. By accessing the
-              GNSA the user agrees to the Mercedes-Benz AG terms and conditions.
-            </Paragraph>
+            </Typography>
+            <Typography size="Body 1">
+              Usage is restricted to authorized persons only. By accessing GNSA,
+              the user agrees to the Mercedes-Benz AG Terms and Conditions.
+            </Typography>
           </View>
           <View style={styles.section}>
-            <Headline style={styles.header}>Provider</Headline>
+            <Typography size="Headline 6" style={styles.header}>
+              Provider
+            </Typography>
             <View style={styles.table}>
               <View style={styles.leftColumn}>
                 {Object.keys(providerData).map(i => (
-                  <Text style={labelStyle} key={i}>
+                  <Typography size="Body 1" style={labelStyle} key={i}>
                     {i}
-                  </Text>
+                  </Typography>
                 ))}
               </View>
               <View style={styles.rightColumn}>
                 {Object.values(providerData).map(i => (
-                  <Text style={styles.cell} key={i}>
+                  <Typography size="Body 1" style={styles.cell} key={i}>
                     {i}
-                  </Text>
+                  </Typography>
                 ))}
               </View>
             </View>
@@ -79,13 +85,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   table: {
-    display: 'flex',
     flexDirection: 'row',
-    width: '60%',
+    width: '70%',
     justifyContent: 'space-between',
   },
   row: {
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '60%',
