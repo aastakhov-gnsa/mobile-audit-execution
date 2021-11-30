@@ -1,3 +1,9 @@
+# Version 0.0.13
+
+* fix(i18n): 'es', 'da', 'it'
+* fix(standard-status): status of unhandled standards is set to 'open'
+* fix(Disclaimer): text is fixed
+
 # Version 0.0.12
 
 * fix(attach-document): file attachment is added; 
