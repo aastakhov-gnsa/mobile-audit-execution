@@ -1,6 +1,10 @@
 import {AnyAction, Dispatch, Middleware} from 'redux';
 import {surveyApi} from '../Survey/surveyService';
-import {addSurvey, fillStandards} from './evaluationReducer';
+import {
+  addSurvey,
+  changeStandardStatus,
+  fillStandards,
+} from './evaluationReducer';
 import {MiddlewareAPI} from '@reduxjs/toolkit';
 import {RootState} from '../../utils/store/configureStore';
 import {Survey} from '../../interfaces/survey';
@@ -20,12 +24,24 @@ const fillingMiddleware: Middleware =
           ).find(i => i.id === surveyId)!,
         }),
       );
+      const standards = action.payload;
       dispatch(
         fillStandards({
-          standards: action.payload,
+          standards: standards,
           surveyId: action.meta.arg.originalArgs as string,
         }),
       );
+      standards.forEach(i => {
+        if (!i.status) {
+          dispatch(
+            changeStandardStatus({
+              surveyId: surveyId,
+              standardId: i.id,
+              status: 'Open',
+            }),
+          );
+        }
+      });
     }
     return next(action);
   };
