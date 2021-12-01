@@ -14,10 +14,10 @@
 		461E8E6B251F4A609488954E /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21CD880BB10141D7B343DB63 /* Roboto-Bold.ttf */; };
 		6FC2E8AFB87E4676994FE2F4 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 874B8815FE004CA38C7F6933 /* Roboto-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		CB384ADDF59B141BB70442A2 /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B70797E13B0CDA5BE2F13DF /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a */; };
+		D51B8B058AC990FD1C39EEBE /* libPods-gnsaMobileAuditExecution.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7274EFAD7ADA100F70B6B28 /* libPods-gnsaMobileAuditExecution.a */; };
+		D993FD1FA451151944BF76F0 /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2147C86B43DD071E5EAED4B0 /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a */; };
 		F313F08FA3574B619A6CDE4E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5B645FF35F644B49B6ADAD0 /* Roboto-Regular.ttf */; };
 		F909B3668D394DE4B7810F6F /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90586F90F4BE4AA298394ECB /* Roboto-Light.ttf */; };
-		FE01809D913CE3FFB523C370 /* libPods-gnsaMobileAuditExecution.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A1B2696BE755ECDA19A887 /* libPods-gnsaMobileAuditExecution.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +36,7 @@
 		00E356F21AD99517003FC87E /* gnsaMobileAuditExecutionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = gnsaMobileAuditExecutionTests.m; sourceTree = "<group>"; };
 		047CD05B24A24CC5B9AFE0BD /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		06F1D364581B42AC9C11FD2D /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		0B70797E13B0CDA5BE2F13DF /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D25FC5594213738A9C12ECE /* Pods-gnsaMobileAuditExecution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.dev.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.dev.xcconfig"; sourceTree = "<group>"; };
+		0A524CA25A25AE63F79E10AE /* Pods-gnsaMobileAuditExecution.dev debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.dev debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.dev debug.xcconfig"; sourceTree = "<group>"; };
 		10751C0E443B4EA9AA6BAA23 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		1124DAF80472452FB5B77358 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* gnsaMobileAuditExecution.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gnsaMobileAuditExecution.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,35 +45,36 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = gnsaMobileAuditExecution/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = gnsaMobileAuditExecution/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = gnsaMobileAuditExecution/main.m; sourceTree = "<group>"; };
-		196ABF296E571B4E72CFF386 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig"; sourceTree = "<group>"; };
+		178F187A5315DB43286DED92 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig"; sourceTree = "<group>"; };
 		1A359BE8361842829EC635A5 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		1E843BD88712FBCE7DF3F2EC /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig"; sourceTree = "<group>"; };
+		2147C86B43DD071E5EAED4B0 /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CD880BB10141D7B343DB63 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../src/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		26D719CE9B7F13247E15D1AB /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig"; sourceTree = "<group>"; };
 		30D2E6E07E1D464091C85017 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		31ED92FD26DE6BC48A501822 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig"; sourceTree = "<group>"; };
 		3316B9309E5C4C4093688ED6 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		57706E7023E1757A07AE6089 /* Pods-gnsaMobileAuditExecution.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.qa.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.qa.xcconfig"; sourceTree = "<group>"; };
+		38B40AA576ACF88441A0DCF5 /* Pods-gnsaMobileAuditExecution.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.dev.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.dev.xcconfig"; sourceTree = "<group>"; };
+		49E572F364ED64BD891432D0 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58AA03D80D324ED28E6D0601 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		6480BF1F173F4B939209BE52 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		7153F309BA2CB73C73384052 /* Pods-gnsaMobileAuditExecution.dev debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.dev debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.dev debug.xcconfig"; sourceTree = "<group>"; };
+		7734D6DB27B74BD6E04F0079 /* Pods-gnsaMobileAuditExecution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.release.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.release.xcconfig"; sourceTree = "<group>"; };
 		7F0760FB67B146F59BD88589 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = gnsaMobileAuditExecution/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		874B8815FE004CA38C7F6933 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../src/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
-		8DCB7A96ACF6A71E4FC0FB84 /* Pods-gnsaMobileAuditExecution.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.debug.xcconfig"; sourceTree = "<group>"; };
 		90586F90F4BE4AA298394ECB /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../src/assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		9B13DD2566A143C98C8E326C /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		A5B5444BFD927F0C9934557A /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig"; sourceTree = "<group>"; };
 		BA2DBE05C78F4FF28BF6A70B /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		BD250ABC44DC422DBDF6B481 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		C5B645FF35F644B49B6ADAD0 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		CCB19EA6529838E08687F1F5 /* Pods-gnsaMobileAuditExecution.dev2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.dev2.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.dev2.xcconfig"; sourceTree = "<group>"; };
 		CCDE198A4D7A4C389C03DFD1 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		D300E09C62847BA418C57735 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig"; sourceTree = "<group>"; };
+		D40745B6910851CF0D9902D5 /* Pods-gnsaMobileAuditExecution.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.qa.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.qa.xcconfig"; sourceTree = "<group>"; };
+		D4379D963F3A80F01944E61B /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig"; sourceTree = "<group>"; };
+		D4882EDF6FB9CB71BFB79388 /* Pods-gnsaMobileAuditExecution.dev2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.dev2.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.dev2.xcconfig"; sourceTree = "<group>"; };
+		D6B14CF39334EF5AB47CBDD3 /* Pods-gnsaMobileAuditExecution.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.debug.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.debug.xcconfig"; sourceTree = "<group>"; };
+		D7274EFAD7ADA100F70B6B28 /* libPods-gnsaMobileAuditExecution.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gnsaMobileAuditExecution.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7B23A92C9094158847569B6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		D8BED26C1BDD698F25AFD830 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig"; sourceTree = "<group>"; };
-		DBCF43B06F39C34F53E34081 /* Pods-gnsaMobileAuditExecution.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution.release.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution.release.xcconfig"; sourceTree = "<group>"; };
-		E9A1B2696BE755ECDA19A887 /* libPods-gnsaMobileAuditExecution.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gnsaMobileAuditExecution.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBB99F1405ECF77396EEBEC3 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F9347660A1E8752051324BC4 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig"; path = "Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig"; sourceTree = "<group>"; };
 		FF45A2C1EE554D8B9C7771AE /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB384ADDF59B141BB70442A2 /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a in Frameworks */,
+				D993FD1FA451151944BF76F0 /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE01809D913CE3FFB523C370 /* libPods-gnsaMobileAuditExecution.a in Frameworks */,
+				D51B8B058AC990FD1C39EEBE /* libPods-gnsaMobileAuditExecution.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,8 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				E9A1B2696BE755ECDA19A887 /* libPods-gnsaMobileAuditExecution.a */,
-				0B70797E13B0CDA5BE2F13DF /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a */,
+				D7274EFAD7ADA100F70B6B28 /* libPods-gnsaMobileAuditExecution.a */,
+				2147C86B43DD071E5EAED4B0 /* libPods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -200,18 +200,18 @@
 		D97A6C6ABA5C41389CD16ED2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8DCB7A96ACF6A71E4FC0FB84 /* Pods-gnsaMobileAuditExecution.debug.xcconfig */,
-				DBCF43B06F39C34F53E34081 /* Pods-gnsaMobileAuditExecution.release.xcconfig */,
-				0D25FC5594213738A9C12ECE /* Pods-gnsaMobileAuditExecution.dev.xcconfig */,
-				196ABF296E571B4E72CFF386 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig */,
-				A5B5444BFD927F0C9934557A /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */,
-				31ED92FD26DE6BC48A501822 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */,
-				CCB19EA6529838E08687F1F5 /* Pods-gnsaMobileAuditExecution.dev2.xcconfig */,
-				D8BED26C1BDD698F25AFD830 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig */,
-				7153F309BA2CB73C73384052 /* Pods-gnsaMobileAuditExecution.dev debug.xcconfig */,
-				26D719CE9B7F13247E15D1AB /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig */,
-				57706E7023E1757A07AE6089 /* Pods-gnsaMobileAuditExecution.qa.xcconfig */,
-				F9347660A1E8752051324BC4 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig */,
+				D6B14CF39334EF5AB47CBDD3 /* Pods-gnsaMobileAuditExecution.debug.xcconfig */,
+				0A524CA25A25AE63F79E10AE /* Pods-gnsaMobileAuditExecution.dev debug.xcconfig */,
+				7734D6DB27B74BD6E04F0079 /* Pods-gnsaMobileAuditExecution.release.xcconfig */,
+				D40745B6910851CF0D9902D5 /* Pods-gnsaMobileAuditExecution.qa.xcconfig */,
+				38B40AA576ACF88441A0DCF5 /* Pods-gnsaMobileAuditExecution.dev.xcconfig */,
+				D4882EDF6FB9CB71BFB79388 /* Pods-gnsaMobileAuditExecution.dev2.xcconfig */,
+				49E572F364ED64BD891432D0 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig */,
+				D300E09C62847BA418C57735 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig */,
+				EBB99F1405ECF77396EEBEC3 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */,
+				178F187A5315DB43286DED92 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig */,
+				D4379D963F3A80F01944E61B /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */,
+				1E843BD88712FBCE7DF3F2EC /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -223,11 +223,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "gnsaMobileAuditExecutionTests" */;
 			buildPhases = (
-				578A77B4731692E6A5672D3B /* [CP] Check Pods Manifest.lock */,
+				0DC33132C0AD1A7EF4427427 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				5D9D1EA8E690D1EE48679882 /* [CP] Copy Pods Resources */,
+				0ED3DEDA8C2C78B07A0A4ECB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -243,14 +243,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "gnsaMobileAuditExecution" */;
 			buildPhases = (
-				1438A5BBD82C87C5AF98EC3F /* [CP] Check Pods Manifest.lock */,
+				7492D77013E44A6E1BFC75DE /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				09426F4EAC04ACA8D289CF77 /* [CP] Copy Pods Resources */,
 				9FBA0AAC2746B71100B518ED /* Set version */,
+				09EA375BB9035B645A740E30 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -335,7 +335,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\nexport ENTRY_FILE=index.tsx\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		09426F4EAC04ACA8D289CF77 /* [CP] Copy Pods Resources */ = {
+		09EA375BB9035B645A740E30 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -352,29 +352,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gnsaMobileAuditExecution/Pods-gnsaMobileAuditExecution-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1438A5BBD82C87C5AF98EC3F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-gnsaMobileAuditExecution-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		578A77B4731692E6A5672D3B /* [CP] Check Pods Manifest.lock */ = {
+		0DC33132C0AD1A7EF4427427 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -396,7 +374,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5D9D1EA8E690D1EE48679882 /* [CP] Copy Pods Resources */ = {
+		0ED3DEDA8C2C78B07A0A4ECB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -411,6 +389,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests/Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7492D77013E44A6E1BFC75DE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-gnsaMobileAuditExecution-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9FBA0AAC2746B71100B518ED /* Set version */ = {
@@ -483,7 +483,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 196ABF296E571B4E72CFF386 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig */;
+			baseConfigurationReference = 49E572F364ED64BD891432D0 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -511,7 +511,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5B5444BFD927F0C9934557A /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */;
+			baseConfigurationReference = EBB99F1405ECF77396EEBEC3 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -536,7 +536,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8DCB7A96ACF6A71E4FC0FB84 /* Pods-gnsaMobileAuditExecution.debug.xcconfig */;
+			baseConfigurationReference = D6B14CF39334EF5AB47CBDD3 /* Pods-gnsaMobileAuditExecution.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -561,14 +561,14 @@
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBCF43B06F39C34F53E34081 /* Pods-gnsaMobileAuditExecution.release.xcconfig */;
+			baseConfigurationReference = 7734D6DB27B74BD6E04F0079 /* Pods-gnsaMobileAuditExecution.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -591,7 +591,7 @@
 				PRODUCT_NAME = gnsaMobileAuditExecution;
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -657,7 +657,7 @@
 		};
 		21AAFEB1272636D8005FC3F5 /* Dev2 */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCB19EA6529838E08687F1F5 /* Pods-gnsaMobileAuditExecution.dev2.xcconfig */;
+			baseConfigurationReference = D4882EDF6FB9CB71BFB79388 /* Pods-gnsaMobileAuditExecution.dev2.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -680,14 +680,14 @@
 				PRODUCT_NAME = "GNSA DEV2";
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Dev2;
 		};
 		21AAFEB2272636D8005FC3F5 /* Dev2 */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8BED26C1BDD698F25AFD830 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig */;
+			baseConfigurationReference = 1E843BD88712FBCE7DF3F2EC /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev2.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -896,7 +896,7 @@
 		};
 		9EFEEB6E26E0AB7200AC7793 /* Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D25FC5594213738A9C12ECE /* Pods-gnsaMobileAuditExecution.dev.xcconfig */;
+			baseConfigurationReference = 38B40AA576ACF88441A0DCF5 /* Pods-gnsaMobileAuditExecution.dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -919,14 +919,14 @@
 				PRODUCT_NAME = "GNSA DEV";
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Dev;
 		};
 		9EFEEB6F26E0AB7200AC7793 /* Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31ED92FD26DE6BC48A501822 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */;
+			baseConfigurationReference = D4379D963F3A80F01944E61B /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -1017,7 +1017,7 @@
 		};
 		9FBBF0B527427B8D0014A7C5 /* Dev debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7153F309BA2CB73C73384052 /* Pods-gnsaMobileAuditExecution.dev debug.xcconfig */;
+			baseConfigurationReference = 0A524CA25A25AE63F79E10AE /* Pods-gnsaMobileAuditExecution.dev debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1042,14 +1042,14 @@
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Dev debug";
 		};
 		9FBBF0B627427B8D0014A7C5 /* Dev debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26D719CE9B7F13247E15D1AB /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig */;
+			baseConfigurationReference = D300E09C62847BA418C57735 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.dev debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -1136,7 +1136,7 @@
 		};
 		9FBBF0B8274294B30014A7C5 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57706E7023E1757A07AE6089 /* Pods-gnsaMobileAuditExecution.qa.xcconfig */;
+			baseConfigurationReference = D40745B6910851CF0D9902D5 /* Pods-gnsaMobileAuditExecution.qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1159,14 +1159,14 @@
 				PRODUCT_NAME = gnsaMobileAuditExecution;
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = QA;
 		};
 		9FBBF0B9274294B30014A7C5 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F9347660A1E8752051324BC4 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig */;
+			baseConfigurationReference = 178F187A5315DB43286DED92 /* Pods-gnsaMobileAuditExecution-gnsaMobileAuditExecutionTests.qa.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
