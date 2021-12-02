@@ -7,6 +7,9 @@ import es from './es.json';
 import it from './it.json';
 import no from './no.json';
 import sv from './sv.json';
+import pt from './pt.json';
+import cn from './cn.json';
+import fr from './fr.json';
 
 const languageResources: Resource = {
   en,
@@ -16,7 +19,10 @@ const languageResources: Resource = {
   es,
   it,
   no,
-  sv
+  sv,
+  pt,
+  cn,
+  fr,
 };
 
 export function getResources(customDictionary: Resource) {
