@@ -1,4 +1,19 @@
+# Version 0.0.14
+
+## Fixes
+
+* fix(survey-status): `resultCd` of not completed status must be `Open`;
+* fix(i18n): 'pt', 'pt', 'cn', 'fr';
+
+## Misc
+
+* add gnsa-qa.i.daimler.com
+* NSAllowsArbitraryLoads is YES
+* iOS and Android configuration for production is added
+
 # Version 0.0.13
+
+## Fixes
 
 * fix(i18n): 'es', 'da', 'it'
 * fix(standard-status): status of unhandled standards is set to 'open'
@@ -6,10 +21,14 @@
 
 # Version 0.0.12
 
+## Fixes
+
 * fix(attach-document): file attachment is added; 
 * fix(android): file viewing
 
 # Version 0.0.11
+
+## Fixes
 
 * replace unsupported `toLocaleString` function with `date-fns` to fix duplicate date insertion in SvSR report; add slash separator in `FIRST NAME / LAST NAME` label
 * GNSA-1609 SvSR Translation
