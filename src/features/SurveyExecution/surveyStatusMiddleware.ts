@@ -29,7 +29,7 @@ const surveyStatusMiddleware: Middleware =
         notEvaluatedStatuses.includes(i.status),
       );
       if (surveyNotCompleted) {
-        dispatch(changeSurveyStatus({surveyId, status: 'In Progress'}));
+        dispatch(changeSurveyStatus({surveyId, status: 'Open'}));
         return null;
       }
       const surveyFailed = survey.standards.some(
