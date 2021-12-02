@@ -3,6 +3,7 @@ project.ext.envConfigFiles = [
     dev1: ".env.dev1",
     dev2: ".env.dev2",
     qa: ".env.qa",
+    prod: ".env.prod",
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
@@ -186,6 +187,10 @@ android {
             qa {
                 resValue "string", "build_config_package", "com.gnsamobileauditexecution"
                 applicationIdSuffix ".qa"
+            }
+            prod {
+                resValue "string", "build_config_package", "com.gnsamobileauditexecution"
+                applicationIdSuffix ".prod"
             }
         }
 
