@@ -7,6 +7,7 @@ import uploadBlob from '../utils/files/uploadBlob';
 import {DownloadFileOptions, DownloadResult} from 'react-native-fs';
 import downloadFile from '../utils/files/downloadFile';
 import i18n from 'i18next';
+import packageJson from '../../package.json';
 
 export function alert(e: AxiosError) {
   let requestBody = '';
@@ -49,6 +50,7 @@ export function defaultAlert({
   code: ${code}
   response: ${response}
   requestBody: ${requestBody}
+  appVersion: ${packageJson.version}
   `;
   const button: AlertButton = {
     text: i18n.t('Copy'),
@@ -81,6 +83,7 @@ url: ${requestConfig.url}
 response: ${JSON.stringify(response, null, 2)}
 requestConfig: ${JSON.stringify(requestConfig, null, 2)}
 exception: ${JSON.stringify(e, null, 2)}
+appVersion: ${packageJson.version}
   `;
   const button: AlertButton = {
     text: i18n.t('Copy error and Cancel'),
@@ -134,6 +137,7 @@ url: ${requestConfig.fromUrl}
 response: ${JSON.stringify(response, null, 2)}
 requestConfig: ${JSON.stringify(requestConfig, null, 2)}
 exception: ${JSON.stringify(e, null, 2)}
+appVersion: ${packageJson.version}
   `;
   const button: AlertButton = {
     text: 'Copy error and Cancel',
