@@ -1,3 +1,14 @@
+# Version 0.0.15
+
+## Fixes
+
+* fix(alerts): app version displaying in error alerts
+* fix(logout): logout is fixed
+
+## Misc
+
+* iOS minimum version is set to 14.1
+
 # Version 0.0.14
 
 ## Fixes
