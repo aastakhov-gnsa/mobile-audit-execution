@@ -10,6 +10,7 @@ import {ScreenNames} from '../../navigation/navigation';
 import {SvSRFilters} from './SvSRFilters';
 import {useTranslation} from 'react-i18next';
 import Button from '../../components/Button';
+import {filePrefix} from '../../constants/constants';
 
 export interface SvSrProps {
   data: EvaluationSurvey;
@@ -29,7 +30,7 @@ export function SvSr({data}: SvSrProps) {
     if (path && readPermissions) {
       setShow(false);
       navigation.navigate(ScreenNames.SvSRPreview, {
-        file: `file://${path}`,
+        file: `${filePrefix}${path}`,
         surveyId: data.id,
         data,
         filters: selected,

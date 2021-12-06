@@ -8,7 +8,7 @@ import it from './it.json';
 import no from './no.json';
 import sv from './sv.json';
 import pt from './pt.json';
-import cn from './cn.json';
+import {default as zh} from './cn.json';
 import fr from './fr.json';
 
 const languageResources: Resource = {
@@ -21,7 +21,7 @@ const languageResources: Resource = {
   no,
   sv,
   pt,
-  cn,
+  zh,
   fr,
 };
 

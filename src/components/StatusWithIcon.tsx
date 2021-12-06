@@ -4,12 +4,14 @@ import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Typography from './Typography';
 import {Status} from '../interfaces/common';
+import {useTranslation} from 'react-i18next';
 
 interface StatusWithIconProps {
   status?: Status;
 }
 function StatusWithIcon({status}: StatusWithIconProps) {
   const {colors} = useTheme();
+  const {t} = useTranslation();
   if (!status) {
     return null;
   }
@@ -17,7 +19,7 @@ function StatusWithIcon({status}: StatusWithIconProps) {
     <View style={styles.statusContainer}>
       {getStatusIcon(status)}
       <Typography size="Body 1" style={textStyle(colors)}>
-        {status}
+        {t(status)}
       </Typography>
     </View>
   );
