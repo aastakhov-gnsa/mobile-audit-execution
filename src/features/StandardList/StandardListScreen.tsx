@@ -25,6 +25,10 @@ const filterValues: FilterValues = [
   },
   {
     fieldName: 'status',
+    value: 'Passed',
+  },
+  {
+    fieldName: 'status',
     value: 'Failed',
   },
   {

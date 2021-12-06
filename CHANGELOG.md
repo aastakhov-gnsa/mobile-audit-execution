@@ -1,3 +1,11 @@
+# Version 0.0.16
+
+## Fixes
+
+* fix(i18n): de countries fix;
+* fix(svsr): content translation are used for svsr;
+* fix(i18n): status translation
+
 # Version 0.0.15
 
 ## Fixes
