@@ -16,11 +16,11 @@ function LogoutButton() {
   const doSignOff = React.useCallback(async () => {
     authContext.setInProgress(true);
     try {
-      if (authContext.idToken) {
-        const res = await signOff(authContext.idToken);
+      if (authContext.gnsaToken) {
+        const res = await signOff(authContext.gnsaToken);
         console.log('sing off::::', res);
         authContext.setRefreshToken('');
-        authContext.setIdToken('');
+        authContext.setGnsaToken('');
         await Secrets.clearSecrets();
         await Storage.clearStorage();
         authContext.setInProgress(false);
