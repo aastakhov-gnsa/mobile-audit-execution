@@ -1,6 +1,8 @@
 import {passedStatuses} from '../../../interfaces/common';
 import {AuditStandardExecution} from '../../../interfaces/standard';
 import {grayBackground} from './styles';
+import {langMapping} from '../../../constants/languages';
+import {localeCode} from '../../../../index';
 
 /**
  * See https://git.daimler.com/GNSA/gnsa-sm-am/blob/bdc89ac0be1a43c1795be989aeeb5cbe4d91f712/sm-source/src/main/java/com/daimler/service/helper/impl/report/datasource/audit/SvSrWeightedFulfillment.java
@@ -28,7 +30,11 @@ export function getWeightedFulfillment(standards: AuditStandardExecution[]) {
         ${item.standardNumber}
     </td>
     <td>
-        ${item.standardName}
+        ${
+          item.nameTranslations?.[langMapping[localeCode]]
+            ? item.nameTranslations?.[langMapping[localeCode]]
+            : item.standardName
+        }
     </td>
     <td style="text-align: right">
         ${item.weight ?? 0}
@@ -37,7 +43,7 @@ export function getWeightedFulfillment(standards: AuditStandardExecution[]) {
         ${success ? 'Yes' : 'No'}
     </td>
     <td style="text-align: right; padding-right: 24px">
-        ${success ? (item.weight ?? 0) : 0}
+        ${success ? item.weight ?? 0 : 0}
     </td>
 </tr>
 `;
