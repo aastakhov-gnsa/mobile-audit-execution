@@ -12,6 +12,7 @@ import {useUploadSurvey} from '../../hooks/useUploadSurvey';
 import {defaultAlert} from '../../api/apiAlerts';
 import {ScreenNames} from '../../navigation/navigation';
 import {localeCode} from '../../../index';
+import {langMapping} from '../../constants/languages';
 
 export interface SvSRParams {
   email: string;
@@ -56,7 +57,7 @@ export function useUploadSvSR(
       });
       formData.push({
         name: 'language',
-        data: localeCode,
+        data: langMapping[localeCode],
       });
       formData.push({
         name: 'file',
