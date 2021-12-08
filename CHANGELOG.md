@@ -1,3 +1,11 @@
+# Version 0.0.17
+
+## Fixes
+
+* fix(svsr): one more table is translated; 
+* fix(svsr): language code is sent instead of locale code
+* fix(logout): sso logout is fixed
+
 # Version 0.0.16
 
 ## Fixes
