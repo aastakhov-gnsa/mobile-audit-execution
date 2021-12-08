@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button} from 'react-native-paper';
-import {signOff} from '../api/auth';
 import {Secrets} from '../utils/encryptedStorage/encryptedStorage';
 import {Storage} from '../utils/storage/storage';
 import {logout} from '../features/Auth/authReducer';
@@ -9,6 +8,9 @@ import {useDispatch} from '../utils/store/configureStore';
 import {StyleSheet} from 'react-native';
 import {surveyApi} from '../features/Survey/surveyService';
 import {useTranslation} from 'react-i18next';
+import {InAppBrowser} from 'react-native-inappbrowser-reborn';
+import {REDIRECT_URL} from '../../config';
+import Config from 'react-native-config';
 
 function LogoutButton() {
   const authContext = React.useContext(AuthContext);
@@ -17,8 +19,14 @@ function LogoutButton() {
     authContext.setInProgress(true);
     try {
       if (authContext.gnsaToken) {
-        const res = await signOff(authContext.gnsaToken);
-        console.log('sing off::::', res);
+        let res;
+        if (await InAppBrowser.isAvailable()) {
+          res = await InAppBrowser.openAuth(
+            `${Config.AUTH_URL}/idp/startSLO.ping`,
+            REDIRECT_URL,
+          );
+        }
+        console.log('res', res);
         authContext.setRefreshToken('');
         authContext.setGnsaToken('');
         await Secrets.clearSecrets();
