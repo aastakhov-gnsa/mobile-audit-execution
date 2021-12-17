@@ -1,3 +1,12 @@
+# Version 0.0.18
+
+## Fixes
+
+fix(android): navigation to LNaT screen is fixed
+fix(i18n): 'In Progress' status translation
+fix(auth): production clientId is added
+fix(i18n): 'fi', 'hu', 'no', 'pl', 'sv', 'th'
+
 # Version 0.0.17
 
 ## Fixes
