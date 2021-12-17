@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import Typography from './Typography';
 import {Divider} from 'react-native-paper';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ICON_SIZE} from '../constants/constants';
 import {ScreenNames} from '../navigation/navigation';
@@ -10,11 +9,12 @@ import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../interfaces/navigation';
 import {useTranslation} from 'react-i18next';
 
-function UserInfo({fullName}: {fullName: string}) {
+function UserInfo({fullName, cb}: {fullName: string; cb?: () => void}) {
   const navigation = useNavigation<NavigationParams>();
   const openLegalNotices = React.useCallback(() => {
+    cb?.();
     navigation.navigate(ScreenNames.LegalNoticesAndTerms);
-  }, [navigation]);
+  }, [cb, navigation]);
   const {t} = useTranslation();
   return (
     <View style={styles.info}>

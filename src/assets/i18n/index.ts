@@ -10,6 +10,10 @@ import sv from './sv.json';
 import pt from './pt.json';
 import {default as zh} from './cn.json';
 import fr from './fr.json';
+import hu from './hu.json';
+import pl from './pl.json';
+import th from './th.json';
+import fi from './fi.json';
 
 const languageResources: Resource = {
   en,
@@ -23,6 +27,10 @@ const languageResources: Resource = {
   pt,
   zh,
   fr,
+  hu,
+  pl,
+  th,
+  fi,
 };
 
 export function getResources(customDictionary: Resource) {

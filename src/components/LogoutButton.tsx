@@ -12,10 +12,11 @@ import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {REDIRECT_URL} from '../../config';
 import Config from 'react-native-config';
 
-function LogoutButton() {
+function LogoutButton({cb}: {cb?: () => void}) {
   const authContext = React.useContext(AuthContext);
   const dispatch = useDispatch();
   const doSignOff = React.useCallback(async () => {
+    cb?.();
     authContext.setInProgress(true);
     try {
       if (authContext.gnsaToken) {
@@ -39,7 +40,7 @@ function LogoutButton() {
       console.error('sing off error::', error);
       authContext.setInProgress(false);
     }
-  }, [authContext, dispatch]);
+  }, [authContext, cb, dispatch]);
   const {t} = useTranslation();
   return (
     <Button

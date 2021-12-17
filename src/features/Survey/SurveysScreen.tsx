@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {useAllSurveysQuery} from './surveyService';
 import Spinner from '../Auth/components/Spinner';
 import ListContainer from '../../components/ListContainer';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import SurveyCard from '../../components/SurveyCard';
 import {FlatList} from 'react-native-gesture-handler';
-import {RefreshControl, StatusBar, Image, Text, StyleSheet, View} from 'react-native';
+import {
+  RefreshControl,
+  StatusBar,
+  Image,
+  Text,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
 import ScreenContainer from '../../components/ScreenContainer';
@@ -22,15 +29,15 @@ import {SvSr} from '../SvSr/SvSr';
 import {useTranslation} from 'react-i18next';
 import localizedFormat from '../../utils/date/localizedFormat';
 import {notEvaluatedStatuses} from '../../interfaces/common';
-import { useRoute } from '@react-navigation/native';
-import { SurveysRouteParams } from '../../interfaces/navigation';
-import { Portal, Snackbar } from 'react-native-paper';
+import {useRoute} from '@react-navigation/native';
+import {SurveysRouteParams} from '../../interfaces/navigation';
+import {Portal, Snackbar} from 'react-native-paper';
 import Typography from '../../components/Typography';
 
 enum SurveysFilters {
   allSurveys = 'All Surveys',
   downloadable = 'Downloadable',
-  inProgress = 'In progress',
+  inProgress = 'In Progress',
   finished = 'Finished',
 }
 
@@ -51,8 +58,8 @@ const possibleFilters: FilterValues = [
 
 function SurveysScreen() {
   const route = useRoute<SurveysRouteParams>();
-  const { notification } = (route.params ?? {})
-  const [showNotification, setShowNotification] = useState(notification)
+  const {notification} = route.params ?? {};
+  const [showNotification, setShowNotification] = useState(notification);
   const [isConnected, setIsConnected] = React.useState(false);
   React.useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
@@ -145,15 +152,20 @@ function SurveysScreen() {
         <Snackbar
           style={styles.snackbar}
           visible={!!showNotification}
-          onDismiss={() => { setShowNotification(undefined) }}
+          onDismiss={() => {
+            setShowNotification(undefined);
+          }}
           action={{
             label: t('Got it'),
             labelStyle: styles.gotit,
-            onPress: () => { setShowNotification(undefined) }
-          }}
-        >
+            onPress: () => {
+              setShowNotification(undefined);
+            },
+          }}>
           <Typography size="Body 2">
-            {t('Survey signed and submited for upload. A copy of the report was sent successfully.')}
+            {t(
+              'Survey signed and submited for upload. A copy of the report was sent successfully.',
+            )}
           </Typography>
         </Snackbar>
       </Portal>
@@ -214,9 +226,8 @@ const styles = StyleSheet.create({
     minHeight: 106,
     alignSelf: 'center',
     paddingRight: 16,
-   
   },
   gotit: {
-    color: '#00A3ED' // todo -> to theme primary
-  }
+    color: '#00A3ED', // todo -> to theme primary
+  },
 });
