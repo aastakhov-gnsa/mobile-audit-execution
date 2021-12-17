@@ -13,8 +13,8 @@ interface UserInfoPopupProps {
 function UserInfoPopup({fullName, visible, onDismiss}: UserInfoPopupProps) {
   return (
     <Popover visible={visible} onDismiss={onDismiss} style={styles.modal}>
-      <UserInfo fullName={fullName} />
-      <LogoutButton />
+      <UserInfo fullName={fullName} cb={onDismiss} />
+      <LogoutButton cb={onDismiss} />
     </Popover>
   );
 }
