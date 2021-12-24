@@ -5,7 +5,7 @@ import de from './de.json';
 import da from './da.json';
 import es from './es.json';
 import it from './it.json';
-import no from './no.json';
+import {default as nb} from './no.json';
 import sv from './sv.json';
 import pt from './pt.json';
 import {default as zh} from './cn.json';
@@ -22,7 +22,7 @@ const languageResources: Resource = {
   da,
   es,
   it,
-  no,
+  nb,
   sv,
   pt,
   zh,
