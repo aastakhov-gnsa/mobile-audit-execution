@@ -1,11 +1,21 @@
+# Version 0.0.19
+
+## Fixes
+
+* fix(i18n): 'cn', 'de', 'fr', 'hu'
+* fix(i18n): 'no' is activated as 'nb'
+* fix(evaluation): set status 'Open' for not started survey
+* fix(svsr): langMapping
+* fix(i18n): svsr rest langs
+
 # Version 0.0.18
 
 ## Fixes
 
-fix(android): navigation to LNaT screen is fixed
-fix(i18n): 'In Progress' status translation
-fix(auth): production clientId is added
-fix(i18n): 'fi', 'hu', 'no', 'pl', 'sv', 'th'
+* fix(android): navigation to LNaT screen is fixed
+* fix(i18n): 'In Progress' status translation
+* fix(auth): production clientId is added
+* fix(i18n): 'fi', 'hu', 'no', 'pl', 'sv', 'th'
 
 # Version 0.0.17
 
