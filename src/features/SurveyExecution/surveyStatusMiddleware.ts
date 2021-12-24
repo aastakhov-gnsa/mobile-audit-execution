@@ -25,11 +25,18 @@ const surveyStatusMiddleware: Middleware =
       const state = getState();
       const {surveyId} = action.payload;
       const survey = state.evaluation[surveyId];
+      const surveyNotStarted =
+        survey.standards.filter(i => i.status === 'Open').length ===
+        survey.standards.length;
+      if (surveyNotStarted) {
+        dispatch(changeSurveyStatus({surveyId, status: 'Open'}));
+        return null;
+      }
       const surveyNotCompleted = survey.standards.some(i =>
         notEvaluatedStatuses.includes(i.status),
       );
       if (surveyNotCompleted) {
-        dispatch(changeSurveyStatus({surveyId, status: 'Open'}));
+        dispatch(changeSurveyStatus({surveyId, status: 'In Progress'}));
         return null;
       }
       const surveyFailed = survey.standards.some(
