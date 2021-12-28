@@ -1,3 +1,10 @@
+# Version 0.0.20
+
+## Fixes
+
+* fix(svsr): double sending is prevented
+* fix(i18n): 'sv' 'failed' filter
+
 # Version 0.0.19
 
 ## Fixes
