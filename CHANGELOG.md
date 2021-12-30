@@ -1,3 +1,10 @@
+# Version 0.0.21
+
+## Fixes
+
+* fix(upload): send 'Open' instead of 'In Progress'
+* fix(download): standard's status from 'Open' to 'In progress' is replaced during survey downloading
+
 # Version 0.0.20
 
 ## Fixes
