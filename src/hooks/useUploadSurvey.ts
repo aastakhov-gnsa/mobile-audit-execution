@@ -18,7 +18,8 @@ export function useUploadSurvey(id: string): [() => void, boolean] {
     React.useCallback(async () => {
       const body = {
         id: surveyData.id,
-        resultCd: surveyData.resultCd,
+        resultCd:
+          surveyData.resultCd === 'In Progress' ? 'Open' : surveyData.resultCd,
         standards: surveyData.standards.map(standard => {
           return {
             id: standard.id,
