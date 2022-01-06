@@ -121,5 +121,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
   },
-  chip: {marginRight: 20},
+  chip: {marginRight: 20, height: 35},
 });
