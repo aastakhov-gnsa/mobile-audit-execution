@@ -24,7 +24,9 @@ Description: ${
       }
     <div>
     ${
-      question.attachedComment && showComments
+      question.attachedComment &&
+      question.commentType == 'External' &&
+      showComments
         ? `Comment: ${question.attachedComment}`
         : ''
     }
@@ -61,7 +63,8 @@ export function getQuestionsSection(
     </div>
     <div>
         ${
-          Boolean(item.attachedComment) && showComments
+          Boolean(item.attachedComment && item.commentType != 'External') &&
+          showComments
             ? `Comment: ${item.attachedComment}`
             : ''
         }
