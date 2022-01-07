@@ -63,7 +63,7 @@ export function getQuestionsSection(
     </div>
     <div>
         ${
-          Boolean(item.attachedComment && item.commentType != 'External') &&
+          Boolean(item.attachedComment && item.commentType == 'External') &&
           showComments
             ? `Comment: ${item.attachedComment}`
             : ''
