@@ -63,7 +63,6 @@ export default React.memo(Filters);
 const styles = StyleSheet.create({
   chip: {
     marginRight: 20,
-    height: 30,
   },
   container: {
     display: 'flex',

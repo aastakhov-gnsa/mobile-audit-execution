@@ -1,3 +1,13 @@
+# Version 1.0.0 
+
+## Fixes
+
+* hide internal comment in svsr
+
+## Misc
+
+**Production!** 🥳
+
 # Version 0.0.21
 
 ## Fixes
