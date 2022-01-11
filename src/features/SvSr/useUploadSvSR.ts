@@ -60,6 +60,10 @@ export function useUploadSvSR(
         data: langMapping[localeCode],
       });
       formData.push({
+        name: 'signature_name',
+        data: partner,
+      });
+      formData.push({
         name: 'file',
         filename: path,
         data: ReactNativeBlobUtil.wrap(path!),
