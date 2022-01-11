@@ -1,3 +1,10 @@
+# Version 1.0.2
+
+## Fixes
+
+* fix(auth): displaying of auth error is added
+* fix(iOS): PROD production_name is added
+
 # Version 1.0.1
 
 ## Fixes
