@@ -15,8 +15,9 @@ import {Storage, StorageItems} from '../../utils/storage/storage';
 import {useDispatch, useSelector} from '../../utils/store/configureStore';
 import Typography from '../../components/Typography';
 import {useTranslation} from 'react-i18next';
-import { parseJwt } from '../../utils/jwt';
-import { setAuthTokens } from './authReducer'
+import {parseJwt} from '../../utils/jwt';
+import {setAuthTokens} from './authReducer';
+import {alert} from '../../api/apiAlerts';
 const image = require('./assets/logo.png');
 
 function AuthScreen() {
@@ -40,12 +41,15 @@ function AuthScreen() {
     try {
       // SSO: auth
       const authorizationCodeResponse = await authorize(AUTH_CONFIG);
-      const accessTokenResponse = await sendAuthorizationCode(authorizationCodeResponse.authorizationCode)
-      const { jwttoken, refreshToken, givenName, familyName } = accessTokenResponse.data
+      const accessTokenResponse = await sendAuthorizationCode(
+        authorizationCodeResponse.authorizationCode,
+      );
+      const {jwttoken, refreshToken, givenName, familyName} =
+        accessTokenResponse.data;
       await Secrets.saveSecret(SecretItems.gnsaToken, jwttoken);
       await Storage.saveItem(StorageItems.firstName, givenName);
       await Storage.saveItem(StorageItems.lastName, familyName);
-      const { sub } = parseJwt(jwttoken)
+      const {sub} = parseJwt(jwttoken);
       await Storage.saveItem(StorageItems.userName, sub);
       await Storage.saveItem(
         StorageItems.fullName,
@@ -53,9 +57,10 @@ function AuthScreen() {
       );
 
       authContext.setRefreshToken(refreshToken);
-      dispatch(setAuthTokens({ token: jwttoken, refreshToken }));
+      dispatch(setAuthTokens({token: jwttoken, refreshToken}));
     } catch (error) {
       console.error('Authentication failed', JSON.stringify(error));
+      alert(error);
     }
     authContext.setInProgress(false);
   }, [authContext, dispatch]);

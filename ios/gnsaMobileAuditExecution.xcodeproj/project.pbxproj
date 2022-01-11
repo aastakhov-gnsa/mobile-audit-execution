@@ -588,7 +588,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbo.gnsa.auditexecution.iOS.iPad;
-				PRODUCT_NAME = gnsaMobileAuditExecution;
+				PRODUCT_NAME = GNSA;
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA Audit Execution PROD";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
