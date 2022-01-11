@@ -1,3 +1,10 @@
+# Version 1.0.1
+
+## Fixes
+
+* fix(svsr): partner name is sent to BE;
+* fix(svsr): keyboardType is set to 'email-address' for emails field
+
 # Version 1.0.0 
 
 ## Fixes
