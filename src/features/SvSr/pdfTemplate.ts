@@ -1,6 +1,8 @@
 import {EvaluationSurvey} from '../../interfaces/evaluation';
 import {surveyDetails} from '../../interfaces/survey';
-import {logo} from './logo';
+import {dtLogo} from './dtLogo';
+import {mbIconLogo} from './mbIconLogo';
+import {mbTextLogo} from './mbTextLogo';
 import {getASRSettingsSection} from './sections/asrSettings';
 import {getClusterStatistic} from './sections/clusterStatistic';
 import {getServiceStatistic} from './sections/serviceStatistic';
@@ -8,19 +10,41 @@ import {grayBackground} from './sections/styles';
 import {getWeightedFulfillment} from './sections/weightedFulfillment';
 import {getQuestionsSection} from './sections/questionsSection';
 import {getSignSection} from './sections/signSection';
-import { getOnlyUpperCase, getServiceLabel } from '../../utils/daimlerService';
-import { getAdditionalAuditInformation } from './sections/additionalAuditInformation';
-import {getServicesOverview} from './sections/servicesOverview'
-import {getClusterOverview} from './sections/clusterOverview'
-import { AuditStandardExecution, StandardFulfillment, StandardType } from '../../interfaces/standard';
-import { failedStatuses, notEvaluatedStatuses, passedStatuses } from '../../interfaces/common';
-import localizedFormat from '../../utils/date/localizedFormat'
+import {getOnlyUpperCase, getServiceLabel} from '../../utils/daimlerService';
+import {getAdditionalAuditInformation} from './sections/additionalAuditInformation';
+import {getServicesOverview} from './sections/servicesOverview';
+import {getClusterOverview} from './sections/clusterOverview';
+import {
+  AuditStandardExecution,
+  StandardFulfillment,
+  StandardType,
+} from '../../interfaces/standard';
+import {
+  failedStatuses,
+  notEvaluatedStatuses,
+  passedStatuses,
+} from '../../interfaces/common';
+import localizedFormat from '../../utils/date/localizedFormat';
 
-const logoSection = `
+const logoSection = (mb: boolean) =>
+  mb
+    ? `
 <thead>
     <tr style="">
         <th style="text-align: left;">
-            <img src="${logo}" width="200px" style="margin-top: 46px; margin-left: 32px; margin-bottom: 58px;">
+            <div style="border-bottom: solid black 1px; display: flex; justify-content: space-between; align-items: baseline; padding: 27px 56px">
+                <img src="${mbTextLogo}" style="height: 10px"/>
+                <img src="${mbIconLogo}"/>
+            </div> 
+        </th>
+    </tr>
+</thead>
+`
+    : `
+<thead>
+    <tr style="">
+        <th style="text-align: left;">
+           <img src="${dtLogo}" width="200px" style="margin-top: 46px; margin-left: 32px; margin-bottom: 58px;">
         </th>
     </tr>
 </thead>
@@ -30,7 +54,7 @@ export const pdfTemplate = (
   data: EvaluationSurvey,
   filters: Record<string, boolean>,
   sign?: string,
-  partner?: string
+  partner?: string,
 ) => {
   const date = new Date();
   const dateString = localizedFormat(date, 'dd MMM yyyy kk:mm');
@@ -48,7 +72,15 @@ export const pdfTemplate = (
     }
 </style>
 <table>
-${filters[surveyDetails.logo] ? logoSection : ''}
+${
+  filters[surveyDetails.logo]
+    ? logoSection(
+        data.services.some(i =>
+          ['pc', 'van'].includes(i.productGroup.toLowerCase()),
+        ),
+      )
+    : ''
+}
 <tbody>
 <tr>
 <td>
@@ -94,11 +126,11 @@ Created on ${dateString}
 ${getServicesOverview(data.services, data.resultCd)}
 ${getClusterOverview(data)}
 ${getAdditionalAuditInformation(
-    data.auditor,
-    data.auditManager,
-    data.auditDate,
-    data.auditNote,
-    filters[surveyDetails.auditNote]
+  data.auditor,
+  data.auditManager,
+  data.auditDate,
+  data.auditNote,
+  filters[surveyDetails.auditNote],
 )}
 ${getASRSettingsSection(filters)}
 ${
@@ -107,9 +139,15 @@ ${
     : ''
 }
 <div>
-${data.services.filter(item => filters[getServiceLabel(item)]).map(item => getServiceSection(getServiceLabel(item), data, filters))}
+${data.services
+  .filter(item => filters[getServiceLabel(item)])
+  .map(item => getServiceSection(getServiceLabel(item), data, filters))}
 </div>
-${filters[surveyDetails.signature] ? getSignSection(sign, partner, data.outletCity, date) : ''}
+${
+  filters[surveyDetails.signature]
+    ? getSignSection(sign, partner, data.outletCity, date)
+    : ''
+}
 </td>
 </tr>
 </table>
@@ -121,76 +159,91 @@ function getServiceSection(
   data: EvaluationSurvey,
   filters: Record<string, boolean>,
 ) {
-    const service = data.services.find(item => getServiceLabel(item) === serviceName)
-    const serviceStandards = applyFilters(data.standards.filter(item => {
-        return item.services?.find(item => getServiceLabel(item) === serviceName)
-    }), filters)
-    
-    const productGroupCode = getOnlyUpperCase(service?.productGroup)
-    const brandCode = getOnlyUpperCase(service?.brand)
-    const activityCode = getOnlyUpperCase(service?.activity)
-    const numberCode = service?.auditLineNumber?.substr(3)
-    return `<div>
+  const service = data.services.find(
+    item => getServiceLabel(item) === serviceName,
+  );
+  const serviceStandards = applyFilters(
+    data.standards.filter(item => {
+      return item.services?.find(item => getServiceLabel(item) === serviceName);
+    }),
+    filters,
+  );
+
+  const productGroupCode = getOnlyUpperCase(service?.productGroup);
+  const brandCode = getOnlyUpperCase(service?.brand);
+  const activityCode = getOnlyUpperCase(service?.activity);
+  const numberCode = service?.auditLineNumber?.substr(3);
+  return `<div>
     <table><tr><td></td></tr></table>
-    <h2 style="font-size: 24px; margin-top: 24px">${service?.productGroup} ${service?.brand} ${service?.activity}</h2>
-    <h4>${data.outletId}-${productGroupCode}-${brandCode}-${activityCode}-${numberCode}</h4>
+    <h2 style="font-size: 24px; margin-top: 24px">${service?.productGroup} ${
+    service?.brand
+  } ${service?.activity}</h2>
+    <h4>${
+      data.outletId
+    }-${productGroupCode}-${brandCode}-${activityCode}-${numberCode}</h4>
     ${
-      Boolean(filters[surveyDetails.servicesStatistic]) ?
-      getServiceStatistic(serviceStandards) : ''
+      filters[surveyDetails.servicesStatistic]
+        ? getServiceStatistic(serviceStandards)
+        : ''
     }
     ${
-        Boolean(filters[surveyDetails.weightedFulfillment]) ?
-        getWeightedFulfillment(serviceStandards) : ''
+      filters[surveyDetails.weightedFulfillment]
+        ? getWeightedFulfillment(serviceStandards)
+        : ''
     }
     ${
-        Boolean(filters[surveyDetails.measurementCriteria]) ?
-        getQuestionsSection(serviceStandards, data.outletType, filters) : ''
+      filters[surveyDetails.measurementCriteria]
+        ? getQuestionsSection(serviceStandards, data.outletType, filters)
+        : ''
     }
 </div>`;
 }
 
-function applyFilters(standards: AuditStandardExecution[], filters: Record<string, boolean>) {
-    return standards
+function applyFilters(
+  standards: AuditStandardExecution[],
+  filters: Record<string, boolean>,
+) {
+  return standards
     ?.filter(item => {
-        if (!filters[StandardType.MUST]) {
-            return item.standardType !== StandardType.MUST
-        }
-        return true
+      if (!filters[StandardType.MUST]) {
+        return item.standardType !== StandardType.MUST;
+      }
+      return true;
     })
     ?.filter(item => {
-        if (!filters[StandardType.BASIC_BONUS]) {
-            return item.standardType !== StandardType.BASIC_BONUS
-        }
-        return true
+      if (!filters[StandardType.BASIC_BONUS]) {
+        return item.standardType !== StandardType.BASIC_BONUS;
+      }
+      return true;
     })
     ?.filter(item => {
-        if (!filters[StandardType.RECOMMENDED]) {
-            return item.standardType !== StandardType.RECOMMENDED
-        }
-        return true
+      if (!filters[StandardType.RECOMMENDED]) {
+        return item.standardType !== StandardType.RECOMMENDED;
+      }
+      return true;
     })
     ?.filter(item => {
-        if (!filters[StandardType.AWARDED_BONUS]) {
-            return item.standardType !== StandardType.AWARDED_BONUS
-        }
-        return true
+      if (!filters[StandardType.AWARDED_BONUS]) {
+        return item.standardType !== StandardType.AWARDED_BONUS;
+      }
+      return true;
     })
     ?.filter(item => {
-        if (!filters[StandardFulfillment.FAILED]) {
-            return failedStatuses.includes(item.status!) === false
-        }
-        return true
+      if (!filters[StandardFulfillment.FAILED]) {
+        return failedStatuses.includes(item.status!) === false;
+      }
+      return true;
     })
     ?.filter(item => {
-        if (!filters[StandardFulfillment.PASSED]) {
-            return passedStatuses.includes(item.status!) === false
-        }
-        return true
+      if (!filters[StandardFulfillment.PASSED]) {
+        return passedStatuses.includes(item.status!) === false;
+      }
+      return true;
     })
     ?.filter(item => {
-        if (!filters[StandardFulfillment.OPEN]) {
-            return notEvaluatedStatuses.includes(item.status!) === false
-        }
-        return true
-    })
+      if (!filters[StandardFulfillment.OPEN]) {
+        return notEvaluatedStatuses.includes(item.status!) === false;
+      }
+      return true;
+    });
 }
