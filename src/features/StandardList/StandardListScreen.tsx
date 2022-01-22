@@ -28,11 +28,15 @@ const filterValues: FilterValues = [
   },
   {
     fieldName: 'status',
-    value: 'Passed',
+    value: 'In Progress',
   },
   {
     fieldName: 'status',
-    value: 'Failed',
+    value: ['Passed', 'Passed - Overruled'],
+  },
+  {
+    fieldName: 'status',
+    value: ['Failed', 'Failed - Overruled'],
   },
   {
     fieldName: 'standardType',
@@ -96,7 +100,11 @@ function StandardListScreen() {
 
   const data = React.useMemo(() => {
     const filteredData = filter
-      ? allData?.filter(i => i[filter.fieldName] === filter.value) //todo filter by several filters
+      ? allData?.filter(i =>
+          Array.isArray(filter.value)
+            ? filter.value.includes(i[filter.fieldName] as string)
+            : i[filter.fieldName] === filter.value,
+        ) //todo filter by several filters
       : allData.slice();
     if (searchQuery.length) {
       const q = searchQuery.toLowerCase();
