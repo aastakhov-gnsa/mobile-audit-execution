@@ -25,6 +25,7 @@ interface CommentModalProps {
   titleText?: string;
   defaultChip?: CommentType | OverruleStatus;
   defaultText?: string;
+  extraButtons?: React.ReactNode[];
 }
 
 function CommentModal({
@@ -36,6 +37,7 @@ function CommentModal({
   titleText,
   defaultChip,
   defaultText,
+  extraButtons,
 }: CommentModalProps) {
   const [isPortrait] = useOrientation();
   const styles = makeStyles(isPortrait);
@@ -81,6 +83,7 @@ function CommentModal({
       visible={visible}
       onCancel={handleCancel}
       onSave={handleSave}
+      extraButtons={extraButtons}
       validationComponent={
         <Snackbar
           visible={snackVisible}

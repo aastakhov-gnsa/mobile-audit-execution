@@ -137,6 +137,17 @@ export const evaluationReducer = createSlice({
         }, ${time}`,
       };
     },
+    resetOverruleStandardResult: (
+      state,
+      action: PayloadAction<{surveyId: string; standardId: string}>,
+    ) => {
+      const {surveyId, standardId} = action.payload;
+      const standard = state[surveyId].standards.find(i => i.id === standardId);
+      standard!.overruleComment = {
+        value: null,
+        overruledHint: null,
+      };
+    },
     changeSurveyStatus: (
       state,
       action: PayloadAction<{
@@ -275,6 +286,7 @@ export const {
   changeQuestionOptionResult,
   changeStandardStatus,
   overruleStandardResult,
+  resetOverruleStandardResult,
   changeSurveyStatus,
   setDownloadedFile,
   markFileAsDeleted,

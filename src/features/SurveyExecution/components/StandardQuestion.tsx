@@ -21,6 +21,7 @@ import {useTranslation} from 'react-i18next';
 import AddPhotos from '../../../components/AddPhotos';
 import FilesPanel from '../../../components/FilesPanel';
 import FileAttachment from '../../../components/FileAttachment';
+import numToChar from '../../../utils/common/numToChar';
 
 export interface StandardQuestionProps {
   standardId: string;
@@ -146,7 +147,7 @@ function StandardQuestion({
               disabled={disabled}
               key={item.id}
               onChange={createQuestionOptionHandler(item.id)}
-              title={`${index + 1}. ${
+              title={`${numToChar(index + 1)}. ${
                 needTranslation && item.valueTranslations?.[langCode]
                   ? item.valueTranslations?.[langCode]
                   : item.value
