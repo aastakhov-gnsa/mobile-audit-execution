@@ -66,6 +66,7 @@
     "Fill comment and choose a status": "Kommentartext eintragen und Status wählen",
     "Overrule result": "Ergebnis überschreiben (overrule)",
     "CHANGE RESULT":  "ERGEBNIS ÄNDERN",
+    "Reset Overrule": "ÜBERSCHREIBEN ZURÜCKSETZEN",
     "Set as Passed": "Auf 'bestanden' (passed) setzen",
     "Set as Failed": "Auf 'nicht bestanden' (failed) setzen",
     "ADD PHOTOS": "FOTOS HINZUFÜGEN",

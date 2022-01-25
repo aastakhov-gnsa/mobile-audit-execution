@@ -5,12 +5,14 @@ import {
   changeStandardStatus,
   changeSurveyStatus,
   overruleStandardResult,
+  resetOverruleStandardResult,
 } from './evaluationReducer';
 import {failedStatuses, notEvaluatedStatuses} from '../../interfaces/common';
 
 const changeStandardStatusActionTypes = [
   changeStandardStatus.type,
   overruleStandardResult.type,
+  resetOverruleStandardResult.type,
 ];
 
 const surveyStatusMiddleware: Middleware =

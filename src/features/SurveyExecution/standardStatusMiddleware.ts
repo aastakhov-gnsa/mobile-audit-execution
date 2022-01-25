@@ -5,6 +5,7 @@ import {
   changeQuestionOptionResult,
   changeQuestionResult,
   changeStandardStatus,
+  resetOverruleStandardResult,
 } from './evaluationReducer';
 
 const standardStatusMiddleware: Middleware =
@@ -14,8 +15,9 @@ const standardStatusMiddleware: Middleware =
     const isQuestionChanged = action.type === changeQuestionResult.type;
     const isQuestionOptionChanged =
       action.type === changeQuestionOptionResult.type;
+    const isResetOverrule = action.type === resetOverruleStandardResult.type;
 
-    if (isQuestionChanged || isQuestionOptionChanged) {
+    if (isQuestionChanged || isQuestionOptionChanged || isResetOverrule) {
       next(action);
       const state = getState();
       const {surveyId, standardId} = action.payload;
