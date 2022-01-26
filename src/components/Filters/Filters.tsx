@@ -44,12 +44,14 @@ function Filters({screenName, id, filterValues}: FiltersProps) {
           };
           return (
             <Chip
-              key={i.value}
+              key={Array.isArray(i.value) ? i.value.toString() : i.value}
               selected={isSelected}
               onPress={handlePress}
               style={styles.chip}
               mode={'outlined'}>
-              <Typography size="Body 2">{t(i.value)}</Typography>
+              <Typography size="Body 2">
+                {t(Array.isArray(i.value) ? i.value[0] : i.value)}
+              </Typography>
             </Chip>
           );
         })}

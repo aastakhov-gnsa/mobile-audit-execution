@@ -32,7 +32,7 @@ export const surveyDetails = {
   additionalInfoAndDocuments:
     'Additional information for auditor and required documents',
   clusterStatistic: 'Cluster Statistic',
-  logo: 'Daimler Logo',
+  logo: 'Logo',
   description: "Description Standards/MC's",
   weightedFulfillment: 'Weighted Fulfillment',
   servicesStatistic: 'Services Statistic',

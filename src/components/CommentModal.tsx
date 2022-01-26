@@ -8,6 +8,7 @@ import {OverruleStatus} from '../interfaces/common';
 import Modal from './Modal';
 import {useTranslation} from 'react-i18next';
 import capitalizeFirstLetter from '../utils/common/copitalizeFirstLetter';
+import useOrientation from '../hooks/useOrientation';
 
 interface CommentModalProps {
   visible: boolean;
@@ -23,6 +24,8 @@ interface CommentModalProps {
   validationMessage: string;
   titleText?: string;
   defaultChip?: CommentType | OverruleStatus;
+  defaultText?: string;
+  extraButtons?: React.ReactNode[];
 }
 
 function CommentModal({
@@ -33,8 +36,12 @@ function CommentModal({
   validationMessage,
   titleText,
   defaultChip,
+  defaultText,
+  extraButtons,
 }: CommentModalProps) {
-  const [text, setText] = React.useState('');
+  const [isPortrait] = useOrientation();
+  const styles = makeStyles(isPortrait);
+  const [text, setText] = React.useState(defaultText ?? '');
   const handleText = (t: string) => setText(t);
   const [chip, setChip] = React.useState<
     CommentType | OverruleStatus | undefined
@@ -71,12 +78,12 @@ function CommentModal({
     }
   }, [text, chip, handleSnackVisible, onSave, handleCancel]);
   const {t} = useTranslation();
-
   return (
     <Modal
       visible={visible}
       onCancel={handleCancel}
       onSave={handleSave}
+      extraButtons={extraButtons}
       validationComponent={
         <Snackbar
           visible={snackVisible}
@@ -90,10 +97,10 @@ function CommentModal({
         <TextInput
           mode="outlined"
           multiline
-          // numberOfLines={5}
           placeholder={`${t('Write a message')} ...`}
           value={text}
           onChangeText={handleText}
+          style={styles.input}
         />
       </ItemWrapper>
       <ItemWrapper paddingValue={0} style={styles.chipsWrapper}>
@@ -114,12 +121,14 @@ function CommentModal({
 
 export default React.memo(CommentModal);
 
-const styles = StyleSheet.create({
-  inputWrapper: {paddingRight: 24, paddingLeft: 24},
-  chipsWrapper: {
-    paddingLeft: 24,
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-  },
-  chip: {marginRight: 20},
-});
+const makeStyles = (isPortrait: boolean) =>
+  StyleSheet.create({
+    input: {maxHeight: isPortrait ? 500 : 150},
+    inputWrapper: {paddingRight: 24, paddingLeft: 24},
+    chipsWrapper: {
+      paddingLeft: 24,
+      justifyContent: 'flex-start',
+      flexDirection: 'row',
+    },
+    chip: {marginRight: 20},
+  });

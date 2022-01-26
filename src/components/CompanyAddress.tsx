@@ -12,12 +12,16 @@ import {useTranslation} from 'react-i18next';
 interface CompanyAddressProps {
   outletAddress?: string;
   companyId?: string;
+  outletId?: string;
+  legalName?: string;
   copyable?: boolean;
 }
 
 function CompanyAddress({
   outletAddress,
   companyId,
+  outletId,
+  legalName,
   copyable,
 }: CompanyAddressProps) {
   const [visible, setVisible] = React.useState(false);
@@ -37,7 +41,7 @@ function CompanyAddress({
   }
   return (
     <>
-      <Typography size="Body 1">{`${companyId} : ${outletAddress}`}</Typography>
+      <Typography size="Body 1">{`${companyId}/${outletId} : ${legalName}, ${outletAddress}`}</Typography>
       {outletAddress && copyable && (
         <TouchableOpacity onPress={handleCopy}>
           <Typography size="Body 1" style={styles.link}>

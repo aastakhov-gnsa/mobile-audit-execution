@@ -1,3 +1,26 @@
+# Version 1.1.0
+
+## Features
+
+* feat(standards): search bar is added
+* feat(survey): gs-code and legal name are added to SurveyCard and AuditDetailsScreen
+* feat(evaluation): resetting overrule standard result;
+
+## Fixes
+
+* fix(evaluation): max height of comment text input field is set;
+* fix(evaluation): displaying of previously added comment is added to modal window;
+* fix(filtering): now filter value could be an array of strings;
+* fix(filtering): 'in progress' filter is added
+* fix(evaluation): converting numbers to chars;
+* fix(i18n): "Reset Overrule" button translations
+* fix(svsr): header logo;
+* fix(svsr): logo filter title
+
+## Misc
+
+* infrastructure(int): INT tenant configuration is added
+
 # Version 1.0.2
 
 ## Fixes

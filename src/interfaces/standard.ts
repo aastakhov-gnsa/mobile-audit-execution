@@ -1,5 +1,5 @@
 import {MultiValue, ResultCd, SmFile, Status, Translations} from './common';
-import { DaimlerService } from './survey';
+import {DaimlerService} from './survey';
 
 type AnyData = Partial<
   Record<
@@ -67,8 +67,8 @@ export interface Option {
 }
 
 export interface OverruleComment {
-  value: string;
-  overruledHint: string;
+  value: string | null;
+  overruledHint: string | null;
 }
 
 export type CommentType = 'External' | 'Internal';

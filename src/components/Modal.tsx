@@ -18,6 +18,7 @@ interface ModalProps {
   onSave?: () => void;
   saveCaption?: string;
   validationComponent?: React.ReactNode;
+  extraButtons?: React.ReactNode[];
 }
 
 function Modal({
@@ -28,6 +29,7 @@ function Modal({
   onSave,
   validationComponent,
   saveCaption = 'save',
+  extraButtons,
 }: ModalProps) {
   const {t} = useTranslation();
   return (
@@ -49,6 +51,7 @@ function Modal({
               <ItemWrapper paddingValue={25}>{children}</ItemWrapper>
               <Divider />
               <ItemWrapper style={styles.controlsWrapper}>
+                {extraButtons?.map(i => i)}
                 <Button mode="text" style={styles.button} onPress={onCancel}>
                   {t('cancel')}
                 </Button>

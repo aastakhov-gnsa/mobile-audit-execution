@@ -1,11 +1,12 @@
 {
   "name": "gnsamobileauditexecution",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant dev1Debug",
     "android:dev2": "react-native run-android --variant dev2Debug",
     "android:qa": "react-native run-android --variant qaDebug",
+    "android:int": "react-native run-android --variant int1Debug",
     "android:prod": "react-native run-android --variant prodDebug",
     "ios": "cross-env ENVFILE=development react-native run-ios",
     "start": "react-native start",

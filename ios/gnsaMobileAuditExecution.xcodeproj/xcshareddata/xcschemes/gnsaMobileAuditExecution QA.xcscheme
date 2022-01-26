@@ -15,7 +15,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-                     BuildableName = "gnsaMobileAuditExecution.app"
+                     BuildableName = "GNSA.app"
                      BlueprintName = "gnsaMobileAuditExecution"
                      ReferencedContainer = "container:gnsaMobileAuditExecution.xcodeproj">
                   </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "gnsaMobileAuditExecution.app"
+               BuildableName = "GNSA.app"
                BlueprintName = "gnsaMobileAuditExecution"
                ReferencedContainer = "container:gnsaMobileAuditExecution.xcodeproj">
             </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "gnsaMobileAuditExecution.app"
+            BuildableName = "GNSA.app"
             BlueprintName = "gnsaMobileAuditExecution"
             ReferencedContainer = "container:gnsaMobileAuditExecution.xcodeproj">
          </BuildableReference>
@@ -90,7 +90,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "gnsaMobileAuditExecution.app"
+            BuildableName = "GNSA.app"
             BlueprintName = "gnsaMobileAuditExecution"
             ReferencedContainer = "container:gnsaMobileAuditExecution.xcodeproj">
          </BuildableReference>

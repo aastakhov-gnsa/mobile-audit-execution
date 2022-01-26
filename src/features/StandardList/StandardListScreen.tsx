@@ -17,6 +17,9 @@ import {
 } from '../../interfaces/navigation';
 import EvaluationHeaderRight from '../../components/HeaderRight/EvaluationHeaderRight';
 import {useTranslation} from 'react-i18next';
+import {Searchbar} from 'react-native-paper';
+import ItemWrapper from '../../components/ItemWrapper';
+import useCurrentLanguage from '../../hooks/useCurrentLanguage';
 
 const filterValues: FilterValues = [
   {
@@ -25,11 +28,15 @@ const filterValues: FilterValues = [
   },
   {
     fieldName: 'status',
-    value: 'Passed',
+    value: 'In Progress',
   },
   {
     fieldName: 'status',
-    value: 'Failed',
+    value: ['Passed', 'Passed - Overruled'],
+  },
+  {
+    fieldName: 'status',
+    value: ['Failed', 'Failed - Overruled'],
   },
   {
     fieldName: 'standardType',
@@ -86,13 +93,39 @@ function StandardListScreen() {
     state => state.filters?.[ScreenNames.StandardList]?.[id],
   );
   const allData = auditData.standards;
-  const data = React.useMemo(
-    () =>
-      filter
-        ? allData?.filter(i => i[filter.fieldName] === filter.value) //todo filter by several filters
-        : allData,
-    [allData, filter],
-  );
+
+  const [langCode, needTranslation] = useCurrentLanguage();
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const onChangeSearch = (query: string) => setSearchQuery(query);
+
+  const data = React.useMemo(() => {
+    const filteredData = filter
+      ? allData?.filter(i =>
+          Array.isArray(filter.value)
+            ? filter.value.includes(i[filter.fieldName] as string)
+            : i[filter.fieldName] === filter.value,
+        ) //todo filter by several filters
+      : allData.slice();
+    if (searchQuery.length) {
+      const q = searchQuery.toLowerCase();
+      return filteredData.filter(i => {
+        return (
+          (i.standardNumber &&
+            i.standardNumber.toLowerCase().indexOf(q) > -1) ||
+          (needTranslation &&
+            i.nameTranslations &&
+            i.nameTranslations[langCode]?.toLowerCase().indexOf(q) > -1) ||
+          (needTranslation &&
+            i.textTranslations &&
+            i.textTranslations[langCode]?.toLowerCase().indexOf(q) > -1) ||
+          (i.standardName && i.standardName.toLowerCase().indexOf(q) > -1) ||
+          (i.standardText && i.standardText.toLowerCase().indexOf(q) > -1)
+        );
+      });
+    }
+    return filteredData;
+  }, [allData, filter, langCode, needTranslation, searchQuery]);
+
   React.useEffect(() => {
     navigation.setOptions({
       title: auditData?.number,
@@ -110,7 +143,6 @@ function StandardListScreen() {
     [id],
   );
   const {t} = useTranslation();
-
   return (
     <ScreenContainer>
       <StatusBar
@@ -122,6 +154,13 @@ function StandardListScreen() {
           data?.length ?? 0
         }`}
       />
+      <ItemWrapper paddingValue={[0, 20]}>
+        <Searchbar
+          placeholder={t('Search')}
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+        />
+      </ItemWrapper>
       <Filters
         screenName={ScreenNames.StandardList}
         id={id}

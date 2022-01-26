@@ -1,12 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {logout} from '../../features/Auth/authReducer';
+import {FilterItem} from '../../interfaces/filters';
 
 type FiltersSlice = {
   [screenName: string]: {
-    [id: string]: {
-      fieldName: string;
-      value: string;
-    };
+    [id: string]: FilterItem;
   };
 };
 
@@ -23,7 +21,7 @@ export const filtersReducer = createSlice({
         screenName: string;
         id: string;
         fieldName: string;
-        value: string;
+        value: string | string[];
       }>,
     ) => {
       const {screenName, id, fieldName, value} = action.payload;

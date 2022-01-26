@@ -27,6 +27,8 @@ function SurveyCard({survey}: {survey: Survey}) {
     id,
     plannedDate,
     companyId,
+    outletId,
+    legalName,
     outletAddress,
     number,
     resultCd,
@@ -113,6 +115,8 @@ function SurveyCard({survey}: {survey: Survey}) {
         <ItemWrapper>
           <CompanyAddress
             companyId={data?.companyId ?? companyId}
+            outletId={data?.outletId ?? outletId}
+            legalName={data?.legalName ?? legalName}
             outletAddress={data?.outletAddress ?? outletAddress}
           />
         </ItemWrapper>

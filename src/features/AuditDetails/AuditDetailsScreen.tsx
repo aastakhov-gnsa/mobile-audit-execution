@@ -19,19 +19,26 @@ interface AuditDetailsParams {
 function AuditDetailsScreen() {
   const route = useRoute();
   const {id} = route.params as AuditDetailsParams;
-  const {services, number, companyId, outletAddress, auditorName} = useSelector(
-    state => {
-      const s = state.evaluation[id];
-      return {
-        services: s.services,
-        number: s.number,
-        companyId: s.companyId,
-        outletAddress: s.outletAddress,
-        auditorName: s.auditor,
-      };
-    },
-    shallowEqual,
-  );
+  const {
+    services,
+    number,
+    companyId,
+    outletAddress,
+    auditorName,
+    outletId,
+    legalName,
+  } = useSelector(state => {
+    const s = state.evaluation[id];
+    return {
+      services: s.services,
+      number: s.number,
+      companyId: s.companyId,
+      outletAddress: s.outletAddress,
+      auditorName: s.auditor,
+      outletId: s.outletId,
+      legalName: s.legalName,
+    };
+  }, shallowEqual);
 
   const {t} = useTranslation();
 
@@ -51,6 +58,8 @@ function AuditDetailsScreen() {
         <CompanyAddress
           companyId={companyId}
           outletAddress={outletAddress}
+          outletId={outletId}
+          legalName={legalName}
           copyable
         />
       ),
