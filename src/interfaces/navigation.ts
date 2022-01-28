@@ -1,10 +1,13 @@
 import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {ScreenNames} from '../navigation/navigation';
-import { EvaluationSurvey } from './evaluation';
+import {EvaluationSurvey} from './evaluation';
 
 export type SurveysStackParamList = {
-  [ScreenNames.Surveys]: undefined | { notification: 'signed' };
-  [ScreenNames.SurveysStack]: { screen: string, params: { notification: 'signed' } };
+  [ScreenNames.Surveys]: undefined | {notification: 'signed'};
+  [ScreenNames.SurveysStack]: {
+    screen: string;
+    params: {notification: 'signed'};
+  };
   [ScreenNames.SurveyExecution]: {surveyId: string; standardId: string};
   [ScreenNames.StandardList]: {id: string};
   [ScreenNames.AuditDetails]: {id: string};
@@ -12,8 +15,17 @@ export type SurveysStackParamList = {
   [ScreenNames.UserManual]: undefined;
   [ScreenNames.ContactSupport]: undefined;
   [ScreenNames.LegalNoticesAndTerms]: undefined;
-  [ScreenNames.SvSRPreview]: {file: string, surveyId: string, data: EvaluationSurvey, filters: Record<string, boolean>};
-  [ScreenNames.Signature]: { data: EvaluationSurvey, filters: Record<string, boolean>, surveyId: string};
+  [ScreenNames.SvSRPreview]: {
+    file: string;
+    surveyId: string;
+    data: EvaluationSurvey;
+    filters: Record<string, boolean>;
+  };
+  [ScreenNames.Signature]: {
+    data: EvaluationSurvey;
+    filters: Record<string, boolean>;
+    surveyId: string;
+  };
 };
 
 export type NavigationParams = NavigationProp<SurveysStackParamList>;
@@ -22,7 +34,7 @@ export type NavigationParams = NavigationProp<SurveysStackParamList>;
 export type SurveysRouteParams = RouteProp<
   SurveysStackParamList,
   ScreenNames.Surveys
->
+>;
 
 export type SurveyExecutionRouteParams = RouteProp<
   SurveysStackParamList,

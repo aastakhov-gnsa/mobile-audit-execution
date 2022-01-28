@@ -9,7 +9,7 @@ import {unlink} from 'react-native-fs';
 import {removeSurvey} from '../features/SurveyExecution/evaluationReducer';
 import {addFile} from '../features/FileLoading/fileLoadingReducer';
 
-export function useUploadSurvey(id: string): [() => void, boolean] {
+export function useUploadSurvey(id: string): [() => Promise<any>, boolean] {
   const surveyData = useSelector(state => state.evaluation[id]);
   const dispatch = useDispatch();
   const [upload, {isLoading}] = useUploadSurveyMutation();
@@ -46,7 +46,7 @@ export function useUploadSurvey(id: string): [() => void, boolean] {
           };
         }),
       };
-      upload(body)
+      return upload(body)
         .unwrap()
         .then(() => {
           surveyData.standards.forEach(st => {
@@ -96,7 +96,10 @@ export function useUploadSurvey(id: string): [() => void, boolean] {
                 });
             });
           });
+        })
+        .then(() => {
           dispatch(removeSurvey(surveyData.id));
+          return 'uploaded';
         })
         .catch(e => {
           console.error('upload error', {...e});
@@ -104,9 +107,9 @@ export function useUploadSurvey(id: string): [() => void, boolean] {
     }, [
       deleteFile,
       dispatch,
-      surveyData.id,
-      surveyData.resultCd,
-      surveyData.standards,
+      surveyData?.id,
+      surveyData?.resultCd,
+      surveyData?.standards,
       upload,
     ]),
     isLoading,

@@ -5,14 +5,7 @@ import ListContainer from '../../components/ListContainer';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import SurveyCard from '../../components/SurveyCard';
 import {FlatList} from 'react-native-gesture-handler';
-import {
-  RefreshControl,
-  StatusBar,
-  Image,
-  Text,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {RefreshControl, StatusBar, StyleSheet} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
 import ScreenContainer from '../../components/ScreenContainer';
@@ -25,7 +18,6 @@ import {FilterItem, FilterValues} from '../../interfaces/filters';
 import {EMPTY_ARRAY} from '../../constants/constants';
 import NetInfo from '@react-native-community/netinfo';
 import NoSurveys from '../../components/NoSurveys';
-import {SvSr} from '../SvSr/SvSr';
 import {useTranslation} from 'react-i18next';
 import localizedFormat from '../../utils/date/localizedFormat';
 import {notEvaluatedStatuses} from '../../interfaces/common';

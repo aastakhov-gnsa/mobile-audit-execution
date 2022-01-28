@@ -36,6 +36,7 @@ export function SignatureScreen() {
 
   const handleNext = () => {
     partnerSignatureRef.current?.readSignature();
+    auditorSignatureRef.current?.readSignature();
     setRequestedTab('finish');
   };
 
@@ -116,7 +117,7 @@ export function SignatureScreen() {
             onSignatureCapture={val => {
               setAuditorBase64(val);
               if (requestedTab === 'finish') {
-                uploadSvSR(val!);
+                uploadSvSR(partnerBase64!);
               } else {
                 setPerson(requestedTab);
               }

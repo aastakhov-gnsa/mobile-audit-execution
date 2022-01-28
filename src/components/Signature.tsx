@@ -1,4 +1,4 @@
-import React, {forwardRef } from 'react'
+import React, {forwardRef} from 'react';
 import CanvasSignature, {SignatureViewRef} from 'react-native-signature-canvas';
 
 /**
@@ -7,17 +7,16 @@ import CanvasSignature, {SignatureViewRef} from 'react-native-signature-canvas';
 const useHardwareAcceleration = __DEV__ ? false : true;
 
 export interface SignatureProps {
-    initialBase64?: string
-    onBegin?: () => void
-    onEnd?: () => void
-    onCapture?: (base64sign?: string) => void
+  initialBase64?: string;
+  onBegin?: () => void;
+  onEnd?: () => void;
+  onCapture?: (base64sign?: string) => void;
 }
 
-export const Signature = forwardRef<SignatureViewRef, SignatureProps>(({
-    initialBase64 = '', onBegin, onEnd, onCapture
-}, ref) => {
-    
-    return <CanvasSignature
+export const Signature = forwardRef<SignatureViewRef, SignatureProps>(
+  ({initialBase64 = '', onBegin, onEnd, onCapture}, ref) => {
+    return (
+      <CanvasSignature
         ref={ref}
         dataURL={initialBase64}
         webStyle={webStyle}
@@ -29,13 +28,15 @@ export const Signature = forwardRef<SignatureViewRef, SignatureProps>(({
         onEmpty={onCapture}
         onBegin={onBegin}
         onEnd={onEnd}
-    />
-})
+      />
+    );
+  },
+);
 
 /**
  * By default `react-native-signature-canvas` thinks it's on a separate dedicated screen
  *
- * These styles make it suitable for embedding to an existing screen 
+ * These styles make it suitable for embedding to an existing screen
  */
 const webStyle = `.m-signature-pad--footer
     .save {
