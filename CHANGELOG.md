@@ -1,3 +1,11 @@
+# Version 1.1.1
+
+## Fixes
+
+* fix(svsr): email error details are hidden; 
+* fix(svsr): upload svsr from auditor tab is enabled; 
+* fix(svsr): white screen error is fixed
+
 # Version 1.1.0
 
 ## Features

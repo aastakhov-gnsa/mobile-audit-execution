@@ -91,8 +91,9 @@ export function useUploadSvSR(
           defaultAlert({
             url,
             code: response.respInfo.status,
-            response: parsedResponse.errorMessage,
+            response: parsedResponse.error.popup[0],
             requestBody: 'multipart',
+            hideDetails: true,
           });
           return;
         }
@@ -102,12 +103,15 @@ export function useUploadSvSR(
       }
       try {
         const response = await uploadSurvey();
-        navigation.navigate(ScreenNames.SurveysStack, {
-          screen: ScreenNames.Surveys,
-          params: {notification: 'signed'},
-        });
+        console.log('useUploadSvSR::uploadSurvey::response', response);
+        if (response) {
+          navigation.navigate(ScreenNames.Surveys, {
+            // screen: ScreenNames.Surveys,
+            notification: 'signed',
+          });
+        }
       } catch (e) {
-        console.error(e);
+        console.error('useUploadSvSR::uploadSurvey', e);
       }
     },
     [

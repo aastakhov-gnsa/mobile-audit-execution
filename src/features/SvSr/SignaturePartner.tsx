@@ -1,7 +1,7 @@
 import React, {forwardRef, MutableRefObject} from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, Text, View} from 'react-native';
-import {Button, Surface, Switch, TextInput} from 'react-native-paper';
+import {Button, Surface, Switch, TextInput, useTheme} from 'react-native-paper';
 import {SignatureViewRef} from 'react-native-signature-canvas';
 import {Signature} from '../../components/Signature';
 import Typography from '../../components/Typography';
@@ -42,6 +42,7 @@ export const SignaturePartner = forwardRef<
     ref,
   ) => {
     const {t} = useTranslation();
+    const {colors} = useTheme();
     const handleClear = () => {
       (ref as MutableRefObject<SignatureViewRef>).current?.clearSignature();
     };
@@ -91,6 +92,7 @@ export const SignaturePartner = forwardRef<
             <Switch
               style={styles.switch}
               value={sendToMe}
+              color={colors.primary}
               onValueChange={onSendToMeChange}
             />
           </View>
