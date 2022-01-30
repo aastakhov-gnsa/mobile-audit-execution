@@ -32,6 +32,7 @@ interface DefaultAlertProps {
   code?: number;
   response?: string;
   requestBody?: string;
+  hideDetails?: boolean;
 }
 
 export function defaultAlert({
@@ -39,6 +40,7 @@ export function defaultAlert({
   code,
   response,
   requestBody,
+  hideDetails,
 }: DefaultAlertProps) {
   const isAuthError = code === 401;
   let title = 'Error';
@@ -58,7 +60,7 @@ export function defaultAlert({
       Clipboard.setString(message);
     },
   };
-  Alert.alert(title, message, [button]);
+  Alert.alert(title, hideDetails ? response : message, [button]);
 }
 
 export function fileUploadAlert({
