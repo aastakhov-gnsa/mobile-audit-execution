@@ -1,11 +1,11 @@
 import {Status} from './common';
 
 export interface Survey {
-  auditManager: string
+  auditManager: string;
   auditNumber: string;
   auditor: string;
-  auditNote: string
-  auditDate: string
+  auditNote: string;
+  auditDate: string;
   id: string;
   companyId: string;
   number: string;
@@ -13,13 +13,13 @@ export interface Survey {
   country: string;
   legalName: string;
   outletId: string;
-  outletNumber: number,
+  outletNumber: number;
   outletInfo: string;
   outletName: string;
-  outletType: string
-  outletStreet: string
-  outletZipcode: string
-  outletCity: string
+  outletType: string;
+  outletStreet: string;
+  outletZipcode: string;
+  outletCity: string;
   plannedDate: string;
   receivingEntityConcatName: string;
   resultCd: Status;

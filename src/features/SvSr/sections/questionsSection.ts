@@ -1,4 +1,3 @@
-import {failedStatuses, passedStatuses} from '../../../interfaces/common';
 import {
   AuditStandardExecution,
   Option,
@@ -17,11 +16,15 @@ function getStandardDescription(
   return show
     ? `
 <div>
-Description: ${
+${
+  question.mcDescription
+    ? `Description: ${
         question.textTranslations[langMapping[localeCode]]
           ? question.textTranslations[langMapping[localeCode]]
           : question.mcDescription
-      }
+      }`
+    : ''
+}
     <div>
     ${
       question.attachedComment &&
@@ -162,9 +165,9 @@ function getQuestionRow(
             ${
               isArrayQuestion
                 ? ''
-                : passedStatuses.includes(question.resultCd as any)
-                ? 'Yes'
-                : 'No'
+                : question.resultCd
+                ? (question.resultCd === 'Failed' && 'No') || 'Yes'
+                : ''
             }
         </td>
     </tr>
@@ -192,9 +195,7 @@ function getQuestionOption(option: Option, index: number) {
     </td>
     <td>
         ${
-          !option.resultCd || failedStatuses.includes(option.resultCd)
-            ? ''
-            : 'Yes'
+          option.resultCd ? (option.resultCd === 'Failed' && 'No') || 'Yes' : ''
         }
     </td>
 </tr>
