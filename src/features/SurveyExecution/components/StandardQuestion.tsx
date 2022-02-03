@@ -164,7 +164,11 @@ function StandardQuestion({
       {question?.attachedComment && (
         <ItemWrapper paddingValue={[0, 30]}>
           <CommentWithColor
-            title={`${t(question.commentType)} ${t('comment')}`}
+            title={`${t(
+              question.commentType === 'Internal'
+                ? 'Internal Comment'
+                : 'External Comment',
+            )}`}
             value={question?.attachedComment}
           />
         </ItemWrapper>

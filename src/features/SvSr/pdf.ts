@@ -7,11 +7,11 @@ export async function pdf(
   data: EvaluationSurvey,
   filters: Record<string, boolean>,
   sign?: string,
-  partner?: string
+  partner?: string,
 ) {
   let options = {
     html: pdfTemplate(data, filters, sign, partner),
-    fileName: 'test'
+    fileName: 'test',
   };
   if (Platform.OS === 'android') {
     const permissionGranted = await fRequestAndroidPermissionWrite();

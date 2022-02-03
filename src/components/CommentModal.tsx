@@ -24,7 +24,7 @@ interface CommentModalProps {
   validationMessage: string;
   titleText?: string;
   defaultChip?: CommentType | OverruleStatus;
-  defaultText?: string;
+  defaultText?: string | null;
   extraButtons?: React.ReactNode[];
 }
 

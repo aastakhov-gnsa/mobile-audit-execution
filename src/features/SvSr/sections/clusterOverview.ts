@@ -1,9 +1,8 @@
-import { EvaluationSurvey } from '../../../interfaces/evaluation'
-import { getServiceLabel } from '../../../utils/daimlerService';
+import {EvaluationSurvey} from '../../../interfaces/evaluation';
 import {grayBackground} from './styles';
 
 export function getClusterOverview(data: EvaluationSurvey) {
-    return `
+  return `
     <table width="100%" style="margin-top: 24px">
         <tr>
             <td style="${grayBackground}">
@@ -39,12 +38,12 @@ export function getClusterOverview(data: EvaluationSurvey) {
                 ${data.services?.map(item => item.activity).join(', ')}
             </td>
             <td>
-                ${data.auditor?.split(' ')?.[0]}
+                ${data.auditor}
             </td>
             <td>
                 ${data.resultCd}
             </td>
         </td>
     </table>
-        `
+        `;
 }
