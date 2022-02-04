@@ -1,3 +1,21 @@
+# Version 1.2.0
+
+## Features
+
+* feat(evaluation): ability to reset comment is added;
+
+## Fixes
+
+* fix(svsr): answers column values are fixed; 
+* fix(i18n): translation of 'add comment' button is fixed; 
+* fix(evaluation): standard name translations are used for NavigationBetweenStandards; 
+* fix(svsr): text 'Description: null' is removed from svsr; 
+* fix(svsr): auditor's full name
+* fix(standard-list): 'in progress' filter is removed; 
+* fix(evaluation): 'in progress' status is removed in favor of 'open'; 
+* fix(errors): beautified error is displayed in case BusinessError (popup[0]); 
+* fix(svsr): 'save and requested' is unlocked in case of an error
+
 # Version 1.1.1
 
 ## Fixes
