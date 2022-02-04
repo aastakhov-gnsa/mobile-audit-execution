@@ -10,12 +10,13 @@ import CommentModal from '../../../components/CommentModal';
 import useModalVisibility from '../../../hooks/useModalVisibility';
 import {OverruleStatus} from '../../../interfaces/common';
 import {useTranslation} from 'react-i18next';
+import {Button} from 'react-native-paper';
 
 interface AddCommentProps {
   surveyId: string;
   standardId: string;
-  attachedComment?: string;
-  commentType?: CommentType;
+  attachedComment?: string | null;
+  commentType?: CommentType | null;
   questionId?: string;
 }
 
@@ -60,6 +61,25 @@ function AddComment({
     },
     [dispatch, questionId, standardId, surveyId],
   );
+  const handleResetComment = React.useCallback(() => {
+    handleVisible();
+    dispatch(
+      questionId
+        ? changeQuestionComment({
+            standardId,
+            questionId,
+            surveyId,
+            commentType: null,
+            attachedComment: null,
+          })
+        : changeStandardComment({
+            standardId,
+            surveyId,
+            commentType: null,
+            attachedComment: null,
+          }),
+    );
+  }, [dispatch, handleVisible, questionId, standardId, surveyId]);
   const {t} = useTranslation();
   return (
     <>
@@ -72,14 +92,25 @@ function AddComment({
           validationMessage={t('Fill comment and chose type of comment')}
           defaultText={attachedComment}
           defaultChip={commentType ?? chips[1].value}
+          extraButtons={[
+            <Button mode="text" onPress={handleResetComment}>
+              {t('Reset Comment')}
+            </Button>,
+          ]}
         />
       )}
       <TouchableText
         onPress={handleVisible}
         size="Button"
-        iconName={attachedComment ? 'comment' : 'add-comment'}>{`${
-        attachedComment ? t(commentType!).toUpperCase() : t('ADD')
-      } ${t('comment').toUpperCase()}`}</TouchableText>
+        iconName={attachedComment ? 'comment' : 'add-comment'}>
+        {attachedComment
+          ? t(
+              commentType === 'Internal'
+                ? 'Internal Comment'
+                : 'External Comment',
+            ).toUpperCase()
+          : t('add comment').toUpperCase()}
+      </TouchableText>
     </>
   );
 }

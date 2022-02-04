@@ -40,8 +40,8 @@ export const evaluationReducer = createSlice({
       action: PayloadAction<{
         surveyId: string;
         standardId: string;
-        attachedComment: string;
-        commentType: CommentType;
+        attachedComment: string | null;
+        commentType: CommentType | null;
       }>,
     ) => {
       const {surveyId, standardId, attachedComment, commentType} =
@@ -56,8 +56,8 @@ export const evaluationReducer = createSlice({
         surveyId: string;
         standardId: string;
         questionId: string;
-        attachedComment: string;
-        commentType: CommentType;
+        attachedComment: string | null;
+        commentType: CommentType | null;
       }>,
     ) => {
       const {surveyId, standardId, attachedComment, commentType, questionId} =

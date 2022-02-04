@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../../../interfaces/navigation';
 import {useSelector} from '../../../utils/store/configureStore';
 import {Status} from '../../../interfaces/common';
+import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
 
 interface NavigationBetweenStandardsProps {
   surveyId: string;
@@ -18,6 +19,7 @@ function NavigationBetweenStandards({
   surveyId,
 }: NavigationBetweenStandardsProps) {
   const navigation = useNavigation<NavigationParams>();
+  const [langCode, needTranslation] = useCurrentLanguage();
 
   const {previousStandard, nextStandard} = useSelector(state => {
     const data = state.evaluation[surveyId].standards;
@@ -30,6 +32,7 @@ function NavigationBetweenStandards({
         index: index - 1,
         id: prevStandard.id,
         name: prevStandard.standardName,
+        nameTranslations: prevStandard.nameTranslations,
         status: prevStandard.status,
       },
       nextStandard: dataLength &&
@@ -37,6 +40,7 @@ function NavigationBetweenStandards({
           index: index + 1,
           id: nxtStandard.id,
           name: nxtStandard.standardName,
+          nameTranslations: nxtStandard.nameTranslations,
           status: nxtStandard.status,
         },
     };
@@ -65,7 +69,9 @@ function NavigationBetweenStandards({
           <TouchableOpacity onPress={handlePrev} style={styles.leftTouchable}>
             <Typography size="Body 1">〈</Typography>
             <Typography size="Body 1" numberOfLines={1} style={styles.label}>
-              {previousStandard.name}
+              {needTranslation && previousStandard.nameTranslations?.[langCode]
+                ? previousStandard.nameTranslations?.[langCode]
+                : previousStandard.name}
             </Typography>
             <Typography size="Body 1">
               {getGlyph(previousStandard.status)}
@@ -80,7 +86,9 @@ function NavigationBetweenStandards({
               {getGlyph(nextStandard.status)}
             </Typography>
             <Typography size="Body 1" numberOfLines={1} style={styles.label}>
-              {nextStandard.name}
+              {needTranslation && nextStandard.nameTranslations?.[langCode]
+                ? nextStandard.nameTranslations?.[langCode]
+                : nextStandard.name}
             </Typography>
             <Typography size="Body 1">〉</Typography>
           </TouchableOpacity>
