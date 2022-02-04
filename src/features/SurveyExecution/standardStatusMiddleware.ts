@@ -33,9 +33,7 @@ const standardStatusMiddleware: Middleware =
         }
       });
       if (standardNotCompleted) {
-        dispatch(
-          changeStandardStatus({standardId, surveyId, status: 'In Progress'}),
-        );
+        dispatch(changeStandardStatus({standardId, surveyId, status: 'Open'}));
         return null;
       }
       const standardFailed = questions?.some(i => {

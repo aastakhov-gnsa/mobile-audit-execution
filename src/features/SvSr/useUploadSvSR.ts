@@ -33,6 +33,7 @@ export interface SvSRParams {
 export function useUploadSvSR(
   {email, sendToMe, partner}: SvSRParams,
   beforeUpload: () => void,
+  errorCb?: () => void,
 ): [(base64: string) => Promise<void>] {
   const navigation = useNavigation<NavigationParams>();
   const token = useSelector(state => state.auth.token);
@@ -83,7 +84,9 @@ export function useUploadSvSR(
         let parsedResponse: string | Record<any, any> = '';
         try {
           parsedResponse = JSON.parse(response?.data);
-        } catch {}
+        } catch {
+          errorCb?.();
+        }
         if (
           typeof parsedResponse !== 'string' &&
           parsedResponse.success === false
@@ -95,10 +98,12 @@ export function useUploadSvSR(
             requestBody: 'multipart',
             hideDetails: true,
           });
+          errorCb?.();
           return;
         }
       } catch (e) {
         console.error(e);
+        errorCb?.();
         return;
       }
       try {
@@ -111,10 +116,12 @@ export function useUploadSvSR(
           });
         }
       } catch (e) {
+        errorCb?.();
         console.error('useUploadSvSR::uploadSurvey', e);
       }
     },
     [
+      errorCb,
       beforeUpload,
       data,
       filters,

@@ -18,6 +18,16 @@ export function alert(e: AxiosError) {
       requestBody = e.config.data;
     }
   }
+  if (e.response?.data?.error?.popup) {
+    defaultAlert({
+      url: e.request?.responseURL,
+      code: e.response?.status,
+      response: e.response?.data?.error?.popup[0],
+      requestBody,
+      hideDetails: true,
+    });
+    return;
+  }
   defaultAlert({
     url: e.request?.responseURL,
     code: e.response?.status,
