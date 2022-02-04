@@ -28,10 +28,6 @@ const filterValues: FilterValues = [
   },
   {
     fieldName: 'status',
-    value: 'In Progress',
-  },
-  {
-    fieldName: 'status',
     value: ['Passed', 'Passed - Overruled'],
   },
   {

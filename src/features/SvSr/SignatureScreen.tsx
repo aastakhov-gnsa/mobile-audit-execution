@@ -26,10 +26,16 @@ export function SignatureScreen() {
   const [auditorBase64, setAuditorBase64] = useState<string | undefined>('');
   const [requestedTab, setRequestedTab] = useState('');
   const [requested, setRequested] = useState(false);
-  const [uploadSvSR] = useUploadSvSR({email, sendToMe, partner}, () => {
-    setRequested(true);
-    setRequestedTab('');
-  });
+  const [uploadSvSR] = useUploadSvSR(
+    {email, sendToMe, partner},
+    () => {
+      setRequested(true);
+      setRequestedTab('');
+    },
+    () => {
+      setRequested(false);
+    },
+  );
   const handleCancel = () => {
     navigation.goBack();
   };
