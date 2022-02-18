@@ -88,7 +88,11 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
       {data?.attachedComment && (
         <ItemWrapper paddingValue={[32, 0]}>
           <CommentWithColor
-            title={`${t(data.commentType!)} ${t('comment')}`}
+            title={`${t(
+              data.commentType! === 'External'
+                ? 'External Comment'
+                : 'Internal Comment',
+            )}`}
             value={data?.attachedComment}
           />
         </ItemWrapper>
