@@ -1,3 +1,9 @@
+# Version 1.2.1
+
+## Fixes
+
+* fix(i18n): external comment label
+
 # Version 1.2.0
 
 ## Features
