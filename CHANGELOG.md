@@ -1,3 +1,9 @@
+# Version 1.2.2
+
+## Fixes
+
+* fix(evaluation): changing 'open' status to 'in progress' is removed
+
 # Version 1.2.1
 
 ## Fixes

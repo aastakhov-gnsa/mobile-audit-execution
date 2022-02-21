@@ -32,15 +32,6 @@ const fillingMiddleware: Middleware =
         }),
       );
       standards.forEach(i => {
-        if (i.status === 'Open') {
-          dispatch(
-            changeStandardStatus({
-              surveyId: surveyId,
-              standardId: i.id,
-              status: 'In Progress',
-            }),
-          );
-        }
         if (!i.status) {
           dispatch(
             changeStandardStatus({
