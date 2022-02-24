@@ -94,7 +94,7 @@ function AddComment({
           defaultChip={commentType ?? chips[1].value}
           extraButtons={[
             <Button mode="text" onPress={handleResetComment}>
-              {t('Reset Comment')}
+              {t('Delete Comment')}
             </Button>,
           ]}
         />
