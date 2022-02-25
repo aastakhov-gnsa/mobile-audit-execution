@@ -23,7 +23,7 @@ export function getASRSettingsSection(filters: Record<string, boolean>) {
 <table width="100%" style="margin-top: 24px; page-break-after: always;">
     <tr>
         <td style="${grayBackground}" colspan="2">
-            ASR Settings. Display of:
+            SvSR Settings. Display of:
         </td>
     </tr>
     <tr>
