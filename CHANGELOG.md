@@ -1,3 +1,11 @@
+# Version 1.2.3
+
+## Fixes
+
+* added translations to "delete comment" button
+* changed "ASR" to "SvSR" naming in report
+* changed 'edit comment' button naming
+
 # Version 1.2.2
 
 ## Fixes
