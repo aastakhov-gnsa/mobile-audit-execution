@@ -63,6 +63,7 @@
     "ADD": "AJOUTER",
     "comment": "commentaire",
     "add comment": "ajouter commentaire",
+    "edit comment": "Modifier le commentaire",
     "Write a message": "Saisir un message",
     "Fill comment and choose a status": "Remplir le commentaire et sélectionner le type de statut",
     "Overrule result": "Résultat forcé",
