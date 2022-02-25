@@ -63,6 +63,7 @@
       "ADD": "ADD",
       "comment": "comment",
       "add comment": "add comment",
+      "edit comment": "edit comment",
       "Write a message": "Write a message",
       "Fill comment and choose a status": "Fill comment and choose a status",
       "Overrule result": "Overrule result",

@@ -104,11 +104,7 @@ function AddComment({
         size="Button"
         iconName={attachedComment ? 'comment' : 'add-comment'}>
         {attachedComment
-          ? t(
-              commentType === 'Internal'
-                ? 'Internal Comment'
-                : 'External Comment',
-            ).toUpperCase()
+          ? t('edit comment').toUpperCase()
           : t('add comment').toUpperCase()}
       </TouchableText>
     </>
