@@ -17,7 +17,7 @@ interface FiltersProps {
 
 function Filters({screenName, id, filterValues}: FiltersProps) {
   const dispatch = useDispatch();
-  const selectedFilter = useSelector(
+  const selectedFilters = useSelector(
     state => state.filters?.[screenName]?.[id],
   );
   const {t} = useTranslation();
@@ -26,8 +26,8 @@ function Filters({screenName, id, filterValues}: FiltersProps) {
       <ScrollView style={styles.container} horizontal>
         {filterValues.map(i => {
           const isSelected =
-            i.fieldName === selectedFilter?.fieldName &&
-            i.value === selectedFilter?.value;
+            i.fieldName === selectedFilters?.[i.fieldName]?.fieldName &&
+            i.value === selectedFilters?.[i.fieldName]?.value;
           const handlePress = () => {
             if (isSelected) {
               dispatch(removeFilter({screenName, id, fieldName: i.fieldName}));

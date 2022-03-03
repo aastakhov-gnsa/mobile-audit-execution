@@ -14,7 +14,11 @@ import {useSelector} from '../../utils/store/configureStore';
 import {skipToken} from '@reduxjs/toolkit/query';
 import Filters from '../../components/Filters/Filters';
 import {ScreenNames} from '../../navigation/navigation';
-import {FilterItem, FilterValues} from '../../interfaces/filters';
+import {
+  FilterItem,
+  FilterItemObj,
+  FilterValues,
+} from '../../interfaces/filters';
 import {EMPTY_ARRAY} from '../../constants/constants';
 import NetInfo from '@react-native-community/netinfo';
 import NoSurveys from '../../components/NoSurveys';
@@ -62,8 +66,11 @@ function SurveysScreen() {
 
     return () => unsubscribe();
   }, []);
-  const filter = useSelector(
-    state => state.filters?.[ScreenNames.Surveys]?.[ScreenNames.Surveys],
+  const filterValue = useSelector(
+    state =>
+      state.filters?.[ScreenNames.Surveys]?.[ScreenNames.Surveys]?.[
+        ScreenNames.Surveys
+      ]?.value,
   );
   const {
     data: wholeData,
@@ -74,7 +81,7 @@ function SurveysScreen() {
     refetch();
   }, [refetch]);
   const {fulfilledTimeStamp} = useSelector(state => state.surveys);
-  const data = useFilteredSurveys(filter, wholeData);
+  const data = useFilteredSurveys(filterValue, wholeData);
 
   const keyExtractor = React.useCallback((item: Survey) => item.id, []);
 
@@ -97,7 +104,7 @@ function SurveysScreen() {
       <ListContainer>
         <ListInfoCaption
           leftCaption={`${
-            filter?.value ? t(filter.value) : t(SurveysFilters.allSurveys)
+            filterValue ? t(filterValue) : t(SurveysFilters.allSurveys)
           } · ${data?.length ?? 0}`}
           rightCaption={
             fulfilledTimeStamp
@@ -167,7 +174,10 @@ function SurveysScreen() {
 
 export default React.memo(SurveysScreen);
 
-function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
+function useFilteredSurveys(
+  filterValue: string | string[] | undefined,
+  wholeData?: Survey[],
+) {
   const {downloadedData, downloadedDataKeys} = useSelector(state => ({
     downloadedData: Object.values(state.evaluation),
     downloadedDataKeys: Object.keys(state.evaluation),
@@ -186,8 +196,7 @@ function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
 
   return React.useMemo(() => {
     let data;
-
-    switch (filter?.value) {
+    switch (filterValue) {
       case SurveysFilters.downloadable:
         data = downloadableData;
         break;
@@ -205,7 +214,7 @@ function useFilteredSurveys(filter: FilterItem, wholeData?: Survey[]) {
         data = consolidatedData;
     }
     return data;
-  }, [consolidatedData, downloadableData, downloadedData, filter?.value]);
+  }, [consolidatedData, downloadableData, downloadedData, filterValue]);
 }
 
 const styles = StyleSheet.create({

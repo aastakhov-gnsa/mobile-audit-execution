@@ -4,3 +4,7 @@ export interface FilterItem {
   fieldName: string;
   value: string | string[];
 }
+
+export interface FilterItemObj {
+  [fieldName: string]: FilterItem;
+}

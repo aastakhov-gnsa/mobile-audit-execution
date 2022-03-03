@@ -95,13 +95,18 @@ function StandardListScreen() {
   const onChangeSearch = (query: string) => setSearchQuery(query);
 
   const data = React.useMemo(() => {
-    const filteredData = filter
-      ? allData?.filter(i =>
-          Array.isArray(filter.value)
-            ? filter.value.includes(i[filter.fieldName] as string)
-            : i[filter.fieldName] === filter.value,
-        ) //todo filter by several filters
-      : allData.slice();
+    let filteredData = allData.slice();
+    if (filter) {
+      const filters = Object.values(filter);
+      filters.forEach(f => {
+        filteredData = filteredData.filter(i =>
+          Array.isArray(f.value)
+            ? f.value.includes(i[f.fieldName] as string)
+            : i[f.fieldName] === f.value,
+        );
+      });
+    }
+
     if (searchQuery.length) {
       const q = searchQuery.toLowerCase();
       return filteredData.filter(i => {

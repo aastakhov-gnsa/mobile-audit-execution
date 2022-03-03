@@ -1,3 +1,9 @@
+# Version 1.2.4
+
+## Fixes
+
+* added ability to choose several filters on standards screen
+ 
 # Version 1.2.3
 
 ## Fixes
