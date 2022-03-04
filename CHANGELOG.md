@@ -1,3 +1,9 @@
+# Version 1.2.5
+
+## Fixes
+
+* fixed selected filters string on standards view
+
 # Version 1.2.4
 
 ## Fixes
