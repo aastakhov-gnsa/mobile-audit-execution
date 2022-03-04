@@ -14,7 +14,6 @@ export const filtersReducer = createSlice({
   name: 'filters',
   initialState: initState,
   reducers: {
-    // todo need ability to add several filters
     addFilter: (
       state,
       action: PayloadAction<{
