@@ -151,9 +151,17 @@ function StandardListScreen() {
         backgroundColor={themeConfig.defaultTheme.colors.surface}
       />
       <ListInfoCaption
-        leftCaption={`${filter ? t(filter.value) : t('All Standards')} · ${
-          data?.length ?? 0
-        }`}
+        leftCaption={`${
+          Object.values(filter).filter(f => f?.value).length > 0
+            ? t(
+                Object.values(filter)
+                  .filter(f => f?.value)
+                  .map(f => f.value)
+                  .toString()
+                  .replace(/,/g, ', '),
+              )
+            : t('All Standards')
+        } · ${data?.length ?? 0}`}
       />
       <ItemWrapper paddingValue={[0, 20]}>
         <Searchbar
