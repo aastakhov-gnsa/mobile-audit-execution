@@ -1,10 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {logout} from '../../features/Auth/authReducer';
-import {FilterItemObj} from '../../interfaces/filters';
+import {FilterItem} from '../../interfaces/filters';
 
 type FiltersSlice = {
   [screenName: string]: {
-    [id: string]: FilterItemObj;
+    [fieldName: string]: FilterItem;
   };
 };
 
@@ -18,20 +18,16 @@ export const filtersReducer = createSlice({
       state,
       action: PayloadAction<{
         screenName: string;
-        id: string;
         fieldName: string;
         value: string | string[];
       }>,
     ) => {
-      const {screenName, id, fieldName, value} = action.payload;
+      const {screenName, fieldName, value} = action.payload;
       return {
         ...state,
         [screenName]: {
           ...state[screenName],
-          [id]: {
-            ...state[screenName][id],
-            [fieldName]: {fieldName: fieldName, value: value},
-          },
+          [fieldName]: {fieldName: fieldName, value: value},
         },
       };
     },
@@ -39,12 +35,11 @@ export const filtersReducer = createSlice({
       state,
       action: PayloadAction<{
         screenName: string;
-        id: string;
         fieldName: string;
       }>,
     ) => {
-      const {screenName, id, fieldName} = action.payload;
-      delete state[screenName][id][fieldName];
+      const {screenName, fieldName} = action.payload;
+      delete state[screenName][fieldName];
     },
   },
   extraReducers: builder => builder.addCase(logout, () => initState),

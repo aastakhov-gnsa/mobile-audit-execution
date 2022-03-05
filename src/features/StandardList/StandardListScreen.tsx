@@ -86,7 +86,7 @@ function StandardListScreen() {
   const {id} = route.params;
   const auditData = useSelector(state => state.evaluation[id]);
   const filter = useSelector(
-    state => state.filters?.[ScreenNames.StandardList]?.[id],
+    state => state.filters?.[ScreenNames.StandardList],
   );
   const allData = auditData.standards;
 
@@ -152,15 +152,14 @@ function StandardListScreen() {
       />
       <ListInfoCaption
         leftCaption={`${
-          Object.values(filter).filter(f => f?.value).length > 0
-            ? t(
+          filter === undefined || Object.values(filter).length === 0
+            ? t('All Standards')
+            : t(
                 Object.values(filter)
-                  .filter(f => f?.value)
                   .map(f => f.value)
                   .toString()
                   .replace(/,/g, ', '),
               )
-            : t('All Standards')
         } · ${data?.length ?? 0}`}
       />
       <ItemWrapper paddingValue={[0, 20]}>
@@ -172,7 +171,6 @@ function StandardListScreen() {
       </ItemWrapper>
       <Filters
         screenName={ScreenNames.StandardList}
-        id={id}
         filterValues={filterValues}
       />
       <FlatList

@@ -14,11 +14,7 @@ import {useSelector} from '../../utils/store/configureStore';
 import {skipToken} from '@reduxjs/toolkit/query';
 import Filters from '../../components/Filters/Filters';
 import {ScreenNames} from '../../navigation/navigation';
-import {
-  FilterItem,
-  FilterItemObj,
-  FilterValues,
-} from '../../interfaces/filters';
+import {FilterValues} from '../../interfaces/filters';
 import {EMPTY_ARRAY} from '../../constants/constants';
 import NetInfo from '@react-native-community/netinfo';
 import NoSurveys from '../../components/NoSurveys';
@@ -67,10 +63,7 @@ function SurveysScreen() {
     return () => unsubscribe();
   }, []);
   const filterValue = useSelector(
-    state =>
-      state.filters?.[ScreenNames.Surveys]?.[ScreenNames.Surveys]?.[
-        ScreenNames.Surveys
-      ]?.value,
+    state => state.filters?.[ScreenNames.Surveys]?.[ScreenNames.Surveys]?.value,
   );
   const {
     data: wholeData,
@@ -116,7 +109,6 @@ function SurveysScreen() {
           <Filters
             screenName={ScreenNames.Surveys}
             filterValues={possibleFilters}
-            id={ScreenNames.Surveys}
           />
           {!!data?.length && (
             <>
