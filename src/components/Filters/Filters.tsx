@@ -11,15 +11,12 @@ import {useTranslation} from 'react-i18next';
 
 interface FiltersProps {
   screenName: ScreenNames;
-  id: string;
   filterValues: FilterValues;
 }
 
-function Filters({screenName, id, filterValues}: FiltersProps) {
+function Filters({screenName, filterValues}: FiltersProps) {
   const dispatch = useDispatch();
-  const selectedFilters = useSelector(
-    state => state.filters?.[screenName]?.[id],
-  );
+  const selectedFilters = useSelector(state => state.filters?.[screenName]);
   const {t} = useTranslation();
   return (
     <View style={styles.wrapper}>
@@ -30,12 +27,11 @@ function Filters({screenName, id, filterValues}: FiltersProps) {
             i.value === selectedFilters?.[i.fieldName]?.value;
           const handlePress = () => {
             if (isSelected) {
-              dispatch(removeFilter({screenName, id, fieldName: i.fieldName}));
+              dispatch(removeFilter({screenName, fieldName: i.fieldName}));
             } else {
               dispatch(
                 addFilter({
                   screenName,
-                  id,
                   fieldName: i.fieldName,
                   value: i.value,
                 }),
