@@ -1,3 +1,9 @@
+# Version 1.2.7
+
+## Fixes
+
+* fixed survey sorting
+
 # Version 1.2.6
 
 ## Fixes

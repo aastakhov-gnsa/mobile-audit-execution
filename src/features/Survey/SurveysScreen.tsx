@@ -205,8 +205,12 @@ function useFilteredSurveys(
       default:
         data = consolidatedData;
     }
-    return data;
+    return data?.sort(sorter);
   }, [consolidatedData, downloadableData, downloadedData, filterValue]);
+}
+
+function sorter(a: Survey, b: Survey) {
+  return new Date(a.plannedDate) < new Date(b.plannedDate) ? 1 : -1;
 }
 
 const styles = StyleSheet.create({
