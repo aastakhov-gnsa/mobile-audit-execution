@@ -1,3 +1,9 @@
+# Version 1.2.9
+
+## Fixes
+
+* fix(SurveyCard): do not show 'download' button during survey downloading
+
 # Version 1.2.8
 
 ## Fixes
