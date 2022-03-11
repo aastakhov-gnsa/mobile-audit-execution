@@ -16,11 +16,11 @@ import CompanyAddress from './CompanyAddress';
 import Typography from './Typography';
 import {NavigationParams} from '../interfaces/navigation';
 import {useSelector} from '../utils/store/configureStore';
-import UploadSurvey from './UploadSurvey';
 import {SvSr} from '../features/SvSr/SvSr';
 import {useTranslation} from 'react-i18next';
 import FileLoadingInfo from './FileLoadingInfo';
 import Button from './Button';
+import {useUploadSurvey} from '../hooks/useUploadSurvey';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -35,8 +35,9 @@ function SurveyCard({survey}: {survey: Survey}) {
     services,
   } = survey;
   const navigation = useNavigation<NavigationParams>();
+  const [uploadSurvey, isUploading] = useUploadSurvey(id);
   const [skip, setSkip] = React.useState(true);
-  const handleDownload = React.useCallback(() => setSkip(!skip), [skip]);
+  const handleDownload = React.useCallback(() => setSkip(false), []);
   const {isLoading} = useSurveyQuery(id, {skip});
   const data = useSelector(state => state.evaluation[id]);
   const uploadingFiles = useSelector(state =>
@@ -46,10 +47,10 @@ function SurveyCard({survey}: {survey: Survey}) {
     state.fileLoading[id]?.filter(i => i.status === 'downloading'),
   );
   React.useEffect(() => {
-    if (!data) {
+    if (data) {
       setSkip(true);
     }
-  }, [data]);
+  }, [isUploading, data]);
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   const RightContent = React.useCallback(() => {
@@ -76,14 +77,15 @@ function SurveyCard({survey}: {survey: Survey}) {
     resultCd,
   ]);
   const handlePress = React.useCallback(() => {
-    if (data) {
+    if (!isUploading && data) {
       navigation.navigate(ScreenNames.StandardList, {id: id});
     }
-  }, [id, data, navigation]);
+  }, [isUploading, data, navigation, id]);
   const handleAuditDetailsPress = React.useCallback(
     () => navigation.navigate(ScreenNames.AuditDetails, {id: id}),
     [id, navigation],
   );
+
   const {t} = useTranslation();
   return (
     <Card style={styles.card} key={id} onPress={handlePress}>
@@ -151,7 +153,18 @@ function SurveyCard({survey}: {survey: Survey}) {
         {!data && !isLoading && (
           <Button onPress={handleDownload}>{t('Download')}</Button>
         )}
-        {data && !isLoading && <UploadSurvey id={id} />}
+        {data && !isLoading && (
+          <>
+            {isUploading && (
+              <Typography size="Button" style={styles.hint}>
+                {t('Uploading survey').toUpperCase()}...
+              </Typography>
+            )}
+            {!isUploading && (
+              <Button onPress={uploadSurvey}>{t('upload')}</Button>
+            )}
+          </>
+        )}
       </Card.Actions>
     </Card>
   );
