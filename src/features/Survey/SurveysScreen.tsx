@@ -210,7 +210,7 @@ function useFilteredSurveys(
 }
 
 function sorter(a: Survey, b: Survey) {
-  return new Date(a.plannedDate) < new Date(b.plannedDate) ? 1 : -1;
+  return new Date(a.plannedDate) < new Date(b.plannedDate) ? -1 : 1;
 }
 
 const styles = StyleSheet.create({
