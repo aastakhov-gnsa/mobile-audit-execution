@@ -50,7 +50,7 @@ function SurveyCard({survey}: {survey: Survey}) {
     if (data) {
       setSkip(true);
     }
-  }, [isUploading, data]);
+  }, [data]);
   const {colors} = useTheme();
   const styles = makeStyles(colors);
   const RightContent = React.useCallback(() => {
