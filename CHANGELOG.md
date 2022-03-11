@@ -1,3 +1,9 @@
+# Version 1.2.8
+
+## Fixes
+
+* reversed surveys order
+
 # Version 1.2.7
 
 ## Fixes
