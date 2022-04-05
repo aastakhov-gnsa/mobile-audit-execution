@@ -1,3 +1,10 @@
+# Version 1.2.10
+
+## Fixes
+
+* fix(filter-view): fixed filter display for StandardListScreen
+* fix(pdf) added word-wrap for block additional documents
+
 # Version 1.2.9
 
 ## Fixes
