@@ -39,6 +39,8 @@ ${
     : '';
 }
 
+const styleForBlockContainingUrl = 'word-wrap: break-word; max-width: 520px';
+
 export function getQuestionsSection(
   standards: AuditStandardExecution[],
   outletType: string,
@@ -49,15 +51,17 @@ export function getQuestionsSection(
   const descriptionBlock = showDescription
     ? (item: AuditStandardExecution) => `
 <div>
-    Description: ${
-      item.textTranslations?.[langMapping[localeCode]]
-        ? item.textTranslations?.[langMapping[localeCode]]
-        : item.standardText
-    }
+    <div style="${styleForBlockContainingUrl}">
+        Description: ${
+          item.textTranslations?.[langMapping[localeCode]]
+            ? item.textTranslations?.[langMapping[localeCode]]
+            : item.standardText
+        }
+    </div>
     <div>
         ${item.infoForAuditor ? `Info for Auditor: ${item.infoForAuditor}` : ''}
     </div>
-    <div>
+    <div style="${styleForBlockContainingUrl}">
         ${
           item.requiredDocuments
             ? `Additional documents: ${item.requiredDocuments}`

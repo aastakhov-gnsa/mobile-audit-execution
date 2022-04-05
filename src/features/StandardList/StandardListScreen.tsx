@@ -156,7 +156,7 @@ function StandardListScreen() {
             ? t('All Standards')
             : t(
                 Object.values(filter)
-                  .map(f => f.value)
+                  .map(f => convertFilterValue(f.value))
                   .toString()
                   .replace(/,/g, ', '),
               )
@@ -183,3 +183,12 @@ function StandardListScreen() {
 }
 
 export default React.memo(StandardListScreen);
+
+const convertFilterValue = (value: string | string[]) => {
+  if (Array.isArray(value)) {
+    return value[0]
+  }
+
+  return value
+}
+
