@@ -203,7 +203,7 @@
 
 ## Misc
 
-* add gnsa-qa.i.daimler.com
+* add gnsa-qa.i.mercedes-benz.com
 * NSAllowsArbitraryLoads is YES
 * iOS and Android configuration for production is added
 

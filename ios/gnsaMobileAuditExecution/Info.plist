@@ -30,14 +30,7 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>gnsa.i.daimler.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
-			<key>gnsa-dev.i.daimler.com</key>
+			<key>gnsa-dev.i.mercedes-benz.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
@@ -56,7 +49,21 @@
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<true/>
 			</dict>
-			<key>gnsa-qa.i.daimler.com</key>
+			<key>gnsa-int.i.mercedes-benz.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>gnsa-qa.i.mercedes-benz.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>gnsa.i.mercedes-benz.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
