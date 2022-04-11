@@ -1,3 +1,9 @@
+# Version 1.3.0
+
+## Fixes
+
+* Mercedes-benz.com domain change
+
 # Version 1.2.10
 
 ## Fixes
@@ -203,7 +209,7 @@
 
 ## Misc
 
-* add gnsa-qa.i.daimler.com
+* add gnsa-qa.i.mercedes-benz.com
 * NSAllowsArbitraryLoads is YES
 * iOS and Android configuration for production is added
 
