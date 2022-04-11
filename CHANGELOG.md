@@ -1,3 +1,9 @@
+# Version 1.3.0
+
+## Fixes
+
+* Mercedes-benz.com domain change
+
 # Version 1.2.10
 
 ## Fixes
