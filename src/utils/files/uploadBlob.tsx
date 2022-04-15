@@ -4,7 +4,7 @@ import getFileName from './getFileName';
 import {FetchBlobUtilRequest} from '../../interfaces/files';
 import {fileUploadAlert} from '../../api/apiAlerts';
 
-import {spaceMatcher} from '../../constants/constants';
+import {RnBlobUtilConfig, spaceMatcher} from '../../constants/constants';
 
 interface UploadFiles {
   onProgressCb: (part: number) => void;
@@ -54,7 +54,8 @@ export default function ({
     config.data = formData;
   }
 
-  ReactNativeBlobUtil.fetch('POST', config.url!, config.headers, config.data)
+  ReactNativeBlobUtil.config(RnBlobUtilConfig)
+    .fetch('POST', config.url!, config.headers, config.data)
     .uploadProgress((written, total) => {
       // console.log('uploaded', fileName, written / total);
       onProgressCb(written / total);

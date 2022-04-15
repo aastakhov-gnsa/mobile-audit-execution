@@ -1,8 +1,16 @@
+import {ReactNativeBlobUtilConfig} from 'react-native-blob-util';
+
 export const ICON_SIZE = 20;
 
 export const noDataIndex = -1;
 
 export const EMPTY_ARRAY: unknown[] = [];
+
+export const FILE_TIMEOUT = 300000;
+
+export const RnBlobUtilConfig: ReactNativeBlobUtilConfig = {
+  timeout: FILE_TIMEOUT,
+};
 
 export const popoverTheme = {
   colors: {

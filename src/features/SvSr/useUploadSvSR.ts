@@ -13,6 +13,7 @@ import {defaultAlert} from '../../api/apiAlerts';
 import {ScreenNames} from '../../navigation/navigation';
 import {localeCode} from '../../../index';
 import {langMapping} from '../../constants/languages';
+import {RnBlobUtilConfig} from '../../constants/constants';
 
 export interface SvSRParams {
   email: string;
@@ -71,7 +72,9 @@ export function useUploadSvSR(
       });
       const url = `${__API__}/rest/mobile-audit-execution/survey/${surveyId}/status`;
       try {
-        const response = await ReactNativeBlobUtil.fetch(
+        const response = await ReactNativeBlobUtil.config(
+          RnBlobUtilConfig,
+        ).fetch(
           'POST',
           url,
           {
