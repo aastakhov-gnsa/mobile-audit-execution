@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import Typography from '../../../components/Typography';
 import ItemWrapper from '../../../components/ItemWrapper';
 import Services from '../../../components/Services';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import Checkpoint from '../../../components/Checkpoint';
 import {Chip, useTheme} from 'react-native-paper';
 import useStandardData from '../../../hooks/useStandardData';
@@ -19,6 +19,14 @@ interface StandardInformationProps {
 }
 
 function StandardInformation({id, surveyId}: StandardInformationProps) {
+  const [textShown, setTextShown] = useState(false);
+  const [lengthMore,setLengthMore] = useState(false);
+  const toggleNumberOfLines = () => {
+      setTextShown(!textShown);
+  }
+  const onTextLayout = useCallback(e =>{
+      setLengthMore(e.nativeEvent.lines.length >=2);
+  },[]);
   const {colors} = useTheme();
   const data = useStandardData(surveyId, id);
   const [langCode, needTranslation] = useCurrentLanguage();
@@ -38,11 +46,22 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
         {data?.standardNumber}
       </Typography>
       <ItemWrapper paddingValue={[24, 24]}>
-        <Typography size="Body 1" numberOfLines={2} ellipsizeMode="tail">
-          {needTranslation && data?.textTranslations?.[langCode]
-            ? data?.textTranslations?.[langCode]
-            : data?.standardText}
-        </Typography>
+        <Text
+              onTextLayout={onTextLayout}
+              numberOfLines={textShown ? undefined : 2}
+              style={{lineHeight: 21,
+                      fontSize: 16,
+                      fontFamily: "Roboto-Regular"}}>
+                      {needTranslation && data?.textTranslations?.[langCode]
+                      ? data?.textTranslations?.[langCode]
+                      : data?.standardText}</Text>
+              {
+                  lengthMore ? <Text
+                  onPress={toggleNumberOfLines}
+                  style={{ color: 'blue', lineHeight: 21, marginTop: 10 }}>
+                    {textShown ? 'Read less...' : 'Read more...'}</Text>
+                    :null
+              }
       </ItemWrapper>
       <ItemWrapper paddingValue={[0, 26]}>
         <Services services={data?.services} showNumber={4} />
