@@ -59,7 +59,7 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
                   lengthMore ? <Text
                   onPress={toggleNumberOfLines}
                   style={{ color: 'blue', lineHeight: 21, marginTop: 10 }}>
-                    {textShown ? 'Read less...' : 'Read more...'}</Text>
+                    {textShown ? t('Read less...') : t('Read more...')}</Text>
                     :null
               }
       </ItemWrapper>
