@@ -134,6 +134,8 @@
     "Evaluated with \"yes\"": "ประเมินผลแล้ว \"ผ่าน\"",
     "Evaluated with \"no\"": "ประเมินผลแล้ว \"ไม่ผ่าน\"",
     "SvSR Open": "เปิด",
-    "add files": "add files"
+    "add files": "add files",
+    "Read more...": "Read more...",
+    "Read less...": "Read less..."
   }
 }
