@@ -6,6 +6,7 @@ import {
 } from 'react-native-fs';
 import {__API__} from '../../api/api';
 import {fileDownloadAlert} from '../../api/apiAlerts';
+import {FILE_TIMEOUT} from '../../constants/constants';
 
 interface DownloadFile {
   fileName: string;
@@ -31,7 +32,10 @@ export default function downloadFile({
 }: DownloadFile) {
   const path = `${DocumentDirectoryPath}/${fileName}`;
   const config: DownloadFileOptions = requestConfig
-    ? requestConfig
+    ? {
+        readTimeout: FILE_TIMEOUT,
+        ...requestConfig,
+      }
     : {
         fromUrl: `${__API__}/rest/mobile-audit-execution/file?fileId=${fileId}`,
         toFile: path,
@@ -42,6 +46,7 @@ export default function downloadFile({
           onStartCb();
           console.log('begin to loading file', fileName, res);
         },
+        readTimeout: FILE_TIMEOUT,
       };
   rnfsDownloadFile(config)
     .promise.then((res: DownloadResult) => {
