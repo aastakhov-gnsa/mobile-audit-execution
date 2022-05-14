@@ -1,3 +1,9 @@
+# Version 1.3.1
+
+## Features
+
+* feat(survey): Read More function added to survey detail list
+
 # Version 1.3.0
 
 ## Fixes
