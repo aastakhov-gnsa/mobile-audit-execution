@@ -3,7 +3,7 @@ import {Survey} from '../interfaces/survey';
 import {Card, useTheme, ActivityIndicator} from 'react-native-paper';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import Services from './Services';
 import StatusWithIcon from './StatusWithIcon';
 import {useSurveyQuery} from '../features/Survey/surveyService';
@@ -135,7 +135,7 @@ function SurveyCard({survey}: {survey: Survey}) {
         )}
       </Card.Content>
       <Card.Actions style={styles.actionsContainer}>
-        <View style={styles.actionsLeft}>
+        <ScrollView style={styles.actionsLeft} horizontal={true}>
           {data && (
             <Button
               icon="information-outline"
@@ -144,7 +144,6 @@ function SurveyCard({survey}: {survey: Survey}) {
             </Button>
           )}
           {data && <SvSr data={data} />}
-        </View>
         {isLoading && (
           <Typography size="Button" style={styles.hint}>
             {t('Downloading survey').toUpperCase()}...
@@ -165,6 +164,7 @@ function SurveyCard({survey}: {survey: Survey}) {
             )}
           </>
         )}
+        </ScrollView>
       </Card.Actions>
     </Card>
   );
