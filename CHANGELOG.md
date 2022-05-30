@@ -1,3 +1,10 @@
+# Version 1.3.2
+
+## Features
+
+* feat(survey): Advanced filter function & screen added
+* fix(survey): pt translation added for read more function
+
 # Version 1.3.1
 
 ## Features
