@@ -1,7 +1,7 @@
 import React from 'react';
 import ScreenContainer from '../../components/ScreenContainer';
 import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {StatusBar, View} from 'react-native';
 import themeConfig from '../../../themeConfig';
 import ListInfoCaption from '../../components/ListInfoCaption';
@@ -12,17 +12,14 @@ import Filters from '../../components/Filters/Filters';
 import {ScreenNames} from '../../navigation/navigation';
 import {FilterValues} from '../../interfaces/filters';
 import {useSelector} from '../../utils/store/configureStore';
-import {
-  NavigationParams,
-  StandardListRouteParams,
-} from '../../interfaces/navigation';
+import {NavigationParams, StandardListRouteParams} from '../../interfaces/navigation';
 import EvaluationHeaderRight from '../../components/HeaderRight/EvaluationHeaderRight';
 import {useTranslation} from 'react-i18next';
 import {Chip, Searchbar} from 'react-native-paper';
 import ItemWrapper from '../../components/ItemWrapper';
 import useCurrentLanguage from '../../hooks/useCurrentLanguage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { FILTER_ICON_SIZE } from '../../constants/constants';
+import {FILTER_ICON_SIZE} from '../../constants/constants';
 
 const filterValues: FilterValues = [
   {
@@ -100,13 +97,22 @@ function StandardListScreen() {
     if(typeof filter == 'undefined'){
       return 'transparent';
     } else {
-      return 'red'
+      return 'red';
+    }
+  }
+
+  const productGroupCheck = () => {
+    if(auditData?.services.find(e => e.productGroup==='PC' || e.productGroup==='Van') === undefined){
+      (globalThis as any).isProductGroupDT=true;
+    } else {
+      (globalThis as any).isProductGroupDT=false;
     }
   }
 
   const data = React.useMemo(() => {
     let filteredData = allData.slice();
     filteredData=filteredData.slice();
+    productGroupCheck();
     if (filter) {
       const filters = Object.values(filter);
       filters.forEach(f => {
@@ -122,7 +128,6 @@ function StandardListScreen() {
               : i[f.fieldName] === f.value,
           );
         }
-        
       });
     }
 

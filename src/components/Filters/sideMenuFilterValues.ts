@@ -11,6 +11,21 @@ export const productGroupFilterValues: FilterValues = [
   }
 ]
 
+export const productGroupDTFilterValues: FilterValues = [
+  {
+    fieldName: 'productGroup',
+    value: 'Truck'
+  },
+  {
+    fieldName: 'productGroup',
+    value: 'Bus'
+  },
+  {
+    fieldName: 'productGroup',
+    value: 'UNIMOG'
+  }
+]
+
 export const brandFilterValues: FilterValues = [
   {
     fieldName: 'brand',
@@ -23,6 +38,25 @@ export const brandFilterValues: FilterValues = [
   {
     fieldName: 'brand',
     value: 'Maybach'
+  }
+]
+
+export const brandDTFilterValues: FilterValues = [
+  {
+    fieldName: 'brand',
+    value: 'Mercedes-Benz'
+  },
+  {
+    fieldName: 'brand',
+    value: 'Freightliner'
+  },
+  {
+    fieldName: 'brand',
+    value: 'FUSO'
+  },
+  {
+    fieldName: 'brand',
+    value: 'SETRA'
   }
 ]
 
@@ -397,4 +431,91 @@ export const activityFilterValues: FilterValues = [
         value: 'eTruck Cooperation Partner',
         fieldName: 'activity'
     }
+]
+
+export const activityDTFilterValues: FilterValues = [
+  {
+    value: 'Electric Vehicle After Sales',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Truck Training',
+    fieldName: 'activity'
+  },
+  {
+    value: 'eTruck Cooperation Partner',
+    fieldName: 'activity'
+  },
+  {
+    value: 'SO FuelCell',
+    fieldName: 'activity'
+  },
+  {
+    value: 'New Vehicle Sales',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Service 24h',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Truck Works',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Charterway Rent',
+    fieldName: 'activity'
+  },
+  {
+    value: 'MB Uptime',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Fleet Workshop',
+    fieldName: 'activity'
+  },
+  {
+    value: 'After-Sales/Customer Service',
+    fieldName: 'activity'
+  },
+  {
+    value: '461 M',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Connected Services',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Parts-Sales',
+    fieldName: 'activity'
+  },
+  {
+    value: 'PPI MBR',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Mobile Fleet Service',
+    fieldName: 'activity'
+  },
+  {
+    value: 'eCitaro',
+    fieldName: 'activity'
+  },
+  {
+    value: 'Minibus',
+    fieldName: 'activity'
+  },
+  {
+    value: 'OMNIplus BusWorld',
+    fieldName: 'activity'
+  },
+  {
+    value: 'OMNIplus BusWorld Home',
+    fieldName: 'activity'
+  },
+  {
+    value: 'OMNIplus BusPort',
+    fieldName: 'activity'
+  }
 ]

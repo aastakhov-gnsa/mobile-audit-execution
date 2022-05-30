@@ -12,7 +12,7 @@ function NavigationRoot() {
   const gnsaToken = useSelector(store => store.auth.token);
   return (
     <Drawer.Navigator drawerContent={props => <AdvancedFilter {...props}/>}
-              screenOptions={{headerShown: false, swipeEdgeWidth: 0, drawerPosition:'right', drawerStyle:{ width: '60%' }}}>
+              screenOptions={{headerShown: false, swipeEdgeWidth: 0, drawerPosition:'right', drawerStyle:{ width: '65%' }}}>
       {gnsaToken ? (
         <Stack.Screen name={ScreenNames.SurveysStack} component={SurveyStack} />
       ) : (

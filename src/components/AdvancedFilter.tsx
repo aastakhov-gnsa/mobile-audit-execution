@@ -1,18 +1,19 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Button, useTheme } from "react-native-paper";
-import { ScreenNames } from "../navigation/navigation";
+import {View, StyleSheet} from "react-native";
+import {Button, useTheme} from "react-native-paper";
+import {ScreenNames} from "../navigation/navigation";
 import Filters from "./Filters/Filters";
 import HeaderText from "./HeaderText";
 import ItemWrapper from "./ItemWrapper";
 import Typography from "./Typography";
 import {DropDownFilterNames} from './Filters/dropDownFilterNames';
-import {productGroupFilterValues, brandFilterValues, standardTypeFilterValues, checkpointFilterValues, activityFilterValues} from './Filters/sideMenuFilterValues';
-import { useTranslation } from "react-i18next";
-import { NavigationParams } from "../interfaces/navigation";
-import { DrawerActions, useNavigation } from "@react-navigation/native";
-import { removeFilterList } from "./Filters/filtersReducer";
-import { useDispatch } from "../utils/store/configureStore";
+import {productGroupFilterValues, brandFilterValues, standardTypeFilterValues, checkpointFilterValues, activityFilterValues, brandDTFilterValues, productGroupDTFilterValues, activityDTFilterValues} from './Filters/sideMenuFilterValues';
+import {useTranslation} from "react-i18next";
+import {NavigationParams} from "../interfaces/navigation";
+import {DrawerActions, useNavigation} from "@react-navigation/native";
+import {removeFilterList} from "./Filters/filtersReducer";
+import {useDispatch} from "../utils/store/configureStore";
+import {FilterItem} from "../interfaces/filters";
 
 const CustomDrawer = () => {
   const screenName = ScreenNames.StandardList;
@@ -21,6 +22,25 @@ const CustomDrawer = () => {
   const {t} = useTranslation();
   const {colors} = useTheme();
   const styles = makeStyles(colors);
+  const checkValuesForProductGroups = (filterType: string) => {
+    if((globalThis as any).isProductGroupDT){
+      if(filterType == 'brand'){
+        return brandDTFilterValues;
+      } else if (filterType == 'productGroup') {
+        return productGroupDTFilterValues;
+      } else if (filterType == 'activity') {
+        return activityDTFilterValues;
+      }
+    } else {
+      if(filterType == 'brand'){
+        return brandFilterValues;
+      } else if (filterType == 'productGroup') {
+        return productGroupFilterValues;
+      } else if (filterType == 'activity') {
+        return activityFilterValues;
+      }
+    }
+  }
     return(
       <>
       <ItemWrapper style={styles.viewItem}>
@@ -31,31 +51,31 @@ const CustomDrawer = () => {
           {t('Product Groups')}
         </Typography>
         <Filters
-        screenName={ScreenNames.StandardList}
-        filterValues={productGroupFilterValues}
+        screenName={screenName}
+        filterValues={checkValuesForProductGroups('productGroup') as FilterItem[]}
         />
         <Typography size="Body 1" style={styles.header}>
           {t('Brands')}
         </Typography>
         <Filters
-        screenName={ScreenNames.StandardList}
-        filterValues={brandFilterValues}
+        screenName={screenName}
+        filterValues={checkValuesForProductGroups('brand') as FilterItem[]}
         />
         </ItemWrapper>
         <Filters
-        screenName={ScreenNames.StandardList}
-        filterValues={activityFilterValues}
+        screenName={screenName}
+        filterValues={checkValuesForProductGroups('activity') as FilterItem[]}
         isFilterDropDown={true}
         dropDownName={DropDownFilterNames.Activity}
         />
         <Filters
-        screenName={ScreenNames.StandardList}
+        screenName={screenName}
         filterValues={checkpointFilterValues}
         isFilterDropDown={true}
         dropDownName={DropDownFilterNames.Checkpoint}
         />
         <Filters
-        screenName={ScreenNames.StandardList}
+        screenName={screenName}
         filterValues={standardTypeFilterValues}
         isFilterDropDown={true}
         dropDownName={DropDownFilterNames.StandardType}
