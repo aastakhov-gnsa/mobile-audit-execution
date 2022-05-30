@@ -2,6 +2,8 @@ import {ReactNativeBlobUtilConfig} from 'react-native-blob-util';
 
 export const ICON_SIZE = 20;
 
+export const FILTER_ICON_SIZE = 22;
+
 export const noDataIndex = -1;
 
 export const EMPTY_ARRAY: unknown[] = [];

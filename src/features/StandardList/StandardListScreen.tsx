@@ -1,7 +1,8 @@
 import React from 'react';
 import ScreenContainer from '../../components/ScreenContainer';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {StatusBar} from 'react-native';
+import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {StatusBar, View} from 'react-native';
 import themeConfig from '../../../themeConfig';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import {AuditStandardExecution} from '../../interfaces/standard';
@@ -11,15 +12,14 @@ import Filters from '../../components/Filters/Filters';
 import {ScreenNames} from '../../navigation/navigation';
 import {FilterValues} from '../../interfaces/filters';
 import {useSelector} from '../../utils/store/configureStore';
-import {
-  NavigationParams,
-  StandardListRouteParams,
-} from '../../interfaces/navigation';
+import {NavigationParams, StandardListRouteParams} from '../../interfaces/navigation';
 import EvaluationHeaderRight from '../../components/HeaderRight/EvaluationHeaderRight';
 import {useTranslation} from 'react-i18next';
-import {Searchbar} from 'react-native-paper';
+import {Chip, Searchbar} from 'react-native-paper';
 import ItemWrapper from '../../components/ItemWrapper';
 import useCurrentLanguage from '../../hooks/useCurrentLanguage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {FILTER_ICON_SIZE} from '../../constants/constants';
 
 const filterValues: FilterValues = [
   {
@@ -93,17 +93,41 @@ function StandardListScreen() {
   const [langCode, needTranslation] = useCurrentLanguage();
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = (query: string) => setSearchQuery(query);
+  const filterColor = () => {
+    if(typeof filter == 'undefined'){
+      return 'transparent';
+    } else {
+      return 'red';
+    }
+  }
+
+  const productGroupCheck = () => {
+    if(auditData?.services.find(e => e.productGroup==='PC' || e.productGroup==='Van') === undefined){
+      (globalThis as any).isProductGroupDT=true;
+    } else {
+      (globalThis as any).isProductGroupDT=false;
+    }
+  }
 
   const data = React.useMemo(() => {
     let filteredData = allData.slice();
+    filteredData=filteredData.slice();
+    productGroupCheck();
     if (filter) {
       const filters = Object.values(filter);
       filters.forEach(f => {
-        filteredData = filteredData.filter(i =>
-          Array.isArray(f.value)
-            ? f.value.includes(i[f.fieldName] as string)
-            : i[f.fieldName] === f.value,
-        );
+        if(f.fieldName=='brand' || f.fieldName=='activity' || f.fieldName=='productGroup'){
+          filteredData = filteredData.filter(i => i.services.some(u => Array.isArray(f.value)
+          ? f.value.includes(u[f.fieldName] as string)
+          : u[f.fieldName] === f.value,));
+
+        } else {
+          filteredData = filteredData.filter(i =>
+            Array.isArray(f.value)
+              ? f.value.includes(i[f.fieldName] as string)
+              : i[f.fieldName] === f.value,
+          );
+        }
       });
     }
 
@@ -144,6 +168,8 @@ function StandardListScreen() {
     [id],
   );
   const {t} = useTranslation();
+  const Drawer = createDrawerNavigator();
+
   return (
     <ScreenContainer>
       <StatusBar
@@ -169,10 +195,23 @@ function StandardListScreen() {
           value={searchQuery}
         />
       </ItemWrapper>
-      <Filters
-        screenName={ScreenNames.StandardList}
-        filterValues={filterValues}
+      <View style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+        <Chip
+          onPress={() =>
+            navigation.dispatch(DrawerActions.toggleDrawer())
+          }
+          style={{marginRight:20, display:'flex', height:'70%', marginTop:-14}}
+          mode={'outlined'}>
+          <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
+            <View style={{marginBottom:0, marginLeft:22, height:1, width:'10%', borderRadius:2, borderWidth:2, borderColor:filterColor()}}/>
+            <Icon name="filter-outline" size={FILTER_ICON_SIZE}/>
+          </View>
+        </Chip>
+        <Filters
+          screenName={ScreenNames.StandardList}
+          filterValues={filterValues}
       />
+      </View>
       <FlatList
         data={data}
         keyExtractor={keyExtractor}

@@ -7,6 +7,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import NavigationRoot from './NavigationRoot';
 import {Portal} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import 'react-native-gesture-handler';
 
 const App = () => {
   const authContext = useAuthContext();
