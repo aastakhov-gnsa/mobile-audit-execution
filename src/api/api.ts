@@ -4,16 +4,19 @@ import {FetchBaseQueryArgs} from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
 import axios, {AxiosError, AxiosRequestConfig} from 'axios';
 import Config from 'react-native-config';
 import {alert} from './apiAlerts';
-import { setAuthTokens } from '../features/Auth/authReducer';
-import { MaybePromise } from '@reduxjs/toolkit/dist/query/tsHelpers';
+import {setAuthTokens} from '../features/Auth/authReducer';
+import {MaybePromise} from '@reduxjs/toolkit/dist/query/tsHelpers';
 
 export const __HOST__ = Config.API_URL;
 export const __API__ = __HOST__ + '/api/v1';
-const __AJAX_TIMEOUT__ = 900000;
+const __AJAX_TIMEOUT__ = 180000;
 
-type PrepareHeadersArg = (headers: Headers, api: {
-  getState: () => unknown;
-}) => MaybePromise<Headers>
+type PrepareHeadersArg = (
+  headers: Headers,
+  api: {
+    getState: () => unknown;
+  },
+) => MaybePromise<Headers>;
 
 export function createAxiosInstance(config?: AxiosRequestConfig) {
   return axios.create({
@@ -61,15 +64,23 @@ export const axiosBaseQuery =
       method,
       data,
       headers,
-    }
-    const refreshToken = (getState() as RootState)?.auth.refreshToken
+    };
+    const refreshToken = (getState() as RootState)?.auth.refreshToken;
     try {
       const result = await axiosInstance(requestConfig);
       return {data: result.data};
     } catch (e) {
       let err = e as AxiosError;
-      if (err.response?.headers['location'] === '/auth/refreshtoken' && refreshToken) {
-        return handleStaleJWTToken(requestConfig, getState as any, dispatch, prepareHeaders!)
+      if (
+        err.response?.headers.location === '/auth/refreshtoken' &&
+        refreshToken
+      ) {
+        return handleStaleJWTToken(
+          requestConfig,
+          getState as any,
+          dispatch,
+          prepareHeaders!,
+        );
       }
       alert(err);
       return {
@@ -82,19 +93,21 @@ export const axiosBaseQuery =
  * Exchange authorization for JWT and refresh tokens
  *
  * JWT token is used to access gnsa-sm-am endpoints
- * Refresh token is exchanged for a new pair of tokens when current JWT token is expired. 
- * 
+ * Refresh token is exchanged for a new pair of tokens when current JWT token is expired.
+ *
  * @param authorizationCode Authorization code received from `react-native-app-auth`
  */
 export function sendAuthorizationCode(authorizationCode: string) {
   return axiosInstance.post<{
-    jwttoken: string,
-    refreshToken: string,
-    familyName: string,
-    givenName: string
-  }>(`/auth/authenticate`, {
-    authenticationCode: authorizationCode
-  },
+    jwttoken: string;
+    refreshToken: string;
+    familyName: string;
+    givenName: string;
+  }>(
+    '/auth/authenticate',
+    {
+      authenticationCode: authorizationCode,
+    },
     {
       headers: {
         Accept: 'application/json',
@@ -107,47 +120,52 @@ export function sendAuthorizationCode(authorizationCode: string) {
 export const axiosInstance = createAxiosInstance();
 
 export const API = {
-  sendAuthorizationCode
+  sendAuthorizationCode,
 };
 
 /**
  * Intended to be called when expired JWT token is detected (e.g., in catch section of axios request)
- * 
+ *
  * Request is made for '/auth/refreshtoken' endpoint to exchange current refresh token
  * for new JWT and refresh tokens; if succesful, `setAuthTokens` action is dispatched and original request
  * is called again with new JWT token.
- * 
+ *
  * @param config Original request configuration
  * @param getState Redux store getState
  * @param dispatch Redux store dispatch
- * @param prepareHeaders RTK prepare headers callback 
+ * @param prepareHeaders RTK prepare headers callback
  */
 async function handleStaleJWTToken(
   config: AxiosRequestConfig,
   getState: () => RootState,
   dispatch: AppDispatch,
-  prepareHeaders: PrepareHeadersArg
+  prepareHeaders: PrepareHeadersArg,
 ) {
   try {
-    const refreshToken = getState().auth.refreshToken
+    const refreshToken = getState().auth.refreshToken;
     const refreshResponse = await axiosInstance.post<{
-      jwttoken: string,
-      refreshToken: string
+      jwttoken: string;
+      refreshToken: string;
     }>(
       '/auth/refreshtoken',
-      { refreshToken }, 
+      {refreshToken},
       {
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-      }
-    )
-    dispatch(setAuthTokens({ token: refreshResponse.data.jwttoken, refreshToken: refreshResponse.data.refreshToken }))
+      },
+    );
+    dispatch(
+      setAuthTokens({
+        token: refreshResponse.data.jwttoken,
+        refreshToken: refreshResponse.data.refreshToken,
+      }),
+    );
     let headers = await prepareHeaders(new Headers({}), {getState});
     headers = (headers as any).map;
-    return axiosInstance({ ...config, headers })
+    return axiosInstance({...config, headers});
   } catch (e) {
     let err = e as AxiosError;
-    return { error: {status: err.response?.status, data: err.response?.data}, }
+    return {error: {status: err.response?.status, data: err.response?.data}};
   }
 }
