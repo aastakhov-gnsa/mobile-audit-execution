@@ -8,7 +8,7 @@ export const noDataIndex = -1;
 
 export const EMPTY_ARRAY: unknown[] = [];
 
-export const FILE_TIMEOUT = 300000;
+export const FILE_TIMEOUT = 180000;
 
 export const RnBlobUtilConfig: ReactNativeBlobUtilConfig = {
   timeout: FILE_TIMEOUT,
