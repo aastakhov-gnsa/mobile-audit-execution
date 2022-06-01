@@ -1,3 +1,10 @@
+# Version 1.3.3
+
+## Fixes
+
+* Api timeout increased to 3 mins
+* Fixed Upload/Download issue
+
 # Version 1.3.2
 
 ## Features
