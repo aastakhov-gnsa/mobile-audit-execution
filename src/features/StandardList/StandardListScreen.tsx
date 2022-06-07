@@ -94,7 +94,7 @@ function StandardListScreen() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = (query: string) => setSearchQuery(query);
   const filterColor = () => {
-    if(typeof filter == 'undefined'){
+    if(typeof filter == 'undefined' || Object.keys(filter).length == 0){
       return 'transparent';
     } else {
       return 'red';
