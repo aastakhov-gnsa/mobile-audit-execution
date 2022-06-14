@@ -47,14 +47,14 @@ const CustomDrawer = () => {
         <ItemWrapper paddingValue={20}>
              <HeaderText style={styles.header}>{t('Filters')}</HeaderText>
         </ItemWrapper>
-        <Typography size="Body 1" style={styles.header}>
+        <Typography size='Body 1' style={styles.header}>
           {t('Product Groups')}
         </Typography>
         <Filters
         screenName={screenName}
         filterValues={checkValuesForProductGroups('productGroup') as FilterItem[]}
         />
-        <Typography size="Body 1" style={styles.header}>
+        <Typography size='Body 1' style={styles.header}>
           {t('Brands')}
         </Typography>
         <Filters

@@ -20,6 +20,7 @@ import ItemWrapper from '../../components/ItemWrapper';
 import useCurrentLanguage from '../../hooks/useCurrentLanguage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FILTER_ICON_SIZE} from '../../constants/constants';
+import Typography from '../../components/Typography';
 
 const filterValues: FilterValues = [
   {
@@ -202,9 +203,14 @@ function StandardListScreen() {
           }
           style={{marginRight:20, display:'flex', height:'70%', marginTop:-14}}
           mode={'outlined'}>
-          <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-            <View style={{marginBottom:0, marginLeft:22, height:1, width:'10%', borderRadius:2, borderWidth:2, borderColor:filterColor()}}/>
+          <View style={{display:'flex'}}>
+            <View style={{marginBottom:0, marginRight:20, height:1, borderRadius:2, borderWidth:2, borderColor:filterColor()}}/>
             <Icon name="filter-outline" size={FILTER_ICON_SIZE}/>
+          </View>
+          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+          <Typography size='Body 2'>
+              {t('Filters')}
+            </Typography>
           </View>
         </Chip>
         <Filters
