@@ -11,6 +11,30 @@ export const productGroupFilterValues: FilterValues = [
   }
 ]
 
+export const statusFilterValues: FilterValues = [
+  {
+    fieldName: 'status',
+    value: 'Open',
+    
+  },
+  {
+    fieldName: 'status',
+    value: 'Passed',
+  },
+  {
+    fieldName: 'status',
+    value: 'Passed - Overruled',
+  },
+  {
+    fieldName: 'status',
+    value: 'Failed',
+  },
+  {
+    fieldName: 'status',
+    value: 'Failed - Overruled',
+  }
+]
+
 export const productGroupDTFilterValues: FilterValues = [
   {
     fieldName: 'productGroup',
@@ -517,5 +541,27 @@ export const activityDTFilterValues: FilterValues = [
   {
     value: 'OMNIplus BusPort',
     fieldName: 'activity'
+  }
+]
+
+export const standardWithAttachmentFilterValues: FilterValues = [
+  {
+    fieldName: 'files',
+    value: 'Yes'
+  },
+  {
+    fieldName: 'files',
+    value: 'No'
+  }
+]
+
+export const standardWithCommentFilterValues: FilterValues = [
+  {
+    fieldName: 'attachedComment',
+    value: 'Yes'
+  },
+  {
+    fieldName: 'attachedComment',
+    value: 'No'
   }
 ]

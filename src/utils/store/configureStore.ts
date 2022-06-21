@@ -29,6 +29,7 @@ import {languagesReducer} from '../../features/ContentLanguageSwitching/language
 import {fileLoading} from '../../features/FileLoading/fileLoadingReducer';
 import uploadingFileMiddleware from '../../features/FileLoading/uploadingFileMiddleware';
 import downloadFilesMiddleware from '../../features/FileLoading/downlodFilesMiddleware';
+import { searchInputReducer } from '../../components/Filters/searchInputReducer';
 
 const persistConfig = {
   key: 'root',
@@ -46,6 +47,7 @@ const rootReducer = combineReducers({
   [authReducer.name]: authReducer.reducer,
   [tokenReducer.name]: tokenReducer.reducer,
   [surveyApi.reducerPath]: surveyApi.reducer,
+  [searchInputReducer.name]: searchInputReducer.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
