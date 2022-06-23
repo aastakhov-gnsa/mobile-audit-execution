@@ -112,7 +112,7 @@ const CustomDrawer = () => {
         dropDownName={DropDownFilterNames.Status}
         />
         <Typography size='Body 1' style={styles.headerText}>
-          {t('Name Search')}
+          {t('Name')}
         </Typography>
         <Filters
         screenName={screenName}
@@ -121,7 +121,7 @@ const CustomDrawer = () => {
         searchInputType={DropDownFilterNames.NameSearch}
         />
         <Typography size='Body 1' style={styles.headerText}>
-          {t('Description Search')}
+          {t('Description')}
         </Typography>
         <Filters
         screenName={screenName}
