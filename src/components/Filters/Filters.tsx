@@ -92,10 +92,11 @@ function Filters({screenName, filterValues, isFilterDropDown, isFilterSearchInpu
           value={checkDropDownValue()}
           onFocus={() => setShowDropDown(true)}
           onBlur={() => setShowDropDown(false)}
-          placeholder={dropDownName}
+          placeholder={!dropDownValue.toString() ? t('Select') : dropDownValue.toString()}
           search
           searchPlaceholder={t('Search...')}
           selectedStyle={styles.selectedStyle}
+          activeColor='#EAEBEA'
         />
         :filterValues.map(i => {
           const isSelected =
@@ -129,7 +130,7 @@ function Filters({screenName, filterValues, isFilterDropDown, isFilterSearchInpu
         })}
       </View>
     : <Searchbar
-          placeholder={t('Search')}
+          placeholder={t('Search...')}
           onChangeText={searchInputHandle}
           value={checkSearchInputValue() as string}
           style={styles.searchBar}
