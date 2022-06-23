@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Survey} from '../interfaces/survey';
 import {Card, useTheme, ActivityIndicator} from 'react-native-paper';
 import format from 'date-fns/format';
@@ -21,6 +21,7 @@ import {useTranslation} from 'react-i18next';
 import FileLoadingInfo from './FileLoadingInfo';
 import Button from './Button';
 import {useUploadSurvey} from '../hooks/useUploadSurvey';
+import LoadingModal from './LoadingModal';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -85,7 +86,19 @@ function SurveyCard({survey}: {survey: Survey}) {
     () => navigation.navigate(ScreenNames.AuditDetails, {id: id}),
     [id, navigation],
   );
-
+  const handleLoadingPopupText = () => {
+    if (isUploading) {
+      return t('Survey is uploading...');
+    } else if (isLoading) {
+      return t('Survey is downloading...');
+    } else if (uploadingFiles?.length > 0) {
+      return t('Files are uploading...');
+    } else if (downloadingFiles?.length > 0) {
+      return t('Files are downloading...');
+    } else {
+      return t('popup error');
+    }
+  }
   const {t} = useTranslation();
   return (
     <Card style={styles.card} key={id} onPress={handlePress}>
@@ -166,6 +179,11 @@ function SurveyCard({survey}: {survey: Survey}) {
         )}
         </ScrollView>
       </Card.Actions>
+      <LoadingModal
+        title={handleLoadingPopupText()}
+        visible={isUploading || isLoading ||
+         downloadingFiles?.length > 0 || uploadingFiles?.length > 0 ? true : false}
+      />
     </Card>
   );
 }
