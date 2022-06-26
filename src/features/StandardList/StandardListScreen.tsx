@@ -69,7 +69,7 @@ function StandardListScreen() {
             : u[f.fieldName] === f.value,));
             
           } else if (f.fieldName=='attachedComment' || f.fieldName=='files') {
-            if(f.value=='Yes'){
+            if(f.value=='yes'){
               filteredData = filteredData.filter(i => i.questionDTOList.some(u => Array.isArray(u[f.fieldName])
               ? u[f.fieldName].length != 0
               : typeof u[f.fieldName] === 'string'));

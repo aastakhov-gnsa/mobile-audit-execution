@@ -152,10 +152,10 @@ const CustomDrawer = () => {
           <ItemWrapper style={styles.controlsWrapper}>
               <Button mode="contained" style={styles.button} onPress={() =>
                               navigation.dispatch(DrawerActions.closeDrawer())}>
-                {t('search')}
+                {t('Search')}
               </Button>
               <Button mode="outlined" onPress={()=>resetFilters()}>
-                {t('reset filters')}
+                {t('Reset Filters')}
               </Button>
           </ItemWrapper>
         </View>

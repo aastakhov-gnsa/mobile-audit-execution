@@ -78,6 +78,14 @@ function Filters({screenName, filterValues, isFilterDropDown, isFilterSearchInpu
     }
   }
   
+  const translateFields = () => {
+    var translatedValues = new Array();
+    dropDownValue.forEach(element => {
+      translatedValues.push(t(element));
+    })
+    return translatedValues;
+  }
+  
   return (
     <View style={styles.wrapper}>
     {!isFilterSearchInput ?
@@ -92,7 +100,7 @@ function Filters({screenName, filterValues, isFilterDropDown, isFilterSearchInpu
           value={checkDropDownValue()}
           onFocus={() => setShowDropDown(true)}
           onBlur={() => setShowDropDown(false)}
-          placeholder={!dropDownValue.toString() ? t('Select') : dropDownValue.toString()}
+          placeholder={!dropDownValue.toString() ? t('Select') : translateFields().toString()}
           search
           searchPlaceholder={t('Search...')}
           selectedStyle={styles.selectedStyle}

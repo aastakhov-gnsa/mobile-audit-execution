@@ -547,21 +547,21 @@ export const activityDTFilterValues: FilterValues = [
 export const standardWithAttachmentFilterValues: FilterValues = [
   {
     fieldName: 'files',
-    value: 'Yes'
+    value: 'yes'
   },
   {
     fieldName: 'files',
-    value: 'No'
+    value: 'no'
   }
 ]
 
 export const standardWithCommentFilterValues: FilterValues = [
   {
     fieldName: 'attachedComment',
-    value: 'Yes'
+    value: 'yes'
   },
   {
     fieldName: 'attachedComment',
-    value: 'No'
+    value: 'no'
   }
 ]
