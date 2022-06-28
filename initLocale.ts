@@ -4,6 +4,7 @@ import languageResources from './src/assets/i18n';
 
 function initLocale(lang: string) {
   i18n.use(initReactI18next).init({
+    compatibilityJSON: 'v3',
     resources: languageResources,
     lng: lang,
     interpolation: {

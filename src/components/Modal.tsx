@@ -43,7 +43,7 @@ function Modal({
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.contentContainer}>
-            <Surface style={styles.surface}>
+            <Surface style={Platform.OS === 'ios' ? styles.surface : styles.surfaceAndroid}>
               <ItemWrapper style={styles.header}>
                 <Typography size="Headline 6">{title}</Typography>
               </ItemWrapper>
@@ -78,6 +78,10 @@ const styles = StyleSheet.create({
   },
   surface: {
     width: '70%',
+    borderRadius: 5,
+  },
+  surfaceAndroid: {
+    width: '90%',
     borderRadius: 5,
   },
   header: {alignItems: 'center'},
