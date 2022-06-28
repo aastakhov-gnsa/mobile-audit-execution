@@ -136,6 +136,24 @@
     "SvSR Open": "Open",
     "add files": "add files",
     "Read more...": "Read more...",
-    "Read less...": "Read less..."
+    "Read less...": "Read less...",
+    "Filters": "Filters",
+    "Product Groups": "Product Groups",
+    "Search...": "Search...",
+    "Brands": "Brands",
+    "Activity": "Activity",
+    "Checkpoint": "Checkpoint",
+    "Status": "Status",
+    "Name": "Name",
+    "Description": "Description",
+    "Standard with Attachment": "Standard with Attachment",
+    "Standard with Comment": "Standard with Comment",
+    "Reset Filters": "Reset Filters",
+    "Survey is uploading...": "Survey is uploading...",
+    "Survey is downloading...": "Survey is downloading...",
+    "Files are uploading...": "Files are uploading...",
+    "Files are downloading...": "Files are downloading...",
+    "Passed - Overruled": "Passed - Overruled",
+    "Failed - Overruled": "Failed - Overruled"
   }
 }
