@@ -50,9 +50,9 @@ function Modal({
               <Divider />
               <ItemWrapper paddingValue={25}>{children}</ItemWrapper>
               <Divider />
-              <ItemWrapper style={styles.controlsWrapper}>
+              <ItemWrapper style={Platform.OS === 'ios' ? styles.controlsWrapper : null}>
                 {extraButtons?.map(i => i)}
-                <Button mode="text" style={styles.button} onPress={onCancel}>
+                <Button mode="text" onPress={onCancel}>
                   {t('cancel')}
                 </Button>
                 <Button mode="contained" onPress={onSave}>
@@ -91,5 +91,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
-  button: {marginRight: 8},
 });

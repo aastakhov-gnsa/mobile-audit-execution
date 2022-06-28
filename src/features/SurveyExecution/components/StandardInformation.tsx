@@ -86,7 +86,7 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
         </ItemWrapper>
       )}
       {!!data?.files?.length && (
-        <ItemWrapper paddingValue={[32, 0]} title="Files">
+        <ItemWrapper paddingValue={[32, 0]} title={t('Files')}>
           <FilesPanel
             files={data.files}
             surveyId={surveyId}

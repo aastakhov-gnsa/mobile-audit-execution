@@ -9,6 +9,7 @@ import Modal from './Modal';
 import {useTranslation} from 'react-i18next';
 import capitalizeFirstLetter from '../utils/common/copitalizeFirstLetter';
 import useOrientation from '../hooks/useOrientation';
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface CommentModalProps {
   visible: boolean;
@@ -103,6 +104,7 @@ function CommentModal({
           style={styles.input}
         />
       </ItemWrapper>
+      <ScrollView horizontal={true}>
       <ItemWrapper paddingValue={0} style={styles.chipsWrapper}>
         {chips.map(i => (
           <Chip
@@ -115,6 +117,7 @@ function CommentModal({
           </Chip>
         ))}
       </ItemWrapper>
+      </ScrollView>
     </Modal>
   );
 }
