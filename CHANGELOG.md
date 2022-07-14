@@ -1,3 +1,17 @@
+# Version 1.3.4
+
+## Fixes
+
+* Fixed filters red dot
+* Fixed filters chip
+* Fixed android i18 warning
+* Fixed survey comment popup for android
+
+## Features
+
+* New DE & IT translations added
+* Survey Upload & Download loading modal added
+
 # Version 1.3.3
 
 ## Fixes
