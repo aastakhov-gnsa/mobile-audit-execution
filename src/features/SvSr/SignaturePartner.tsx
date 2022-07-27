@@ -98,7 +98,7 @@ export const SignaturePartner = forwardRef<
             autoCapitalize="none"
           />
           <HelperText type="error" visible={emailError}>
-            Email address is invalid!
+            {t('Email address is invalid!')}
           </HelperText>
           <View style={styles.copy}>
             <Typography size="Subtitle 1">

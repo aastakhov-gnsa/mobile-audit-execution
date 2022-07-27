@@ -104,7 +104,7 @@ export function SignatureScreen() {
             ref={partnerSignatureRef}
             onEmailChange={val => {
               validateEmail(val);
-              setEmail(val.trim());
+              setEmail(val);
             }}
             sendToMe={sendToMe}
             onSendToMeChange={setSendToMe}
