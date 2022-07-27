@@ -154,6 +154,7 @@
     "Files are uploading...": "Files are uploading...",
     "Files are downloading...": "Files are downloading...",
     "Passed - Overruled": "Passed - Overruled",
-    "Failed - Overruled": "Failed - Overruled"
+    "Failed - Overruled": "Failed - Overruled",
+    "Email address is invalid!": "Email address is invalid!"
   }
 }
