@@ -42,7 +42,6 @@ export function SignatureScreen() {
   };
 
   const handleNext = () => {
-    console.log(email);
     partnerSignatureRef.current?.readSignature();
     auditorSignatureRef.current?.readSignature();
     setRequestedTab('finish');
