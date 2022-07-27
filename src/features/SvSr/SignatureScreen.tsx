@@ -26,6 +26,7 @@ export function SignatureScreen() {
   const [auditorBase64, setAuditorBase64] = useState<string | undefined>('');
   const [requestedTab, setRequestedTab] = useState('');
   const [requested, setRequested] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const [uploadSvSR] = useUploadSvSR(
     {email, sendToMe, partner},
     () => {
@@ -41,6 +42,7 @@ export function SignatureScreen() {
   };
 
   const handleNext = () => {
+    console.log(email);
     partnerSignatureRef.current?.readSignature();
     auditorSignatureRef.current?.readSignature();
     setRequestedTab('finish');
@@ -54,6 +56,11 @@ export function SignatureScreen() {
     setScrollEnabled(true);
   }, []);
 
+  const validateEmail = (val: string | any) => {
+    const regexp =
+      /^(\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]{2,4}\s*?,?\s*?)+$/;
+    setEmailError(val.length > 0 ? !regexp.test(email) : false);
+  };
   return (
     <KeyboardAwareScrollView
       scrollEnabled={scrollEnabled}
@@ -96,7 +103,10 @@ export function SignatureScreen() {
             initialBase64={partnerBase64}
             email={email}
             ref={partnerSignatureRef}
-            onEmailChange={setEmail}
+            onEmailChange={val => {
+              validateEmail(val);
+              setEmail(val.trim());
+            }}
             sendToMe={sendToMe}
             onSendToMeChange={setSendToMe}
             partner={partner}
@@ -112,6 +122,7 @@ export function SignatureScreen() {
               }
               setRequestedTab('');
             }}
+            emailError={emailError}
           />
         )}
         {person === 'auditor' && (
@@ -141,7 +152,7 @@ export function SignatureScreen() {
             mode="contained"
             onPress={handleNext}
             loading={requested}
-            disabled={requested}>
+            disabled={!(!requested && !emailError)}>
             {t('Save and Upload')}
           </Button>
         </View>

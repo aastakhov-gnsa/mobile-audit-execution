@@ -1,7 +1,14 @@
 import React, {forwardRef, MutableRefObject} from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, Text, View} from 'react-native';
-import {Button, Surface, Switch, TextInput, useTheme} from 'react-native-paper';
+import {
+  Button,
+  Surface,
+  Switch,
+  TextInput,
+  useTheme,
+  HelperText,
+} from 'react-native-paper';
 import {SignatureViewRef} from 'react-native-signature-canvas';
 import {Signature} from '../../components/Signature';
 import Typography from '../../components/Typography';
@@ -17,6 +24,7 @@ export interface SignaturePartnerProps {
   onSignatureBegin: () => void;
   onSignatureEnd: () => void;
   onSignatureCapture: (base64?: string) => void;
+  emailError: boolean;
 }
 
 /**
@@ -38,6 +46,7 @@ export const SignaturePartner = forwardRef<
       onSignatureBegin,
       onSignatureEnd,
       onSignatureCapture,
+      emailError,
     },
     ref,
   ) => {
@@ -46,6 +55,7 @@ export const SignaturePartner = forwardRef<
     const handleClear = () => {
       (ref as MutableRefObject<SignatureViewRef>).current?.clearSignature();
     };
+
     return (
       <>
         <Surface style={styles.signature}>
@@ -84,7 +94,12 @@ export const SignaturePartner = forwardRef<
             placeholder={t('Enter e-mail or several, split by comma')}
             value={email}
             onChangeText={onEmailChange}
+            error={emailError}
+            autoCapitalize="none"
           />
+          <HelperText type="error" visible={emailError}>
+            Email address is invalid!
+          </HelperText>
           <View style={styles.copy}>
             <Typography size="Subtitle 1">
               {t('Send a copy of the report to me')}
