@@ -58,7 +58,11 @@ export function SignatureScreen() {
   const validateEmail = (val: string | any) => {
     const regexp =
       /^(\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]{2,4}\s*?,?\s*?)+$/;
-    setEmailError(val.length > 0 ? !regexp.test(email) : false);
+    if (val.length > 0) {
+      setEmailError(!regexp.test(val));
+      return regexp.test(val);
+    }
+    return true;
   };
   return (
     <KeyboardAwareScrollView
@@ -103,8 +107,10 @@ export function SignatureScreen() {
             email={email}
             ref={partnerSignatureRef}
             onEmailChange={val => {
-              validateEmail(val);
-              setEmail(val.replace(/ /g,''));
+              if (val !== email) {
+                setEmailError(false);
+              }
+              setEmail(val.replace(/ /g, ''));
             }}
             sendToMe={sendToMe}
             onSendToMeChange={setSendToMe}
@@ -149,9 +155,13 @@ export function SignatureScreen() {
           </Button>
           <Button
             mode="contained"
-            onPress={handleNext}
+            onPress={() => {
+              if (validateEmail(email)) {
+                handleNext();
+              }
+            }}
             loading={requested}
-            disabled={!(!requested && !emailError)}>
+            disabled={requested}>
             {t('Save and Upload')}
           </Button>
         </View>
