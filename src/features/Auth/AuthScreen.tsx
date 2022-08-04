@@ -25,15 +25,16 @@ function AuthScreen() {
   const dispatch = useDispatch();
   const {tokenLoading} = useSelector(store => store.tokenUtil);
   const {token} = useSelector(store => store.auth);
+  const [newToken, setNewToken] = React.useState('');
   useEffect(() => {
     const setToken = async () => {
-      if (token) {
-        await Secrets.saveSecret(SecretItems.gnsaToken, token);
-        authContext.setGnsaToken(token);
+      if (newToken) {
+        await Secrets.saveSecret(SecretItems.gnsaToken, newToken);
+        authContext.setGnsaToken(newToken);
       }
     };
     setToken();
-  }, [token, authContext]);
+  }, [newToken, authContext]);
 
   const doAuthorize = React.useCallback(async () => {
     console.log('doAuthorize press');
@@ -46,6 +47,7 @@ function AuthScreen() {
       );
       const {jwttoken, refreshToken, givenName, familyName} =
         accessTokenResponse.data;
+      setNewToken(jwttoken);
       await Secrets.saveSecret(SecretItems.gnsaToken, jwttoken);
       await Storage.saveItem(StorageItems.firstName, givenName);
       await Storage.saveItem(StorageItems.lastName, familyName);
