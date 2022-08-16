@@ -25,6 +25,8 @@ import {useRoute} from '@react-navigation/native';
 import {SurveysRouteParams} from '../../interfaces/navigation';
 import {Portal, Snackbar} from 'react-native-paper';
 import Typography from '../../components/Typography';
+import GenericPopupModal from '../../components/GenericPopupModal';
+import LogoutButton from '../../components/LogoutButton';
 
 enum SurveysFilters {
   allSurveys = 'All Surveys',
@@ -69,6 +71,8 @@ function SurveysScreen() {
     data: wholeData,
     isLoading,
     refetch,
+    isError,
+    isSuccess
   } = useAllSurveysQuery(isConnected ? '' : skipToken);
   const handleRefresh = React.useCallback(() => {
     refetch();
@@ -159,6 +163,16 @@ function SurveysScreen() {
             )}
           </Typography>
         </Snackbar>
+        <GenericPopupModal
+          title={t(
+              'Session is expired. Please Logout & Login in order to continue!',
+                )}
+          visible={isConnected && isError && !isSuccess}
+          extraButtons={
+            <LogoutButton/>
+          }
+          >
+        </GenericPopupModal>
       </Portal>
     </ScreenContainer>
   );
