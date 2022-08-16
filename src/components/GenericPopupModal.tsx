@@ -59,11 +59,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   surface: {
-    width: '70%',
+    paddingRight: '1%',
+    paddingLeft: '1%',
+    width: '80%',
     borderRadius: 5,
   },
   surfaceAndroid: {
-    width: '90%',
+    paddingRight: '5%',
+    paddingLeft: '5%',
+    width: '80%',
     borderRadius: 5,
   },
   header: {alignItems: 'center', paddingBottom: 0},
