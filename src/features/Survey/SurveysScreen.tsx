@@ -165,7 +165,7 @@ function SurveysScreen() {
         </Snackbar>
         <GenericPopupModal
           title={t(
-              'Session is expired. Please Logout & Login in order to continue!',
+              'The session has expired. Please Logout and Re-Login in order to continue!',
                 )}
           visible={isConnected && isError && !isSuccess}
           extraButtons={
