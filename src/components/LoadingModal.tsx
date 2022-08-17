@@ -1,46 +1,42 @@
 import React from 'react';
-import {Surface, ActivityIndicator} from 'react-native-paper';
+import {Surface, ActivityIndicator, Modal, Portal} from 'react-native-paper';
 import {
   StyleSheet,
-  Modal as RNModal,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
 import ItemWrapper from './ItemWrapper';
 import Typography from './Typography';
-import {useTranslation} from 'react-i18next';
 
 interface LoadingModalProps {
   title?: string;
   visible: boolean;
-  onCancel?: () => void;
 }
 
 function LoadingModal({
   title,
   visible,
-  onCancel,
 }: LoadingModalProps) {
-  const {t} = useTranslation();
   return (
     <>
       {visible && (
-        <RNModal
+      <Portal>
+        <Modal
           visible={visible}
-          onDismiss={onCancel}
-          animationType="fade"          
-          transparent={true}>
+          contentContainerStyle={styles.contentContainer}
+          >
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.contentContainer}>
             <Surface style={styles.surface}>
               <ItemWrapper style={styles.header}>
                 <ActivityIndicator animating={true}/>
-                <Typography style={{paddingLeft: 10}} size="Body 1">{title}</Typography>
+                <Typography style={{paddingLeft: 12}} size="Body 1">{title}</Typography>
               </ItemWrapper>
             </Surface>
           </KeyboardAvoidingView>
-        </RNModal>
+        </Modal>
+      </Portal>
       )}
     </>
   );
@@ -55,7 +51,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   surface: {
-    width: '70%',
+    paddingRight: '3%',
+    paddingLeft: '3%',
+    width: '80%',
     borderRadius: 5,
   },
   header: {

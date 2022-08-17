@@ -96,7 +96,7 @@ function SurveyCard({survey}: {survey: Survey}) {
     } else if (downloadingFiles?.length > 0) {
       return t('Files are downloading...');
     } else {
-      return t('popup error');
+      return t('Popup error! Please contact us.');
     }
   }
   const {t} = useTranslation();
