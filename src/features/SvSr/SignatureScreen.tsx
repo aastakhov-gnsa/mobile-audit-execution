@@ -27,8 +27,9 @@ export function SignatureScreen() {
   const [requestedTab, setRequestedTab] = useState('');
   const [requested, setRequested] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const [sendToAuditManager, setSendToAuditManager] = useState(false);
   const [uploadSvSR] = useUploadSvSR(
-    {email, sendToMe, partner},
+    {email, sendToMe, partner, sendToAuditManager},
     () => {
       setRequested(true);
       setRequestedTab('');
@@ -128,6 +129,8 @@ export function SignatureScreen() {
               setRequestedTab('');
             }}
             emailError={emailError}
+            sendToAuditManager={sendToAuditManager}
+            onSendToAuditManagerChange={setSendToAuditManager}
           />
         )}
         {person === 'auditor' && (

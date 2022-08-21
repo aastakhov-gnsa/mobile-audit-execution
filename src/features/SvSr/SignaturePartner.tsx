@@ -25,6 +25,8 @@ export interface SignaturePartnerProps {
   onSignatureEnd: () => void;
   onSignatureCapture: (base64?: string) => void;
   emailError: boolean;
+  sendToAuditManager: boolean;
+  onSendToAuditManagerChange: (value: boolean) => void;
 }
 
 /**
@@ -47,6 +49,8 @@ export const SignaturePartner = forwardRef<
       onSignatureEnd,
       onSignatureCapture,
       emailError,
+      sendToAuditManager,
+      onSendToAuditManagerChange,
     },
     ref,
   ) => {
@@ -110,6 +114,15 @@ export const SignaturePartner = forwardRef<
               color={colors.primary}
               onValueChange={onSendToMeChange}
             />
+            <Typography size="Subtitle 1">
+              {'  ' + t('to Audit Manager')}
+            </Typography>
+            <Switch
+              style={styles.switch}
+              value={sendToAuditManager}
+              color={colors.primary}
+              onValueChange={onSendToAuditManagerChange}
+            />
           </View>
         </View>
       </>
@@ -142,6 +155,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
     flexDirection: 'row',
     alignSelf: 'flex-end',
+    alignItems: 'center',
   },
   switch: {
     marginLeft: 12,
