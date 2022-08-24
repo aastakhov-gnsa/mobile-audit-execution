@@ -19,6 +19,7 @@ export interface SvSRParams {
   email: string;
   sendToMe: boolean;
   partner: string;
+  sendToAuditManager: boolean;
 }
 
 /**
@@ -32,7 +33,7 @@ export interface SvSRParams {
  * Function argument is base64-string partner signature
  */
 export function useUploadSvSR(
-  {email, sendToMe, partner}: SvSRParams,
+  {email, sendToMe, partner, sendToAuditManager}: SvSRParams,
   beforeUpload: () => void,
   errorCb?: () => void,
 ): [(base64: string) => Promise<void>] {
@@ -69,6 +70,10 @@ export function useUploadSvSR(
         name: 'file',
         filename: path,
         data: ReactNativeBlobUtil.wrap(path!),
+      });
+      formData.push({
+        name: 'sendToAuditManager',
+        data: String(sendToAuditManager),
       });
       const url = `${__API__}/rest/mobile-audit-execution/survey/${surveyId}/status`;
       try {
@@ -135,6 +140,7 @@ export function useUploadSvSR(
       token,
       uploadSurvey,
       navigation,
+      sendToAuditManager,
     ],
   );
   return [uploadSvSR];
