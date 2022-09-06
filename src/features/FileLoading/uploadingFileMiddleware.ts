@@ -18,14 +18,15 @@ const uploadingFileMiddleware: Middleware =
       next(action);
       const state = getState();
       const token = state.auth.token;
-      const {entityId, path, fileId, name} = action.payload;
+      const {entityId, path, fileId, name, surveyId} = action.payload;
       const handleProgress = (n: number) =>
-        dispatch(changeLoadPart({part: n, fileId: fileId, entityId}));
+        dispatch(changeLoadPart({part: n, fileId: fileId, entityId, surveyId: surveyId}));
       const handleSuccess = () =>
-        dispatch(deleteFile({fileId: fileId, entityId}));
+        dispatch(deleteFile({fileId: fileId, entityId, surveyId: surveyId}));
       const handleError = () =>
         dispatch(
           changeFileStatus({
+            surveyId: surveyId,
             fileId: fileId,
             newStatus: 'error',
             entityId,
@@ -34,6 +35,7 @@ const uploadingFileMiddleware: Middleware =
       const handleRetry = () =>
         dispatch(
           changeFileStatus({
+            surveyId: surveyId,
             fileId: fileId,
             newStatus: 'uploading',
             entityId,

@@ -73,6 +73,7 @@ function downloadImp({
         onStartCb: () =>
           dispatch(
             addFile({
+              surveyId: id,
               entityId: id,
               fileId: f.id,
               path: '',
@@ -81,7 +82,7 @@ function downloadImp({
             }),
           ),
         onSuccessCb: () => {
-          dispatch(deleteFile({entityId: id, fileId: f.id}));
+          dispatch(deleteFile({entityId: id, fileId: f.id, surveyId: id}));
         },
         resPathCb: p => {
           console.log('--=', p);
@@ -98,6 +99,7 @@ function downloadImp({
         onRetryCb: () => {
           dispatch(
             changeFileStatus({
+              surveyId: id,
               entityId: id,
               fileId: f.id,
               newStatus: 'downloading',
@@ -107,6 +109,7 @@ function downloadImp({
         errCb: e => {
           dispatch(
             changeFileStatus({
+              surveyId: id,
               entityId: id,
               fileId: f.id,
               newStatus: 'error',

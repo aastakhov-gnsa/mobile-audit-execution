@@ -10,6 +10,7 @@ export const fileLoading = createSlice({
     addFile: (
       state,
       action: PayloadAction<{
+        surveyId: string;
         entityId: string;
         fileId: string;
         path: string;
@@ -17,11 +18,11 @@ export const fileLoading = createSlice({
         status: FileStatus;
       }>,
     ) => {
-      const {fileId, path, name, status, entityId} = action.payload;
-      if (!state[entityId]) {
-        state[entityId] = [];
+      const {surveyId, fileId, path, name, status, entityId} = action.payload;
+      if (!state[surveyId]) {
+        state[surveyId] = [];
       }
-      state[entityId].push({
+      state[surveyId].push({
         id: fileId,
         entityId: entityId,
         name,
@@ -31,24 +32,25 @@ export const fileLoading = createSlice({
     },
     deleteFile: (
       state,
-      action: PayloadAction<{entityId: string; fileId: string}>,
+      action: PayloadAction<{entityId: string; fileId: string; surveyId: string}>,
     ) => {
-      const index = state[action.payload.entityId].findIndex(
+      const index = state[action.payload.surveyId].findIndex(
         i => i.id === action.payload.fileId,
       );
       if (index !== -1) {
-        state[action.payload.entityId].splice(index, 1);
+        state[action.payload.surveyId].splice(index, 1);
       }
     },
     changeFileStatus: (
       state,
       action: PayloadAction<{
+        surveyId: string;
         entityId: string;
         fileId: string;
         newStatus: FileStatus;
       }>,
     ) => {
-      const file = state[action.payload.entityId].find(
+      const file = state[action.payload.surveyId].find(
         i => i.id === action.payload.fileId,
       );
       if (file) {
@@ -57,10 +59,10 @@ export const fileLoading = createSlice({
     },
     changeLoadPart: (
       state,
-      action: PayloadAction<{entityId: string; fileId: string; part: number}>,
+      action: PayloadAction<{entityId: string; fileId: string; part: number; surveyId: string;}>,
     ) => {
-      const {fileId, part, entityId} = action.payload;
-      const file = state[entityId].find(i => i.id === fileId);
+      const {fileId, part, entityId, surveyId} = action.payload;
+      const file = state[surveyId].find(i => i.id === fileId);
       if (file) {
         file.loadPart = part;
       }
