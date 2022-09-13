@@ -3,7 +3,7 @@ import {Survey} from '../interfaces/survey';
 import {Card, useTheme, ActivityIndicator} from 'react-native-paper';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {Alert, ScrollView, StyleSheet, View} from 'react-native';
 import Services from './Services';
 import StatusWithIcon from './StatusWithIcon';
 import {useSurveyQuery} from '../features/Survey/surveyService';
@@ -22,6 +22,7 @@ import FileLoadingInfo from './FileLoadingInfo';
 import Button from './Button';
 import {useUploadSurvey} from '../hooks/useUploadSurvey';
 import LoadingModal from './LoadingModal';
+import SimpleToast from 'react-native-simple-toast';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -54,6 +55,19 @@ function SurveyCard({survey}: {survey: Survey}) {
   }, [data]);
   const {colors} = useTheme();
   const styles = makeStyles(colors);
+  const createUploadAlert = () =>
+    Alert.alert(
+      t('Caution: Survey Upload'),
+      t('Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.'),
+      [
+        {
+          text: t('Cancel'),
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        },
+        { text: t('OK'), onPress: () => {uploadSurvey(); SimpleToast.show(t('Do not close the application while the upload process is continuing.'), SimpleToast.LONG);} }
+      ]
+    );
   const RightContent = React.useCallback(() => {
     if (
       isLoading ||
@@ -156,13 +170,13 @@ function SurveyCard({survey}: {survey: Survey}) {
               {t('Audit Details')}
             </Button>
           )}
-          {data && <SvSr data={data} />}
+          {data && (downloadingFiles?.length < 1) && <SvSr data={data}/>}
         {isLoading && (
           <Typography size="Button" style={styles.hint}>
             {t('Downloading survey').toUpperCase()}...
           </Typography>
         )}
-        {!data && !isLoading && (
+        {!data && !isLoading && (uploadingFiles?.length < 1) && (
           <Button onPress={handleDownload}>{t('Download')}</Button>
         )}
         {data && !isLoading && (
@@ -172,8 +186,8 @@ function SurveyCard({survey}: {survey: Survey}) {
                 {t('Uploading survey').toUpperCase()}...
               </Typography>
             )}
-            {!isUploading && (
-              <Button onPress={uploadSurvey}>{t('upload')}</Button>
+            {!isUploading && (downloadingFiles?.length < 1) && (
+              <Button onPress={createUploadAlert}>{t('upload')}</Button>
             )}
           </>
         )}
@@ -182,7 +196,7 @@ function SurveyCard({survey}: {survey: Survey}) {
       <LoadingModal
         title={handleLoadingPopupText()}
         visible={isUploading || isLoading ||
-         downloadingFiles?.length > 0 || uploadingFiles?.length > 0 ? true : false}
+         downloadingFiles?.length > 0}
       />
     </Card>
   );
