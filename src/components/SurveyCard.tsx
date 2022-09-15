@@ -170,13 +170,13 @@ function SurveyCard({survey}: {survey: Survey}) {
               {t('Audit Details')}
             </Button>
           )}
-          {data && (downloadingFiles?.length < 1) && <SvSr data={data}/>}
+          {data && (downloadingFiles?.length < 1 || typeof downloadingFiles == 'undefined') && <SvSr data={data}/>}
         {isLoading && (
           <Typography size="Button" style={styles.hint}>
             {t('Downloading survey').toUpperCase()}...
           </Typography>
         )}
-        {!data && !isLoading && (uploadingFiles?.length < 1) && (
+        {!data && !isLoading  && (uploadingFiles?.length < 1 || typeof uploadingFiles == 'undefined') && (
           <Button onPress={handleDownload}>{t('Download')}</Button>
         )}
         {data && !isLoading && (
@@ -186,7 +186,7 @@ function SurveyCard({survey}: {survey: Survey}) {
                 {t('Uploading survey').toUpperCase()}...
               </Typography>
             )}
-            {!isUploading && (downloadingFiles?.length < 1) && (
+            {!isUploading && (downloadingFiles?.length < 1 || typeof downloadingFiles == 'undefined') && (
               <Button onPress={createUploadAlert}>{t('upload')}</Button>
             )}
           </>
