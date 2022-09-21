@@ -68,6 +68,7 @@ export function useUploadSurvey(id: string): [() => Promise<any>, boolean] {
                     : getFileName(i.options?._path!) || i.id;
                   dispatch(
                     addFile({
+                      surveyId: surveyData.id,
                       fileId: i.id,
                       entityId: q.id,
                       path: i.options?._path!,

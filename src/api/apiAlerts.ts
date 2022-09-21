@@ -8,6 +8,7 @@ import {DownloadFileOptions, DownloadResult} from 'react-native-fs';
 import downloadFile from '../utils/files/downloadFile';
 import i18n from 'i18next';
 import packageJson from '../../package.json';
+import Toast from 'react-native-simple-toast';
 
 export function alert(e: AxiosError) {
   let requestBody = '';
@@ -98,29 +99,25 @@ exception: ${JSON.stringify(e, null, 2)}
 appVersion: ${packageJson.version}
   `;
   const button: AlertButton = {
-    text: i18n.t('Copy error and Cancel'),
+    text: i18n.t('Copy error and Try Again'),
     onPress: () => {
-      Clipboard.setString(message);
-      onSuccessCb();
-    },
-  };
-  const retryButton: AlertButton = {
-    text: i18n.t('Retry'),
-    onPress: () => {
-      onRetryCb();
-      uploadBlob({
-        requestConfig,
-        onSuccessCb,
-        onProgressCb,
-        onFailCb,
-        onRetryCb,
-      });
+      {
+        Clipboard.setString(message);
+        Toast.show(i18n.t('Some files could not be uploaded. Please check your internet connection without closing the application.'), Toast.LONG);
+      }
     },
   };
   Alert.alert(`Upload file ${requestConfig.data[0].fileName} failed`, message, [
     button,
-    retryButton,
   ]);
+    onRetryCb();
+    uploadBlob({
+      requestConfig,
+      onSuccessCb,
+      onProgressCb,
+      onFailCb,
+      onRetryCb,
+    });
 }
 
 export function fileDownloadAlert({
