@@ -9,6 +9,8 @@ import {SignaturePartner} from './SignaturePartner';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SignatureAuditor} from './SignatureAuditor';
 import {useUploadSvSR} from './useUploadSvSR';
+import NetInfo from '@react-native-community/netinfo';
+import SimpleToast from 'react-native-simple-toast';
 
 export function SignatureScreen() {
   const {colors} = useTheme();
@@ -28,6 +30,13 @@ export function SignatureScreen() {
   const [requested, setRequested] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [sendToAuditManager, setSendToAuditManager] = useState(false);
+  const [isConnected, setIsConnected] = React.useState(false);
+  React.useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected ?? false);
+    });
+    return () => unsubscribe();
+  }, []);
   const [uploadSvSR] = useUploadSvSR(
     {email, sendToMe, partner, sendToAuditManager},
     () => {
@@ -159,8 +168,10 @@ export function SignatureScreen() {
           <Button
             mode="contained"
             onPress={() => {
-              if (validateEmail(email)) {
+              if (validateEmail(email) && isConnected) {
                 handleNext();
+              } else if (!isConnected) {
+                SimpleToast.show(t('Please check your internet connection.'), SimpleToast.LONG);
               }
             }}
             loading={requested}

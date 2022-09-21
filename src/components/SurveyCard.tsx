@@ -23,6 +23,7 @@ import Button from './Button';
 import {useUploadSurvey} from '../hooks/useUploadSurvey';
 import LoadingModal from './LoadingModal';
 import SimpleToast from 'react-native-simple-toast';
+import NetInfo from '@react-native-community/netinfo';
 
 function SurveyCard({survey}: {survey: Survey}) {
   const {
@@ -55,6 +56,13 @@ function SurveyCard({survey}: {survey: Survey}) {
   }, [data]);
   const {colors} = useTheme();
   const styles = makeStyles(colors);
+  const [isConnected, setIsConnected] = React.useState(false);
+  React.useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected ?? false);
+    });
+    return () => unsubscribe();
+  }, []);
   const createUploadAlert = () =>
     Alert.alert(
       t('Caution: Survey Upload'),
@@ -68,6 +76,9 @@ function SurveyCard({survey}: {survey: Survey}) {
         { text: t('OK'), onPress: () => {uploadSurvey(); SimpleToast.show(t('Do not close the application while the upload process is continuing.'), SimpleToast.LONG);} }
       ]
     );
+  const createConnectionErrorToast = () => {
+    SimpleToast.show(t('Please check your internet connection.'), SimpleToast.LONG);
+  }
   const RightContent = React.useCallback(() => {
     if (
       isLoading ||
@@ -177,7 +188,7 @@ function SurveyCard({survey}: {survey: Survey}) {
           </Typography>
         )}
         {!data && !isLoading  && (uploadingFiles?.length < 1 || typeof uploadingFiles == 'undefined') && (
-          <Button onPress={handleDownload}>{t('Download')}</Button>
+          <Button onPress={() => isConnected ? handleDownload() : createConnectionErrorToast()}>{t('Download')}</Button>
         )}
         {data && !isLoading && (
           <>
@@ -187,7 +198,7 @@ function SurveyCard({survey}: {survey: Survey}) {
               </Typography>
             )}
             {!isUploading && (downloadingFiles?.length < 1 || typeof downloadingFiles == 'undefined') && (
-              <Button onPress={createUploadAlert}>{t('upload')}</Button>
+              <Button onPress={() => isConnected ? createUploadAlert() : createConnectionErrorToast()}>{t('upload')}</Button>
             )}
           </>
         )}
