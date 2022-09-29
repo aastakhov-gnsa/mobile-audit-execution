@@ -155,6 +155,17 @@
     "Files are downloading...": "Files are downloading...",
     "Passed - Overruled": "Passed - Overruled",
     "Failed - Overruled": "Failed - Overruled",
-    "Email address is invalid!": "Email address is invalid! Please do not use special characters like: ?%*€£ß$½[{]}..."
+    "Email address is invalid!": "Email address is invalid! Please do not use special characters like: ?%*€£ß$½[{]}...",
+    "The session has expired. Please Logout and Re-Login in order to continue!": "The session has expired. Please Logout and Re-Login in order to continue!",
+    "to Audit Manager": "to Audit Manager",
+    "Please check your internet connection.": "Please check your internet connection.",
+    "Popup error! Please contact us.": "Popup error! Please contact us.",
+    "Copy error and Try Again": "Copy error and Try Again",
+    "Some files could not be uploaded. Please check your internet connection without closing the application.": "Some files could not be uploaded. Please check your internet connection without closing the application.",
+    "Caution: Survey Upload": "Caution: Survey Upload",
+    "Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.": "Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.",
+    "Cancel": "Cancel",
+    "Do not close the application while the upload process is continuing.": "Do not close the application while the upload process is continuing.",
+    "OK": "OK"
   }
 }
