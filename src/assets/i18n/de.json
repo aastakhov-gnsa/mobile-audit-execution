@@ -154,6 +154,7 @@
     "Files are uploading...": "Dokumente werden hochgeladen...",
     "Files are downloading...": "Dokumente werden runtergeladen...",
     "Passed - Overruled": "Bestanden - überschreiben",
-    "Failed - Overruled": "Nicht bestanden - überschreiben"
+    "Failed - Overruled": "Nicht bestanden - überschreiben",
+    "Email address is invalid!": "Email address is invalid! Please do not use special characters like: ?%*€£ß$½[{]}..."
   }
 }
