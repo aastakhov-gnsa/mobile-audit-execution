@@ -107,11 +107,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   wrapper: {
-    marginBottom: '50%',
     height: 280,
     display: 'flex',
     alignItems: 'center',
