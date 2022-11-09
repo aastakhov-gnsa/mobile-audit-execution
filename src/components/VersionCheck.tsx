@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import Button from './Button';
 import ItemWrapper from './ItemWrapper';
 import Typography from './Typography';
@@ -17,6 +18,7 @@ interface VersionCheckProps {
 }
 
 function VersionCheck({visible, hideDialog, updateApp}: VersionCheckProps) {
+  const {t} = useTranslation();
   return (
     <>
       {visible && (
@@ -33,7 +35,9 @@ function VersionCheck({visible, hideDialog, updateApp}: VersionCheckProps) {
                 }>
                 <ItemWrapper style={styles.header}>
                   <Typography size="Subtitle 1">
-                    There is a new version of GNSA app. Please update your app.
+                    {t(
+                      'There is a new version of GNSA app. Please update your app.',
+                    )}
                   </Typography>
                 </ItemWrapper>
                 <ItemWrapper

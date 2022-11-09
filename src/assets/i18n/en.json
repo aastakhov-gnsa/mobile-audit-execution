@@ -166,6 +166,7 @@
     "Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.": "Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.",
     "Cancel": "Cancel",
     "Do not close the application while the upload process is continuing.": "Do not close the application while the upload process is continuing.",
-    "OK": "OK"
+    "OK": "OK",
+    "There is a new version of GNSA app. Please update your app.": "There is a new version of GNSA app. Please update your app."
   }
 }
