@@ -79,7 +79,7 @@ function SurveysScreen() {
   }, [refetch]);
   const {fulfilledTimeStamp} = useSelector(state => state.surveys);
   const data = useFilteredSurveys(filterValue, wholeData);
-  const versionData = useVersionQuery(!isConnected ? '' : skipToken);
+  const versionData = useVersionQuery(isConnected ? '' : skipToken);
   const [visible, setVisible] = React.useState(false);
   React.useEffect(() => {
     if (versionData != null) {
