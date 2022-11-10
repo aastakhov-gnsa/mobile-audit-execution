@@ -167,6 +167,9 @@
     "Cancel": "Cancel",
     "Do not close the application while the upload process is continuing.": "Do not close the application while the upload process is continuing.",
     "OK": "OK",
-    "There is a new version of GNSA app. Please update your app.": "There is a new version of GNSA app. Please update your app."
+    "There is a new GNSA Mobile Application version. In order not to lose your data, please Save and Upload your unfinished Surveys and then upgrade your mobile application.": "There is a new GNSA Mobile Application version. In order not to lose your data, please Save and Upload your unfinished Surveys and then upgrade your mobile application.",
+    "New Mobile Application Version": "New Mobile Application Version",
+    "Dismiss": "Dismiss",
+    "Update": "Update"
   }
 }

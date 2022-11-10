@@ -62,7 +62,6 @@ function SurveysScreen() {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected ?? false);
     });
-
     return () => unsubscribe();
   }, []);
   const filterValue = useSelector(

@@ -34,16 +34,21 @@ function VersionCheck({visible, hideDialog, updateApp}: VersionCheckProps) {
                   Platform.OS === 'ios' ? styles.surface : styles.surfaceAndroid
                 }>
                 <ItemWrapper style={styles.header}>
+                  <Typography size="Headline 6">
+                    {t('New Mobile Application Version')}
+                  </Typography>
+                </ItemWrapper>
+                <ItemWrapper>
                   <Typography size="Subtitle 1">
                     {t(
-                      'There is a new version of GNSA app. Please update your app.',
+                      'There is a new GNSA Mobile Application version. In order not to lose your data, please Save and Upload your unfinished Surveys and then upgrade your mobile application.',
                     )}
                   </Typography>
                 </ItemWrapper>
                 <ItemWrapper
-                  style={Platform.OS === 'ios' ? styles.controlsWrapper : null}>
-                  <Button onPress={() => hideDialog()}>Dismiss</Button>
-                  <Button onPress={() => updateApp()}>Update</Button>
+                  style={Platform.OS === 'ios' ? styles.buttonContainer : null}>
+                  <Button onPress={() => hideDialog()}>{t('Dismiss')}</Button>
+                  <Button onPress={() => updateApp()}>{t('Update')}</Button>
                 </ItemWrapper>
               </Surface>
             </KeyboardAvoidingView>
@@ -75,8 +80,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   header: {alignItems: 'center', paddingBottom: 0},
-  controlsWrapper: {
-    paddingRight: '40%',
-    paddingLeft: '40%',
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
