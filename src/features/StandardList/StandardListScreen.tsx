@@ -201,9 +201,7 @@ function StandardListScreen() {
         leftCaption={`${
           filter === undefined || filterColor() != 'red'
             ? t('All Standards')
-            : `${Object.values(filter).length ?? 0}` +
-              ' ' +
-              t('Filters Applied')
+            : `${Object.keys(filter).length ?? 0}` + ' ' + t('Filters Applied')
         }`}
       />
       <View
