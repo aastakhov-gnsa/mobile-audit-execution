@@ -201,11 +201,10 @@ function StandardListScreen() {
         leftCaption={`${
           filter === undefined || filterColor() != 'red'
             ? t('All Standards')
-            : Object.values(filter)
-                .map(f => t(convertFilterValue(f.value)))
-                .toString()
-                .replace(/,/g, ', ')
-        } · ${data?.length ?? 0}`}
+            : `${Object.values(filter).length ?? 0}` +
+              ' ' +
+              t('Filters Applied')
+        }`}
       />
       <View
         style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
@@ -251,11 +250,3 @@ function StandardListScreen() {
 }
 
 export default React.memo(StandardListScreen);
-
-const convertFilterValue = (value: string | string[]) => {
-  if (Array.isArray(value) && value.length > 0) {
-    return value[0];
-  } else if (!Array.isArray(value)) {
-    return value;
-  }
-};
