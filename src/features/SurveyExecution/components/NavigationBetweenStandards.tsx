@@ -4,6 +4,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ScreenNames} from '../../../navigation/navigation';
 import Typography from '../../../components/Typography';
 import {noDataIndex} from '../../../constants/constants';
+import ItemWrapper from '../../../components/ItemWrapper';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../../../interfaces/navigation';
 import {useSelector} from '../../../utils/store/configureStore';
@@ -21,30 +22,39 @@ function NavigationBetweenStandards({
   const navigation = useNavigation<NavigationParams>();
   const [langCode, needTranslation] = useCurrentLanguage();
 
-  const {previousStandard, nextStandard} = useSelector(state => {
-    const data = state.evaluation[surveyId].standards;
-    const index = data.findIndex(i => i.id === standardId) ?? noDataIndex;
-    const prevStandard = data[index - 1];
-    const nxtStandard = data[index + 1];
-    const dataLength = data.length;
-    return {
-      previousStandard: index > 0 && {
-        index: index - 1,
-        id: prevStandard.id,
-        name: prevStandard.standardName,
-        nameTranslations: prevStandard.nameTranslations,
-        status: prevStandard.status,
-      },
-      nextStandard: dataLength &&
-        index < dataLength - 1 && {
-          index: index + 1,
-          id: nxtStandard.id,
-          name: nxtStandard.standardName,
-          nameTranslations: nxtStandard.nameTranslations,
-          status: nxtStandard.status,
+  const {previousStandard, currentStandard, nextStandard} = useSelector(
+    state => {
+      const audit = state.evaluation[surveyId];
+      const data = audit?.standards;
+      const index = data.findIndex(i => i.id === standardId) ?? noDataIndex;
+      const prevStandard = data[index - 1];
+      const curStandard = data[0];
+      const nxtStandard = data[index + 1];
+      const dataLength = data.length;
+      return {
+        previousStandard: index > 0 && {
+          index: index - 1,
+          id: prevStandard.id,
+          name: prevStandard.standardName,
+          nameTranslations: prevStandard.nameTranslations,
+          status: prevStandard.status,
         },
-    };
-  });
+        currentStandard: dataLength && {
+          index: index,
+          checkpoint: curStandard.checkpoint,
+          auditNumber: audit.number,
+        },
+        nextStandard: dataLength &&
+          index < dataLength - 1 && {
+            index: index + 1,
+            id: nxtStandard.id,
+            name: nxtStandard.standardName,
+            nameTranslations: nxtStandard.nameTranslations,
+            status: nxtStandard.status,
+          },
+      };
+    },
+  );
   const handlePrev = React.useCallback(() => {
     if (previousStandard) {
       navigation.navigate(ScreenNames.SurveyExecution, {
@@ -63,38 +73,58 @@ function NavigationBetweenStandards({
   }, [navigation, nextStandard, surveyId]);
 
   return (
-    <View style={styles.standardsNavigation}>
-      <View style={styles.itemContainer}>
-        {previousStandard && (
-          <TouchableOpacity onPress={handlePrev} style={styles.leftTouchable}>
-            <Typography size="Body 1">〈</Typography>
-            <Typography size="Body 1" numberOfLines={1} style={styles.label}>
-              {needTranslation && previousStandard.nameTranslations?.[langCode]
-                ? previousStandard.nameTranslations?.[langCode]
-                : previousStandard.name}
-            </Typography>
-            <Typography size="Body 1">
-              {getGlyph(previousStandard.status)}
-            </Typography>
-          </TouchableOpacity>
+    <>
+      <View style={styles.standardsNavigation}>
+        <View>
+          {previousStandard && (
+            <TouchableOpacity onPress={handlePrev} style={styles.leftTouchable}>
+              <Typography size="Body 1">〈</Typography>
+              <Typography size="Body 1" numberOfLines={1} style={styles.label}>
+                {needTranslation &&
+                previousStandard.nameTranslations?.[langCode]
+                  ? previousStandard.nameTranslations?.[langCode]
+                  : previousStandard.name}
+              </Typography>
+              <Typography size="Body 1">
+                {getGlyph(previousStandard.status)}
+              </Typography>
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {nextStandard && (
+          <View>
+            <TouchableOpacity
+              style={styles.rightTouchable}
+              onPress={handleNext}>
+              <Typography size="Body 1">
+                {getGlyph(nextStandard.status)}
+              </Typography>
+              <Typography size="Body 1" numberOfLines={1} style={styles.label}>
+                {needTranslation && nextStandard.nameTranslations?.[langCode]
+                  ? nextStandard.nameTranslations?.[langCode]
+                  : nextStandard.name}
+              </Typography>
+              <Typography size="Body 1">〉</Typography>
+            </TouchableOpacity>
+          </View>
         )}
       </View>
-      {nextStandard && (
-        <View style={styles.itemContainer}>
-          <TouchableOpacity style={styles.rightTouchable} onPress={handleNext}>
-            <Typography size="Body 1">
-              {getGlyph(nextStandard.status)}
-            </Typography>
-            <Typography size="Body 1" numberOfLines={1} style={styles.label}>
-              {needTranslation && nextStandard.nameTranslations?.[langCode]
-                ? nextStandard.nameTranslations?.[langCode]
-                : nextStandard.name}
-            </Typography>
-            <Typography size="Body 1">〉</Typography>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
+      <View style={styles.currentStandard}>
+        {currentStandard && (
+          <View>
+            <ItemWrapper>
+              <Typography size="Body 1" numberOfLines={1}>
+                {currentStandard.checkpoint +
+                  ' (' +
+                  currentStandard.auditNumber +
+                  ')'}
+              </Typography>
+            </ItemWrapper>
+          </View>
+        )}
+      </View>
+    </>
   );
 }
 
@@ -105,11 +135,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
-    marginBottom: 40,
+    marginBottom: 5,
   },
-  itemContainer: {width: '50%'},
+  currentStandard: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'nowrap',
+    marginBottom: 10,
+  },
   leftTouchable: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
   rightTouchable: {
     flexDirection: 'row',
