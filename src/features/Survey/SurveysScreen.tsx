@@ -29,7 +29,7 @@ import GenericPopupModal from '../../components/GenericPopupModal';
 import LogoutButton from '../../components/LogoutButton';
 import VersionCheck from '../../components/VersionCheck';
 import packageJson from '../../../package.json';
-import {__API__} from '../../api/api';
+import {__HOST__} from '../../api/api';
 
 enum SurveysFilters {
   allSurveys = 'All Surveys',
@@ -108,7 +108,7 @@ function SurveysScreen() {
   }, []);
 
   const updateApp = () => {
-    Linking.openURL(__API__);
+    Linking.openURL(__HOST__);
   };
 
   const {t} = useTranslation();
