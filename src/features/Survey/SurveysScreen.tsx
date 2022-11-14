@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {useAllSurveysQuery} from './surveyService';
+import {useAllSurveysQuery, useVersionQuery} from './surveyService';
 import Spinner from '../Auth/components/Spinner';
 import ListContainer from '../../components/ListContainer';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import SurveyCard from '../../components/SurveyCard';
 import {FlatList} from 'react-native-gesture-handler';
-import {RefreshControl, StatusBar, StyleSheet} from 'react-native';
+import {RefreshControl, StatusBar, StyleSheet, Linking} from 'react-native';
 import {Survey} from '../../interfaces/survey';
 import themeConfig from '../../../themeConfig';
 import ScreenContainer from '../../components/ScreenContainer';
@@ -27,6 +27,9 @@ import {Portal, Snackbar} from 'react-native-paper';
 import Typography from '../../components/Typography';
 import GenericPopupModal from '../../components/GenericPopupModal';
 import LogoutButton from '../../components/LogoutButton';
+import VersionCheck from '../../components/VersionCheck';
+import packageJson from '../../../package.json';
+import {__API__} from '../../api/api';
 
 enum SurveysFilters {
   allSurveys = 'All Surveys',
@@ -57,11 +60,8 @@ function SurveysScreen() {
   const [isConnected, setIsConnected] = React.useState(false);
   React.useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
-      console.log('Connection type', state.type);
-      console.log('Is connected?', state.isConnected);
       setIsConnected(state.isConnected ?? false);
     });
-
     return () => unsubscribe();
   }, []);
   const filterValue = useSelector(
@@ -72,19 +72,44 @@ function SurveysScreen() {
     isLoading,
     refetch,
     isError,
-    isSuccess
+    isSuccess,
   } = useAllSurveysQuery(isConnected ? '' : skipToken);
   const handleRefresh = React.useCallback(() => {
     refetch();
   }, [refetch]);
   const {fulfilledTimeStamp} = useSelector(state => state.surveys);
   const data = useFilteredSurveys(filterValue, wholeData);
+  const versionData = useVersionQuery(isConnected ? '' : skipToken);
+  const [visible, setVisible] = React.useState(false);
+  React.useEffect(() => {
+    if (versionData != null) {
+      if (versionData.currentData !== undefined) {
+        let mobileVersion;
+        const currentVersion = parseInt(
+          packageJson.version.replace(/\./g, ''),
+          10,
+        );
+        mobileVersion = parseInt(
+          versionData.currentData.replace(/\./g, ''),
+          10,
+        );
+
+        if (mobileVersion > currentVersion) {
+          setVisible(true);
+        }
+      }
+    }
+  }, [versionData]);
 
   const keyExtractor = React.useCallback((item: Survey) => item.id, []);
 
   const renderItem = React.useCallback(({item}: {item: Survey}) => {
     return <SurveyCard survey={item} key={item.id} />;
   }, []);
+
+  const updateApp = () => {
+    Linking.openURL(__API__);
+  };
 
   const {t} = useTranslation();
 
@@ -165,15 +190,17 @@ function SurveysScreen() {
         </Snackbar>
         <GenericPopupModal
           title={t(
-              'The session has expired. Please Logout and Re-Login in order to continue!',
-                )}
+            'The session has expired. Please Logout and Re-Login in order to continue!',
+          )}
           visible={isConnected && isError && !isSuccess}
-          extraButtons={
-            <LogoutButton/>
-          }
-          >
-        </GenericPopupModal>
+          extraButtons={<LogoutButton />}
+        />
       </Portal>
+      <VersionCheck
+        visible={visible}
+        hideDialog={() => setVisible(false)}
+        updateApp={updateApp}
+      />
     </ScreenContainer>
   );
 }

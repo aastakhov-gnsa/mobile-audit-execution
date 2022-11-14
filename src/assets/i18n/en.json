@@ -166,6 +166,10 @@
     "Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.": "Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.",
     "Cancel": "Cancel",
     "Do not close the application while the upload process is continuing.": "Do not close the application while the upload process is continuing.",
-    "OK": "OK"
+    "OK": "OK",
+    "There is a new GNSA Mobile Application version. In order not to lose your data, please Save and Upload your unfinished Surveys and then upgrade your mobile application.": "There is a new GNSA Mobile Application version. In order not to lose your data, please Save and Upload your unfinished Surveys and then upgrade your mobile application.",
+    "New Mobile Application Version": "New Mobile Application Version",
+    "Dismiss": "Dismiss",
+    "Update": "Update"
   }
 }

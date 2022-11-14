@@ -61,6 +61,9 @@ export const surveyApi = createApi({
         };
       },
     }),
+    version: builder.query<String, string>({
+      query: () => 'version',
+    }),
   }),
 });
 
@@ -72,4 +75,5 @@ export const {
   useLanguagesQuery,
   useDownloadFileMutation,
   useDeleteFileMutation,
+  useVersionQuery,
 } = surveyApi;
