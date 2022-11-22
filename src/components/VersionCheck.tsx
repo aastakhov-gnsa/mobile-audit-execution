@@ -1,5 +1,5 @@
 import React from 'react';
-import {Surface, Modal, Portal} from 'react-native-paper';
+import {Surface, Modal, Portal, Divider} from 'react-native-paper';
 import {
   StyleSheet,
   Modal as RNModal,
@@ -38,7 +38,8 @@ function VersionCheck({visible, hideDialog, updateApp}: VersionCheckProps) {
                     {t('New Mobile Application Version')}
                   </Typography>
                 </ItemWrapper>
-                <ItemWrapper>
+                <Divider />
+                <ItemWrapper style={styles.textContainer}>
                   <Typography size="Subtitle 1">
                     {t(
                       'There is a new GNSA Mobile Application version. In order not to lose your data, please Save and Upload your unfinished Surveys and then upgrade your mobile application.',
@@ -48,7 +49,11 @@ function VersionCheck({visible, hideDialog, updateApp}: VersionCheckProps) {
                 <ItemWrapper
                   style={Platform.OS === 'ios' ? styles.buttonContainer : null}>
                   <Button onPress={() => hideDialog()}>{t('Dismiss')}</Button>
-                  <Button onPress={() => updateApp()}>{t('Update')}</Button>
+                  <Button
+                    icon="cellphone-arrow-down"
+                    onPress={() => updateApp()}>
+                    {t('Update')}
+                  </Button>
                 </ItemWrapper>
               </Surface>
             </KeyboardAvoidingView>
@@ -79,9 +84,13 @@ const styles = StyleSheet.create({
     width: '80%',
     borderRadius: 5,
   },
-  header: {alignItems: 'center', paddingBottom: 0},
+  header: {alignItems: 'center', margin: '1%'},
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  textContainer: {
+    paddingRight: '5%',
+    paddingLeft: '5%',
   },
 });
