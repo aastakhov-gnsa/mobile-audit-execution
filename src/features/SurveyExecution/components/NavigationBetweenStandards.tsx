@@ -10,6 +10,7 @@ import {NavigationParams} from '../../../interfaces/navigation';
 import {useSelector} from '../../../utils/store/configureStore';
 import {Status} from '../../../interfaces/common';
 import useCurrentLanguage from '../../../hooks/useCurrentLanguage';
+import useStandardData from '../../../hooks/useStandardData';
 
 interface NavigationBetweenStandardsProps {
   surveyId: string;
@@ -21,7 +22,7 @@ function NavigationBetweenStandards({
 }: NavigationBetweenStandardsProps) {
   const navigation = useNavigation<NavigationParams>();
   const [langCode, needTranslation] = useCurrentLanguage();
-
+  const standardData = useStandardData(surveyId, standardId);
   const {previousStandard, currentStandard, nextStandard} = useSelector(
     state => {
       const audit = state.evaluation[surveyId];
@@ -115,9 +116,9 @@ function NavigationBetweenStandards({
           <View>
             <ItemWrapper>
               <Typography size="Body 1" numberOfLines={1}>
-                {currentStandard.checkpoint +
+                {standardData?.checkpoint +
                   ' (' +
-                  currentStandard.auditNumber +
+                  currentStandard?.auditNumber +
                   ')'}
               </Typography>
             </ItemWrapper>

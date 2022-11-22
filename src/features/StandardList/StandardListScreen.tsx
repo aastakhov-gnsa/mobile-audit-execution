@@ -57,6 +57,27 @@ function StandardListScreen() {
       return 'red';
     }
   };
+
+  const filterCount = () => {
+    let count = 0;
+    let filters: any[] = [];
+    typeof filter == 'undefined'
+      ? (filters = [])
+      : (filters = Object.values(filter));
+    filters.forEach(element => {
+      if (element.value.length > 0) {
+        count++;
+      }
+    });
+    if (searchInput?.nameSearch?.value) {
+      count++;
+    }
+    if (searchInput?.descriptionSearch?.value) {
+      count++;
+    }
+    return count;
+  };
+
   const productGroupCheck = () => {
     if (
       auditData?.services.find(
@@ -201,7 +222,7 @@ function StandardListScreen() {
         leftCaption={`${
           filter === undefined || filterColor() != 'red'
             ? t('All Standards')
-            : `${Object.keys(filter).length ?? 0}` + ' ' + t('Filters Applied')
+            : filterCount() + ' ' + t('Filters Applied')
         }`}
       />
       <View
