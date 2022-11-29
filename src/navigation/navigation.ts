@@ -15,5 +15,5 @@ export enum ScreenNames {
   ContactSupport = 'ContactSupport',
   LegalNoticesAndTerms = 'LegalNoticesAndTerms',
   SvSRPreview = 'SvSRPreview',
-  Signature = 'Signature'
+  Signature = 'Signature',
 }

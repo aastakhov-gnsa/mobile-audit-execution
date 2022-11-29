@@ -1,4 +1,3 @@
-
 export enum DropDownFilterNames {
   Activity = 'Activity',
   Checkpoint = 'Checkpoint',
@@ -8,4 +7,5 @@ export enum DropDownFilterNames {
   DescriptionSearch = 'descriptionSearch',
   StandardWithAttachment = 'Standard with attachment',
   StandardWithComment = 'Standard with comment',
+  StandardID = 'standardID',
 }

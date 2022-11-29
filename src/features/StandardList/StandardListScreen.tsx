@@ -38,7 +38,7 @@ function StandardListScreen() {
   const filterColor = () => {
     let emptyArrayCheck: boolean = true;
     let filters: any[] = [];
-    typeof filter == 'undefined'
+    typeof filter === 'undefined'
       ? (emptyArrayCheck = true)
       : (filters = Object.values(filter));
     filters.forEach(element => {
@@ -47,10 +47,11 @@ function StandardListScreen() {
       }
     });
     if (
-      (typeof filter == 'undefined' || emptyArrayCheck) &&
-      (typeof searchInput == 'undefined' ||
+      (typeof filter === 'undefined' || emptyArrayCheck) &&
+      (typeof searchInput === 'undefined' ||
         (!searchInput?.nameSearch?.value &&
-          !searchInput?.descriptionSearch?.value))
+          !searchInput?.descriptionSearch?.value &&
+          !searchInput?.standardID?.value))
     ) {
       return 'transparent';
     } else {
@@ -61,7 +62,7 @@ function StandardListScreen() {
   const filterCount = () => {
     let count = 0;
     let filters: any[] = [];
-    typeof filter == 'undefined'
+    typeof filter === 'undefined'
       ? (filters = [])
       : (filters = Object.values(filter));
     filters.forEach(element => {
@@ -73,6 +74,9 @@ function StandardListScreen() {
       count++;
     }
     if (searchInput?.descriptionSearch?.value) {
+      count++;
+    }
+    if (searchInput?.standardID?.value) {
       count++;
     }
     return count;
@@ -141,15 +145,19 @@ function StandardListScreen() {
       });
     }
     if (
-      typeof searchInput != 'undefined' &&
-      (searchInput?.nameSearch?.value || searchInput?.descriptionSearch?.value)
+      typeof searchInput !== 'undefined' &&
+      (searchInput?.nameSearch?.value ||
+        searchInput?.descriptionSearch?.value ||
+        searchInput?.standardID?.value)
     ) {
       if (
         searchInput?.nameSearch?.value &&
-        searchInput?.descriptionSearch?.value
+        searchInput?.descriptionSearch?.value &&
+        searchInput?.standardID?.value
       ) {
         const nameSearchQ = searchInput.nameSearch.value.toLowerCase();
         const descriptionQ = searchInput.descriptionSearch.value.toLowerCase();
+        const standardIDQ = searchInput.standardID.value.toLowerCase();
         return filteredData.filter(i => {
           return (
             ((needTranslation &&
@@ -164,7 +172,9 @@ function StandardListScreen() {
                 ?.toLowerCase()
                 .indexOf(descriptionQ) > -1) ||
               (i.standardText &&
-                i.standardText.toLowerCase().indexOf(descriptionQ) > -1))
+                i.standardText.toLowerCase().indexOf(descriptionQ) > -1)) &&
+            i.standardNumber &&
+            i.standardNumber.toLowerCase().indexOf(standardIDQ) > -1
           );
         });
       } else if (searchInput?.nameSearch?.value) {
@@ -185,6 +195,13 @@ function StandardListScreen() {
               i.textTranslations &&
               i.textTranslations[langCode]?.toLowerCase().indexOf(q) > -1) ||
             (i.standardText && i.standardText.toLowerCase().indexOf(q) > -1)
+          );
+        });
+      } else if (searchInput?.standardID?.value) {
+        const q = searchInput.standardID.value.toLowerCase();
+        return filteredData.filter(i => {
+          return (
+            i.standardNumber && i.standardNumber.toLowerCase().indexOf(q) > -1
           );
         });
       }
@@ -220,9 +237,9 @@ function StandardListScreen() {
       />
       <ListInfoCaption
         leftCaption={`${
-          filter === undefined || filterColor() != 'red'
+          filterColor() !== 'red'
             ? t('All Standards')
-            : filterCount() + ' ' + t('Filters Applied')
+            : filterCount() + ' ' + t('Filter(s) Applied')
         }`}
       />
       <View
