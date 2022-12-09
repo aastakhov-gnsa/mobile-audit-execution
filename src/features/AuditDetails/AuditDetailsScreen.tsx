@@ -21,7 +21,7 @@ function AuditDetailsScreen() {
   const {id} = route.params as AuditDetailsParams;
   const {
     services,
-    number,
+    auditNumber,
     companyId,
     outletAddress,
     auditorName,
@@ -31,7 +31,7 @@ function AuditDetailsScreen() {
     const s = state.evaluation[id];
     return {
       services: s.services,
-      number: s.number,
+      auditNumber: s.auditNumber,
       companyId: s.companyId,
       outletAddress: s.outletAddress,
       auditorName: s.auditor,
@@ -49,8 +49,8 @@ function AuditDetailsScreen() {
     },
     {title: t('Services'), component: <Services services={services} />},
     {
-      title: t('Audit Name'),
-      component: <Typography size="Body 1">{number}</Typography>,
+      title: t('Audit Number'),
+      component: <Typography size="Body 1">{auditNumber}</Typography>,
     },
     {
       title: t('Location Info'),

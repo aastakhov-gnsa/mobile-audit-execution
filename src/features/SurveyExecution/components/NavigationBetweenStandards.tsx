@@ -43,7 +43,7 @@ function NavigationBetweenStandards({
         currentStandard: dataLength && {
           index: index,
           checkpoint: curStandard.checkpoint,
-          auditNumber: audit.number,
+          auditNumber: audit.auditNumber,
         },
         nextStandard: dataLength &&
           index < dataLength - 1 && {
@@ -116,10 +116,10 @@ function NavigationBetweenStandards({
           <View>
             <ItemWrapper>
               <Typography size="Body 1" numberOfLines={1}>
-                {standardData?.checkpoint +
-                  ' (' +
-                  currentStandard?.auditNumber +
-                  ')'}
+                {standardData?.checkpoint}
+                {currentStandard?.auditNumber
+                  ? ' (' + currentStandard?.auditNumber + ')'
+                  : ' ( -- )'}
               </Typography>
             </ItemWrapper>
           </View>
