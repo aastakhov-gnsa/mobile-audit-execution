@@ -71,8 +71,8 @@ export default function SurveyExecutionScreen() {
           <AddComment
             surveyId={surveyId}
             standardId={standardId}
-            attachedComment={standardData?.attachedComment}
-            commentType={standardData?.commentType}
+            internalComment={standardData?.internalComment}
+            publicComment={standardData?.publicComment}
           />
           <OverruleResult surveyId={surveyId} standardId={standardId} />
         </ItemWrapper>

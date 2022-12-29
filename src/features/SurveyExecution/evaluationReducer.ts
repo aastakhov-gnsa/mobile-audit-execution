@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Evaluation} from '../../interfaces/evaluation';
-import {AuditStandardExecution, CommentType} from '../../interfaces/standard';
+import {AuditStandardExecution} from '../../interfaces/standard';
 import {Survey} from '../../interfaces/survey';
 import {EMPTY_ARRAY} from '../../constants/constants';
 import {OverruleStatus, ResultCd, Status} from '../../interfaces/common';
@@ -40,15 +40,15 @@ export const evaluationReducer = createSlice({
       action: PayloadAction<{
         surveyId: string;
         standardId: string;
-        attachedComment: string | null;
-        commentType: CommentType | null;
+        internalComment: string | null;
+        publicComment: string | null;
       }>,
     ) => {
-      const {surveyId, standardId, attachedComment, commentType} =
+      const {surveyId, standardId, internalComment, publicComment} =
         action.payload;
       const standard = state[surveyId].standards.find(i => i.id === standardId);
-      standard!.attachedComment = attachedComment;
-      standard!.commentType = commentType;
+      standard!.internalComment = internalComment;
+      standard!.publicComment = publicComment;
     },
     changeQuestionComment: (
       state,
@@ -56,18 +56,18 @@ export const evaluationReducer = createSlice({
         surveyId: string;
         standardId: string;
         questionId: string;
-        attachedComment: string | null;
-        commentType: CommentType | null;
+        internalComment: string | null;
+        publicComment: string | null;
       }>,
     ) => {
-      const {surveyId, standardId, attachedComment, commentType, questionId} =
+      const {surveyId, standardId, internalComment, publicComment, questionId} =
         action.payload;
       const standard = state[surveyId].standards.find(i => i.id === standardId);
       const question = standard?.questionDTOList?.find(
         i => i.id === questionId,
       );
-      question!.attachedComment = attachedComment;
-      question!.commentType = commentType;
+      question!.internalComment = internalComment;
+      question!.publicComment = publicComment;
     },
     changeQuestionResult: (
       state,

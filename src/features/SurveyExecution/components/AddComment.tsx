@@ -1,6 +1,5 @@
 import React from 'react';
 import TouchableText from '../../../components/TouchableText';
-import {CommentType} from '../../../interfaces/standard';
 import {useDispatch} from '../../../utils/store/configureStore';
 import {
   changeQuestionComment,
@@ -15,47 +14,42 @@ import {Button} from 'react-native-paper';
 interface AddCommentProps {
   surveyId: string;
   standardId: string;
-  attachedComment?: string | null;
-  commentType?: CommentType | null;
+  internalComment: string;
+  publicComment: string;
   questionId?: string;
 }
-
-const chips: Array<{title: string; value: CommentType}> = [
-  {
-    value: 'Internal',
-    title: 'Internal Comment',
-  },
-  {
-    value: 'External',
-    title: 'External Comment',
-  },
-];
 
 function AddComment({
   surveyId,
   standardId,
-  attachedComment,
-  commentType,
+  internalComment,
+  publicComment,
   questionId,
 }: AddCommentProps) {
   const [visible, handleVisible] = useModalVisibility();
   const dispatch = useDispatch();
   const handleSave = React.useCallback(
-    ({text, chip}: {text: string; chip: CommentType | OverruleStatus}) => {
+    ({
+      textInternal,
+      textPublic,
+    }: {
+      textInternal: string | OverruleStatus;
+      textPublic: string | OverruleStatus;
+    }) => {
       dispatch(
         questionId
           ? changeQuestionComment({
               standardId,
               questionId,
               surveyId,
-              commentType: chip as CommentType,
-              attachedComment: text,
+              internalComment: textInternal,
+              publicComment: textPublic,
             })
           : changeStandardComment({
               standardId,
               surveyId,
-              commentType: chip as CommentType,
-              attachedComment: text,
+              internalComment: textInternal,
+              publicComment: textPublic,
             }),
       );
     },
@@ -69,14 +63,14 @@ function AddComment({
             standardId,
             questionId,
             surveyId,
-            commentType: null,
-            attachedComment: null,
+            internalComment: null,
+            publicComment: null,
           })
         : changeStandardComment({
             standardId,
             surveyId,
-            commentType: null,
-            attachedComment: null,
+            internalComment: null,
+            publicComment: null,
           }),
     );
   }, [dispatch, handleVisible, questionId, standardId, surveyId]);
@@ -88,10 +82,9 @@ function AddComment({
           visible={visible}
           onVisible={handleVisible}
           onSave={handleSave}
-          chips={chips}
           validationMessage={t('Fill comment and chose type of comment')}
-          defaultText={attachedComment}
-          defaultChip={commentType ?? chips[1].value}
+          defaultTextInternal={internalComment}
+          defaultTextPublic={publicComment}
           extraButtons={[
             <Button mode="text" onPress={handleResetComment}>
               {t('Delete Comment')}
@@ -102,8 +95,8 @@ function AddComment({
       <TouchableText
         onPress={handleVisible}
         size="Button"
-        iconName={attachedComment ? 'comment' : 'add-comment'}>
-        {attachedComment
+        iconName={internalComment || publicComment ? 'comment' : 'add-comment'}>
+        {internalComment || publicComment
           ? t('edit comment').toUpperCase()
           : t('add comment').toUpperCase()}
       </TouchableText>

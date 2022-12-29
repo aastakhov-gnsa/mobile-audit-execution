@@ -18,9 +18,9 @@ type AnyData = Partial<
 export interface AuditStandardExecution extends AnyData {
   id: string;
   vstamp: number;
-  attachedComment?: string | null;
+  internalComment?: string | null;
+  publicComment?: string | null;
   checkpoint?: string;
-  commentType?: CommentType | null;
   files?: SmFile[];
   overruleComment?: OverruleComment;
   questionDTOList?: StandardQuestion[];
@@ -48,8 +48,8 @@ export interface StandardQuestion {
   mcAuditType: string;
   mcAuditCheckpoint: string;
   options: MultiValue[];
-  attachedComment: string | null;
-  commentType: 'Internal' | 'External' | null;
+  internalComment: string;
+  publicComment: string;
   resultCd: ResultCd;
   files: SmFile[];
   isOptionsPresent: boolean;
@@ -72,6 +72,11 @@ export interface OverruleComment {
 }
 
 export type CommentType = 'External' | 'Internal';
+
+export interface DefaultText {
+  internal?: string | null;
+  public?: string | null;
+}
 
 export enum StandardType {
   MUST = 'Must',

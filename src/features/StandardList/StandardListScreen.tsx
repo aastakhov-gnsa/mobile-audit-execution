@@ -113,24 +113,35 @@ function StandardListScreen() {
                   : u[f.fieldName] === f.value,
               ),
             );
-          } else if (
-            f.fieldName == 'attachedComment' ||
-            f.fieldName == 'files'
-          ) {
+          } else if (f.fieldName == 'files') {
             if (f.value == 'yes') {
               filteredData = filteredData.filter(i =>
-                i.questionDTOList.some(u =>
-                  Array.isArray(u[f.fieldName])
-                    ? u[f.fieldName].length != 0
-                    : typeof u[f.fieldName] === 'string',
+                i.questionDTOList.some(u => u[f.fieldName].length != 0),
+              );
+            } else {
+              filteredData = filteredData.filter(i =>
+                i.questionDTOList.some(u => u[f.fieldName].length == 0),
+              );
+            }
+          } else if (f.fieldName == 'attachedComment') {
+            if (f.value == 'yes') {
+              filteredData = filteredData.filter(i =>
+                i.questionDTOList.some(
+                  u =>
+                    (typeof u.internalComment === 'string' &&
+                      u.internalComment.length > 0) ||
+                    (typeof u.publicComment === 'string' &&
+                      u.publicComment.length > 0),
                 ),
               );
             } else {
               filteredData = filteredData.filter(i =>
-                i.questionDTOList.some(u =>
-                  Array.isArray(u[f.fieldName] && f.fieldName.length != 0)
-                    ? u[f.fieldName].length == 0
-                    : typeof u[f.fieldName] !== 'string',
+                i.questionDTOList.some(
+                  u =>
+                    (typeof u.internalComment !== 'string' ||
+                      typeof u.internalComment.length == 0) &&
+                    (typeof u.publicComment !== 'string' ||
+                      typeof u.publicComment.length == 0),
                 ),
               );
             }

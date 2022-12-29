@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import Typography from '../../../components/Typography';
 import ItemWrapper from '../../../components/ItemWrapper';
 import Services from '../../../components/Services';
@@ -20,13 +20,13 @@ interface StandardInformationProps {
 
 function StandardInformation({id, surveyId}: StandardInformationProps) {
   const [textShown, setTextShown] = useState(false);
-  const [lengthMore,setLengthMore] = useState(false);
+  const [lengthMore, setLengthMore] = useState(false);
   const toggleNumberOfLines = () => {
-      setTextShown(!textShown);
-  }
-  const onTextLayout = useCallback(e =>{
-      setLengthMore(e.nativeEvent.lines.length >=2);
-  },[]);
+    setTextShown(!textShown);
+  };
+  const onTextLayout = useCallback(e => {
+    setLengthMore(e.nativeEvent.lines.length >= 2);
+  }, []);
   const {colors} = useTheme();
   const data = useStandardData(surveyId, id);
   const [langCode, needTranslation] = useCurrentLanguage();
@@ -47,21 +47,20 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
       </Typography>
       <ItemWrapper paddingValue={[24, 24]}>
         <Text
-              onTextLayout={onTextLayout}
-              numberOfLines={textShown ? undefined : 2}
-              style={{lineHeight: 21,
-                      fontSize: 16,
-                      fontFamily: "Roboto-Regular"}}>
-                      {needTranslation && data?.textTranslations?.[langCode]
-                      ? data?.textTranslations?.[langCode]
-                      : data?.standardText}</Text>
-              {
-                  lengthMore ? <Text
-                  onPress={toggleNumberOfLines}
-                  style={{ color: 'blue', lineHeight: 21, marginTop: 10 }}>
-                    {textShown ? t('Read less...') : t('Read more...')}</Text>
-                    :null
-              }
+          onTextLayout={onTextLayout}
+          numberOfLines={textShown ? undefined : 2}
+          style={{lineHeight: 21, fontSize: 16, fontFamily: 'Roboto-Regular'}}>
+          {needTranslation && data?.textTranslations?.[langCode]
+            ? data?.textTranslations?.[langCode]
+            : data?.standardText}
+        </Text>
+        {lengthMore ? (
+          <Text
+            onPress={toggleNumberOfLines}
+            style={{color: 'blue', lineHeight: 21, marginTop: 10}}>
+            {textShown ? t('Read less...') : t('Read more...')}
+          </Text>
+        ) : null}
       </ItemWrapper>
       <ItemWrapper paddingValue={[0, 26]}>
         <Services services={data?.services} showNumber={4} />
@@ -104,15 +103,19 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
           />
         </ItemWrapper>
       )}
-      {data?.attachedComment && (
+      {data?.internalComment && (
         <ItemWrapper paddingValue={[32, 0]}>
           <CommentWithColor
-            title={`${t(
-              data.commentType! === 'External'
-                ? 'External Comment'
-                : 'Internal Comment',
-            )}`}
-            value={data?.attachedComment}
+            title={`${t('Internal Comment')}`}
+            value={data?.internalComment}
+          />
+        </ItemWrapper>
+      )}
+      {data?.publicComment && (
+        <ItemWrapper paddingValue={[32, 0]}>
+          <CommentWithColor
+            title={`${t('External Comment')}`}
+            value={data?.publicComment}
           />
         </ItemWrapper>
       )}
