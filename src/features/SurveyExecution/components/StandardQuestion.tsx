@@ -161,23 +161,27 @@ function StandardQuestion({
             />
           );
         })}
-      {question?.attachedComment && (
-        <ItemWrapper paddingValue={[0, 30]}>
+      {question?.internalComment && (
+        <ItemWrapper paddingValue={[32, 0]}>
           <CommentWithColor
-            title={`${t(
-              question.commentType === 'Internal'
-                ? 'Internal Comment'
-                : 'External Comment',
-            )}`}
-            value={question?.attachedComment}
+            title={`${t('Internal Comment')}`}
+            value={question?.internalComment}
+          />
+        </ItemWrapper>
+      )}
+      {question?.publicComment && (
+        <ItemWrapper paddingValue={[32, 0]}>
+          <CommentWithColor
+            title={`${t('External Comment')}`}
+            value={question?.publicComment}
           />
         </ItemWrapper>
       )}
       <ItemWrapper style={styles.addActions} paddingValue={[0, 30]}>
         <View style={styles.mr}>
           <AddComment
-            attachedComment={question.attachedComment}
-            commentType={question.commentType}
+            internalComment={question.internalComment}
+            publicComment={question.publicComment}
             standardId={standardId}
             surveyId={surveyId}
             questionId={question.id}

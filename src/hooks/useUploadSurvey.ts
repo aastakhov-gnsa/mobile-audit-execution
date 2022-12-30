@@ -24,16 +24,16 @@ export function useUploadSurvey(id: string): [() => Promise<any>, boolean] {
           return {
             id: standard.id,
             status: standard.status,
-            commentType: standard.commentType ?? undefined,
-            attachedComment: standard.attachedComment ?? undefined,
+            publicComment: standard.publicComment ?? undefined,
+            internalComment: standard.internalComment ?? undefined,
             overruleComment: standard.overruleComment?.value
               ? standard.overruleComment
               : undefined,
             questionDTOList: standard.questionDTOList?.map(q => {
               return {
                 id: q.id,
-                attachedComment: q.attachedComment ?? undefined,
-                commentType: q.commentType ?? undefined,
+                internalComment: q.internalComment ?? undefined,
+                publicComment: q.publicComment ?? undefined,
                 resultCd: q.isOptionsPresent ? undefined : q.resultCd,
                 optionsExecution: !q.isOptionsPresent
                   ? undefined

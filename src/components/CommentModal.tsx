@@ -1,63 +1,58 @@
-import React from 'react';
-import {Chip, Snackbar, TextInput} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {Snackbar, TextInput, Button, useTheme} from 'react-native-paper';
+import {StyleSheet, View} from 'react-native';
 import ItemWrapper from './ItemWrapper';
 import Typography from './Typography';
-import {CommentType} from '../interfaces/standard';
-import {OverruleStatus} from '../interfaces/common';
 import Modal from './Modal';
 import {useTranslation} from 'react-i18next';
 import capitalizeFirstLetter from '../utils/common/copitalizeFirstLetter';
 import useOrientation from '../hooks/useOrientation';
-import { ScrollView } from 'react-native-gesture-handler';
 
 interface CommentModalProps {
   visible: boolean;
   onVisible: () => void;
   onSave: ({
-    text,
-    chip,
+    textInternal,
+    textPublic,
   }: {
-    text: string;
-    chip: CommentType | OverruleStatus;
+    textInternal: string;
+    textPublic: string;
   }) => void;
-  chips: Array<{title: string; value: CommentType | OverruleStatus}>;
   validationMessage: string;
   titleText?: string;
-  defaultChip?: CommentType | OverruleStatus;
-  defaultText?: string | null;
+  defaultTextInternal: string | null;
+  defaultTextPublic: string | null;
   extraButtons?: React.ReactNode[];
 }
 
 function CommentModal({
   visible,
   onSave,
-  chips,
   onVisible,
   validationMessage,
   titleText,
-  defaultChip,
-  defaultText,
+  defaultTextInternal,
+  defaultTextPublic,
   extraButtons,
 }: CommentModalProps) {
+  const {colors} = useTheme();
   const [isPortrait] = useOrientation();
-  const styles = makeStyles(isPortrait);
-  const [text, setText] = React.useState(defaultText ?? '');
-  const handleText = (t: string) => setText(t);
-  const [chip, setChip] = React.useState<
-    CommentType | OverruleStatus | undefined
-  >(defaultChip ?? undefined);
-  const createOnChipHandler = React.useCallback(
-    (v: CommentType | OverruleStatus) => () => {
-      if (chip === v) {
-        setChip(undefined);
-      } else {
-        setChip(v);
-      }
-    },
-    [chip],
+  const styles = makeStyles(isPortrait, colors);
+  const handleText = (t: string, type?: string) => {
+    if (type === 'internal') {
+      setTextInternal(t);
+    } else if (type === 'public') {
+      setTextPublic(t);
+    } else {
+      setTextInternal(t);
+      setTextPublic(t);
+    }
+  };
+  const [requestedTab, setRequestedTab] = useState('internal');
+  const [textInternal, setTextInternal] = React.useState(
+    defaultTextInternal ?? '',
   );
-
+  const [textPublic, setTextPublic] = React.useState(defaultTextPublic ?? '');
   const [snackVisible, setSnackVisible] = React.useState(false);
   const handleSnackVisible = React.useCallback(
     () => setSnackVisible(!snackVisible),
@@ -66,18 +61,17 @@ function CommentModal({
 
   const handleCancel = React.useCallback(() => {
     onVisible();
-    setChip(undefined);
     handleText('');
   }, [onVisible]);
 
   const handleSave = React.useCallback(() => {
-    if (!text || !chip) {
+    if (!textInternal && !textPublic) {
       handleSnackVisible();
     } else {
-      onSave({text, chip});
+      onSave({textInternal, textPublic});
       handleCancel();
     }
-  }, [text, chip, handleSnackVisible, onSave, handleCancel]);
+  }, [textInternal, textPublic, handleSnackVisible, onSave, handleCancel]);
   const {t} = useTranslation();
   return (
     <Modal
@@ -94,44 +88,80 @@ function CommentModal({
         </Snackbar>
       }
       title={titleText ?? capitalizeFirstLetter(t('comment'))}>
+      <View style={styles.tabs}>
+        <Button
+          color={requestedTab === 'internal' ? colors.primary : colors.disabled}
+          style={requestedTab === 'internal' ? styles.selectedTab : styles.tab}
+          mode="text"
+          onPress={() => {
+            setRequestedTab('internal');
+            setTextInternal(textInternal);
+          }}>
+          {t('Internal Comment')}
+        </Button>
+        <Button
+          color={requestedTab === 'public' ? colors.primary : colors.disabled}
+          style={requestedTab === 'public' ? styles.selectedTab : styles.tab}
+          mode="text"
+          onPress={() => {
+            setRequestedTab('public');
+            setTextPublic(textPublic);
+          }}>
+          {t('External Comment')}
+        </Button>
+      </View>
       <ItemWrapper paddingValue={[0, 30]} style={styles.inputWrapper}>
-        <TextInput
-          mode="outlined"
-          multiline
-          placeholder={`${t('Write a message')} ...`}
-          value={text}
-          onChangeText={handleText}
-          style={styles.input}
-        />
-      </ItemWrapper>
-      <ScrollView horizontal={true}>
-      <ItemWrapper paddingValue={0} style={styles.chipsWrapper}>
-        {chips.map(i => (
-          <Chip
-            key={i.value}
-            style={styles.chip}
+        {requestedTab === 'internal' && (
+          <TextInput
             mode="outlined"
-            onPress={createOnChipHandler(i.value)}
-            selected={i.value === chip}>
-            {t(i.title)}
-          </Chip>
-        ))}
+            multiline
+            placeholder={`${t('Write a message')} ...`}
+            value={textInternal}
+            onChangeText={text => handleText(text, 'internal')}
+            style={styles.input}
+          />
+        )}
+        {requestedTab === 'public' && (
+          <TextInput
+            mode="outlined"
+            multiline
+            placeholder={`${t('Write a message')} ...`}
+            value={textPublic}
+            onChangeText={text => handleText(text, 'public')}
+            style={styles.input}
+          />
+        )}
       </ItemWrapper>
-      </ScrollView>
     </Modal>
   );
 }
 
 export default React.memo(CommentModal);
 
-const makeStyles = (isPortrait: boolean) =>
+const makeStyles = (
+  isPortrait: boolean,
+  colors: ReactNativePaper.ThemeColors,
+) =>
   StyleSheet.create({
     input: {maxHeight: isPortrait ? 500 : 150},
     inputWrapper: {paddingRight: 24, paddingLeft: 24},
-    chipsWrapper: {
-      paddingLeft: 24,
-      justifyContent: 'flex-start',
-      flexDirection: 'row',
+    tab: {
+      borderBottomColor: 'transparent',
+      borderBottomWidth: 2,
+      color: colors.onBackground50,
     },
-    chip: {marginRight: 20},
+    tabs: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      borderBottomWidth: 2,
+      borderColor: 'rgb(239, 239, 239)',
+      paddingBottom: 2,
+    },
+    selectedTab: {
+      borderBottomColor: colors.primary,
+      borderBottomWidth: 2,
+      color: colors.disabled,
+    },
   });
