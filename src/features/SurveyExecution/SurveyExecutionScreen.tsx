@@ -21,6 +21,7 @@ import {shallowEqual} from 'react-redux';
 import AddComment from './components/AddComment';
 import OverruleResult from './components/OverruleResult';
 import {useTranslation} from 'react-i18next';
+import {HeaderBackButton} from '@react-navigation/elements';
 
 export default function SurveyExecutionScreen() {
   const {colors} = useTheme();
@@ -28,16 +29,19 @@ export default function SurveyExecutionScreen() {
   const navigation = useNavigation<NavigationParams>();
   const route = useRoute<SurveyExecutionRouteParams>();
   const {surveyId, standardId} = route.params;
-  const {standardLength, standardIndex, standardData} = useSelector(state => {
-    const data = state.evaluation[surveyId].standards;
-    const index = data?.findIndex(i => i.id === standardId) ?? noDataIndex;
-    const dataLength = data?.length;
-    return {
-      standardLength: dataLength,
-      standardIndex: index > noDataIndex && index + 1,
-      standardData: index > noDataIndex ? data![index] : undefined,
-    };
-  }, shallowEqual);
+  const {standardLength, standardIndex, standardData, surveyNumber} =
+    useSelector(state => {
+      const data = state.evaluation[surveyId].standards;
+      const index = data?.findIndex(i => i.id === standardId) ?? noDataIndex;
+      const dataLength = data?.length;
+      const sNumber = state.evaluation[surveyId].number;
+      return {
+        standardLength: dataLength,
+        standardIndex: index > noDataIndex && index + 1,
+        standardData: index > noDataIndex ? data![index] : undefined,
+        surveyNumber: sNumber,
+      };
+    }, shallowEqual);
   const {t} = useTranslation();
   React.useEffect(() => {
     navigation.setOptions({
@@ -46,9 +50,16 @@ export default function SurveyExecutionScreen() {
           {t('Evaluation')} - {standardIndex} {t('of')} {standardLength}
         </Typography>
       ),
+      headerLeft: () => (
+        <HeaderBackButton
+          labelVisible={true}
+          label={surveyNumber}
+          onPress={() => navigation.goBack()}
+        />
+      ),
       headerRight: () => <EvaluationHeaderRight surveyId={surveyId} />,
     });
-  }, [navigation, standardLength, standardIndex, surveyId, t]);
+  }, [navigation, standardLength, standardIndex, surveyId, t, surveyNumber]);
   if (!surveyId) {
     return null;
   }
