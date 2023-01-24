@@ -1,6 +1,5 @@
 import React from 'react';
 import useModalVisibility from '../../../hooks/useModalVisibility';
-import {CommentType} from '../../../interfaces/standard';
 import TouchableText from '../../../components/TouchableText';
 import CommentModal from '../../../components/CommentModal';
 import {useDispatch, useSelector} from '../../../utils/store/configureStore';
@@ -18,38 +17,27 @@ interface OverruleResultProps {
   standardId: string;
 }
 
-const chips: Array<{title: string; value: OverruleStatus}> = [
-  {
-    value: 'Passed - Overruled',
-    title: 'Set as Passed',
-  },
-  {
-    value: 'Failed - Overruled',
-    title: 'Set as Failed',
-  },
-];
-
 function OverruleResult({surveyId, standardId}: OverruleResultProps) {
   const [visible, handleVisible] = useModalVisibility();
-  const data = useSelector(
-    state =>
-      state.evaluation[surveyId].standards?.find(i => i.id === standardId)
-        ?.overruleComment,
+  const data = useSelector(state =>
+    state.evaluation[surveyId].standards?.find(i => i.id === standardId),
   );
   const dispatch = useDispatch();
   const handleSave = React.useCallback(
-    ({text, chip}: {text: string; chip: CommentType | OverruleStatus}) => {
+    ({textInternal}: {textInternal: string | OverruleStatus}) => {
       dispatch(
         overruleStandardResult({
           surveyId,
           standardId,
-          status: chip as OverruleStatus,
-          commentText: text,
+          status: data?.status?.toLowerCase().includes('passed')
+            ? ('Failed - Overruled' as OverruleStatus)
+            : ('Passed - Overruled' as OverruleStatus),
+          commentText: textInternal,
           time: format(Date.now(), 'dd.MM.yy, HH:mm'),
         }),
       );
     },
-    [dispatch, standardId, surveyId],
+    [dispatch, standardId, surveyId, data],
   );
   const handleResetOverrule = React.useCallback(() => {
     handleVisible();
@@ -63,11 +51,10 @@ function OverruleResult({surveyId, standardId}: OverruleResultProps) {
           visible={visible}
           onVisible={handleVisible}
           onSave={handleSave}
-          chips={chips}
           validationMessage={t('Fill comment and choose a status')}
-          titleText={t('Overrule result')}
-          defaultText={data?.value ?? undefined}
-          defaultChip={getDefaultChip(data?.overruledHint ?? undefined)}
+          titleText={t('Overrule result') ?? undefined}
+          defaultTextInternal={data?.overruleComment?.value ?? null}
+          defaultTextPublic={data?.overruleComment?.value ?? null}
           extraButtons={[
             <Button mode="text" onPress={handleResetOverrule}>
               {t('Reset Overrule')}
@@ -83,16 +70,3 @@ function OverruleResult({surveyId, standardId}: OverruleResultProps) {
 }
 
 export default React.memo(OverruleResult);
-
-function getDefaultChip(s?: string): OverruleStatus | undefined {
-  if (!s) {
-    return undefined;
-  }
-  if (s.indexOf('failed') > -1) {
-    return chips[1].value;
-  }
-  if (s.indexOf('passed') > -1) {
-    return chips[0].value;
-  }
-  return undefined;
-}
