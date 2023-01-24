@@ -1,4 +1,4 @@
-import {configureFonts, DefaultTheme, DarkTheme} from 'react-native-paper';
+import {configureFonts, MD2LightTheme, MD2DarkTheme} from 'react-native-paper';
 
 const fontFamilies = {
   regular: {
@@ -21,9 +21,9 @@ const fontConfig = {
 };
 
 const defaultTheme: ReactNativePaper.Theme = {
-  ...DefaultTheme,
+  ...MD2LightTheme,
   colors: {
-    ...DefaultTheme.colors,
+    ...MD2LightTheme.colors,
     primary: '#00A3ED', // - primary color for your app, usually your brand color.
     accent: 'rgba(126, 126, 126, 0.2)', // - secondary color for your app which complements the primary color.
     background: '#FFFFFF', // - background color for pages, such as lists.
@@ -44,16 +44,16 @@ const defaultTheme: ReactNativePaper.Theme = {
     yellow: '#FF982B',
     green: '#85BB60',
   },
-  fonts: configureFonts(fontConfig),
+  fonts: configureFonts({config: fontConfig, isV3: false}),
 };
 
 const darkTheme = {
-  ...DarkTheme,
+  ...MD2DarkTheme,
   colors: {
-    ...DarkTheme.colors,
+    ...MD2DarkTheme.colors,
     text: '#FFFFFF',
   },
-  fonts: configureFonts(fontConfig),
+  fonts: configureFonts({config: fontConfig, isV3: false}),
 };
 
 export default {
