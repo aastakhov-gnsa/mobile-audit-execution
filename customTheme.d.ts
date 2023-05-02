@@ -48,6 +48,11 @@ declare global {
       text50?: string;
       yellow?: string;
       green?: string;
+      accent?: string;
+      text?: string;
+      disabled?: string;
+      placeholder?: string;
+      notification?: string;
     }
 
     interface ThemeAnimation {

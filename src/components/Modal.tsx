@@ -43,14 +43,18 @@ function Modal({
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.contentContainer}>
-            <Surface style={Platform.OS === 'ios' ? styles.surface : styles.surfaceAndroid}>
+            <Surface
+              style={
+                Platform.OS === 'ios' ? styles.surface : styles.surfaceAndroid
+              }>
               <ItemWrapper style={styles.header}>
                 <Typography size="Headline 6">{title}</Typography>
               </ItemWrapper>
               <Divider />
               <ItemWrapper paddingValue={25}>{children}</ItemWrapper>
               <Divider />
-              <ItemWrapper style={Platform.OS === 'ios' ? styles.controlsWrapper : null}>
+              <ItemWrapper
+                style={Platform.OS === 'ios' ? styles.controlsWrapper : null}>
                 {extraButtons?.map(i => i)}
                 <Button mode="text" onPress={onCancel}>
                   {t('cancel')}

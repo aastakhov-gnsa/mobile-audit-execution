@@ -62,9 +62,9 @@ export function SvSr({data}: SvSrProps) {
         {t('Generate SvSr')}
       </Button>
       <Modal
-        title={t('Survey Status Report Filter')}
+        title={t('Survey Status Report Filter').toString()}
         visible={show}
-        saveCaption={t('Next')}
+        saveCaption={t('Next').toString()}
         onCancel={() => setShow(false)}
         onSave={handleExport}>
         <ScrollView style={styles.container}>
