@@ -171,7 +171,10 @@ export function SignatureScreen() {
               if (validateEmail(email) && isConnected) {
                 handleNext();
               } else if (!isConnected) {
-                SimpleToast.show(t('Please check your internet connection.'), SimpleToast.LONG);
+                SimpleToast.show(
+                  t('Please check your internet connection.'),
+                  SimpleToast.LONG,
+                );
               }
             }}
             loading={requested}

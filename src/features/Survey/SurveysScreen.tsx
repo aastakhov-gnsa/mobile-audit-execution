@@ -191,7 +191,7 @@ function SurveysScreen() {
         <GenericPopupModal
           title={t(
             'The session has expired. Please Logout and Re-Login in order to continue!',
-          )}
+          ).toString()}
           visible={isConnected && isError && !isSuccess}
           extraButtons={<LogoutButton />}
         />
