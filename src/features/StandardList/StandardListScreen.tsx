@@ -113,7 +113,7 @@ function StandardListScreen() {
               ),
             );
           } else if (f.fieldName === 'files') {
-            if (f.value === 'yes') {
+            if (f.value.toString() === 'yes') {
               filteredData = filteredData.filter(i =>
                 i.questionDTOList?.some(u => u[f.fieldName].length !== 0),
               );
@@ -123,7 +123,7 @@ function StandardListScreen() {
               );
             }
           } else if (f.fieldName === 'attachedComment') {
-            if (f.value === 'yes') {
+            if (f.value.toString() === 'yes') {
               filteredData = filteredData.filter(i =>
                 i.questionDTOList?.some(
                   u =>
