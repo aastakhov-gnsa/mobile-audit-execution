@@ -49,9 +49,10 @@ export const filtersReducer = createSlice({
     ) => {
       const {screenName} = action.payload;
       delete state[screenName];
-    }
+    },
   },
   extraReducers: builder => builder.addCase(logout, () => initState),
 });
 
-export const {addFilter, removeFilter, removeFilterList} = filtersReducer.actions;
+export const {addFilter, removeFilter, removeFilterList} =
+  filtersReducer.actions;

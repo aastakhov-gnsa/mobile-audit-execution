@@ -1,7 +1,7 @@
 import {notEvaluatedStatuses} from '../../../interfaces/common';
 import {AuditStandardExecution} from '../../../interfaces/standard';
 import {grayBackground, blueBackground} from './styles';
-import i18next from 'i18next'
+import i18next from 'i18next';
 
 export function getClusterStatistic(standards: AuditStandardExecution[]) {
   const open = standards.filter(item =>

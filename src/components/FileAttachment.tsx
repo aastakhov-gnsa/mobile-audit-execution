@@ -40,7 +40,7 @@ function FileAttachment({
         if (res.fileCopyUri) {
           dispatch(
             setQuestionAddedFile({
-              fileId: res.name,
+              fileId: res.name!,
               filePath:
                 Platform.OS === 'ios'
                   ? res.fileCopyUri.substring(filePrefix.length)

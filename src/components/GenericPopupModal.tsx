@@ -1,6 +1,6 @@
 import React from 'react';
-import {Surface, Portal} from 'react-native-paper';
-import {StyleSheet, Modal, KeyboardAvoidingView, Platform} from 'react-native';
+import {Surface, Portal, Modal} from 'react-native-paper';
+import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import ItemWrapper from './ItemWrapper';
 import Typography from './Typography';
 
@@ -66,7 +66,10 @@ const styles = StyleSheet.create({
     width: '80%',
     borderRadius: 5,
   },
-  header: {alignItems: 'center', paddingBottom: 0},
+  header: {
+    alignItems: 'center',
+    paddingBottom: 0,
+  },
   controlsWrapper: {
     paddingRight: '40%',
     paddingLeft: '40%',

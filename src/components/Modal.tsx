@@ -54,6 +54,7 @@ function Modal({
               <ItemWrapper paddingValue={25}>{children}</ItemWrapper>
               <Divider />
               <ItemWrapper
+                key={title}
                 style={Platform.OS === 'ios' ? styles.controlsWrapper : null}>
                 {extraButtons?.map(i => i)}
                 <Button mode="text" onPress={onCancel}>

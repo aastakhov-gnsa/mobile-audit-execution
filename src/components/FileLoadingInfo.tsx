@@ -1,7 +1,7 @@
 import React from 'react';
 import {ProgressBar} from 'react-native-paper';
 import {useSelector} from '../utils/store/configureStore';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {FileStatus} from '../interfaces/files';
 import Typography from './Typography';
 
@@ -23,7 +23,7 @@ function FileLoadingInfo({
     <>
       {files?.map(i => {
         return (
-          <View style={{marginBottom: 2}} key={i.id}>
+          <View style={styles.viewStyle} key={i.id}>
             <Typography size="Body 1">{i.name}</Typography>
             <ProgressBar progress={i.loadPart} indeterminate={indeterminate} />
           </View>
@@ -32,5 +32,11 @@ function FileLoadingInfo({
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  viewStyle: {
+    marginBottom: 2,
+  },
+});
 
 export default React.memo(FileLoadingInfo);

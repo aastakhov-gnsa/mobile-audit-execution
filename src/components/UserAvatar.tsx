@@ -2,10 +2,10 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ActivityIndicator, Avatar} from 'react-native-paper';
 import UserInfoPopup from './UserInfoPopup';
-import { useUserName } from '../hooks/useUserName';
+import {useUserName} from '../hooks/useUserName';
 
 function UserAvatar() {
-  const fullName = useUserName()
+  const fullName = useUserName();
   const [visible, setVisible] = React.useState(false);
   const handleVisible = React.useCallback(() => {
     setVisible(!visible);

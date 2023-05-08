@@ -42,19 +42,19 @@ const CustomDrawer = () => {
   };
   const checkValuesForProductGroups = (filterType: string) => {
     if ((globalThis as any).isProductGroupDT) {
-      if (filterType == 'brand') {
+      if (filterType === 'brand') {
         return brandDTFilterValues;
-      } else if (filterType == 'productGroup') {
+      } else if (filterType === 'productGroup') {
         return productGroupDTFilterValues;
-      } else if (filterType == 'activity') {
+      } else if (filterType === 'activity') {
         return activityDTFilterValues;
       }
     } else {
-      if (filterType == 'brand') {
+      if (filterType === 'brand') {
         return brandFilterValues;
-      } else if (filterType == 'productGroup') {
+      } else if (filterType === 'productGroup') {
         return productGroupFilterValues;
-      } else if (filterType == 'activity') {
+      } else if (filterType === 'activity') {
         return activityFilterValues;
       }
     }

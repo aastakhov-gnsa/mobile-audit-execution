@@ -14,7 +14,6 @@ export const tokenReducer = createSlice({
   initialState: initState,
   reducers: {},
   extraReducers: builder => {
-    builder
-      .addCase(logout, () => initState)
+    builder.addCase(logout, () => initState);
   },
 });

@@ -32,7 +32,11 @@ export const fileLoading = createSlice({
     },
     deleteFile: (
       state,
-      action: PayloadAction<{entityId: string; fileId: string; surveyId: string}>,
+      action: PayloadAction<{
+        entityId: string;
+        fileId: string;
+        surveyId: string;
+      }>,
     ) => {
       const index = state[action.payload.surveyId].findIndex(
         i => i.id === action.payload.fileId,
@@ -59,9 +63,14 @@ export const fileLoading = createSlice({
     },
     changeLoadPart: (
       state,
-      action: PayloadAction<{entityId: string; fileId: string; part: number; surveyId: string;}>,
+      action: PayloadAction<{
+        entityId: string;
+        fileId: string;
+        part: number;
+        surveyId: string;
+      }>,
     ) => {
-      const {fileId, part, entityId, surveyId} = action.payload;
+      const {fileId, part, surveyId} = action.payload;
       const file = state[surveyId].find(i => i.id === fileId);
       if (file) {
         file.loadPart = part;

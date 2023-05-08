@@ -20,7 +20,14 @@ const uploadingFileMiddleware: Middleware =
       const token = state.auth.token;
       const {entityId, path, fileId, name, surveyId} = action.payload;
       const handleProgress = (n: number) =>
-        dispatch(changeLoadPart({part: n, fileId: fileId, entityId, surveyId: surveyId}));
+        dispatch(
+          changeLoadPart({
+            part: n,
+            fileId: fileId,
+            entityId,
+            surveyId: surveyId,
+          }),
+        );
       const handleSuccess = () =>
         dispatch(deleteFile({fileId: fileId, entityId, surveyId: surveyId}));
       const handleError = () =>

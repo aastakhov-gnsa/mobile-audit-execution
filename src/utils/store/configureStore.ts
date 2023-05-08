@@ -29,7 +29,7 @@ import {languagesReducer} from '../../features/ContentLanguageSwitching/language
 import {fileLoading} from '../../features/FileLoading/fileLoadingReducer';
 import uploadingFileMiddleware from '../../features/FileLoading/uploadingFileMiddleware';
 import downloadFilesMiddleware from '../../features/FileLoading/downlodFilesMiddleware';
-import { searchInputReducer } from '../../components/Filters/searchInputReducer';
+import {searchInputReducer} from '../../components/Filters/searchInputReducer';
 
 const persistConfig = {
   key: 'root',

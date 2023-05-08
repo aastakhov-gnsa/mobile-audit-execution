@@ -38,7 +38,7 @@ const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
       alignItems: 'center',
       justifyContent: 'center',
     },
-    emo: {marginTop: '50%'},
+    emo: {marginTop: '25%'},
     header: {
       marginTop: 16,
     },

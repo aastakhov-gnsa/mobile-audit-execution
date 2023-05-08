@@ -12,8 +12,8 @@ export default function useOrientation(): [boolean] {
     const handler = ({window}: {window: ScaledSize}) => {
       setDimensions({window});
     };
-    Dimensions.addEventListener('change', handler);
-    return () => Dimensions.removeEventListener('change', handler);
+    const subscription = Dimensions.addEventListener('change', handler);
+    return () => subscription?.remove();
   }, []);
   return React.useMemo(
     () => [dimensions.window.height > dimensions.window.width],

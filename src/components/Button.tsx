@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button as PaterButton, useTheme} from 'react-native-paper';
-import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
+import {IconSource} from 'react-native-paper/src/components/Icon';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ICON_SIZE} from '../constants/constants';
 import {StyleSheet} from 'react-native';

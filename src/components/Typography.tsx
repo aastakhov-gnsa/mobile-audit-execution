@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import {StyleSheet, Text, TextStyle, TextProps} from 'react-native';
 
 export type TypographyProps = TextProps & {
-  children: React.ReactNode;
+  child?: React.ReactNode;
   size:
     | 'Headline 1'
     | 'Headline 2'
@@ -21,7 +21,7 @@ export type TypographyProps = TextProps & {
 
 function Typography({style, size, ...rest}: TypographyProps) {
   const customStyle = StyleSheet.compose(map[size], style);
-  return <Text style={customStyle} children={rest.children} {...rest} />;
+  return <Text style={customStyle} children={rest.child} {...rest} />;
 }
 
 const map: Record<TypographyProps['size'], TextStyle> = {

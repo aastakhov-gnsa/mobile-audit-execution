@@ -115,7 +115,7 @@ function FilesPanel({
           horizontal
           data={images}
           renderItem={renderPhoto}
-          keyExtractor={photoKeyExtractor}
+          keyExtractor={photoKeyExtractor as any}
         />
       </View>
 

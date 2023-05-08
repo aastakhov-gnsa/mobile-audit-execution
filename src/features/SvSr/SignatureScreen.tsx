@@ -86,7 +86,10 @@ export function SignatureScreen() {
             person === 'partner' || requestedTab === 'auditor' ? 'none' : 'auto'
           }
           loading={requestedTab === 'auditor'}
-          color={person === 'partner' ? colors.primary : colors.disabled}
+          buttonColor={
+            person === 'partner' ? colors.primary : colors.background
+          }
+          textColor={person === 'partner' ? colors.background : colors.primary}
           style={person === 'partner' ? styles.selectedTab : styles.tab}
           mode="text"
           onPress={() => {
@@ -100,7 +103,10 @@ export function SignatureScreen() {
             person === 'auditor' || requestedTab === 'partner' ? 'none' : 'auto'
           }
           loading={requestedTab === 'partner'}
-          color={person === 'auditor' ? colors.primary : colors.disabled}
+          buttonColor={
+            person === 'auditor' ? colors.primary : colors.background
+          }
+          textColor={person === 'auditor' ? colors.background : colors.primary}
           style={person === 'auditor' ? styles.selectedTab : styles.tab}
           mode="text"
           onPress={() => {

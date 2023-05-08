@@ -95,7 +95,7 @@ export const SignaturePartner = forwardRef<
           <TextInput
             keyboardType="email-address"
             mode="outlined"
-            placeholder={t('Enter e-mail or several, split by comma')}
+            placeholder={t('Enter e-mail or several, split by comma')!}
             value={email}
             onChangeText={onEmailChange}
             error={emailError}

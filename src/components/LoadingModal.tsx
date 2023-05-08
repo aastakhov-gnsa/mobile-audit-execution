@@ -1,10 +1,6 @@
 import React from 'react';
 import {Surface, ActivityIndicator, Modal, Portal} from 'react-native-paper';
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import ItemWrapper from './ItemWrapper';
 import Typography from './Typography';
 
@@ -13,30 +9,28 @@ interface LoadingModalProps {
   visible: boolean;
 }
 
-function LoadingModal({
-  title,
-  visible,
-}: LoadingModalProps) {
+function LoadingModal({title, visible}: LoadingModalProps) {
   return (
     <>
       {visible && (
-      <Portal>
-        <Modal
-          visible={visible}
-          contentContainerStyle={styles.contentContainer}
-          >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.contentContainer}>
-            <Surface style={styles.surface}>
-              <ItemWrapper style={styles.header}>
-                <ActivityIndicator animating={true}/>
-                <Typography style={{paddingLeft: 12}} size="Body 1">{title}</Typography>
-              </ItemWrapper>
-            </Surface>
-          </KeyboardAvoidingView>
-        </Modal>
-      </Portal>
+        <Portal>
+          <Modal
+            visible={visible}
+            contentContainerStyle={styles.contentContainer}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              style={styles.contentContainer}>
+              <Surface style={styles.surface}>
+                <ItemWrapper style={styles.header}>
+                  <ActivityIndicator animating={true} />
+                  <Typography style={styles.titleText} size="Body 1">
+                    {title}
+                  </Typography>
+                </ItemWrapper>
+              </Surface>
+            </KeyboardAvoidingView>
+          </Modal>
+        </Portal>
       )}
     </>
   );
@@ -58,7 +52,10 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    flexDirection:'row',
-    justifyContent: 'center'
-  }
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  titleText: {
+    paddingLeft: 12,
+  },
 });

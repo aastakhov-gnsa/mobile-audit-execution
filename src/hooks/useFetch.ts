@@ -18,8 +18,9 @@ export default function useFetch<T>(url: string) {
         const json = await res.json();
         setData(json);
       } catch (e) {
+        const err = e as SetStateAction<null>;
         console.error('fetch error', e);
-        setError(e);
+        setError(err);
       }
     };
     f();

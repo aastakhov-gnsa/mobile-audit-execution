@@ -90,7 +90,12 @@ function CommentModal({
       title={titleText ?? capitalizeFirstLetter(t('comment'))}>
       <View style={styles.tabs}>
         <Button
-          color={requestedTab === 'internal' ? colors.primary : colors.disabled}
+          buttonColor={
+            requestedTab === 'internal' ? colors.primary : colors.background
+          }
+          textColor={
+            requestedTab === 'internal' ? colors.background : colors.primary
+          }
           style={requestedTab === 'internal' ? styles.selectedTab : styles.tab}
           mode="text"
           onPress={() => {
@@ -100,7 +105,12 @@ function CommentModal({
           {t('Internal Comment')}
         </Button>
         <Button
-          color={requestedTab === 'public' ? colors.primary : colors.disabled}
+          buttonColor={
+            requestedTab === 'public' ? colors.primary : colors.background
+          }
+          textColor={
+            requestedTab === 'public' ? colors.background : colors.primary
+          }
           style={requestedTab === 'public' ? styles.selectedTab : styles.tab}
           mode="text"
           onPress={() => {

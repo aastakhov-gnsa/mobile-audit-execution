@@ -24,7 +24,7 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
   const toggleNumberOfLines = () => {
     setTextShown(!textShown);
   };
-  const onTextLayout = useCallback(e => {
+  const onTextLayout = useCallback((e: any) => {
     setLengthMore(e.nativeEvent.lines.length >= 2);
   }, []);
   const {colors} = useTheme();
@@ -49,15 +49,13 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
         <Text
           onTextLayout={onTextLayout}
           numberOfLines={textShown ? undefined : 2}
-          style={{lineHeight: 21, fontSize: 16, fontFamily: 'Roboto-Regular'}}>
+          style={styles.standardDescription}>
           {needTranslation && data?.textTranslations?.[langCode]
             ? data?.textTranslations?.[langCode]
             : data?.standardText}
         </Text>
         {lengthMore ? (
-          <Text
-            onPress={toggleNumberOfLines}
-            style={{color: 'blue', lineHeight: 21, marginTop: 10}}>
+          <Text onPress={toggleNumberOfLines} style={styles.readMore}>
             {textShown ? t('Read less...') : t('Read more...')}
           </Text>
         ) : null}
@@ -68,24 +66,24 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
       <ItemWrapper paddingValue={0} style={styles.bottomContainer}>
         {!!data?.checkpoint && (
           <Checkpoint
-            checkpoint={t(data.checkpoint)}
+            checkpoint={t(data.checkpoint)!}
             style={styles.bottomItem}
           />
         )}
         {!!data?.standardType && <Chip>{t(data.standardType)}</Chip>}
       </ItemWrapper>
       {!!data?.infoForAuditor?.length && (
-        <ItemWrapper paddingValue={[32, 0]} title={t('Additional Info')}>
+        <ItemWrapper paddingValue={[32, 0]} title={t('Additional Info')!}>
           <Typography size="Body 1">{data?.infoForAuditor}</Typography>
         </ItemWrapper>
       )}
       {!!data?.requiredDocuments?.length && (
-        <ItemWrapper paddingValue={[32, 0]} title={t('Documents Required')}>
+        <ItemWrapper paddingValue={[32, 0]} title={t('Documents Required')!}>
           <Typography size="Body 1">{data?.requiredDocuments}</Typography>
         </ItemWrapper>
       )}
       {!!data?.files?.length && (
-        <ItemWrapper paddingValue={[32, 0]} title={t('Files')}>
+        <ItemWrapper paddingValue={[32, 0]} title={t('Files')!}>
           <FilesPanel
             files={data.files}
             surveyId={surveyId}
@@ -98,7 +96,7 @@ function StandardInformation({id, surveyId}: StandardInformationProps) {
           <CommentWithColor
             title={t('Overrule Comment')}
             value={data?.overruleComment?.value}
-            hint={data?.overruleComment?.overruledHint}
+            hint={data?.overruleComment?.overruledHint!}
             status={data?.status}
           />
         </ItemWrapper>
@@ -145,5 +143,15 @@ const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
     },
     bottomItem: {
       marginRight: 20,
+    },
+    standardDescription: {
+      lineHeight: 21,
+      fontSize: 16,
+      fontFamily: 'Roboto-Regular',
+    },
+    readMore: {
+      color: 'blue',
+      lineHeight: 21,
+      marginTop: 10,
     },
   });

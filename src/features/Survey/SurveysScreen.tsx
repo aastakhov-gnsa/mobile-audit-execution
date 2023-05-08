@@ -108,7 +108,7 @@ function SurveysScreen() {
   }, []);
 
   const updateApp = () => {
-    Linking.openURL(__HOST__);
+    Linking.openURL(__HOST__!);
   };
 
   const {t} = useTranslation();

@@ -42,7 +42,7 @@ function StandardCard({id, surveyId}: StandardCardProps) {
           </Typography>
         }
         subtitle={<Typography size="Body 1">{data?.standardNumber}</Typography>}
-        right={() => <StatusWithIcon status={data?.status} />}
+        right={() => statusWithIconRight(data)}
         rightStyle={styles.rightContainer}
       />
       <Card.Content style={styles.cardContent}>
@@ -50,7 +50,7 @@ function StandardCard({id, surveyId}: StandardCardProps) {
         <View style={styles.bottomContainer}>
           {!!data?.checkpoint && (
             <Checkpoint
-              checkpoint={t(data.checkpoint)}
+              checkpoint={t(data.checkpoint)!}
               style={styles.bottomItem}
             />
           )}
@@ -59,6 +59,10 @@ function StandardCard({id, surveyId}: StandardCardProps) {
       </Card.Content>
     </Card>
   );
+}
+
+function statusWithIconRight(data: any) {
+  return <StatusWithIcon status={data.status} />;
 }
 
 export default React.memo(StandardCard);

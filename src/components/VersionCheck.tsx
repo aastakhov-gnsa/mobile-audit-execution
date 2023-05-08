@@ -1,11 +1,6 @@
 import React from 'react';
 import {Surface, Modal, Portal, Divider} from 'react-native-paper';
-import {
-  StyleSheet,
-  Modal as RNModal,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import Button from './Button';
 import ItemWrapper from './ItemWrapper';
@@ -23,9 +18,7 @@ function VersionCheck({visible, hideDialog, updateApp}: VersionCheckProps) {
     <>
       {visible && (
         <Portal>
-          <Modal
-            visible={visible}
-            contentContainerStyle={styles.contentContainer}>
+          <Modal visible={visible} style={styles.contentContainer}>
             <KeyboardAvoidingView
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               style={styles.contentContainer}>
@@ -84,7 +77,10 @@ const styles = StyleSheet.create({
     width: '80%',
     borderRadius: 5,
   },
-  header: {alignItems: 'center', margin: '1%'},
+  header: {
+    alignItems: 'center',
+    margin: '1%',
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
