@@ -20,6 +20,7 @@ import useCurrentLanguage from '../../hooks/useCurrentLanguage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FILTER_ICON_SIZE} from '../../constants/constants';
 import Typography from '../../components/Typography';
+import {DaimlerService} from '../../interfaces/survey';
 
 function StandardListScreen() {
   const route = useRoute<StandardListRouteParams>();
@@ -108,8 +109,10 @@ function StandardListScreen() {
             filteredData = filteredData.filter(i =>
               i.services?.some(u =>
                 Array.isArray(f.value) && f.value.length !== 0
-                  ? f.value.includes(u[f.fieldName] as string)
-                  : u[f.fieldName] === f.value,
+                  ? f.value.includes(
+                      u[f.fieldName as keyof DaimlerService] as string,
+                    )
+                  : u[f.fieldName as keyof DaimlerService] === f.value,
               ),
             );
           } else if (f.fieldName === 'files') {
