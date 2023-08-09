@@ -12,7 +12,7 @@ import Toast from 'react-native-simple-toast';
 
 export function alert(e: AxiosError) {
   let requestBody = '';
-  if (typeof e.config.data === 'string') {
+  if (typeof e.config?.data === 'string') {
     try {
       requestBody = JSON.stringify(JSON.parse(e.config.data), null, 2);
     } catch {
@@ -66,7 +66,7 @@ export function defaultAlert({
   appVersion: ${packageJson.version}
   `;
   const button: AlertButton = {
-    text: i18n.t('Copy'),
+    text: i18n.t('Copy').toString(),
     onPress: () => {
       Clipboard.setString(message);
     },
@@ -99,25 +99,32 @@ exception: ${JSON.stringify(e, null, 2)}
 appVersion: ${packageJson.version}
   `;
   const button: AlertButton = {
-    text: i18n.t('Copy error and Try Again'),
+    text: i18n.t('Copy error and Try Again')!,
     onPress: () => {
-      {
-        Clipboard.setString(message);
-        Toast.show(i18n.t('Some files could not be uploaded. Please check your internet connection without closing the application.'), Toast.LONG);
-      }
+      fileUploadAlertToast(message);
     },
   };
   Alert.alert(`Upload file ${requestConfig.data[0].fileName} failed`, message, [
     button,
   ]);
-    onRetryCb();
-    uploadBlob({
-      requestConfig,
-      onSuccessCb,
-      onProgressCb,
-      onFailCb,
-      onRetryCb,
-    });
+  onRetryCb();
+  uploadBlob({
+    requestConfig,
+    onSuccessCb,
+    onProgressCb,
+    onFailCb,
+    onRetryCb,
+  });
+}
+
+function fileUploadAlertToast(message: string) {
+  Clipboard.setString(message);
+  Toast.show(
+    i18n.t(
+      'Some files could not be uploaded. Please check your internet connection without closing the application.',
+    ),
+    Toast.LONG,
+  );
 }
 
 export function fileDownloadAlert({

@@ -20,7 +20,7 @@ export function SvSRPreviewPdf({uri}: SvSRPreviewPdfProps) {
         console.error(e);
       }}
     />
-  )
+  );
 }
 
 const styles = StyleSheet.create({

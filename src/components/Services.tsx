@@ -17,7 +17,6 @@ import Smart from '../assets/icons/brands/Smart.svg';
 import WesternStarTrucks from '../assets/icons/brands/WesternStarTrucks.svg';
 import Typography from './Typography';
 import {DaimlerService} from '../interfaces/survey';
-import {getServiceLabel} from '../utils/daimlerService';
 
 interface ServicesProps {
   services?: DaimlerService[];
@@ -29,9 +28,7 @@ function Services({services, showNumber}: ServicesProps) {
   if (!services) {
     return null;
   }
-  const servicesValues = showNumber
-    ? services.slice(0, showNumber)
-    : services;
+  const servicesValues = showNumber ? services.slice(0, showNumber) : services;
   const restNumber = showNumber && services.slice(showNumber).length;
   const restText = restNumber && `${restNumber} more`;
   const styles = makeStyles(colors);
@@ -46,11 +43,7 @@ function Services({services, showNumber}: ServicesProps) {
                 {getProductGroupIcon(productGroup)}
               </View>
               <View style={styles.iconContainer}>{getBrandIcon(brand)}</View>
-              <Typography
-                size="Body 1"
-                style={{
-                  height: 18,
-                }}>
+              <Typography size="Body 1" style={styles.activityText}>
                 {activity}
               </Typography>
             </View>
@@ -87,6 +80,9 @@ const makeStyles = (colors: ReactNativePaper.ThemeColors) =>
       alignItems: 'center',
       marginRight: 25,
       marginBottom: 12,
+    },
+    activityText: {
+      height: 18,
     },
   });
 

@@ -10,7 +10,7 @@ import {
   Secrets,
 } from '../../utils/encryptedStorage/encryptedStorage';
 import {AuthContext} from '../../context/AuthContext';
-import {API, sendAuthorizationCode} from '../../api/api';
+import {sendAuthorizationCode} from '../../api/api';
 import {Storage, StorageItems} from '../../utils/storage/storage';
 import {useDispatch, useSelector} from '../../utils/store/configureStore';
 import Typography from '../../components/Typography';
@@ -18,13 +18,13 @@ import {useTranslation} from 'react-i18next';
 import {parseJwt} from '../../utils/jwt';
 import {setAuthTokens} from './authReducer';
 import {alert} from '../../api/apiAlerts';
+import {AxiosError} from 'axios';
 const image = require('./assets/logo.png');
 
 function AuthScreen() {
   const authContext = React.useContext(AuthContext);
   const dispatch = useDispatch();
   const {tokenLoading} = useSelector(store => store.tokenUtil);
-  const {token} = useSelector(store => store.auth);
   const [newToken, setNewToken] = React.useState('');
   useEffect(() => {
     const setToken = async () => {
@@ -60,7 +60,8 @@ function AuthScreen() {
 
       authContext.setRefreshToken(refreshToken);
       dispatch(setAuthTokens({token: jwttoken, refreshToken}));
-    } catch (error) {
+    } catch (err) {
+      const error = err as AxiosError;
       console.error('Authentication failed', JSON.stringify(error));
       alert(error);
     }

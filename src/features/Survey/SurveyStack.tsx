@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScreenNames, Surveys} from '../../navigation/navigation';
+import {ScreenNames, SurveysNavigator} from '../../navigation/navigation';
 import SurveysScreen from './SurveysScreen';
 import HeaderRight from '../../components/HeaderRight/HeaderRight';
 import {StyleSheet} from 'react-native';
@@ -28,61 +28,61 @@ function SurveyStack() {
   );
   const {t} = useTranslation();
   return (
-    <Surveys.Navigator>
-      <Surveys.Group screenOptions={{headerTitleAlign: 'center'}}>
-        <Surveys.Screen
+    <SurveysNavigator.Navigator>
+      <SurveysNavigator.Group screenOptions={{headerTitleAlign: 'center'}}>
+        <SurveysNavigator.Screen
           name={ScreenNames.Surveys}
           component={SurveysScreen}
           options={{
-            title: t(ScreenNames.Surveys),
+            title: t(ScreenNames.Surveys)!,
             headerTitleStyle: styles.headerTitle,
             headerStyle: styles.headerStyle,
             headerRight: SurveysHeaderRight,
             headerLeft: SurveysHeaderLeft,
           }}
         />
-        <Surveys.Screen
+        <SurveysNavigator.Screen
           name={ScreenNames.StandardList}
           component={StandardListScreen}
         />
-        <Surveys.Screen
+        <SurveysNavigator.Screen
           name={ScreenNames.SurveyExecution}
           component={SurveyExecutionScreen}
         />
-        <Surveys.Screen
+        <SurveysNavigator.Screen
           name={ScreenNames.SvSRPreview}
-          options={{title: t('Status Report')}}
+          options={{title: t('Status Report')!}}
           component={SvSRPreviewScreen}
         />
-        <Surveys.Screen
+        <SurveysNavigator.Screen
           name={ScreenNames.Signature}
-          options={{title: t('Sign the Report')}}
+          options={{title: t('Sign the Report')!}}
           component={SignatureScreen}
         />
-      </Surveys.Group>
-      <Surveys.Group
+      </SurveysNavigator.Group>
+      <SurveysNavigator.Group
         screenOptions={{presentation: 'modal', headerTitleAlign: 'center'}}>
-        <Surveys.Screen
+        <SurveysNavigator.Screen
           name={ScreenNames.UserManual}
-          options={{title: t('User Manual')}}
+          options={{title: t('User Manual')!}}
           component={UserManualScreen}
         />
-        <Surveys.Screen
+        <SurveysNavigator.Screen
           name={ScreenNames.LegalNoticesAndTerms}
-          options={{title: t('Legal Notices and Terms')}}
+          options={{title: t('Legal Notices and Terms')!}}
           component={LegalNoticesAndTermsScreen}
         />
-        <Surveys.Screen
+        <SurveysNavigator.Screen
           name={ScreenNames.AuditDetails}
-          options={{title: t('Audit Details')}}
+          options={{title: t('Audit Details')!}}
           component={AuditDetailsScreen}
         />
-        <Surveys.Screen
+        <SurveysNavigator.Screen
           name={ScreenNames.FileView}
           component={FileViewScreen}
         />
-      </Surveys.Group>
-    </Surveys.Navigator>
+      </SurveysNavigator.Group>
+    </SurveysNavigator.Navigator>
   );
 }
 

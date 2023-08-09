@@ -1,8 +1,7 @@
 import React from 'react';
 import ScreenContainer from '../../components/ScreenContainer';
 import {DrawerActions, useNavigation, useRoute} from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {StatusBar, View} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 import themeConfig from '../../../themeConfig';
 import ListInfoCaption from '../../components/ListInfoCaption';
 import {AuditStandardExecution} from '../../interfaces/standard';
@@ -21,6 +20,7 @@ import useCurrentLanguage from '../../hooks/useCurrentLanguage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {FILTER_ICON_SIZE} from '../../constants/constants';
 import Typography from '../../components/Typography';
+import {DaimlerService} from '../../interfaces/survey';
 
 function StandardListScreen() {
   const route = useRoute<StandardListRouteParams>();
@@ -82,51 +82,53 @@ function StandardListScreen() {
     return count;
   };
 
-  const productGroupCheck = () => {
+  const productGroupCheck = React.useCallback(() => {
     if (
       auditData?.services.find(
         e => e.productGroup === 'PC' || e.productGroup === 'Van',
       ) === undefined
     ) {
-      (globalThis as any).isProductGroupDT = true;
+      return true;
     } else {
-      (globalThis as any).isProductGroupDT = false;
+      return false;
     }
-  };
+  }, [auditData]);
   const data = React.useMemo(() => {
     let filteredData = allData.slice();
     filteredData = filteredData.slice();
-    productGroupCheck();
+    (globalThis as any).isProductGroupDT = productGroupCheck();
     if (filter) {
       const filters = Object.values(filter);
       filters.forEach(f => {
-        if (f.value.length != 0) {
+        if (f.value.length !== 0) {
           if (
-            f.fieldName == 'brand' ||
-            f.fieldName == 'activity' ||
-            f.fieldName == 'productGroup'
+            f.fieldName === 'brand' ||
+            f.fieldName === 'activity' ||
+            f.fieldName === 'productGroup'
           ) {
             filteredData = filteredData.filter(i =>
-              i.services.some(u =>
-                Array.isArray(f.value) && f.value.length != 0
-                  ? f.value.includes(u[f.fieldName] as string)
-                  : u[f.fieldName] === f.value,
+              i.services?.some(u =>
+                Array.isArray(f.value) && f.value.length !== 0
+                  ? f.value.includes(
+                      u[f.fieldName as keyof DaimlerService] as string,
+                    )
+                  : u[f.fieldName as keyof DaimlerService] === f.value,
               ),
             );
-          } else if (f.fieldName == 'files') {
-            if (f.value == 'yes') {
+          } else if (f.fieldName === 'files') {
+            if (f.value.toString() === 'yes') {
               filteredData = filteredData.filter(i =>
-                i.questionDTOList.some(u => u[f.fieldName].length != 0),
+                i.questionDTOList?.some(u => u[f.fieldName].length !== 0),
               );
             } else {
               filteredData = filteredData.filter(i =>
-                i.questionDTOList.some(u => u[f.fieldName].length == 0),
+                i.questionDTOList?.some(u => u[f.fieldName].length === 0),
               );
             }
-          } else if (f.fieldName == 'attachedComment') {
-            if (f.value == 'yes') {
+          } else if (f.fieldName === 'attachedComment') {
+            if (f.value.toString() === 'yes') {
               filteredData = filteredData.filter(i =>
-                i.questionDTOList.some(
+                i.questionDTOList?.some(
                   u =>
                     (typeof u.internalComment === 'string' &&
                       u.internalComment.length > 0) ||
@@ -136,12 +138,12 @@ function StandardListScreen() {
               );
             } else {
               filteredData = filteredData.filter(i =>
-                i.questionDTOList.some(
+                i.questionDTOList?.some(
                   u =>
                     (typeof u.internalComment !== 'string' ||
-                      typeof u.internalComment.length == 0) &&
+                      u.internalComment.length === 0) &&
                     (typeof u.publicComment !== 'string' ||
-                      typeof u.publicComment.length == 0),
+                      u.publicComment.length === 0),
                 ),
               );
             }
@@ -166,9 +168,15 @@ function StandardListScreen() {
         searchInput?.descriptionSearch?.value &&
         searchInput?.standardID?.value
       ) {
-        const nameSearchQ = searchInput.nameSearch.value.toLowerCase();
-        const descriptionQ = searchInput.descriptionSearch.value.toLowerCase();
-        const standardIDQ = searchInput.standardID.value.toLowerCase();
+        const nameSearchQ = searchInput.nameSearch.value
+          .toString()
+          .toLowerCase();
+        const descriptionQ = searchInput.descriptionSearch.value
+          .toString()
+          .toLowerCase();
+        const standardIDQ = searchInput.standardID.value
+          .toString()
+          .toLowerCase();
         return filteredData.filter(i => {
           return (
             ((needTranslation &&
@@ -189,7 +197,7 @@ function StandardListScreen() {
           );
         });
       } else if (searchInput?.nameSearch?.value) {
-        const q = searchInput.nameSearch.value.toLowerCase();
+        const q = searchInput.nameSearch.value.toString().toLowerCase();
         return filteredData.filter(i => {
           return (
             (needTranslation &&
@@ -199,7 +207,7 @@ function StandardListScreen() {
           );
         });
       } else if (searchInput?.descriptionSearch?.value) {
-        const q = searchInput.descriptionSearch.value.toLowerCase();
+        const q = searchInput.descriptionSearch.value.toString().toLowerCase();
         return filteredData.filter(i => {
           return (
             (needTranslation &&
@@ -209,7 +217,7 @@ function StandardListScreen() {
           );
         });
       } else if (searchInput?.standardID?.value) {
-        const q = searchInput.standardID.value.toLowerCase();
+        const q = searchInput.standardID.value.toString().toLowerCase();
         return filteredData.filter(i => {
           return (
             i.standardNumber && i.standardNumber.toLowerCase().indexOf(q) > -1
@@ -219,12 +227,19 @@ function StandardListScreen() {
     } else {
       return filteredData;
     }
-  }, [allData, filter, langCode, needTranslation, searchInput]);
+  }, [
+    allData,
+    filter,
+    langCode,
+    needTranslation,
+    searchInput,
+    productGroupCheck,
+  ]);
 
   React.useEffect(() => {
     navigation.setOptions({
       title: auditData?.number,
-      headerRight: () => <EvaluationHeaderRight surveyId={id} />,
+      headerRight: () => evaluationHeaderRightFunc(id),
     });
   }, [navigation, auditData, id]);
   const keyExtractor = React.useCallback(
@@ -238,7 +253,6 @@ function StandardListScreen() {
     [id],
   );
   const {t} = useTranslation();
-  const Drawer = createDrawerNavigator();
 
   return (
     <ScreenContainer>
@@ -253,36 +267,18 @@ function StandardListScreen() {
             : filterCount() + ' ' + t('Filter(s) Applied')
         }`}
       />
-      <View
-        style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+      <View style={styles.drawerViewGeneral}>
         <Chip
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-          style={{
-            marginRight: 20,
-            marginBottom: 14,
-            display: 'flex',
-            height: '70%',
-          }}
+          style={styles.drawerChip}
           mode={'outlined'}>
-          <View style={{display: 'flex'}}>
+          <View style={styles.filterDrawerButtonView}>
             <View
-              style={{
-                marginBottom: 0,
-                marginRight: 20,
-                height: 1,
-                borderRadius: 2,
-                borderWidth: 2,
-                borderColor: filterColor(),
-              }}
+              style={[styles.filterColorView, {borderColor: filterColor()}]}
             />
             <Icon name="filter-outline" size={FILTER_ICON_SIZE} />
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+          <View style={styles.fitersButton}>
             <Typography size="Body 2">{t('Filters')}</Typography>
           </View>
         </Chip>
@@ -296,4 +292,37 @@ function StandardListScreen() {
   );
 }
 
+function evaluationHeaderRightFunc(sId: any) {
+  return <EvaluationHeaderRight surveyId={sId} />;
+}
+
 export default React.memo(StandardListScreen);
+
+const styles = StyleSheet.create({
+  drawerViewGeneral: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  drawerChip: {
+    marginRight: 20,
+    marginBottom: 14,
+    display: 'flex',
+    height: '70%',
+  },
+  filterColorView: {
+    marginBottom: 0,
+    marginRight: 20,
+    height: 1,
+    borderRadius: 2,
+    borderWidth: 2,
+  },
+  filterDrawerButtonView: {
+    display: 'flex',
+  },
+  fitersButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

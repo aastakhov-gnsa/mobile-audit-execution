@@ -42,7 +42,7 @@ function Help({style}: HelpProps) {
   const createNavigationHandler = React.useCallback(
     (name: keyof SurveysStackParamList) => () => {
       handleVisible();
-      navigation.navigate(name);
+      navigation.navigate(name as any);
     },
     [handleVisible, navigation],
   );
@@ -50,7 +50,7 @@ function Help({style}: HelpProps) {
   return (
     <>
       <TouchableOpacity onPress={handleVisible}>
-        <Icon name="help-outline" size={ICON_SIZE} style={style} />
+        <Icon name="help-outline" size={ICON_SIZE} style={style as any} />
       </TouchableOpacity>
       <Popover visible={visible} onDismiss={handleVisible} style={styles.modal}>
         <View style={styles.menu}>

@@ -1,14 +1,13 @@
-
 import {grayBackground} from './styles';
 
 export function getAdditionalAuditInformation(
-    auditor: string,
-    auditManager: string,
-    auditDate: string,
-    auditNote: string,
-    showAuditNote: boolean
+  auditor: string,
+  auditManager: string,
+  auditDate: string,
+  auditNote: string,
+  showAuditNote: boolean,
 ) {
-    const auditNoteBlock = showAuditNote
+  const auditNoteBlock = showAuditNote
     ? `
 <tr style="height: 40px">
     <td>
@@ -19,8 +18,8 @@ export function getAdditionalAuditInformation(
     </td>
 </tr>
     `
-    : ''
-    return `
+    : '';
+  return `
 <table width="100%" style="margin-top: 24px">
     <tr style="height: 40px">
         <td style="${grayBackground}" colspan="2">
@@ -53,5 +52,5 @@ export function getAdditionalAuditInformation(
     </tr>
     ${auditNoteBlock}
 </table>
-    `
+    `;
 }

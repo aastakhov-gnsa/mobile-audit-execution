@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Platform, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import Modal from '../../components/Modal';
 import {ScrollView} from 'react-native-gesture-handler';
-import {pdf, fRequestAndroidPermissionRead} from './pdf';
+import {pdf} from './pdf';
 import {EvaluationSurvey} from '../../interfaces/evaluation';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationParams} from '../../interfaces/navigation';
@@ -25,9 +25,7 @@ export function SvSr({data}: SvSrProps) {
   const [show, setShow] = useState(false);
   const handleExport = async () => {
     const path = await pdf(data, selected);
-    const readPermissions =
-      Platform.OS === 'android' ? await fRequestAndroidPermissionRead() : true;
-    if (path && readPermissions) {
+    if (path) {
       setShow(false);
       navigation.navigate(ScreenNames.SvSRPreview, {
         file: `${filePrefix}${path}`,

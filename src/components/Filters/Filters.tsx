@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Chip, Searchbar} from 'react-native-paper';
 import {ScreenNames} from '../../navigation/navigation';
@@ -7,9 +7,9 @@ import {addFilter, removeFilter} from './filtersReducer';
 import {FilterValues} from '../../interfaces/filters';
 import Typography from '../Typography';
 import {useTranslation} from 'react-i18next';
-import { DropDownFilterNames } from './dropDownFilterNames';
-import { MultiSelect } from 'react-native-element-dropdown';
-import { addInput } from './searchInputReducer';
+import {DropDownFilterNames} from './dropDownFilterNames';
+import {MultiSelect} from 'react-native-element-dropdown';
+import {addInput} from './searchInputReducer';
 
 interface FiltersProps {
   screenName: ScreenNames;
@@ -20,12 +20,16 @@ interface FiltersProps {
   dropDownName?: DropDownFilterNames;
 }
 
-function Filters({screenName, filterValues, isFilterDropDown, isFilterSearchInput, dropDownName, searchInputType}: FiltersProps) {
+function Filters({
+  screenName,
+  filterValues,
+  isFilterDropDown,
+  isFilterSearchInput,
+  searchInputType,
+}: FiltersProps) {
   const dispatch = useDispatch();
   const selectedFilters = useSelector(state => state.filters?.[screenName]);
-  const searchInput = useSelector(
-    state => state.searchInput?.[screenName]
-  );
+  const searchInput = useSelector(state => state.searchInput?.[screenName]);
   const {t} = useTranslation();
   const [showDropDown, setShowDropDown] = useState(false);
   const [dropDownValue, setDropDownValue] = useState([]);
@@ -34,12 +38,12 @@ function Filters({screenName, filterValues, isFilterDropDown, isFilterSearchInpu
       label: t(Array.isArray(i.value) ? i.value[0] : i.value),
       value: i.value as string,
       fieldName: i.fieldName,
-    }))
+    }));
     return dropDownFilterArray;
   };
-  const dropDownHandlePress = (dropDownValueHandle: []) => {
-    const findArray = filterValues.find(element => dropDownValueHandle)
-    if (dropDownValueHandle!=dropDownValue) {
+  const dropDownHandlePress = (dropDownValueHandle: string[] | []) => {
+    const findArray = filterValues.find(() => dropDownValueHandle);
+    if (dropDownValueHandle !== dropDownValue) {
       dispatch(
         addFilter({
           screenName,
@@ -47,102 +51,122 @@ function Filters({screenName, filterValues, isFilterDropDown, isFilterSearchInpu
           value: dropDownValueHandle,
         }),
       );
-      setDropDownValue(dropDownValueHandle);
+      setDropDownValue(dropDownValueHandle as any);
     }
     setShowDropDown(false);
   };
 
   const checkDropDownValue = () => {
-    if(typeof selectedFilters == 'undefined' && dropDownValue?.length != 0){
+    if (typeof selectedFilters === 'undefined' && dropDownValue?.length !== 0) {
       setDropDownValue([]);
       return [];
     } else {
       return dropDownValue;
     }
-  }
+  };
   const searchInputHandle = (searchInputValue: string) => {
-    if(searchInputValue != undefined){
-      dispatch(addInput({
+    if (searchInputValue !== undefined) {
+      dispatch(
+        addInput({
           screenName,
           fieldName: searchInputType as string,
-          value: searchInputValue
-      }),);
+          value: searchInputValue,
+        }),
+      );
     }
-  }
+  };
 
   const checkSearchInputValue = () => {
-    if(typeof searchInput == 'undefined' || typeof searchInput[searchInputType as string]?.value == 'undefined'){
+    if (
+      typeof searchInput === 'undefined' ||
+      typeof searchInput[searchInputType as string]?.value === 'undefined'
+    ) {
       return '';
     } else {
       return searchInput[searchInputType as string]?.value;
     }
-  }
-  
+  };
+
   const translateFields = () => {
-    var translatedValues = new Array();
+    var translatedValues: [] | string[] = [];
     dropDownValue.forEach(element => {
       translatedValues.push(t(element));
-    })
+    });
     return translatedValues;
-  }
-  
+  };
+
   return (
     <View style={styles.wrapper}>
-    {!isFilterSearchInput ?
-      <View style={[styles.notContainer, isFilterDropDown ? styles.notContainer : styles.container]}>
-        {isFilterDropDown ?
-        <MultiSelect
-          style={[styles.dropdown, showDropDown && { borderColor: 'blue' }]}
-          data={objectToSelectBox()}
-          labelField='label'
-          valueField='value'
-          onChange={item => dropDownHandlePress(item)}
-          value={checkDropDownValue()}
-          onFocus={() => setShowDropDown(true)}
-          onBlur={() => setShowDropDown(false)}
-          placeholder={!dropDownValue.toString() ? t('Select') : translateFields().toString()}
-          search
-          searchPlaceholder={t('Search...')}
-          selectedStyle={styles.selectedStyle}
-          activeColor='#EAEBEA'
-        />
-        :filterValues.map(i => {
-          const isSelected =
-            i.fieldName === selectedFilters?.[i.fieldName]?.fieldName &&
-            i.value === selectedFilters?.[i.fieldName]?.value;
-          const handlePress = () => {
-            if (isSelected) {
-              dispatch(removeFilter({screenName, fieldName: i.fieldName}));
-            } else {
-              dispatch(
-                addFilter({
-                  screenName,
-                  fieldName: i.fieldName,
-                  value: i.value,
-                }),
+      {!isFilterSearchInput ? (
+        <View
+          style={[
+            styles.notContainer,
+            isFilterDropDown ? styles.notContainer : styles.container,
+          ]}>
+          {isFilterDropDown ? (
+            <MultiSelect
+              style={[
+                styles.dropdown,
+                showDropDown && styles.multiSelectBorder,
+              ]}
+              data={objectToSelectBox()}
+              labelField="label"
+              valueField="value"
+              onChange={item => dropDownHandlePress(item)}
+              value={checkDropDownValue()}
+              onFocus={() => setShowDropDown(true)}
+              onBlur={() => setShowDropDown(false)}
+              placeholder={
+                !dropDownValue.toString()
+                  ? t('Select')!
+                  : translateFields().toString()
+              }
+              search
+              searchPlaceholder={t('Search...')!}
+              selectedStyle={styles.selectedStyle}
+              activeColor="#EAEBEA"
+            />
+          ) : (
+            filterValues.map(i => {
+              const isSelected =
+                i.fieldName === selectedFilters?.[i.fieldName]?.fieldName &&
+                i.value === selectedFilters?.[i.fieldName]?.value;
+              const handlePress = () => {
+                if (isSelected) {
+                  dispatch(removeFilter({screenName, fieldName: i.fieldName}));
+                } else {
+                  dispatch(
+                    addFilter({
+                      screenName,
+                      fieldName: i.fieldName,
+                      value: i.value,
+                    }),
+                  );
+                }
+              };
+              return (
+                <Chip
+                  key={Array.isArray(i.value) ? i.value.toString() : i.value}
+                  selected={isSelected}
+                  onPress={handlePress}
+                  style={styles.chip}
+                  mode={'outlined'}>
+                  <Typography size="Body 2">
+                    {t(Array.isArray(i.value) ? i.value[0] : i.value)}
+                  </Typography>
+                </Chip>
               );
-            }
-          };
-            return (
-            <Chip
-              key={Array.isArray(i.value) ? i.value.toString() : i.value}
-              selected={isSelected}
-              onPress={handlePress}
-              style={styles.chip}
-              mode={'outlined'}>
-              <Typography size="Body 2">
-                {t(Array.isArray(i.value) ? i.value[0] : i.value)}
-              </Typography>
-            </Chip>
-          );
-        })}
-      </View>
-    : <Searchbar
-          placeholder={t('Search...')}
+            })
+          )}
+        </View>
+      ) : (
+        <Searchbar
+          placeholder={t('Search...')!}
           onChangeText={searchInputHandle}
           value={checkSearchInputValue() as string}
           style={styles.searchBar}
-        />}
+        />
+      )}
     </View>
   );
 }
@@ -178,6 +202,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   selectedStyle: {
-    borderRadius: 12
-  }
+    borderRadius: 12,
+  },
+  multiSelectBorder: {
+    borderColor: 'blue',
+  },
 });

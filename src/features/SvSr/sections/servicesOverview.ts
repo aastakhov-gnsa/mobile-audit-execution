@@ -1,9 +1,13 @@
-import { Status } from '../../../interfaces/common';
-import { DaimlerService } from '../../../interfaces/survey';
+import {Status} from '../../../interfaces/common';
+import {DaimlerService} from '../../../interfaces/survey';
 import {grayBackground} from './styles';
 
-export function getServicesOverview(services: DaimlerService[], result: Status) {
-    const rows = services.map(item => `
+export function getServicesOverview(
+  services: DaimlerService[],
+  result: Status,
+) {
+  const rows = services.map(
+    item => `
 <tr>
     <td>
         ${item.brand}
@@ -18,8 +22,9 @@ export function getServicesOverview(services: DaimlerService[], result: Status) 
         ${result}
     </td>
 </tr>
-`)
-    return `
+`,
+  );
+  return `
 <table width="100%" style="margin-top: 24px">
     <tr>
         <td style="${grayBackground}">
@@ -37,5 +42,5 @@ export function getServicesOverview(services: DaimlerService[], result: Status) 
     </tr>
     ${rows.join('')}
 </table>
-    `
+    `;
 }

@@ -39,7 +39,7 @@ export const searchInputReducer = createSlice({
     ) => {
       const {screenName} = action.payload;
       delete state[screenName];
-    }
+    },
   },
   extraReducers: builder => builder.addCase(logout, () => initState),
 });

@@ -41,8 +41,11 @@ function ContentLanguageSwitcher({iconStyle}: ContentLanguageSwitcherProps) {
     dispatch(changeLanguageCd(v));
     handleVisible();
   }, [dispatch, handleVisible, v]);
-  const handleQueryChange = React.useCallback(newQ => setQuery(newQ), []);
-  const handleRadioChange = React.useCallback(newV => setV(newV), []);
+  const handleQueryChange = React.useCallback(
+    (newQ: any) => setQuery(newQ),
+    [],
+  );
+  const handleRadioChange = React.useCallback((newV: any) => setV(newV), []);
   const list = query.length
     ? langList.filter(i => i.value.toLowerCase().includes(query.toLowerCase()))
     : langList;
@@ -53,19 +56,19 @@ function ContentLanguageSwitcher({iconStyle}: ContentLanguageSwitcherProps) {
         name="translate"
         size={ICON_SIZE}
         onPress={handleVisible}
-        style={iconStyle}
+        style={iconStyle as any}
       />
       <Modal
         visible={visible}
         onCancel={handleCancel}
-        title={t('Content Language')}
+        title={t('Content Language')!}
         onSave={handleSave}>
         <ItemWrapper paddingValue={[0, 28]} style={styles.wrapper}>
           <TextInput
-            left={<TextInput.Icon name="magnify" color={colors.text50} />}
+            left={<TextInput.Icon icon="magnify" color={colors.backdrop} />}
             value={query}
             onChangeText={handleQueryChange}
-            placeholder={t('Search for a language')}
+            placeholder={t('Search for a language')!}
           />
         </ItemWrapper>
         <ItemWrapper paddingValue={0} style={styles.wrapper}>

@@ -16,15 +16,17 @@ function AddPhotos({surveyId, standardId, questionId}: AddPhotosProps) {
     x: 0,
     y: 0,
   });
-  const containerRef = React.useRef(null);
+  const containerRef = React.useRef<any>(null);
   const handlePress = React.useCallback(() => {
     if (containerRef.current) {
-      containerRef.current!.measure((width, height, px, py, fx, fy) => {
-        setM({
-          x: fx,
-          y: fy,
-        });
-      });
+      containerRef.current!.measure(
+        (width: any, height: any, px: any, py: any, fx: any, fy: any) => {
+          setM({
+            x: fx,
+            y: fy,
+          });
+        },
+      );
     } else {
       console.error('there is no containerRef.current', containerRef.current);
     }

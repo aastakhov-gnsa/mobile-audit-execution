@@ -15,7 +15,7 @@ export const AUTH_CONFIG = {
     authorizationEndpoint: AUTH_URI,
     tokenEndpoint: `${Config.AUTH_URL}/as/token.oauth2`,
   },
-  clientId: Config.CLIENT_ID,
+  clientId: Config.CLIENT_ID.toString(),
   redirectUrl: REDIRECT_URL,
   usePKCE: false,
   scopes: ['openid', 'profile', 'email', 'phone'],

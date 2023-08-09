@@ -6,13 +6,18 @@ import AuthScreen from './features/Auth/AuthScreen';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AdvancedFilter from './components/AdvancedFilter';
 
+function AdvancedFilterFunc(props: any) {
+  return <AdvancedFilter {...props} />;
+}
+
 const Drawer = createDrawerNavigator();
 
 function NavigationRoot() {
   const gnsaToken = useSelector(store => store.auth.token);
+
   return (
     <Drawer.Navigator
-      drawerContent={props => <AdvancedFilter {...props} />}
+      drawerContent={AdvancedFilterFunc}
       screenOptions={{
         headerShown: false,
         swipeEdgeWidth: 0,

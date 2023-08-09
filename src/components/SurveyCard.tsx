@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {Survey} from '../interfaces/survey';
 import {Card, useTheme, ActivityIndicator} from 'react-native-paper';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
-import {Alert, ScrollView, StyleSheet, View} from 'react-native';
+import {Alert, ScrollView, StyleSheet} from 'react-native';
 import Services from './Services';
 import StatusWithIcon from './StatusWithIcon';
 import {useSurveyQuery} from '../features/Survey/surveyService';
@@ -66,19 +66,35 @@ function SurveyCard({survey}: {survey: Survey}) {
   const createUploadAlert = () =>
     Alert.alert(
       t('Caution: Survey Upload'),
-      t('Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.'),
+      t(
+        'Please make sure that you have a stable internet connection before starting the upload process. If you have a stable internet connection, click OK to start the uploading process.',
+      )!,
       [
         {
-          text: t('Cancel'),
+          text: t('Cancel')!,
           onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
+          style: 'cancel',
         },
-        { text: t('OK'), onPress: () => {uploadSurvey(); SimpleToast.show(t('Do not close the application while the upload process is continuing.'), SimpleToast.LONG);} }
-      ]
+        {
+          text: t('OK')!,
+          onPress: () => {
+            uploadSurvey();
+            SimpleToast.show(
+              t(
+                'Do not close the application while the upload process is continuing.',
+              ),
+              SimpleToast.LONG,
+            );
+          },
+        },
+      ],
     );
   const createConnectionErrorToast = () => {
-    SimpleToast.show(t('Please check your internet connection.'), SimpleToast.LONG);
-  }
+    SimpleToast.show(
+      t('Please check your internet connection.'),
+      SimpleToast.LONG,
+    );
+  };
   const RightContent = React.useCallback(() => {
     if (
       isLoading ||
@@ -91,14 +107,14 @@ function SurveyCard({survey}: {survey: Survey}) {
       return <StatusWithIcon status={data?.resultCd ?? resultCd} />;
     }
     return (
-      <Icon name="download-outline" size={ICON_SIZE} color={colors.text50} />
+      <Icon name="download-outline" size={ICON_SIZE} color={colors.backdrop} />
     );
   }, [
     isLoading,
     uploadingFiles?.length,
     downloadingFiles?.length,
     data,
-    colors.text50,
+    colors.backdrop,
     colors.primary,
     resultCd,
   ]);
@@ -123,7 +139,7 @@ function SurveyCard({survey}: {survey: Survey}) {
     } else {
       return t('Popup error! Please contact us.');
     }
-  }
+  };
   const {t} = useTranslation();
   return (
     <Card style={styles.card} key={id} onPress={handlePress}>
@@ -162,12 +178,12 @@ function SurveyCard({survey}: {survey: Survey}) {
         </ItemWrapper>
         <Services services={data?.services ?? services} showNumber={4} />
         {downloadingFiles?.length > 0 && (
-          <ItemWrapper title={t('Downloading files')}>
+          <ItemWrapper title={t('Downloading files')!}>
             <FileLoadingInfo status="downloading" surveyId={id} indeterminate />
           </ItemWrapper>
         )}
         {uploadingFiles?.length > 0 && (
-          <ItemWrapper title={t('Uploading files')}>
+          <ItemWrapper title={t('Uploading files')!}>
             <FileLoadingInfo status="uploading" surveyId={id} />
           </ItemWrapper>
         )}
@@ -181,33 +197,51 @@ function SurveyCard({survey}: {survey: Survey}) {
               {t('Audit Details')}
             </Button>
           )}
-          {data && (downloadingFiles?.length < 1 || typeof downloadingFiles == 'undefined') && <SvSr data={data}/>}
-        {isLoading && (
-          <Typography size="Button" style={styles.hint}>
-            {t('Downloading survey').toUpperCase()}...
-          </Typography>
-        )}
-        {!data && !isLoading  && (uploadingFiles?.length < 1 || typeof uploadingFiles == 'undefined') && (
-          <Button onPress={() => isConnected ? handleDownload() : createConnectionErrorToast()}>{t('Download')}</Button>
-        )}
-        {data && !isLoading && (
-          <>
-            {isUploading && (
-              <Typography size="Button" style={styles.hint}>
-                {t('Uploading survey').toUpperCase()}...
-              </Typography>
+          {data &&
+            (downloadingFiles?.length < 1 ||
+              typeof downloadingFiles === 'undefined') && <SvSr data={data} />}
+          {isLoading && (
+            <Typography size="Button" style={styles.hint}>
+              {t('Downloading survey').toUpperCase()}...
+            </Typography>
+          )}
+          {!data &&
+            !isLoading &&
+            (uploadingFiles?.length < 1 ||
+              typeof uploadingFiles === 'undefined') && (
+              <Button
+                onPress={() =>
+                  isConnected ? handleDownload() : createConnectionErrorToast()
+                }>
+                {t('Download')}
+              </Button>
             )}
-            {!isUploading && (downloadingFiles?.length < 1 || typeof downloadingFiles == 'undefined') && (
-              <Button onPress={() => isConnected ? createUploadAlert() : createConnectionErrorToast()}>{t('upload')}</Button>
-            )}
-          </>
-        )}
+          {data && !isLoading && (
+            <>
+              {isUploading && (
+                <Typography size="Button" style={styles.hint}>
+                  {t('Uploading survey').toUpperCase()}...
+                </Typography>
+              )}
+              {!isUploading &&
+                (downloadingFiles?.length < 1 ||
+                  typeof downloadingFiles === 'undefined') && (
+                  <Button
+                    onPress={() =>
+                      isConnected
+                        ? createUploadAlert()
+                        : createConnectionErrorToast()
+                    }>
+                    {t('upload')}
+                  </Button>
+                )}
+            </>
+          )}
         </ScrollView>
       </Card.Actions>
       <LoadingModal
         title={handleLoadingPopupText()}
-        visible={isUploading || isLoading ||
-         downloadingFiles?.length > 0}
+        visible={isUploading || isLoading || downloadingFiles?.length > 0}
       />
     </Card>
   );

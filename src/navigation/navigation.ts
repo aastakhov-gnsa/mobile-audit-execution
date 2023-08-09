@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 
 export const Stack = createStackNavigator();
-export const Surveys = createStackNavigator();
+export const SurveysNavigator = createStackNavigator();
 
 export enum ScreenNames {
   StandardList = 'StandardList',

@@ -164,7 +164,7 @@ function getServiceSection(
   );
   const serviceStandards = applyFilters(
     data.standards.filter(item => {
-      return item.services?.find(item => getServiceLabel(item) === serviceName);
+      return item.services?.find(i => getServiceLabel(i) === serviceName);
     }),
     filters,
   );

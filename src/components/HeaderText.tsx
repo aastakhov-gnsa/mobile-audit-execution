@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from './Typography';
 import {StyleProp, StyleSheet, TextStyle} from 'react-native';
 import {ColorKey, Status} from '../interfaces/common';
-import {useTheme} from 'react-native-paper';
+import {useAppTheme} from '../../themeConfig';
 
 interface StandardHeaderProps {
   children?: React.ReactNode;
@@ -11,7 +11,7 @@ interface StandardHeaderProps {
 }
 
 function HeaderText({children, status, style}: StandardHeaderProps) {
-  const {colors} = useTheme();
+  const {colors} = useAppTheme();
   const {suffix, color} = getStatusInfo(status);
 
   const textStyle = StyleSheet.flatten([

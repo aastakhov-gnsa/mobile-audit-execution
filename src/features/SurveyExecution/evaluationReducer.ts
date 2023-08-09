@@ -66,8 +66,8 @@ export const evaluationReducer = createSlice({
       const question = standard?.questionDTOList?.find(
         i => i.id === questionId,
       );
-      question!.internalComment = internalComment;
-      question!.publicComment = publicComment;
+      question!.internalComment = internalComment!;
+      question!.publicComment = publicComment!;
     },
     changeQuestionResult: (
       state,
@@ -194,7 +194,7 @@ export const evaluationReducer = createSlice({
       const {surveyId, standardId, questionId, filePath, fileId, useName} =
         action.payload;
       const standard = state[surveyId].standards.find(i => i.id === standardId);
-      const files = standard!.questionDTOList!.find(
+      const files: any = standard!.questionDTOList!.find(
         i => i.id === questionId,
       )!.files;
       files.push({

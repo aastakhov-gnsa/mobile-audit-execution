@@ -1,12 +1,17 @@
-import localizedFormat from "../../../utils/date/localizedFormat";
-import i18next from 'i18next'
+import localizedFormat from '../../../utils/date/localizedFormat';
+import i18next from 'i18next';
 
-export function getSignSection(sign?: string, partner?: string, city?: string, date?: Date) {
+export function getSignSection(
+  sign?: string,
+  partner?: string,
+  city?: string,
+  date?: Date,
+) {
   const checkbox = sign
     ? `<div style="margin-left: 3px;">
         ✓
     </div>`
-    : ''
+    : '';
   const displayedDate = date ? localizedFormat(date, 'dd MMM yyyy') : '';
   return `
 <section style="page-break-before: always; margin-top: 144px;">
@@ -15,13 +20,17 @@ export function getSignSection(sign?: string, partner?: string, city?: string, d
             <div style="width: 18px; height: 18px; border: 2px solid black; margin-right: 8px; position: relative;">
                 ${checkbox}
             </div>
-            ${i18next.t('I acknowledge that I have received the Survey Status Report.')}
+            ${i18next.t(
+              'I acknowledge that I have received the Survey Status Report.',
+            )}
         </div>
         <div style="display: flex;">
             <div style="width: 18px; height: 18px; border: 2px solid black; margin-right: 8px;">
                 ${checkbox}
             </div>
-            ${i18next.t('I herebe take notice of the results of todays\' audit.')}
+            ${i18next.t(
+              "I herebe take notice of the results of todays' audit.",
+            )}
         </div>
     </div>
     <table style="margin-top: ${sign ? '0px' : '110px'};">
@@ -33,7 +42,7 @@ export function getSignSection(sign?: string, partner?: string, city?: string, d
                 ${partner || ''}
             </td>
             <td>
-                ${Boolean(sign) ? `<img src=${sign} height="128px" />` : ''}
+                ${sign ? `<img src=${sign} height="128px" />` : ''}
             </td>
         </tr>
         <tr>
