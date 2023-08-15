@@ -64,7 +64,6 @@ function SurveyCard({survey}: {survey: Survey}) {
     return () => unsubscribe();
   }, []);
   const createUploadAlert = () => {
-    console.log("resultande", resultCd)
     Alert.alert(
       t('Caution: Survey Upload'),
       t(
@@ -95,7 +94,6 @@ function SurveyCard({survey}: {survey: Survey}) {
       ],
     );}
     const createFinalUploadAlert = () => {
-      console.log("resultande", resultCd)
       Alert.alert(
         t('Attention!'),
         t('This survey is completed. If you upload it now, you will be no longer able to access it.')!,
