@@ -63,7 +63,8 @@ function SurveyCard({survey}: {survey: Survey}) {
     });
     return () => unsubscribe();
   }, []);
-  const createUploadAlert = () =>
+  const createUploadAlert = () => {
+    console.log("resultande", resultCd)
     Alert.alert(
       t('Caution: Survey Upload'),
       t(
@@ -78,17 +79,46 @@ function SurveyCard({survey}: {survey: Survey}) {
         {
           text: t('OK')!,
           onPress: () => {
-            uploadSurvey();
-            SimpleToast.show(
-              t(
-                'Do not close the application while the upload process is continuing.',
-              ),
-              SimpleToast.LONG,
-            );
+            if( resultCd !== t('Open')) {
+              createFinalUploadAlert();
+            } else {              
+              uploadSurvey();
+              SimpleToast.show(
+                t(
+                  'Do not close the application while the upload process is continuing.',
+                ),
+                SimpleToast.LONG,
+              );
+            }
           },
         },
       ],
-    );
+    );}
+    const createFinalUploadAlert = () => {
+      console.log("resultande", resultCd)
+      Alert.alert(
+        t('Attention!'),
+        t('This survey is completed. If you upload it now, you will be no longer able to access it.')!,
+        [
+          {
+            text: t('Cancel')!,
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {
+            text: t('Upload Now')!,
+            onPress: () => {
+              uploadSurvey();
+              SimpleToast.show(
+                t(
+                  'Do not close the application while the upload process is continuing.',
+                ),
+                SimpleToast.LONG,
+              );
+            },
+          },
+        ],
+      );}
   const createConnectionErrorToast = () => {
     SimpleToast.show(
       t('Please check your internet connection.'),
