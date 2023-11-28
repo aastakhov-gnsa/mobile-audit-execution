@@ -19,10 +19,8 @@ interface ContentLanguageSwitcherProps {
 
 function ContentLanguageSwitcher({iconStyle}: ContentLanguageSwitcherProps) {
   const {colors} = useTheme();
-  const {langList, currentLang} = useSelector(state => ({
-    langList: state.dataLanguage.languages,
-    currentLang: state.dataLanguage.languageCd,
-  }));
+  const langList = useSelector(state => state.dataLanguage.languages);
+  const currentLang = useSelector(state => state.dataLanguage.languageCd);
   const dispatch = useDispatch();
   const {data} = useLanguagesQuery(langList.length !== 0 ? skipToken : null);
   React.useEffect(() => {

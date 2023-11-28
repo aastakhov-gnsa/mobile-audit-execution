@@ -43,12 +43,10 @@ function SurveyCard({survey}: {survey: Survey}) {
   const handleDownload = React.useCallback(() => setSkip(false), []);
   const {isLoading} = useSurveyQuery(id, {skip});
   const data = useSelector(state => state.evaluation[id]);
-  const uploadingFiles = useSelector(state =>
-    state.fileLoading[id]?.filter(i => i.status === 'uploading'),
-  );
-  const downloadingFiles = useSelector(state =>
-    state.fileLoading[id]?.filter(i => i.status === 'downloading'),
-  );
+  const uploadingFiles = useSelector(state => state.fileLoading[id]);
+  uploadingFiles?.filter(i => i.status === 'uploading');
+  const downloadingFiles = useSelector(state => state.fileLoading[id]);
+  downloadingFiles?.filter(i => i.status === 'downloading');
   React.useEffect(() => {
     if (data) {
       setSkip(true);
@@ -63,7 +61,7 @@ function SurveyCard({survey}: {survey: Survey}) {
     });
     return () => unsubscribe();
   }, []);
-  const createUploadAlert = () =>
+  const createUploadAlert = () => {
     Alert.alert(
       t('Caution: Survey Upload'),
       t(
@@ -93,6 +91,7 @@ function SurveyCard({survey}: {survey: Survey}) {
         },
       ],
     );
+  };
   const createFinalUploadAlert = () => {
     Alert.alert(
       t('Attention!'),

@@ -211,10 +211,9 @@ function useFilteredSurveys(
   filterValue: string | string[] | undefined,
   wholeData?: Survey[],
 ) {
-  const {downloadedData, downloadedDataKeys} = useSelector(state => ({
-    downloadedData: Object.values(state.evaluation),
-    downloadedDataKeys: Object.keys(state.evaluation),
-  }));
+  const downloadedSurveys = useSelector(state => state.evaluation);
+  const downloadedData = Object.values(downloadedSurveys);
+  const downloadedDataKeys = Object.keys(downloadedSurveys);
   const downloadableData = wholeData?.filter(
     i => !downloadedDataKeys.includes(i.id) ?? EMPTY_ARRAY,
   );

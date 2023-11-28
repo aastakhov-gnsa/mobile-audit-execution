@@ -23,39 +23,35 @@ function NavigationBetweenStandards({
   const navigation = useNavigation<NavigationParams>();
   const [langCode, needTranslation] = useCurrentLanguage();
   const standardData = useStandardData(surveyId, standardId);
-  const {previousStandard, currentStandard, nextStandard} = useSelector(
-    state => {
-      const audit = state.evaluation[surveyId];
-      const data = audit?.standards;
-      const index = data.findIndex(i => i.id === standardId) ?? noDataIndex;
-      const prevStandard = data[index - 1];
-      const curStandard = data[0];
-      const nxtStandard = data[index + 1];
-      const dataLength = data.length;
-      return {
-        previousStandard: index > 0 && {
-          index: index - 1,
-          id: prevStandard.id,
-          name: prevStandard.standardName,
-          nameTranslations: prevStandard.nameTranslations,
-          status: prevStandard.status,
-        },
-        currentStandard: dataLength && {
-          index: index,
-          checkpoint: curStandard.checkpoint,
-          auditNumber: audit.auditNumber,
-        },
-        nextStandard: dataLength &&
-          index < dataLength - 1 && {
-            index: index + 1,
-            id: nxtStandard.id,
-            name: nxtStandard.standardName,
-            nameTranslations: nxtStandard.nameTranslations,
-            status: nxtStandard.status,
-          },
-      };
+  const audit = useSelector(state => state.evaluation[surveyId]);
+  const data = audit?.standards;
+  const index = data.findIndex(i => i.id === standardId) ?? noDataIndex;
+  const prevStandard = data[index - 1];
+  const curStandard = data[0];
+  const nxtStandard = data[index + 1];
+  const dataLength = data.length;
+  const {previousStandard, currentStandard, nextStandard} = {
+    previousStandard: index > 0 && {
+      index: index - 1,
+      id: prevStandard.id,
+      name: prevStandard.standardName,
+      nameTranslations: prevStandard.nameTranslations,
+      status: prevStandard.status,
     },
-  );
+    currentStandard: dataLength && {
+      index: index,
+      checkpoint: curStandard.checkpoint,
+      auditNumber: audit.auditNumber,
+    },
+    nextStandard: dataLength &&
+      index < dataLength - 1 && {
+        index: index + 1,
+        id: nxtStandard.id,
+        name: nxtStandard.standardName,
+        nameTranslations: nxtStandard.nameTranslations,
+        status: nxtStandard.status,
+      },
+  };
   const handlePrev = React.useCallback(() => {
     if (previousStandard) {
       navigation.navigate(ScreenNames.SurveyExecution, {

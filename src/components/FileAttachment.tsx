@@ -22,7 +22,7 @@ function FileAttachment({
   const {t} = useTranslation();
   const handlePress = React.useCallback(async () => {
     try {
-      const results = await DocumentPicker.pickMultiple({
+      const results = await DocumentPicker.pick({
         copyTo: 'documentDirectory',
         allowMultiSelection: true,
         type: [
