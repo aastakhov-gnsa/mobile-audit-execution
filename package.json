@@ -1,6 +1,6 @@
 {
   "name": "gnsamobileauditexecution",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant dev1Debug",
