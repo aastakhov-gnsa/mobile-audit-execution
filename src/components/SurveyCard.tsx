@@ -43,10 +43,11 @@ function SurveyCard({survey}: {survey: Survey}) {
   const handleDownload = React.useCallback(() => setSkip(false), []);
   const {isLoading} = useSurveyQuery(id, {skip});
   const data = useSelector(state => state.evaluation[id]);
-  const uploadingFiles = useSelector(state => state.fileLoading[id]);
-  uploadingFiles?.filter(i => i.status === 'uploading');
-  const downloadingFiles = useSelector(state => state.fileLoading[id]);
-  downloadingFiles?.filter(i => i.status === 'downloading');
+  const operatingFiles = useSelector(state => state.fileLoading[id]);
+  let uploadingFiles = operatingFiles;
+  uploadingFiles = uploadingFiles?.filter(i => i.status === 'uploading');
+  let downloadingFiles = operatingFiles;
+  downloadingFiles = downloadingFiles?.filter(i => i.status === 'downloading');
   React.useEffect(() => {
     if (data) {
       setSkip(true);
