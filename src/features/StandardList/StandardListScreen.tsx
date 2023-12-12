@@ -265,7 +265,7 @@ function StandardListScreen() {
           filterColor() !== 'red'
             ? t('All Standards')
             : filterCount() + ' ' + t('Filter(s) Applied')
-        }`}
+        } · ${data?.length ?? 0}`}
       />
       <View style={styles.drawerViewGeneral}>
         <Chip

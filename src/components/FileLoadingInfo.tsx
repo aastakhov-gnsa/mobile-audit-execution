@@ -16,9 +16,8 @@ function FileLoadingInfo({
   surveyId,
   indeterminate,
 }: FileLoadingInfoProps) {
-  const files = useSelector(state =>
-    state.fileLoading[surveyId]?.filter(i => i.status === status),
-  );
+  const filesData = useSelector(state => state.fileLoading[surveyId]);
+  const files = filesData?.filter(i => i.status === status);
   return (
     <>
       {files?.map(i => {
