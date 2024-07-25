@@ -24,7 +24,7 @@ function OverruleResult({surveyId, standardId}: OverruleResultProps) {
   );
   const dispatch = useDispatch();
   const handleSave = React.useCallback(
-    ({textInternal}: {textInternal: string | OverruleStatus}) => {
+    ({textInternal, textPublic}: {textInternal: string | OverruleStatus; textPublic: string | OverruleStatus}) => {
       dispatch(
         overruleStandardResult({
           surveyId,
@@ -32,7 +32,7 @@ function OverruleResult({surveyId, standardId}: OverruleResultProps) {
           status: data?.status?.toLowerCase().includes('passed')
             ? ('Failed - Overruled' as OverruleStatus)
             : ('Passed - Overruled' as OverruleStatus),
-          commentText: textInternal,
+          commentText: textPublic || textInternal,
           time: format(Date.now(), 'dd.MM.yy, HH:mm'),
         }),
       );
