@@ -575,6 +575,7 @@
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
+		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 64AFE5F9DD84E2BE8C6F9FCB /* Pods-gnsaMobileAuditExecution.debug.xcconfig */;
 			buildSettings = {
@@ -597,7 +598,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = gnsaMobileAuditExecution;
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -629,9 +630,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbo.gnsa.auditexecution.iOS.iPad;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mercedes.gnsa.ae.ios;
 				PRODUCT_NAME = GNSA;
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA Audit Execution PROD";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_PROD";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -729,7 +730,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA DEV2";
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_VERSION = 5.0;
@@ -1121,9 +1122,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA INT";
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_INT";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1251,7 +1252,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1380,7 +1381,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA QA";
 				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
 				SWIFT_VERSION = 5.0;
