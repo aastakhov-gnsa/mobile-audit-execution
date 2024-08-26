@@ -84,15 +84,15 @@ function SurveysScreen() {
   React.useEffect(() => {
     if (versionData != null) {
       if (versionData.currentData !== undefined) {
-        let mobileVersion;
+        let mobileVersion = parseInt(10);
         const currentVersion = parseInt(
           packageJson.version.replace(/\./g, ''),
           10,
         );
-        mobileVersion = parseInt(
+       /*  mobileVersion = parseInt(
           versionData.currentData.replace(/\./g, ''),
           10,
-        );
+        ); */
 
         if (mobileVersion > currentVersion) {
           setVisible(true);

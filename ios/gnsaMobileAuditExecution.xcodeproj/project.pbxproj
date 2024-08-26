@@ -597,9 +597,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mbo.gnsa.auditexecution-test.iOS.iPad";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = gnsaMobileAuditExecution;
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_INT";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -629,9 +629,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbo.gnsa.auditexecution.iOS.iPad;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mercedes.gnsa.ae.ios;
 				PRODUCT_NAME = GNSA;
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA Audit Execution PROD";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_PROD";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -729,9 +729,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mbo.gnsa.auditexecution-test.iOS.iPad";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA DEV2";
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_INT";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -996,9 +996,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mbo.gnsa.auditexecution-test.iOS.iPad";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA DEV";
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_INT";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1121,9 +1121,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mbo.gnsa.auditexecution-test.iOS.iPad";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA INT";
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_INT";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1251,9 +1251,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mbo.gnsa.auditexecution-test.iOS.iPad";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA Dev";
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_INT";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1380,9 +1380,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mbo.gnsa.auditexecution-test.iOS.iPad";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mercedes.gnsa.ae.int.ios";
 				PRODUCT_NAME = "GNSA QA";
-				PROVISIONING_PROFILE_SPECIFIER = "GNSA-AE-TEST";
+				PROVISIONING_PROFILE_SPECIFIER = "GNSA_INT";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
